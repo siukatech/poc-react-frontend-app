@@ -1,0 +1,15 @@
+.noitems {
+  height: 20rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noitems p {
+  color: #262c2c;
+  font-size: 3rem;
+  font-weight: bold;
+}

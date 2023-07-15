@@ -1,0 +1,173 @@
+
+/* this is not working */
+/**/
+.spinner {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.spinner::after {
+  content: ' ';
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid teal;
+  border-color: teal trasparent teal trasparent;
+  /*animation: spinner 1.25 linear infinite;*/
+  /*animation: 1.25s linear infinite spinner;*/
+  /*animation: 3s infinite linear spinner;*/
+  /*animation-duration: 3s;
+  animation-name: slidein;*/
+  /*animation: 3s infinite linear slidein;*/ /* this is ok, the animation-name need to state at the end*/
+  /**/
+  animation-duration: 1.5;
+  animation-name: spinner;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  /**/
+}
+
+@keyframes spinner {
+  /**/
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(300deg);
+  }
+}
+
+/* this is working */
+/**/
+.spinner-backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  z-index: 3;
+}
+
+.spinner-wheel {
+  content: ' ';
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid teal;
+  border-color: teal transparent teal transparent;
+  border-color: teal white teal white;
+  /*animation: 3s infinite linear slidein;*/ /* this is ok, the animation-name need to state at the end*/
+  animation-duration: 1.25s;
+  animation-name: spinner-effect;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  /*background-clip: padding-box;*/
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+}
+
+@keyframes spinner-effect {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/**/
+
+
+
+/* this is working */
+/**/
+p {
+  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+  75% {
+    font-size: 300%;
+    margin-left: 25%;
+    width: 150%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+/**/
+
+
+/* this is not working */
+/**/
+.loading {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  z-index: 3;
+}
+.loading-wheel {
+  width: 20px;
+  height: 20px;
+  margin-top: -40px;
+  margin-left: -40px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  border-width: 30px;
+  border-radius: 50%;
+  -webkit-animation: spin 1s linear infinite;
+}
+.style-2 .loading-wheel {
+  border-style: double;
+  border-color: #ccc transparent;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+.loading .wheel-img {
+  width: 20px;
+  height: 20px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+/**/
+
+
