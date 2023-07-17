@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
-import { getSingleToy, getEncryptedToy } from '../../services/ToyService';
+import { getSingleItem, getEncryptedItem } from '../../services/ItemService';
 
-import ToyView from '../../components/toys/ToyView';
+import ItemView from '../../components/Item/ItemView';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
-const ToyDetail = () => {
+const ItemDetail = () => {
   //const match = useMatch();
   const params = useParams();
 
-  const { toyId } = params;
+  const { itemId } = params;
 
   const {
     sendRequest: getRequest,
@@ -19,12 +19,12 @@ const ToyDetail = () => {
     data: loadedObj,
     error: getError,
   } = useHttp(
-    getSingleToy
-    // getEncryptedToy
+    getSingleItem
+    // getEncryptedItem
     , true);
 
   useEffect(() => {
-    getRequest(toyId);
+    getRequest(itemId);
   }, [getRequest]);
 
   return (
@@ -32,9 +32,9 @@ const ToyDetail = () => {
       {getStatus === 'pending' && (
         <LoadingSpinner />
       )}
-      {getStatus === 'completed' && (<ToyView toyId={toyId} {...loadedObj} />)}
+      {getStatus === 'completed' && (<ItemView itemId={itemId} {...loadedObj} />)}
     </>
   );
 };
 
-export default ToyDetail;
+export default ItemDetail;

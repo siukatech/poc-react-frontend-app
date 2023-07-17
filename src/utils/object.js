@@ -98,7 +98,7 @@ const sourcePerson = {
 };
 
 const mergedPerson = deepMergeObject(targetPerson, sourcePerson);
-console.log(mergedPerson);
+// console.log(mergedPerson);
 
 /////////////////////////////////////////
 

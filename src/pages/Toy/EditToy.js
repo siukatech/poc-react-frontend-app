@@ -3,39 +3,39 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
-import { getSingleItem, updateItem } from '../../services/ItemService';
+import { getSingleToy, updateToy } from '../../services/ToyService';
 
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import ConfirmDialog from '../../components/UI/ConfirmPrompt';
-import ItemForm from '../../components/items/ItemForm';
+import ToyForm from '../../components/Toy/ToyForm';
 
-const EditItem = () => {
+const EditToy = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(true);
   const navigate = useNavigate();
   const params = useParams();
-  const { itemId } = params;
+  const { toyId } = params;
   const {
     sendRequest: getRequest,
     status: getStatus,
     data: loadedObj,
     error: getError,
-  } = useHttp(getSingleItem);
+  } = useHttp(getSingleToy);
   const {
     sendRequest: putRequest,
     status: putStatus,
     data: updatedObj,
     error: updateError,
-  } = useHttp(updateItem);
+  } = useHttp(updateToy);
 
   useEffect(() => {
-    getRequest(itemId);
+    getRequest(toyId);
   }, [getRequest, showConfirmDialog]);
 
-  const updateHandler = (itemRec) => {
+  const updateHandler = (toyRec) => {
     setShowConfirmDialog(true);
-    //itemRec.versionNo = 1;
-    //itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
-    putRequest(itemRec);
+    //toyRec.versionNo = 1;
+    //toyRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
+    putRequest(toyRec);
   };
   // if (putStatus === 'error') {
   //   if (showConfirmDialog === false) {
@@ -46,7 +46,7 @@ const EditItem = () => {
   //     setShowConfirmDialog(false);
   //   }
   // }
-  //message={`Record updated (${updatedObj.id}, ${updatedObj.name})`}
+  //message={`Record updated (${updatedObj.id}, ${updatedObj.title})`}
   return (
     <>
       {putStatus === 'pending' && <LoadingSpinner />}
@@ -58,8 +58,8 @@ const EditItem = () => {
       )}
       {putStatus === 'completed' && showConfirmDialog && (
         <ConfirmDialog
-          message={`Record updated (${updatedObj.id}, ${updatedObj.name})`}
-          onOk={() => navigate('/items')}
+          message={`Record updated (${updatedObj.id}, ${updatedObj.title})`}
+          onOk={() => navigate('/toys')}
         />
       )}
       {getStatus === 'pending' && <LoadingSpinner />}
@@ -67,10 +67,10 @@ const EditItem = () => {
         getStatus: {getStatus}, putStatus: {putStatus}
       </div>
       {getStatus === 'completed' && (
-        <ItemForm onSubmit={updateHandler} itemObj={loadedObj} />
+        <ToyForm onSubmit={updateHandler} toyObj={loadedObj} />
       )}
     </>
   );
 };
 
-export default EditItem;
+export default EditToy;

@@ -96,10 +96,10 @@
 
 /* this is working */
 /**/
-p {
+/* p {
   animation-duration: 3s;
   animation-name: slidein;
-}
+} */
 
 @keyframes slidein {
   from {

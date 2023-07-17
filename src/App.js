@@ -19,21 +19,21 @@ import {
 
 import { AuthContextProvider } from "./stores/auth-context";
 
-import Layout from './components/layout/Layout';
-import NotFound from './pages/main/NotFound';
-import ErrorPage from './pages/main/ErrorPage';
-import Home from './pages/main/Home';
-import Login from './pages/main/Login';
-import Redirect from './pages/main/Redirect';
+import Layout from './components/Layout/Layout';
+import NotFound from './pages/Main/NotFound';
+import ErrorPage from './pages/Main/ErrorPage';
+import Home from './pages/Main/Home';
+import Login from './pages/Main/Login';
+import Redirect from './pages/Main/Redirect';
 
-import AllToys from './pages/toys/AllToys';
-import ToyDetail from './pages/toys/ToyDetail';
-import NewToy from './pages/toys/NewToy';
-import EditToy from './pages/toys/EditToy';
-import AllItems from './pages/items/AllItems';
-import ItemDetail from './pages/items/ItemDetail';
-import NewItem from './pages/items/NewItem';
-import EditItem from './pages/items/EditItem';
+import AllToys from './pages/Toy/AllToys';
+import ToyDetail from './pages/Toy/ToyDetail';
+import NewToy from './pages/Toy/NewToy';
+import EditToy from './pages/Toy/EditToy';
+import AllItems from './pages/Item/AllItems';
+import ItemDetail from './pages/Item/ItemDetail';
+import NewItem from './pages/Item/NewItem';
+import EditItem from './pages/Item/EditItem';
 
 const router = createBrowserRouter(
   // delfine method 1
@@ -51,7 +51,7 @@ const router = createBrowserRouter(
         { path: '', element: <Home /> },
         { path: '/login', element: <Login /> },
         { path: '/redirect', element: <Redirect /> },
-        { path: '/authorized', element: <Redirect /> },
+        // { path: '/authorized', element: <Redirect /> },
         { path: '/toys', exact: true, element: <AllToys /> },
         { path: '/toys/:toyId', element: <ToyDetail /> },
         { path: '/toys/:toyId/edit', element: <EditToy /> },

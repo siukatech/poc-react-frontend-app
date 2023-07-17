@@ -3,24 +3,24 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
-import { addNewItem } from '../../services/ItemService';
+import { addNewToy } from '../../services/ToyService';
 
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import ConfirmDialog from '../../components/UI/ConfirmPrompt';
-import ItemForm from '../../components/items/ItemForm';
+import ToyForm from '../../components/Toy/ToyForm';
 
-const NewItem = () => {
+const NewToy = () => {
   const navigate = useNavigate();
-  const { sendRequest: postRequest, status: postStatus, data: addedObj, error: postError } = useHttp(addNewItem);
+  const { sendRequest: postRequest, status: postStatus, data: addedObj, error: postError } = useHttp(addNewToy);
 
   // useEffect(() => {
   //   if (postStatus === 'completed' && addedObj != null) {
-  //     //navigate('/items');
+  //     //navigate('/toys');
   //   }
   // }, [postStatus]);
 
-  const addNewHandler = (itemRec) => {
-    postRequest(itemRec);
+  const addNewHandler = (toyRec) => {
+    postRequest(toyRec);
   };
 
   return (
@@ -32,14 +32,14 @@ const NewItem = () => {
       )}
       {postStatus === 'completed' && (
         <ConfirmDialog
-          message={`Record updated (${addedObj.id}, ${addedObj.name})`}
-          onOk={() => navigate('/items')}
+          message={`Record updated (${addedObj.id}, ${addedObj.title})`}
+          onOk={() => navigate('/toys')}
         />
       )}
       <div>postStatus: {postStatus}</div>
-      <ItemForm onSubmit={addNewHandler} />
+      <ToyForm onSubmit={addNewHandler} />
     </>
   );
 };
 
-export default NewItem;
+export default NewToy;

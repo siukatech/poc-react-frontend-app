@@ -3,20 +3,20 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
-import { getAllToys } from '../../services/ToyService';
+import { getAllItems } from '../../services/ItemService';
 
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
-import NoToysFound from '../../components/toys/NoToysFound';
-import ToyList from '../../components/toys/ToyList';
+import NoItemsFound from '../../components/Item/NoItemsFound';
+import ItemList from '../../components/Item/ItemList';
 
-const AllToys = () => {
+const AllItems = () => {
   const navigate = useNavigate();
   const {
     sendRequest: getRequest,
     status: getStatus,
     data: loadedList,
     error: getError,
-  } = useHttp(getAllToys, true);
+  } = useHttp(getAllItems, true);
 
   useEffect(() => {
     getRequest();
@@ -45,10 +45,10 @@ const AllToys = () => {
   }
 
   if (getStatus === 'completed' && (!loadedList || loadedList.length === 0)) {
-    return <NoToysFound />;
+    return <NoItemsFound />;
   }
 
-  return <ToyList items={loadedList} />;
+  return <ItemList items={loadedList} />;
 };
 
-export default AllToys;
+export default AllItems;

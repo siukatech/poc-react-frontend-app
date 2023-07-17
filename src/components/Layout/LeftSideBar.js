@@ -33,12 +33,12 @@ const LeftSideBar = (props) => {
           </MenuItem>
   */}
           <SubMenu label={t('menu.items')}>
-            <MenuItem><NavLink to="/items" className={classes.active}>{t('menu.items.all')}</NavLink></MenuItem>
-            <MenuItem><NavLink to="/items/new" className={classes.active}>{t('menu.items.add')}</NavLink></MenuItem>
+            <MenuItem component="div" ><NavLink to="/items" className={classes.active}>{t('menu.items.all')}</NavLink></MenuItem>
+            <MenuItem component="div" ><NavLink to="/items/new" className={classes.active}>{t('menu.items.add')}</NavLink></MenuItem>
           </SubMenu>
           <SubMenu label={t('menu.shops')}>
-            <MenuItem><NavLink to="/shops" className={classes.active}>{t('menu.shops.all')}</NavLink></MenuItem>
-            <MenuItem><NavLink to="/shops/new" className={classes.active}>{t('menu.shops.add')}</NavLink></MenuItem>
+            <MenuItem component="div" ><NavLink to="/shops" className={classes.active}>{t('menu.shops.all')}</NavLink></MenuItem>
+            <MenuItem component="div" ><NavLink to="/shops/new" className={classes.active}>{t('menu.shops.add')}</NavLink></MenuItem>
           </SubMenu>
           <MenuItem> Examples</MenuItem>
         </Menu>
