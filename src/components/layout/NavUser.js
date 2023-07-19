@@ -18,7 +18,7 @@ const NavUser = () => {
           <NavDropdown
             title={
               <span>
-                <PersonCircle /> {user?.userId}
+                <PersonCircle /> {user?.loginId}
               </span>
             }
             id="collasible-nav-dropdown"
