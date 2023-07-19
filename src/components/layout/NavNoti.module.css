@@ -1,0 +1,5 @@
+.dropdown-menu-noti div.dropdown-menu {
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+
+}

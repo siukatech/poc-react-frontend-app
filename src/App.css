@@ -7,6 +7,21 @@
   pointer-events: none;
 }
 
+
+
+/* ****************************************** */
+
+/* NavNoti.js */
+div.dropdown-noti .dropdown-menu {
+  max-height: 335px;
+  overflow-y: auto;
+}
+
+
+/* ****************************************** */
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -7,5 +7,3 @@
 *.js linguist-language=Javascript
 *.html linguist-detectable=false
 *.js linguist-detectable=true
-
-

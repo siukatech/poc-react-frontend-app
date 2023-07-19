@@ -14,7 +14,9 @@ import ErrorPage from './pages/main/ErrorPage';
 import Login from './pages/login/Login';
 
 import { AuthContextProvider } from './stores/AuthContext';
+import ProtectedRoute from './components/route/ProtectedRoute';
 import AllItems from './pages/item/AllItems';
+import ContentLong from './pages/sample/ContentLong';
 
 const router = createBrowserRouter(
   // delfine method 1
@@ -26,8 +28,9 @@ const router = createBrowserRouter(
       //render: () => redirect('./toys'),
       children: [
         { path: '', element: <Home /> },
-        { path: '/login', element: <Login /> },
-        { path: '/items', exact: true, element: <AllItems /> },
+        { path: '/sample/content-long', element: <ContentLong/> },
+        { path: '/login', element: <ProtectedRoute accessBy="non-authenticated" ><Login /></ProtectedRoute> },
+        { path: '/items', exact: true, element: <ProtectedRoute accessBy="authenticated" ><AllItems /></ProtectedRoute> },
         // { path: '/items/:itemId', element: <ItemDetail /> },
         // { path: '/items/:itemId/edit', element: <EditItem /> },
         // { path: '/items/new', element: <NewItem /> },
