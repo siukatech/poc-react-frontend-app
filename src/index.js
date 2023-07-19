@@ -8,6 +8,10 @@ import i18n from './i18n';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import i18n from './i18n';
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
