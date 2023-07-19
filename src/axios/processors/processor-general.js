@@ -1,6 +1,8 @@
 import { parseDateToUtc } from '../../utils/date';
 import { deepMergeObject } from '../../utils/object';
 
+
+
 const marshellDataObj = (dataObj) => {
   dataObj = marshallDateStr2DateObj(dataObj);
   return dataObj;
@@ -29,6 +31,15 @@ const marshallDateStr2DateObj = (dataObj) => {
   });
   return dataObj;
 };
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+const preDataObjProcessor = (reqConfig) => {
+  return reqConfig;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -63,4 +74,6 @@ const postDataObjProcessor = (dataRet, reqConfig) => {
   return loadedObj;
 };
 
-export { postDataRetProcessor };
+
+export { preDataObjProcessor, postDataRetProcessor };
+

@@ -3,13 +3,10 @@ import axios from 'axios';
 import { parseDateToUtc } from '../utils/date';
 import { deepMergeObject } from '../utils/object';
 
-// import { preDataObjProcessor } from './processors/pre-processor-general';
-import { prePublicDataObjProcessor } from './processors/pre-processor-public';
-import { preProtectedDataObjProcessor } from './processors/pre-processor-protected';
-import { preEncryptedDataObjProcessor } from './processors/pre-processor-encrypted';
-// import { postPublicDataRetProcessor } from './processors/post-processor-public';
-// import { postProtectedDataRetProcessor } from './processors/post-processor-protected';
-// import { postEncryptedDataRetProcessor } from './processors/post-processor-encrypted';
+import { prePublicDataObjProcessor } from './processors/processor-public';
+import { preProtectedDataObjProcessor } from './processors/processor-protected';
+import { preEncryptedDataObjProcessor } from './processors/processor-encrypted';
+import { doRefreshToken, restoreTokens } from '../services/LoginService';
 
 const axiosService = axios.create({});
 
@@ -17,10 +14,10 @@ const axiosService = axios.create({});
 // https://axios-http.com/docs/req_config
 axiosService.interceptors.request.use((config) => {
   console.log('interceptor.request - 1');
-  // let tokensData = JSON.parse(sessionStorage.getItem('tokens'));
+  // const tokens = restoreTokens();
   // // config.headers.common = config.headers.common ?? {};
-  // // config.headers.common['Authorization'] = `bearer ${tokensData.access_token}`;
-  // config.headers['Authorization'] = `Bearer ${tokensData.access_token}`;
+  // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
+  // config.headers['Authorization'] = `Bearer ${tokens.access_token}`;
   // // config.processors = config.processors ?? {};
   // if (config.url.indexOf(process.env.REACT_APP_API_V1_PUBLIC_URI) >= 0) {
   //   config.processors = deepMergeObject(
@@ -97,31 +94,37 @@ axiosService.interceptors.response.use(
     let retStatus = error.response?.status;
     let errorCode = error.code;
     if (retStatus === 401 || errorCode == 'ERR_NETWORK') {
-      const authData = JSON.parse(sessionStorage.getItem('tokens'));
-      const payload = {
-        access_token: authData.access_token,
-        refresh_token: authData.refresh_token,
-      };
+      // const tokens = restoreTokens();
+      // const payload = {
+      //   access_token: tokens?.access_token,
+      //   refresh_token: tokens?.refresh_token,
+      // };
 
-      let tokenRefreshUrl =
-        process.env.REACT_APP_API_DOMAIN_PREFIX +
-        process.env.REACT_APP_API_V1_PUBLIC_URI +
-        process.env.REACT_APP_OAUTH_REFRESH_TOKEN_URI;
-      tokenRefreshUrl = tokenRefreshUrl.replace(
-        '{0}',
-        process.env.REACT_APP_OAUTH_CLIENT_NAME
-      );
-      console.log(
-        'axiosService - response.use - tokenRefreshUrl: [' +
-          tokenRefreshUrl +
-          ']'
-      );
-      let apiResponse = await axios.post(tokenRefreshUrl, payload);
-      sessionStorage.setItem('tokens', JSON.stringify(apiResponse.data));
-      error.config.headers[
-        'Authorization'
-      ] = `bearer ${apiResponse.data.access_token}`;
-      return axios(error.config);
+      // let tokenRefreshUrl =
+      //   process.env.REACT_APP_API_DOMAIN_PREFIX +
+      //   process.env.REACT_APP_API_V1_PUBLIC_URI +
+      //   process.env.REACT_APP_OAUTH_REFRESH_TOKEN_URI;
+      // tokenRefreshUrl = tokenRefreshUrl.replace(
+      //   '{0}',
+      //   process.env.REACT_APP_OAUTH_CLIENT_NAME
+      // );
+      // console.log(
+      //   'axiosService - response.use - tokenRefreshUrl: [' +
+      //     tokenRefreshUrl +
+      //     ']'
+      // );
+      // let apiResponse = await axios.post(tokenRefreshUrl, payload);
+      // sessionStorage.setItem('tokens', JSON.stringify(apiResponse.data));
+      const tokensRefreshed = await doRefreshToken();
+      if (tokensRefreshed != null) {
+        error.config.headers[
+          'Authorization'
+        ] = `Bearer ${tokensRefreshed.access_token}`;
+        return axios(error.config);
+      }
+      else {
+        return Promise.reject(error);
+      }
     } else {
       return Promise.reject(error);
     }
