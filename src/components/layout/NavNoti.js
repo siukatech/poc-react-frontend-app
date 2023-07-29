@@ -14,14 +14,14 @@ const NavNoti = () => {
     let notisTemp = new Array();
     for (let i = 0; i < 20; i++) {
       notisTemp.push({
-        content: `Notification Item ${i + 1}`,
+        message: `Notification Item ${i + 1}`,
         href: `/notification/${i + 1}`,
       });
     }
     setNotis(notisTemp);
   }, []);
 
-  
+
   return (
     <>
       <NavDropdown
@@ -39,7 +39,7 @@ const NavNoti = () => {
         {notis.length > 0 && notis.map((noti, idx) => {
           return (
             <NavDropdown.Item key={idx} href={noti.href}>
-              {noti.content}
+              {noti.message}
             </NavDropdown.Item>
           );
         })}
