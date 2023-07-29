@@ -25,8 +25,8 @@ const marshallDateStr2DateObj = (dataObj) => {
       let value = dataObj[key] == null ? null : parseDateToUtc(dataObj[key]);
       dataObj[key + '-org'] = dataObj[key];
       dataObj[key] = value;
-    } catch (e) {
-      console.log('lib/api - marshallDateStr2DateObj - e: [' + e + ']');
+    } catch (err) {
+      console.log('lib/api - marshallDateStr2DateObj - err: [' + err + ']');
     }
   });
   return dataObj;

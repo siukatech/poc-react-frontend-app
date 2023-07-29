@@ -4,7 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 
+import { useTranslation, Trans } from 'react-i18next';
+
 import AuthContext from '../../stores/AuthContext';
+
+import FormPassword from '../../components/ui/FormPassword';
 
 const Login = () => {
   const usernameInputRef = useRef('');
@@ -12,8 +16,10 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const [isDirty, setIsDirty] = useState(false);
 
-  const loginSubmitHandler = async (e) => {
-    e.preventDefault();
+  const { t, i18n } = useTranslation();
+
+  const loginSubmitHandler = async (evt) => {
+    evt.preventDefault();
     setIsDirty(false);
     let payload = {
       username: usernameInputRef.current.value,
@@ -22,11 +28,11 @@ const Login = () => {
     await login(payload);
   };
 
-  const resetFormHandler = (e) => {
-    e.preventDefault();
-    console.log(e);
-    if (e.target.form != null) {
-      e.target.form.reset();
+  const resetFormHandler = (evt) => {
+    evt.preventDefault();
+    console.log(evt);
+    if (evt.target.form != null) {
+      evt.target.form.reset();
     }
     setIsDirty(false);
   };
@@ -58,10 +64,18 @@ const Login = () => {
                   onFocus={formFocusedHandler}
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formPassword">
+              {/*<Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
+                  ref={passwordInputRef}
+                  onFocus={formFocusedHandler}
+                />
+  </Form.Group>*/}
+              <Form.Group className="mb-3" controlId="formPassword">
+                <Form.Label>{t('Password')}</Form.Label>
+                <FormPassword
+                  className="mb-3" 
                   ref={passwordInputRef}
                   onFocus={formFocusedHandler}
                 />

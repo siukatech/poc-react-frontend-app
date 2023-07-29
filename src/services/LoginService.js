@@ -114,8 +114,8 @@ const doRefreshToken = async () => {
     const tokensRefreshed = apiResponse.data;
     saveTokens(tokensRefreshed);
     return tokensRefreshed;
-  } catch (e) {
-    console.error('LoginService - doRefreshToken - e: ', e);
+  } catch (err) {
+    console.error('LoginService - doRefreshToken - err: ', err);
 
     sessionStorage.removeItem(STORAGE_KEY_TOKENS);
     sessionStorage.removeItem(STORAGE_KEY_USER);
@@ -138,8 +138,8 @@ const doAuthLogout = async () => {
         }
       );
       console.log('LoginService - doAuthLogout - apiResponse: ', apiResponse);
-    } catch (e) {
-      console.log('LoginService - doAuthLogout - e: ', e);
+    } catch (err) {
+      console.log('LoginService - doAuthLogout - err: ', err);
     }
   }
   sessionStorage.removeItem(STORAGE_KEY_TOKENS);
