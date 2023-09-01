@@ -31,7 +31,7 @@ const NavNoti = () => {
             {
             (notis.length === 0 && <Bell />) 
             || 
-            (notis.length > 0 && (<><BellFill alt={notis.length} /> {notis.length}</>))
+            (notis.length > 0 && (<><BellFill alt={notis.length} title={`${notis.length} ${t('notifications')}`} /></>))
             }
           </span>
         }

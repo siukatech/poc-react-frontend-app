@@ -19,8 +19,12 @@ import NavLang from './NavLang';
 import NavNoti from './NavNoti';
 import NavUser from './NavUser';
 
-//import SidebarMenu from './SidebarMenu';
-import SidebarMenu from 'react-bootstrap-sidebar-menu';
+import SidebarMenu from './SidebarMenu';
+//import SidebarMenu from 'react-bootstrap-sidebar-menu';
+import SideNavMenu from './SideNavMenu';
+import SidebarMenuRaw from './SidebarMenuRaw';
+import SidebarMenuTest from './SidebarMenuTest';
+import SidebarCdb from './SidebarCdb';
 
 const Layout = ({ children }) => {
   const { t, i18n } = useTranslation();
@@ -85,8 +89,10 @@ const Layout = ({ children }) => {
   // should use sticky="top"
   return (
     <>
+      {/*<SideNavMenu />
+       */}
       <Navbar
-        expand="lg"
+        expand="sm"
         sticky="top"
         bg="dark"
         data-bs-theme="dark"
@@ -127,6 +133,7 @@ const Layout = ({ children }) => {
         <SidebarMenu.Footer>{t('Footer')}</SidebarMenu.Footer>
       </SidebarMenu>
   */}
+      {/*}
       <Navbar expand="false" fixed="bottom" bg="dark" data-bs-theme="dark">
         <Container fluid>
           <Navbar.Brand>
@@ -145,42 +152,35 @@ const Layout = ({ children }) => {
                 Offcanvas
               </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
-              <>
-                {/*
-                <Nav className="ms-auto">
-                  {user && (
-                    <>
-                      {notificationItems && (
-                        <NavDropdown
-                          title={
-                            <span>
-                              <img /> Notification
-                            </span>
-                          }
-                        >
-                          {notificationItems.map((notification, i) => {
-                            <NavDropdown.Item href={notification.href}>
-                              {notification.content}
-                            </NavDropdown.Item>;
-                          })}
-                        </NavDropdown>
-                      )}
-                    </>
-                  )}
-                </Nav>
-                        */}
-                {navContent}
-              </>
-            </Offcanvas.Body>
+            <Offcanvas.Body>{navContent}</Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
-      </Navbar>
+</Navbar>*/}
       {/*<Container>{children}</Container>
        */}
-      <Container>
+      {/*<Container className='scrollable-vertical'>
+        <Outlet />
+      </Container>*/}
+      {/*
+      <Row>
+        <Col sm={3} md={2}><SidebarMenuRaw /></Col>
+        <Col sm={3} md={2}><SidebarTest /></Col>
+        <Col sm={8} md="auto">
+        <Container fluid>
         <Outlet />
       </Container>
+        </Col>
+      </Row>*/}
+      <Row>
+        <Col xs={2} sm={2} md={2}><SidebarMenuRaw /></Col>
+        <Col xs={2} sm={2} md={2}><SidebarMenuTest /></Col>
+        <Col xs={3} sm={3} md={2}><SidebarCdb /></Col>
+        <Col xs="auto" sm="auto" md="auto">
+          <Container>
+            <Outlet />
+          </Container>
+        </Col>
+      </Row>
     </>
   );
 };

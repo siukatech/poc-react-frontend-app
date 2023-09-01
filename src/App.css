@@ -17,6 +17,15 @@ div.dropdown-noti .dropdown-menu {
   overflow-y: auto;
 }
 
+div.scrollable-vertical {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+nav.sidenav-menu {
+  top: 56px;
+}
+
 
 /* ****************************************** */
 

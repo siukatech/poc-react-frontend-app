@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const FormPassword = ({
   className,
-  ref,
+  inputRef,
   onFocus,
 }) => {
   const { t, i18n } = useTranslation();
@@ -23,7 +23,7 @@ const FormPassword = ({
       <InputGroup className={className}>
         <Form.Control
           type={showPassword ? 'text' : 'password'}
-          ref={ref}
+          ref={inputRef}
           onFocus={onFocus}
         />
         <InputGroup.Text>

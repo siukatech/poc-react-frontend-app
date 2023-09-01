@@ -76,7 +76,7 @@ const Login = () => {
                 <Form.Label>{t('Password')}</Form.Label>
                 <FormPassword
                   className="mb-3" 
-                  ref={passwordInputRef}
+                  inputRef={passwordInputRef}
                   onFocus={formFocusedHandler}
                 />
               </Form.Group>
