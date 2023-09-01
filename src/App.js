@@ -7,16 +7,16 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import Layout from './components/layout/Layout';
-import Home from './pages/main/Home';
-import NotFound from './pages/main/NotFound';
-import ErrorPage from './pages/main/ErrorPage';
-import Login from './pages/login/Login';
+import Layout from './app/components/layout/Layout';
+import Home from './app/pages/main/Home';
+import NotFound from './app/pages/main/NotFound';
+import ErrorPage from './app/pages/main/ErrorPage';
+import Login from './app/pages/login/Login';
 
-import { AuthContextProvider } from './stores/AuthContext';
-import ProtectedRoute from './components/route/ProtectedRoute';
-import AllItems from './pages/item/AllItems';
-import ContentLong from './pages/sample/ContentLong';
+import { AuthContextProvider } from './base/stores/AuthContext';
+import ProtectedRoute from './base/components/route/ProtectedRoute';
+import AllItems from './app/pages/item/AllItems';
+import ContentLong from './app/pages/sample/ContentLong';
 
 const router = createBrowserRouter(
   // delfine method 1

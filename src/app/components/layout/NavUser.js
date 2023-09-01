@@ -4,7 +4,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { BoxArrowRight, Gear, Person, PersonCircle } from 'react-bootstrap-icons';
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext from '../../stores/AuthContext';
+import AuthContext from '../../../base/stores/AuthContext';
 
 
 const NavUser = () => {

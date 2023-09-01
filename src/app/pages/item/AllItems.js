@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 import { getAllItems } from '../../services/ItemService';
 
-import { formatDate, formatDatetime } from '../../utils/date';
+import { formatDate, formatDatetime } from '../../../base/utils/date';
 
 const AllItems = () => {
   const [items, setItems] = useState([]);

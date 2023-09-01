@@ -13,7 +13,7 @@ import {
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext from '../../stores/AuthContext';
+import AuthContext from '../../../base/stores/AuthContext';
 
 import NavLang from './NavLang';
 import NavNoti from './NavNoti';

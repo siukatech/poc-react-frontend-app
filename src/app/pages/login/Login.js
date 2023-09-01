@@ -6,7 +6,7 @@ import Stack from 'react-bootstrap/Stack';
 
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext from '../../stores/AuthContext';
+import AuthContext from '../../../base/stores/AuthContext';
 
 import FormPassword from '../../components/ui/FormPassword';
 

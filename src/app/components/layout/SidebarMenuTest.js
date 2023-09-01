@@ -82,9 +82,6 @@ const SidebarMenuTest = () => {
             </ul>
           </div>
           <NavbarBrand>Brand</NavbarBrand>
-          <Nav>
-            <Nav.L
-          </Nav>
           <div className="dropdown open" >
             <a
               className="text-decoration-non text-white dropdown-toggle p-3"
