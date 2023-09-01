@@ -1,0 +1,11 @@
+#Reference:
+#https://stackoverflow.com/a/43142088
+#https://dev.io/katkelly/changing-your-repo-s-language-in-github-5gjo
+
+
+
+*.js linguist-language=Javascript
+*.html linguist-detectable=false
+*.js linguist-detectable=true
+
+
