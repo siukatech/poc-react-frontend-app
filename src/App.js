@@ -7,18 +7,18 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import Layout from './app/components/layout/Layout';
-import PersistentDrawerLeft from './app/components/layout/PersistentDrawerLeft';
-import Home from './app/pages/main/Home';
-import NotFound from './app/pages/main/NotFound';
-import ErrorPage from './app/pages/main/ErrorPage';
-import Login from './app/pages/login/Login';
-import Logout from './app/pages/login/Logout';
+import Layout from './app/components/Layout/Layout';
+import PersistentDrawerLeft from './app/components/Layout/PersistentDrawerLeft';
+import Home from './app/pages/Main/Home';
+import NotFound from './app/pages/Main/NotFound';
+import ErrorPage from './app/pages/Main/ErrorPage';
+import Login from './app/pages/Login/Login';
+import Logout from './app/pages/Login/Logout';
 
 import { AuthContextProvider } from './base/stores/AuthContext';
-import ProtectedRoute from './base/components/route/ProtectedRoute';
-//import AllItems from './app/pages/item/AllItems';
-import ContentLong from './app/pages/sample/ContentLong';
+import ProtectedRoute from './base/components/Route/ProtectedRoute';
+//import AllItems from './app/pages/Item/AllItems';
+import ContentLong from './app/pages/Sample/ContentLong';
 
 const router = createBrowserRouter(
   // delfine method 1

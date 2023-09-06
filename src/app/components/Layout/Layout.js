@@ -3,11 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext from '../../../base/stores/AuthContext';
-
-import NavLang from './NavLang';
-import NavNoti from './NavNoti';
-import NavUser from './NavUser';
+import PropTypes from 'prop-types';
 
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -29,6 +25,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Fab from '@mui/material/Fab';
+import Fade from '@mui/material/Fade';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -45,8 +44,17 @@ import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-const drawerWidth = 200;
+import AuthContext from '../../../base/stores/AuthContext';
+
+import NavLang from './NavLang';
+import NavNoti from './NavNoti';
+import NavUser from './NavUser';
+import ScrollTop from './ScrollTop';
+
+
+const drawerWidth = 240;
 
 const MainMd = styled('main', {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -183,7 +191,8 @@ const pages = [
   { i18n: 'shops', link: '/shops', icon: <StorefrontIcon /> },
 ];
 
-const Layout = ({ children }) => {
+const Layout = (props) => {
+  const { children } = props;
   const { t, i18n } = useTranslation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -379,7 +388,7 @@ const Layout = ({ children }) => {
                   <MenuIcon/>
                 </IconButton> */}
               <Typography
-                variant="h7"
+                variant="h6"
                 noWrap
                 component="a"
                 href="/"
@@ -440,6 +449,7 @@ const Layout = ({ children }) => {
         >
           {drawerContent}
         </Drawer>
+        <Toolbar id="back-to-top-anchor" />
         <MainMd
           open={drawerToggle}
           sx={{
@@ -459,8 +469,14 @@ const Layout = ({ children }) => {
           <Outlet />
         </MainXs>
       </Box>
+      <ScrollTop open={drawerToggle} {...props}>
+        <Fab size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </>
   );
 };
 
 export default Layout;
+

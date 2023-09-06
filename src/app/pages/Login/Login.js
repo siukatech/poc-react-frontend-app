@@ -1,7 +1,7 @@
 import { useRef, useContext, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import AuthContext from '../../../base/stores/AuthContext';
-import FormPassword from '../../components/ui/FormPassword';
+import FormPassword from '../../components/UI/FormPassword';
 
 import {
   Box,

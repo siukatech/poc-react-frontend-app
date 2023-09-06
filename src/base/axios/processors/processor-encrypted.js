@@ -103,7 +103,7 @@ const postEncryptedDataRetProcessor = (dataRet, reqConfig) => {
     // https://github.com/kyungw00k/encrypt-something-in-java-and-decrypt-it-in-javascript-by-example
     const encryptedAesData = CryptoJS.enc.Base64.parse(decryptedDataBase64);
     const decodedKey = CryptoJS.enc.Base64.parse(cipherInfo.key);
-    const decodedKeyStr = decodedKey.toString(CryptoJS.format.Utf8);
+    const decodedKeyStr = decodedKey.toString(CryptoJS.enc.Base64);
     const decodedIv = CryptoJS.enc.Base64.parse(cipherInfo.iv);
     const decryptedData = CryptoJS.AES.decrypt(
       { ciphertext: encryptedAesData },
