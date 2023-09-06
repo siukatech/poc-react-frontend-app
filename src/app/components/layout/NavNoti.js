@@ -168,7 +168,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
                           <AssignmentIndIcon />
                         </IconButton>
                         <Typography
-                          variant="span"
+                          component="span"
                           textAlign="left"
                           // sx={{ overflowX: 'hidden' }}
                         >
