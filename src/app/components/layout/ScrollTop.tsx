@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -13,8 +12,15 @@ import Fade from '@mui/material/Fade';
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-const ScrollTop = (props) => {
-  const { children, window, open } = props;
+const ScrollTop = ({
+  children,
+  window,
+  open,
+}: {
+  window?: () => Window;
+  children: React.ReactElement;
+  open: boolean;
+}) => {
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
@@ -24,10 +30,10 @@ const ScrollTop = (props) => {
     threshold: 100,
   });
 
-  const backToTopHandler = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
-      '#back-to-top-anchor'
-    );
+  const backToTopHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+    const anchor = (
+      (event.target as HTMLDivElement).ownerDocument || document
+    ).querySelector('#back-to-top-anchor');
 
     if (anchor) {
       // anchor.scrollIntoView({
@@ -39,7 +45,9 @@ const ScrollTop = (props) => {
 
   return (
     <>
-      {!open && (
+      {
+      // !open && 
+      (
         <Fade in={trigger}>
           <Box
             onClick={backToTopHandler}
@@ -52,15 +60,6 @@ const ScrollTop = (props) => {
       )}
     </>
   );
-};
-
-ScrollTop.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
 };
 
 export default ScrollTop;

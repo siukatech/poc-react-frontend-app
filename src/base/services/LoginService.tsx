@@ -5,27 +5,27 @@ import axiosService from '../axios/axios-service';
 const STORAGE_KEY_TOKENS = 'tokens';
 const STORAGE_KEY_USER = 'user';
 
-const API_MY_USER_INFO =
-  process.env.REACT_APP_API_DOMAIN_PREFIX +
-  process.env.REACT_APP_API_V1_PROTECTED_URI +
-  process.env.REACT_APP_MY_USER_INFO_URI;
+const API_MY_USER_INFO: string =
+  (process.env.REACT_APP_API_DOMAIN_PREFIX as string) +
+  (process.env.REACT_APP_API_V1_PROTECTED_URI as string) +
+  (process.env.REACT_APP_MY_USER_INFO_URI as string);
 
-const API_OAUTH_AUTHORIZE =
-  process.env.REACT_APP_API_DOMAIN_PREFIX +
-  process.env.REACT_APP_API_V1_PUBLIC_URI +
-  process.env.REACT_APP_OAUTH_AUTHORIZE_URI;
+const API_OAUTH_AUTHORIZE: string =
+  (process.env.REACT_APP_API_DOMAIN_PREFIX as string) +
+  (process.env.REACT_APP_API_V1_PUBLIC_URI as string) +
+  (process.env.REACT_APP_OAUTH_AUTHORIZE_URI as string);
 
-const API_OAUTH_REFRESH_TOKEN =
-  process.env.REACT_APP_API_DOMAIN_PREFIX +
-  process.env.REACT_APP_API_V1_PUBLIC_URI +
-  process.env.REACT_APP_OAUTH_REFRESH_TOKEN_URI;
+const API_OAUTH_REFRESH_TOKEN: string =
+  (process.env.REACT_APP_API_DOMAIN_PREFIX as string) +
+  (process.env.REACT_APP_API_V1_PUBLIC_URI as string) +
+  (process.env.REACT_APP_OAUTH_REFRESH_TOKEN_URI as string);
 
-const API_OAUTH_LOGOUT =
-  process.env.REACT_APP_API_DOMAIN_PREFIX + 
-  process.env.REACT_APP_API_V1_PUBLIC_URI + 
-  process.env.REACT_APP_OAUTH_LOGOUT;
+const API_OAUTH_LOGOUT: string =
+  (process.env.REACT_APP_API_DOMAIN_PREFIX as string) +
+  (process.env.REACT_APP_API_V1_PUBLIC_URI as string) +
+  (process.env.REACT_APP_OAUTH_LOGOUT as string);
 
-const restoreJsonStr = (storageKey) => {
+const restoreJsonStr = (storageKey: string) => {
   const jsonStr = sessionStorage.getItem(storageKey);
   if (jsonStr) {
     let jsonObj = JSON.parse(jsonStr);
@@ -44,25 +44,30 @@ const restoreUser = () => {
   return restoreJsonStr(STORAGE_KEY_USER);
 };
 
-const saveJsonObj = (storageKey, jsonObj) => {
+const saveJsonObj = (storageKey: string, jsonObj: {}) => {
   if (jsonObj != null) {
     sessionStorage.setItem(storageKey, JSON.stringify(jsonObj));
   }
 };
-const saveTokens = (tokens) => {
+const saveTokens = (tokens: {}) => {
   saveJsonObj(STORAGE_KEY_TOKENS, tokens);
 };
-const saveUser = (user) => {
+const saveUser = (user: {}) => {
   saveJsonObj(STORAGE_KEY_USER, user);
 };
 
-const doAuthLogin = async (payload) => {
+type DoAuthLoginPayload = {
+  username?: string;
+  password?: string;
+};
+
+const doAuthLogin = async (payload: DoAuthLoginPayload): Promise<any> => {
   let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
 
   // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
   oauthAuthorizeApi = oauthAuthorizeApi.replace(
     '{0}',
-    process.env.REACT_APP_OAUTH_CLIENT_NAME
+    process.env.REACT_APP_OAUTH_CLIENT_NAME as string
   );
   console.log(
     'LoginService - doAuthLoginToStorage - oauthAuthorizeApi: [' +
@@ -77,7 +82,7 @@ const doAuthLogin = async (payload) => {
   const myUserInfoRes = await axiosService.post(API_MY_USER_INFO);
   const myUserInfo = myUserInfoRes.data;
   //
-  let user = jwt_decode(tokens.access_token);
+  let user: any = jwt_decode(tokens.access_token);
   console.log(
     'LoginService - doAuthLogin - user: [' +
       JSON.stringify(user) +
@@ -92,7 +97,7 @@ const doAuthLogin = async (payload) => {
   return user;
 };
 
-const doRefreshToken = async () => {
+const doRefreshToken = async (): Promise<any> => {
   const tokens = restoreTokens();
   const payload = {
     access_token: tokens?.access_token,
@@ -102,7 +107,7 @@ const doRefreshToken = async () => {
   let oauthRefreshTokenApi = API_OAUTH_REFRESH_TOKEN;
   oauthRefreshTokenApi = oauthRefreshTokenApi.replace(
     '{0}',
-    process.env.REACT_APP_OAUTH_CLIENT_NAME
+    (process.env.REACT_APP_OAUTH_CLIENT_NAME as string)
   );
   console.log(
     'LoginService - doRefreshToken - oauthRefreshTokenApi: [' +
@@ -124,7 +129,7 @@ const doRefreshToken = async () => {
   }
 };
 
-const doAuthLogout = async () => {
+const doAuthLogout = async (): Promise<void> => {
   const tokens = restoreTokens();
   if (tokens != null) {
     try {
@@ -156,3 +161,6 @@ export {
   doAuthLogout,
 };
 
+export type {
+  DoAuthLoginPayload,
+}

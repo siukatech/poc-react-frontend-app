@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import LanguageIcon from '@mui/icons-material/Language';
 
 const NavLang = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n, ready } = useTranslation();
 
   const langs = [
     { lang: 'en', i18n: 'menu.lang.en' },
@@ -23,15 +23,18 @@ const NavLang = () => {
     { lang: 'zh-CN', i18n: 'menu.lang.cn' },
   ];
 
-  const changeLanguageHandler = (lng) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem('i18nlng', lng);
+  const changeLanguageHandler = (lng: string) => {
+    console.log('changeLanguageHandler - ready: ', ready);
+    if ( ready ) {
+      i18n.changeLanguage(lng);
+      localStorage.setItem('i18nlng', lng);
+    }
   };
 
-  const [anchorElLang, setAnchorElLang] = useState(null);
+  const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
 
-  const openLangMenuHandler = (event) => {
-    setAnchorElLang(event.currentTarget);
+  const openLangMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLang(evt.currentTarget);
   };
   const closeLangMenuHandler = () => {
     setAnchorElLang(null);

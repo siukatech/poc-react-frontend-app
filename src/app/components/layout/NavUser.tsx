@@ -25,49 +25,57 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const settings = [
-  {
-    i18n: 'menu.user.profile',
-    link: '/user/profile',
-    icon: <AssignmentIndIcon />,
-    divider: false,
-  },
-  {
-    i18n: 'menu.user.account',
-    link: '/user/account',
-    icon: <PersonIcon />,
-    divider: false,
-  },
-  {
-    i18n: 'menu.user.dashboard',
-    link: '/user/dashboard',
-    icon: <DashboardIcon />,
-    divider: false,
-  },
-  {
-    i18n: 'menu.user.settings',
-    link: '/user/settings',
-    icon: <SettingsIcon />,
-    divider: false,
-  },
-  { icon: <Divider />, divider: true },
-  {
-    i18n: 'menu.user.logout',
-    link: '/logout',
-    icon: <LogoutIcon />,
-    divider: false,
-  },
-];
+// type SettingType = {
+//   i18n?: string;
+//   link?: string;
+//   icon: React.ReactNode;
+//   divider: boolean;
+// }
+const settings =
+  // : SettingType[]
+  [
+    {
+      i18n: 'menu.user.profile',
+      link: '/user/profile',
+      icon: <AssignmentIndIcon />,
+      divider: false,
+    },
+    {
+      i18n: 'menu.user.account',
+      link: '/user/account',
+      icon: <PersonIcon />,
+      divider: false,
+    },
+    {
+      i18n: 'menu.user.dashboard',
+      link: '/user/dashboard',
+      icon: <DashboardIcon />,
+      divider: false,
+    },
+    {
+      i18n: 'menu.user.settings',
+      link: '/user/settings',
+      icon: <SettingsIcon />,
+      divider: false,
+    },
+    { icon: <Divider />, divider: true },
+    {
+      i18n: 'menu.user.logout',
+      link: '/logout',
+      icon: <LogoutIcon />,
+      divider: false,
+    },
+  ];
 
 const NavUser = () => {
   const { t, i18n } = useTranslation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const openUserMenuHandler = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const openUserMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(evt.currentTarget);
   };
   const closeUserMenuHandler = () => {
     setAnchorElUser(null);
@@ -133,11 +141,11 @@ const NavUser = () => {
                   <MenuItem
                     onClick={() => {
                       closeUserMenuHandler();
-                      navigate(setting.link);
+                      navigate(`${setting.link}`);
                     }}
                   >
                     <ListItemIcon>{setting.icon}</ListItemIcon>
-                    <ListItemText>{t(setting.i18n)}</ListItemText>
+                    <ListItemText>{t(`${setting.i18n}`)}</ListItemText>
                   </MenuItem>
                 )}
                 {setting.divider && <Divider key={idx} />}

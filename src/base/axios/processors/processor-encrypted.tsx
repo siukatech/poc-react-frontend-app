@@ -5,26 +5,41 @@ import { JSEncrypt } from 'jsencrypt';
 import CryptoJS from 'crypto-js';
 import Randomstring from 'randomstring';
 
-import { preProtectedDataObjProcessor, postProtectedDataRetProcessor } from './processor-protected';
+import {
+  ProcessorAxiosRequestConfig,
+  initReqConfigProcessors,
+} from './processor-general';
+import {
+  preProtectedDataObjProcessor,
+  postProtectedDataRetProcessor,
+} from './processor-protected';
 
-
-const preEncryptedDataObjProcessor = (reqConfig) => {
+const preEncryptedDataObjProcessor = (
+  reqConfig: ProcessorAxiosRequestConfig
+): ProcessorAxiosRequestConfig => {
   //
   reqConfig = preProtectedDataObjProcessor(reqConfig);
   //
-  if (reqConfig.url.indexOf(process.env.REACT_APP_API_V1_ENCRYPTED_URI) >= 0) {
-    reqConfig.processors = deepMergeObject(
-      reqConfig.processors, 
-      {
-        postDataRetProcessor: postEncryptedDataRetProcessor,
-      },
-    );
+  const apiV1EncryptedUri: string = process.env
+    .REACT_APP_API_V1_ENCRYPTED_URI as string;
+  if (reqConfig.url != null && reqConfig.url.indexOf(apiV1EncryptedUri) >= 0) {
+    // reqConfig.processors = deepMergeObject(
+    //   reqConfig.processors,
+    //   {
+    //     postDataRetProcessor: postEncryptedDataRetProcessor,
+    //   },
+    // );
+    if (reqConfig.processors != null) {
+      reqConfig.processors.postDataRetProcessor = postEncryptedDataRetProcessor;
+    } else {
+      reqConfig = initReqConfigProcessors(reqConfig);
+    }
 
     const dataObj = reqConfig.data;
     const dataObjStr = dataObj == null ? '' : JSON.stringify(dataObj);
-    const userStr = sessionStorage.getItem('user');
-    const user = JSON.parse(userStr);
-    const publicKeyBase64 = user.publicKey;
+    const userStr: string = sessionStorage.getItem('user') as string;
+    const user: any = JSON.parse(userStr);
+    const publicKeyBase64: string = user?.publicKey;
     const randomstring = Randomstring.generate();
     const aesKeyHash = CryptoJS.SHA3(randomstring, { outputLength: 512 }); // should be something in memory
     const aesKeyBase64 = aesKeyHash.toString(CryptoJS.enc.Base64);
@@ -51,17 +66,21 @@ const preEncryptedDataObjProcessor = (reqConfig) => {
     const encryptedHeaderWa = CryptoJS.enc.Utf8.parse(encryptedHeaderRaw);
     const encryptedBody = CryptoJS.enc.Base64.stringify(encryptedBodyWa);
     const encryptedHeader = CryptoJS.enc.Base64.stringify(encryptedHeaderWa);
-  
+
     console.log(
-      'preEncryptedDataObjProcessor - cipherInfoRsa.length: [' +
-        cipherInfoRsa.length +
+      'preEncryptedDataObjProcessor - typeof cipherInfoRsa: [' +
+        typeof cipherInfoRsa +
+        '], cipherInfoRsa.length: [' +
+        (typeof cipherInfoRsa === 'string'
+          ? cipherInfoRsa.length
+          : cipherInfoRsa) +
         '], cipherInfoRsa: [' +
         cipherInfoRsa +
         '], encryptedData: [' +
         encryptedData +
         ']'
     );
-  
+
     // const reqConfig = deepMergeObject(
     //   {
     //     data: dataObj == null ? null : encryptedBody,
@@ -79,9 +98,10 @@ const preEncryptedDataObjProcessor = (reqConfig) => {
   return reqConfig;
 };
 
-
-
-const postEncryptedDataRetProcessor = (dataRet, reqConfig) => {
+const postEncryptedDataRetProcessor = (
+  dataRet: any,
+  reqConfig: ProcessorAxiosRequestConfig
+): any => {
   console.log('postEncryptedDataRetProcessor - start');
   console.log('postEncryptedDataRetProcessor - dataRet: [' + dataRet + ']');
   const cipherInfo = reqConfig['cipherInfo'];
@@ -106,7 +126,8 @@ const postEncryptedDataRetProcessor = (dataRet, reqConfig) => {
     const decodedKeyStr = decodedKey.toString(CryptoJS.enc.Base64);
     const decodedIv = CryptoJS.enc.Base64.parse(cipherInfo.iv);
     const decryptedData = CryptoJS.AES.decrypt(
-      { ciphertext: encryptedAesData },
+      // { ciphertext: encryptedAesData },
+      CryptoJS.lib.CipherParams.create({ ciphertext: encryptedAesData }),
       decodedKey,
       {
         // mode: CryptoJS.mode.ECB,
@@ -132,8 +153,6 @@ const postEncryptedDataRetProcessor = (dataRet, reqConfig) => {
   }
   console.log('postEncryptedDataRetProcessor - end');
   return postProtectedDataRetProcessor(dataRet, reqConfig);
-}
-
+};
 
 export { preEncryptedDataObjProcessor, postEncryptedDataRetProcessor };
-

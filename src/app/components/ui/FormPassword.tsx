@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MutableRefObject, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -12,12 +12,21 @@ import {
 
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
-const FormPassword = ({ inputId, formLabel, className, inputRef, onFocus, defaultValue }) => {
+type FormPasswordProps = {
+  inputId: string;
+  formLabel: string;
+  className: string;
+  inputRef: MutableRefObject<null | HTMLInputElement>, 
+  onFocus: () => void;
+  defaultValue: string;
+}
+
+const FormPassword = ({ inputId, formLabel, className, inputRef, onFocus, defaultValue }: FormPasswordProps) => {
   const { t, i18n } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const showPasswordHandler = (evt) => {
+  const showPasswordHandler = (evt: React.MouseEvent<HTMLElement>) => {
     setShowPassword(!showPassword);
   };
 

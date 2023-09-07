@@ -3,9 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import PropTypes from 'prop-types';
-
-import { styled, useTheme } from '@mui/material/styles';
+import { Theme, styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBarMui from '@mui/material/AppBar';
@@ -53,12 +51,11 @@ import NavNoti from './NavNoti';
 import NavUser from './NavUser';
 import ScrollTop from './ScrollTop';
 
-
 const drawerWidth = 240;
 
 const MainMd = styled('main', {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})<{ open?: boolean }>(({ theme, open }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {
@@ -76,7 +73,7 @@ const MainMd = styled('main', {
 }));
 // const MainXs = styled('main', {
 //   shouldForwardProp: (prop) => prop !== 'open',
-// })(({ theme, open }) => ({
+// })<{ open?: boolean }>(({ theme, open }) => ({
 //   flexGrow: 1,
 //   padding: theme.spacing(3),
 //   transition: theme.transitions.create('margin', {
@@ -100,12 +97,12 @@ const MainXs = styled(MainMd, {
 
 const AppBarMd = styled(AppBarMui, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})<{ open?: boolean }>(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-//  sx: { display: { xs: 'none', md: 'flex' } },
+  //  sx: { display: { xs: 'none', md: 'flex' } },
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -117,7 +114,7 @@ const AppBarMd = styled(AppBarMui, {
 }));
 const AppBarXs = styled(AppBarMui, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})<{ open?: boolean }>(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -142,14 +139,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+type DrawerContentProps = {
+  toggleDrawerHandler: () => void;
+  theme: Theme;
+  pages: any[];
+};
+
 const DrawerContent = ({
   toggleDrawerHandler,
   theme,
   pages,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  ListBastle,
+}: {
+  toggleDrawerHandler: () => void;
+  theme: Theme;
+  pages: any[];
 }) => {
   const { t, i18n } = useTranslation();
   const { user, logout } = useContext(AuthContext);
@@ -186,13 +189,15 @@ const DrawerContent = ({
 };
 
 const pages = [
-  { i18n: 'home', link: '/', icon: <HomeIcon /> },
-  { i18n: 'items', link: '/items', icon: <EventIcon /> },
-  { i18n: 'shops', link: '/shops', icon: <StorefrontIcon /> },
+  { i18n: 'menu.home', link: '/', icon: <HomeIcon /> },
+  { i18n: 'menu.items', link: '/items', icon: <EventIcon /> },
+  { i18n: 'menu.shops', link: '/shops', icon: <StorefrontIcon /> },
 ];
 
-const Layout = (props) => {
-  const { children } = props;
+const Layout = (props: {
+  window?: () => Window;
+  children?: React.ReactNode;
+}) => {
   const { t, i18n } = useTranslation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -204,10 +209,12 @@ const Layout = (props) => {
     setDrawerToggle(!drawerToggle);
   };
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLButtonElement>(
+    null
+  );
 
-  const openNavMenuHandler = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const openNavMenuHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElNav(evt.currentTarget);
   };
   const closeNavMenuHandler = () => {
     setAnchorElNav(null);
@@ -245,7 +252,7 @@ const Layout = (props) => {
         <AppBarMd
           position="fixed"
           open={drawerToggle}
-          sx={{ display: { xs: 'none', md: 'flex' } }}
+          // sx={{ display: { xs: 'none', md: 'flex' } }}
         >
           {/* <Container maxWidth="lg"> */}
           <Toolbar>
@@ -258,9 +265,7 @@ const Layout = (props) => {
               >
                 <MenuIcon />
               </IconButton> */}
-            <Box sx={{ flexGrow: 1, 
-              display: { xs: 'none', md: 'flex' } 
-              }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <IconButton
                 size="small"
                 color="inherit"
@@ -275,7 +280,7 @@ const Layout = (props) => {
                 variant="h6"
                 noWrap
                 component="div"
-                href="/"
+                // href="/"
                 sx={{
                   mr: 2,
                   fontFamily: 'monospace',
@@ -348,6 +353,8 @@ const Layout = (props) => {
                 </Menu>
               </Box> */}
 
+
+
             <NavLang />
             <NavNoti />
             <NavUser />
@@ -369,24 +376,9 @@ const Layout = (props) => {
             >
               <MenuIcon
                 onClick={toggleDrawerHandler}
-                edge="start"
+                // edge="start"
                 sx={{ mr: 1 }}
               />
-              {/* <MenuIcon
-              onClick={toggleDrawerHandler}
-              edge="start"
-              sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
-            /> */}
-              {/* <IconButton
-                  size="small"
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={toggleDrawerHandler}
-                  edge="start"
-                  sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
-                >
-                  <MenuIcon/>
-                </IconButton> */}
               <Typography
                 variant="h6"
                 noWrap
@@ -412,6 +404,7 @@ const Layout = (props) => {
             <NavUser />
           </Toolbar>
         </AppBarXs>
+        <Toolbar id="back-to-top-anchor" sx={{ padding: { xs: 0, md: 0 } }} />
         <Drawer
           sx={{
             display: { xs: 'none', md: 'block' },
@@ -449,7 +442,6 @@ const Layout = (props) => {
         >
           {drawerContent}
         </Drawer>
-        <Toolbar id="back-to-top-anchor" />
         <MainMd
           open={drawerToggle}
           sx={{
@@ -479,4 +471,3 @@ const Layout = (props) => {
 };
 
 export default Layout;
-

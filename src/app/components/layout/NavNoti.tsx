@@ -35,12 +35,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const NavNoti = () => {
   const { t, i18n } = useTranslation();
-  const [notis, setNotis] = useState([]);
+  const [notis, setNotis] = useState<any[]>([]);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    let notisTemp = new Array();
+    let notisTemp: any[] = [];
     for (let i = 0; i < 20; i++) {
       notisTemp.push({
         message: `Notification Item ${i + 1} Notification Item ${
@@ -53,10 +53,10 @@ const NavNoti = () => {
     setNotis(notisTemp);
   }, []);
 
-  const [anchorElNoti, setAnchorElNoti] = useState(null);
+  const [anchorElNoti, setAnchorElNoti] = useState<null | HTMLElement>(null);
 
-  const openNotiMenuHandler = (event) => {
-    setAnchorElNoti(event.currentTarget);
+  const openNotiMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNoti(evt.currentTarget);
   };
   const closeNotiMenuHandler = () => {
     setAnchorElNoti(null);
@@ -69,7 +69,7 @@ const NavNoti = () => {
   const closeNotiDialogHandler = () => {
     setNotiDialogOpen(false);
   };
-  const clickNotiOneHandler = (noti) => {
+  const clickNotiOneHandler = (noti: any) => {
     navigate(noti.href);
   };
   const clearNotiAllHandler = () => {};

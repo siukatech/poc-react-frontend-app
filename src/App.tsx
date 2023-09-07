@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import * as logo from './logo.svg';
 import './App.css';
 
 import {
@@ -17,7 +17,7 @@ import Logout from './app/pages/login/Logout';
 
 import { AuthContextProvider } from './base/stores/AuthContext';
 import ProtectedRoute from './base/components/route/ProtectedRoute';
-//import AllItems from './app/pages/item/AllItems';
+import AllItems from './app/pages/item/AllItems';
 import ContentLong from './app/pages/sample/ContentLong';
 
 const router = createBrowserRouter(
@@ -36,6 +36,7 @@ const router = createBrowserRouter(
         { path: '/login', element: <ProtectedRoute accessBy="non-authenticated" ><Login /></ProtectedRoute> },
         { path: '/logout', element: <ProtectedRoute accessBy="authenticated" ><Logout /></ProtectedRoute> },
         // { path: '/items', exact: true, element: <ProtectedRoute accessBy="authenticated" ><AllItems /></ProtectedRoute> },
+        { path: '/items', element: <ProtectedRoute accessBy="authenticated" ><AllItems /></ProtectedRoute> },
         // // { path: '/items/:itemId', element: <ItemDetail /> },
         // // { path: '/items/:itemId/edit', element: <EditItem /> },
         // // { path: '/items/new', element: <NewItem /> },

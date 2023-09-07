@@ -1,7 +1,9 @@
-import { useRef, useContext, useState } from 'react';
+import { useRef, useContext, useState, FormEvent, MutableRefObject } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import AuthContext from '../../../base/stores/AuthContext';
 import FormPassword from '../../components/ui/FormPassword';
+
+import { DoAuthLoginPayload } from '../../../base/services/LoginService';
 
 import {
   Box,
@@ -18,29 +20,32 @@ import {
 } from '@mui/material';
 
 const Login = () => {
-  const usernameInputRef = useRef('');
-  const passwordInputRef = useRef('');
+  const loginFormRef = useRef<null | HTMLFormElement>(null);
+  const usernameInputRef = useRef<null | HTMLInputElement>(null);
+  const passwordInputRef = useRef<null | HTMLInputElement>(null);
   const { login } = useContext(AuthContext);
   const [isDirty, setIsDirty] = useState(false);
 
   const { t, i18n } = useTranslation();
 
-  const loginSubmitHandler = async (evt) => {
+  const loginSubmitHandler = async (evt: FormEvent<HTMLFormElement>): Promise<any> => {
     evt.preventDefault();
     setIsDirty(false);
-    let payload = {
-      username: usernameInputRef.current.value,
-      password: passwordInputRef.current.value,
+    let payload: DoAuthLoginPayload = {
+      username: usernameInputRef.current?.value,
+      password: passwordInputRef.current?.value,
     };
     await login(payload);
   };
 
-  const resetFormHandler = (evt) => {
+  const resetFormHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     console.log(evt);
-    if (evt.target.form != null) {
-      evt.target.form.reset();
-    }
+    // if (evt?.target?.form != null) {
+    //   evt?.target?.form.reset();
+    // }
+    evt.currentTarget.form?.reset();
+    loginFormRef.current?.reset();
     setIsDirty(false);
   };
 
@@ -62,6 +67,7 @@ const Login = () => {
         component="form"
         onSubmit={loginSubmitHandler}
         sx={{ display: 'flex', justifyContent: 'center', p: 1, m: 1 }}
+        // ref={loginFormRef}
       >
         <Stack sx={{ width: '100%' }}>
           <Box sx={{ m: 1, width: '100%' }}>
@@ -99,7 +105,10 @@ const Login = () => {
             <Button variant="outlined" color="primary" type="submit">
               {t('button.login')}
             </Button>
-            <Button variant="outlined" color="secondary" type="button" onClick={resetFormHandler}>
+            {/* <Button variant="outlined" color="secondary" type="button" onClick={resetFormHandler}>
+              {t('button.reset')}
+            </Button> */}
+            <Button variant="outlined" color="secondary" type="reset">
               {t('button.reset')}
             </Button>
           </ButtonGroup>

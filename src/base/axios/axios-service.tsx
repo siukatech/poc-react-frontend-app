@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { parseDateToUtc } from '../utils/date';
 import { deepMergeObject } from '../utils/object';
 
+import { ProcessorAxiosRequestConfig } from './processors/processor-general';
 import { prePublicDataObjProcessor } from './processors/processor-public';
 import { preProtectedDataObjProcessor } from './processors/processor-protected';
 import { preEncryptedDataObjProcessor } from './processors/processor-encrypted';
@@ -10,9 +11,10 @@ import { doRefreshToken, restoreTokens } from '../services/LoginService';
 
 const axiosService = axios.create({});
 
+
 // Reference:
 // https://axios-http.com/docs/req_config
-axiosService.interceptors.request.use((config) => {
+axiosService.interceptors.request.use((config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
   console.log('interceptor.request - 1');
   // const tokens = restoreTokens();
   // // config.headers.common = config.headers.common ?? {};
@@ -30,15 +32,15 @@ axiosService.interceptors.request.use((config) => {
   // // config.interceptors = config.interceptors ?? [];
   // // config.interceptors.push(1);
   // config = prePublicDataObjProcessor(config);
-  config = preEncryptedDataObjProcessor(config);
-  console.log('interceptor.request - 1 - config: ', config);
-  return config;
+  let configProcessed = preEncryptedDataObjProcessor(config as ProcessorAxiosRequestConfig);
+  console.log('interceptor.request - 1 - configProcessed: ', configProcessed);
+  return configProcessed;
 });
-axiosService.interceptors.request.use((config) => {
-  console.log(
-    'interceptor.request - 2 - config.interceptors: ',
-    config.interceptors
-  );
+axiosService.interceptors.request.use((config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
+  // console.log(
+  //   'interceptor.request - 2 - config.interceptors: ',
+  //   config.interceptors
+  // );
   // if (config.url.indexOf(process.env.REACT_APP_API_V1_PROTECTED_URI) >= 0) {
   //   config.processors = deepMergeObject(
   //     {
@@ -50,15 +52,15 @@ axiosService.interceptors.request.use((config) => {
   // }
   // // config.interceptors = config.interceptors ?? [];
   // // config.interceptors.push(2);
-  config = preProtectedDataObjProcessor(config);
-  console.log('interceptor.request - 2 - config: ', config);
-  return config;
+  let configProcessed = preProtectedDataObjProcessor(config as ProcessorAxiosRequestConfig);
+  console.log('interceptor.request - 2 - configProcessed: ', configProcessed);
+  return configProcessed;
 });
-axiosService.interceptors.request.use((config) => {
-  console.log(
-    'interceptor.request - 3 - config.interceptors: ',
-    config.interceptors
-  );
+axiosService.interceptors.request.use((config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
+  // console.log(
+  //   'interceptor.request - 3 - config.interceptors: ',
+  //   config.interceptors
+  // );
   // if (config.url.indexOf(process.env.REACT_APP_API_V1_ENCRYPTED_URI) >= 0) {
   //   config.processors = deepMergeObject(
   //     {
@@ -70,25 +72,26 @@ axiosService.interceptors.request.use((config) => {
   // }
   // // config.interceptors = config.interceptors ?? [];
   // // config.interceptors.push(3);
-  config = prePublicDataObjProcessor(config);
-  console.log('interceptor.request - 3 - config: ', config);
-  return config;
+  let configProcessed = prePublicDataObjProcessor(config as ProcessorAxiosRequestConfig);
+  console.log('interceptor.request - 3 - configProcessed: ', configProcessed);
+  return configProcessed;
 });
 
 axiosService.interceptors.response.use(
   (response) => {
     console.log('interceptor.response.normal - 1');
-    response.data = response.config.processors.postDataRetProcessor(
+    const processedConfig: ProcessorAxiosRequestConfig = response.config as ProcessorAxiosRequestConfig;
+    response.data = processedConfig.processors?.postDataRetProcessor(
       response.data,
-      response.config
+      processedConfig
     );
     console.log(
-      'interceptor.response.normal - 1 - response.config: ',
-      response.config
+      'interceptor.response.normal - 1 - processedConfig: ',
+      processedConfig
     );
     return response;
   },
-  async (error) => {
+  async (error): Promise<any> => {
     console.log('interceptor.response.error - 1');
     console.log('interceptor.response.error - 1 - error: ', error);
     let retStatus = error.response?.status;
@@ -121,8 +124,7 @@ axiosService.interceptors.response.use(
           'Authorization'
         ] = `Bearer ${tokensRefreshed.access_token}`;
         return axios(error.config);
-      }
-      else {
+      } else {
         return Promise.reject(error);
       }
     } else {
@@ -139,7 +141,7 @@ axiosService.interceptors.response.use(
     );
     return response;
   },
-  async (error) => {
+  async (error): Promise<any> => {
     console.log('interceptor.response.error - 2');
     console.log('interceptor.response.error - 2 - error: ', error);
     return Promise.reject(error);
@@ -154,7 +156,7 @@ axiosService.interceptors.response.use(
     );
     return response;
   },
-  async (error) => {
+  async (error): Promise<any> => {
     console.log('interceptor.response.error - 3');
     console.log('interceptor.response.error - 3 - error: ', error);
     return Promise.reject(error);
@@ -162,4 +164,3 @@ axiosService.interceptors.response.use(
 );
 
 export default axiosService;
-

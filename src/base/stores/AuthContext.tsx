@@ -5,11 +5,26 @@ import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
 import axiosService from '../axios/axios-service';
-import { restoreUser, doAuthLogin, doAuthLogout } from '../services/LoginService';
+import {
+  restoreUser,
+  doAuthLogin,
+  doAuthLogout,
+} from '../services/LoginService';
+import type { DoAuthLoginPayload } from '../services/LoginService';
 
-const AuthContext = createContext();
+type AuthContextObj = {
+  user: any;
+  login: (payload: DoAuthLoginPayload) => void;
+  logout: () => void;
+};
 
-export const AuthContextProvider = ({ children }) => {
+const AuthContext = createContext<AuthContextObj>({
+  user: null,
+  login: () => {},
+  logout: () => {},
+});
+
+export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => {
     // // if (sessionStorage.getItem('tokens')) {
     // //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
@@ -26,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const login = async (payload) => {
+  const login = async (payload: DoAuthLoginPayload): Promise<void> => {
     // let authCodeLoginUrl =
     //   process.env.REACT_APP_API_DOMAIN_PREFIX +
     //   process.env.REACT_APP_API_V1_PUBLIC_URI +
@@ -67,20 +82,20 @@ export const AuthContextProvider = ({ children }) => {
     setUser(user);
     navigate('/');
   };
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     // invoke the logout API call, for our NestJS API no logout API
     await doAuthLogout();
 
     //
     setUser(null);
     navigate('/');
-  }
+  };
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
+      {props.children}
     </AuthContext.Provider>
   );
 };
 
 export default AuthContext;
-
+export type { AuthContextObj };

@@ -4,19 +4,19 @@
 
 **Base**
 ```shell
-npm i -s react-router-dom
-npm i -s jwt-decode
-npm i -s axios
-npm i -s env-cmd
-npm i -s date-fns date-fns-tz
-npm i -s crypto-js jsencrypt randomstring
-npm i -s i18next i18next-http-backend react-i18next
+npm i -S react-router-dom
+npm i -S jwt-decode
+npm i -S axios
+npm i -S env-cmd
+npm i -S date-fns date-fns-tz
+npm i -S crypto-js jsencrypt randomstring
+npm i -S i18next i18next-http-backend react-i18next
 ```
 
 **MUI**
 ```shell
-npm i -s @mui/material @emotion/react @emotion/styled
-npm i -s @mui/icons-material
+npm i -S @mui/material @emotion/react @emotion/styled
+npm i -S @mui/icons-material
 ```
 
 **Reference:**
@@ -55,5 +55,17 @@ npm run build:sit
 ```
 
 
+
+# Convert to Typescript TS
+Install the typescript for react.  
+```shell
+#npx create-react-app my-app --template typescript
+
+npm i -S typescript @types/node @types/react @types/react-dom @types/jest
+#npm i -S @types/crypto-js
+#npm i -S @types/randomstring
+npm i -S --legacy-peer-deps @types/crypto-js
+npm i -S --legacy-peer-deps @types/randomstring
+```
 
 
