@@ -293,80 +293,7 @@ const Layout = (props: {
                 {t('app.title')} [{`${drawerToggle}`}]
               </Typography>
             </Box>
-            {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page.i18n}
-                  onClick={() => {
-                    closeNavMenuHandler();
-                    navigate(page.link);
-                  }}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {t(`${page.i18n}`)}
-                </Button>
-              ))}
-            </Box> */}
 
-            {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={openNavMenuHandler}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClick={closeNavMenuHandler}
-                  sx={{
-                    display: { xs: 'block', md: 'none' },
-                  }}
-                >
-                  {pages.map((page) => (
-                    <MenuItem
-                      key={page.i18n}
-                      onClick={() => {
-                        closeNavMenuHandler();
-                        navigate(page.link);
-                      }}
-                    >
-                      <Typography textAlign="center">
-                        {t(`${page.i18n}`)}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box> */}
-
-
-
-            <NavLang />
-            <NavNoti />
-            <NavUser />
-          </Toolbar>
-          {/* </Container> */}
-        </AppBarMd>
-        <AppBarXs
-          position="fixed"
-          open={drawerToggle}
-          sx={{ display: { xs: 'flex', md: 'none' } }}
-        >
-          <Toolbar>
             <Box
               sx={{
                 flexGrow: 1,
@@ -399,15 +326,20 @@ const Layout = (props: {
                 Frontend App [{`${drawerToggle}`}]
               </Typography>
             </Box>
+
+
             <NavLang />
             <NavNoti />
             <NavUser />
           </Toolbar>
-        </AppBarXs>
+          {/* </Container> */}
+        </AppBarMd>
+
         <Toolbar id="back-to-top-anchor" sx={{ padding: { xs: 0, md: 0 } }} />
+
         <Drawer
           sx={{
-            display: { xs: 'none', md: 'block' },
+            // display: { xs: 'none', md: 'block' },
             width: drawerWidth,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
@@ -422,44 +354,17 @@ const Layout = (props: {
         >
           {drawerContent}
         </Drawer>
-        <Drawer
-          sx={{
-            display: { xs: 'block', md: 'none' },
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-          variant="temporary"
-          anchor="left"
-          open={drawerToggle}
-          onClose={toggleDrawerHandler}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-        >
-          {drawerContent}
-        </Drawer>
+
         <MainMd
           open={drawerToggle}
-          sx={{
-            display: { xs: 'none', md: 'block' },
-          }}
+          // sx={{
+          //   display: { xs: 'none', md: 'block' },
+          // }}
         >
           <DrawerHeader />
           <Outlet />
         </MainMd>
-        <MainXs
-          open={drawerToggle}
-          sx={{
-            display: { xs: 'block', md: 'none' },
-          }}
-        >
-          <DrawerHeader />
-          <Outlet />
-        </MainXs>
+
       </Box>
       <ScrollTop open={drawerToggle} {...props}>
         <Fab size="small" aria-label="scroll back to top">
