@@ -128,7 +128,7 @@ const postEncryptedDataRetProcessor = (
     // const decryptedDataBase64 = encoder.decrypt(encryptedRsaDataStr);
     const decryptedDataBase64 = dataRet;
 
-    // Reference
+    // Reference:
     // https://github.com/kyungw00k/encrypt-something-in-java-and-decrypt-it-in-javascript-by-example
     const encryptedAesData = CryptoJS.enc.Base64.parse(decryptedDataBase64);
     const decodedKey = CryptoJS.enc.Base64.parse(cipherInfo.key);

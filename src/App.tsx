@@ -10,22 +10,38 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import Layout from './app/components/layout/Layout';
-import PersistentDrawerLeft from './app/components/layout/PersistentDrawerLeft';
-import Home from './app/pages/main/Home';
-import NotFound from './app/pages/main/NotFound';
-import ErrorPage from './app/pages/main/ErrorPage';
-import Login from './app/pages/login/Login';
-import Logout from './app/pages/login/Logout';
+import {
+  ThemeProvider,
+  Theme,
+  createTheme,
+  styled,
+  useTheme,
+} from '@mui/material/styles';
+
+import Layout from './app/components/Layout/Layout';
+import PersistentDrawerLeft from './app/components/Layout/PersistentDrawerLeft';
+import Home from './app/pages/Main/Home';
+import NotFound from './app/pages/Main/NotFound';
+import ErrorPage from './app/pages/Main/ErrorPage';
+import Login from './app/pages/Login/Login';
+import Logout from './app/pages/Login/Logout';
 
 import { AuthContextProvider } from './base/stores/AuthContext';
 import ProtectedRoute, {
   ProtectedRouteAccessBy,
-} from './base/components/route/ProtectedRoute';
-import AllItems from './app/pages/item/AllItems';
-import EditItem from './app/pages/item/EditItem';
-import ViewItem from './app/pages/item/ViewItem';
-import ContentLong from './app/pages/sample/ContentLong';
+} from './base/components/Route/ProtectedRoute';
+
+import AllItems from './app/pages/Item/AllItems';
+import EditItem from './app/pages/Item/EditItem';
+import ViewItem from './app/pages/Item/ViewItem';
+import ContentLong from './app/pages/Sample/ContentLong';
+
+const darkTheme = createTheme({
+  palette: {
+    // mode: 'dark',
+    mode: 'light',
+  },
+});
 
 const router = createBrowserRouter(
   // delfine method 1
@@ -33,11 +49,13 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <AuthContextProvider>
-            <Layout />
-          </AuthContextProvider>
-        </LocalizationProvider>
+        <ThemeProvider theme={darkTheme}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <AuthContextProvider>
+              <Layout />
+            </AuthContextProvider>
+          </LocalizationProvider>
+        </ThemeProvider>
       ),
       // element: <AuthContextProvider><PersistentDrawerLeft /></AuthContextProvider>,
       errorElement: <ErrorPage />,

@@ -51,9 +51,12 @@ import {
 import AuthContext from '../../../base/stores/AuthContext';
 
 import NavLang from './NavLang';
-import NavNoti from './NavNoti';
+import NavNoti, { NavNotiDisplayType } from './NavNoti';
 import NavUser from './NavUser';
 import ScrollTop from './ScrollTop';
+import ImgComponent from '../UI/ImgComponent';
+
+import logo192 from '../../assets/logo192.png';
 
 const drawerWidth = 240;
 
@@ -227,6 +230,10 @@ const Layout = (props: {
   const drawerContent = (
     <>
       <DrawerHeader>
+        <ImgComponent
+          src={logo192}
+          sx={{ width: 45, marginLeft: 'auto', marginRight: 'auto' }}
+        />
         <IconButton onClick={toggleDrawerHandler}>
           {theme.direction === 'ltr' ? (
             <ChevronLeftIcon />
@@ -280,6 +287,10 @@ const Layout = (props: {
               >
                 <MenuIcon />
               </IconButton>
+              <ImgComponent
+                src={logo192}
+                sx={{ width: 45, mr: 1, ...(drawerToggle && { display: 'none' }) }}
+              />
               <Typography
                 variant="h6"
                 component="div"
@@ -295,6 +306,7 @@ const Layout = (props: {
                   '&:hover': {
                     cursor: 'pointer',
                   },
+                  ...(!drawerToggle && { mt: '6px' })
                 }}
                 onClick={() => navigate('/')}
               >
@@ -336,7 +348,8 @@ const Layout = (props: {
             </Box>
 
             <NavLang />
-            <NavNoti />
+            <NavNoti displayType={NavNotiDisplayType.MENU} />
+            <NavNoti displayType={NavNotiDisplayType.POPPER} />
             <NavUser />
           </Toolbar>
           {/* </Container> */}

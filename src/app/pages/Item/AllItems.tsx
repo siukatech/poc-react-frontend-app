@@ -21,7 +21,7 @@ import { Masonry } from '@mui/lab';
 
 import { formatDate, formatDatetime } from '../../../base/utils/date';
 import { getAllItems } from '../../services/ItemService';
-import ItemDetail from '../../components/item/ItemDetail';
+import ItemDetail from '../../components/Item/ItemDetail';
 
 type Item = {
   id: number;

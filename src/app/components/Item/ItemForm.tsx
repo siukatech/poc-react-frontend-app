@@ -37,11 +37,11 @@ import {
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,
 } from '../../../base/utils/date';
-import { IItemObj } from '../../models/item/IItemObj';
+import { IItem } from './Model';
 import { getSingleItem } from '../../services/ItemService';
-import DialogPrompt from '../../components/ui/DialogPrompt';
-import LoadingSpinner from '../../components/ui/LoadingSpinner';
-import UnloadPrompt from '../ui/UnloadPrompt';
+import DialogPrompt from '../UI/DialogPrompt';
+import LoadingSpinner from '../UI/LoadingSpinner';
+import UnloadPrompt from '../UI/UnloadPrompt';
 
 const formFieldSxDefault = { m: 1, width: '90%' };
 
@@ -51,8 +51,8 @@ const ItemForm = ({
 }: // changeTextFieldHandler,
 // changeDateFieldHandler,
 {
-  itemObj: IItemObj;
-  onSubmit: (itemRec: IItemObj) => void;
+  itemObj: IItem;
+  onSubmit: (itemRec: IItem) => void;
   // changeTextFieldHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   // changeDateFieldHandler: (name: string, value: any) => void;
 }) => {
@@ -105,9 +105,11 @@ const ItemForm = ({
 
   const changeTextFieldHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
+    //
+    // Reference:
     // https://stackoverflow.com/a/69198602
     // fixes of Element implicitly has an 'any' type because expression of type 'string' can't be used to index
-    const oldVal = itemRec[name as keyof IItemObj];
+    const oldVal = itemRec[name as keyof IItem];
     if (oldVal != value) {
       setItemRec({
         ...itemRec,
@@ -117,6 +119,7 @@ const ItemForm = ({
     }
   };
 
+  // Reference:
   // https://stackoverflow.com/a/69440640
   const changeDateFieldHandler = (name: string, value: any) => {
     const timezoneOffset = getTimezoneOffset(TIMEZONE_DEFAULT, value);

@@ -26,14 +26,14 @@ import {
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../base/utils/date';
 
-import { IItemObj } from '../../models/item/IItemObj';
+import { IItem } from './Model';
 
 const ItemDetail = ({
   itemObj,
   defaultExpanded,
   minHeight = 'auto',
 }: {
-  itemObj: IItemObj;
+  itemObj: IItem;
   defaultExpanded: boolean;
   minHeight?: number | string;
 }) => {

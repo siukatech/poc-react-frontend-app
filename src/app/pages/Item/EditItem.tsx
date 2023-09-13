@@ -31,15 +31,15 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../base/utils/date';
-import { IItemObj } from '../../models/item/IItemObj';
+import { IItem } from '../../components/Item/Model';
 import {
   getSingleItem,
   updateSingleItem,
   addSingleItem,
 } from '../../services/ItemService';
-import DialogPrompt from '../../components/ui/DialogPrompt';
-import LoadingSpinner from '../../components/ui/LoadingSpinner';
-import ItemForm from '../../components/item/ItemForm';
+import DialogPrompt from '../../components/UI/DialogPrompt';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
+import ItemForm from '../../components/Item/ItemForm';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
 
@@ -83,7 +83,7 @@ const EditItem = (props: any) => {
   // ): Promise<any> => {
   //   evt.preventDefault();
   // };
-  const submitFormHandler = (itemRec: IItemObj) => {
+  const submitFormHandler = (itemRec: IItem) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
@@ -124,6 +124,8 @@ const EditItem = (props: any) => {
   //   });
   // };
 
+  // //
+  // // Reference:
   // // https://stackoverflow.com/a/69440640
   // const changeDateFieldHandler = (name: string, value: any) => {
   //   setItemObj({

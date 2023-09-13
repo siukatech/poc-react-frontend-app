@@ -25,9 +25,9 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../base/utils/date';
-import { IItemObj } from '../../models/item/IItemObj';
+import { IItem } from '../../components/Item/Model';
 import { getSingleItem } from '../../services/ItemService';
-import ItemDetail from '../../components/item/ItemDetail';
+import ItemDetail from '../../components/Item/ItemDetail';
 
 const ViewItem = () => {
   const { t, i18n } = useTranslation();
