@@ -6,38 +6,73 @@ import { useTranslation, Trans } from 'react-i18next';
 import AuthContext from '../../../base/stores/AuthContext';
 import { formatDate, formatDatetime } from '../../../base/utils/date';
 
-import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Menu from '@mui/material/Menu';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
-import ListItemText from '@mui/material/ListItemText';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+import { Theme, styled, useTheme } from '@mui/material/styles';
+import {
+  Box,
+  Tooltip,
+  Icon,
+  IconButton,
+  Badge,
+  Menu,
+  MenuList,
+  MenuItem,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItem as ListItemMui,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  ListItemSecondaryAction,
+  Button,
+  Divider,
+  Popper,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+} from '@mui/material';
 
-import MailIcon from '@mui/icons-material/Mail';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import {
+  Mail as MailIcon,
+  AssignmentInd as AssignmentIndIcon,
+  Person as PersonIcon,
+  Dashboard as DashboardIcon,
+  Login as LoginIcon,
+  Logout as LogoutIcon,
+  Notifications as NotificationsIcon,
+  CloseOutlined as CloseOutlinedIcon,
+} from '@mui/icons-material';
+
+const notificationIcons = [
+  <MailIcon />,
+  <AssignmentIndIcon />,
+  <PersonIcon />,
+  <DashboardIcon />,
+  <LoginIcon />,
+  <LogoutIcon />,
+  <NotificationsIcon />,
+  <CloseOutlinedIcon />,
+];
+
+const ListItem = styled(ListItemMui)(({ theme }) => ({
+  '&:hover': {
+    cursor: 'pointer',
+    // backgroundColor: theme.palette.primary.main,
+    // backgroundColor: '#f1f1f1',
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+  },
+}));
 
 const NavNoti = () => {
   const { t, i18n } = useTranslation();
   const [notis, setNotis] = useState<any[]>([]);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   useEffect(() => {
     let notisTemp: any[] = [];
@@ -48,18 +83,27 @@ const NavNoti = () => {
         } Notification Item ${i + 1}`,
         href: `/notification/${i + 1}`,
         datetime: new Date(),
+        icon: notificationIcons[i % notificationIcons.length],
       });
     }
     setNotis(notisTemp);
   }, []);
 
   const [anchorElNoti, setAnchorElNoti] = useState<null | HTMLElement>(null);
+  const [anchorNotiMenuOpen, setAnchorNotiMenuOpen] = useState(false);
 
   const openNotiMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNoti(evt.currentTarget);
+    // setAnchorElNoti(evt.currentTarget);
+    openNotiElementHandler(evt.currentTarget);
   };
-  const closeNotiMenuHandler = () => {
-    setAnchorElNoti(null);
+  // const closeNotiMenuHandler = () => {
+  //   setAnchorElNoti(null);
+  // };
+  const openNotiElementHandler = (currentTarget: null | HTMLElement) => {
+    setAnchorElNoti((prevState) => {
+      if (prevState == null) return currentTarget;
+      else return null;
+    });
   };
 
   const [notiDialogOpen, setNotiDialogOpen] = useState(false);
@@ -86,6 +130,7 @@ const NavNoti = () => {
               aria-label={t('menu.noti')}
               aria-controls="menu-noti"
               aria-haspopup="true"
+              aria-describedby="menu-noti"
               color="inherit"
               sx={{ p: 1 }}
             >
@@ -95,9 +140,9 @@ const NavNoti = () => {
               </Badge>
             </IconButton>
           </Tooltip>
-          <Menu
-            // sx={{ mt: '45px', maxHeight: '400px' }}
-            sx={{ mt: '45px', maxWidth: 300 }}
+          {/* <Menu
+            // sx={{ mt: 45, maxHeight: '400px' }}
+            sx={{ mt: 45, maxWidth: 300 }}
             id="menu-noti"
             // MenuListProps={{
             //   'aria-labelledby': 'long-button',
@@ -160,11 +205,6 @@ const NavNoti = () => {
                     >
                       <Box sx={{ overflowX: 'hidden' }}>
                         <IconButton size="small">
-                          {/* import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout'; */}
                           <AssignmentIndIcon />
                         </IconButton>
                         <Typography
@@ -185,9 +225,6 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
             </MenuItem>
             <Divider />
             <MenuItem>
-              {/* <Typography textAlign="center">
-                {t('button.mark.as.read')}
-              </Typography> */}
               <Button
                 variant="contained"
                 color="primary"
@@ -199,7 +236,133 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
                 {t('button.mark.as.read')}
               </Button>
             </MenuItem>
-          </Menu>
+          </Menu> */}
+
+          <Popper
+            sx={{ p: 0, width: 350 }}
+            id="menu-noti"
+            // placement={matchesXs ? 'bottom' : 'bottom-end'}
+            placement={'bottom-end'}
+            // placement={'bottom'}
+            // placement={'auto-end'}
+            open={anchorElNoti != null}
+            anchorEl={anchorElNoti}
+            // role={undefined}
+            // transition
+            // disablePortal
+            popperOptions={{
+              modifiers: [
+                {
+                  name: 'offset',
+                  options: {
+                    // offset: [matchesXs ? -5 : 0, 9],
+                    // offset: [0, 9],
+                    offset: [0, 19],
+                    zIndex: 1,
+                  },
+                },
+              ],
+            }}
+          >
+            <Card variant="outlined">
+              <CardHeader
+                sx={{ p: 1 }}
+                title={
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 700,
+                      textAlign: 'center',
+                      '&:hover': { cursor: 'pointer' },
+                    }}
+                    onClick={() => navigate('/notis')}
+                  >
+                    {t('menu.noti.title')}
+                  </Typography>
+                }
+                action={
+                  <IconButton
+                    onClick={() => {
+                      openNotiElementHandler(anchorElNoti);
+                    }}
+                  >
+                    <CloseOutlinedIcon />
+                  </IconButton>
+                }
+              />
+              <Divider />
+              <CardContent
+                sx={{
+                  maxHeight: 350,
+                  overflowX: 'hidden',
+                  overflowY: 'auto',
+                  pt: 0,
+                  pb: 0,
+                  // pl: 2,
+                  // pr: 1,
+                  pl: 0,
+                  pr: 0,
+                }}
+                color="text.secondary"
+              >
+                <List>
+                  {notis.map((noti, idx) => (
+                    <>
+                      <ListItem
+                        key={`type-3-${idx}`}
+                        sx={{ pt: 0, pb: 0, pl: 2, pr: 2, overflowX: 'hidden' }}
+                      >
+                        {/* <ListItemIcon>
+                          <IconButton size="small">
+                            {noti.icon}
+                          </IconButton>
+                        </ListItemIcon> */}
+                        <ListItemText
+                          primary={
+                            <Typography
+                              // component="div"
+                              variant="subtitle1"
+                              textAlign="left"
+                              // sx={{ whiteSpace: 'nowrap', overflowX: 'hidden' }}
+                            >
+                              {noti.message}
+                            </Typography>
+                          }
+                          secondary={
+                            <Typography
+                              // component="body"
+                              variant="body1"
+                              textAlign="right"
+                              fontSize={'0.85rem'}
+                            >
+                              {formatDatetime(noti.datetime)}
+                            </Typography>
+                          }
+                        />
+                        <ListItemButton>
+                          <IconButton size="small">{noti.icon}</IconButton>
+                        </ListItemButton>
+                      </ListItem>
+                      {idx < notis.length - 1 && <Divider />}
+                    </>
+                  ))}
+                </List>
+              </CardContent>
+              <Divider />
+              <CardActions>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    width: '100%',
+                    // justifyContent: 'right',
+                  }}
+                >
+                  {t('button.mark.as.read')}
+                </Button>
+              </CardActions>
+            </Card>
+          </Popper>
 
           {/* <Tooltip title={t('menu.noti.tooltip')}>
             <IconButton
