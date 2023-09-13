@@ -13,6 +13,7 @@ import {
   preProtectedDataObjProcessor,
   postProtectedDataRetProcessor,
 } from './processor-protected';
+import axios, { AxiosRequestTransformer } from 'axios';
 
 const preEncryptedDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
@@ -20,20 +21,27 @@ const preEncryptedDataObjProcessor = (
   //
   reqConfig = preProtectedDataObjProcessor(reqConfig);
   //
-  const apiV1EncryptedUri: string = process.env
-    .REACT_APP_API_V1_ENCRYPTED_URI as string;
-  if (reqConfig.url != null && reqConfig.url.indexOf(apiV1EncryptedUri) >= 0) {
+  const apiEncryptedUriPrefix: string = process.env
+    .REACT_APP_API_ENCRYPTED_URI_PREFIX as string;
+  if (reqConfig.url != null && reqConfig.url.indexOf(apiEncryptedUriPrefix) >= 0) {
     // reqConfig.processors = deepMergeObject(
     //   reqConfig.processors,
     //   {
     //     postDataRetProcessor: postEncryptedDataRetProcessor,
     //   },
     // );
+    if (reqConfig === null) reqConfig = initReqConfigProcessors(reqConfig);
     if (reqConfig.processors != null) {
       reqConfig.processors.postDataRetProcessor = postEncryptedDataRetProcessor;
-    } else {
-      reqConfig = initReqConfigProcessors(reqConfig);
     }
+    const transformRequestForEncryption = (data: any, headers: any) => {
+      return JSON.parse(data);
+    }
+    const transformRequests: AxiosRequestTransformer[] = new Array<AxiosRequestTransformer>();
+    if (Array.isArray(axios.defaults.transformRequest)) transformRequests.concat(axios.defaults.transformRequest);
+    else if (axios.defaults.transformRequest != null) transformRequests.push(axios.defaults.transformRequest);
+    transformRequests.push(transformRequestForEncryption);
+    reqConfig.transformRequest = transformRequests;
 
     const dataObj = reqConfig.data;
     const dataObjStr = dataObj == null ? '' : JSON.stringify(dataObj);
@@ -92,6 +100,7 @@ const preEncryptedDataObjProcessor = (
     //   reqConfig
     // );
     reqConfig.data = dataObj == null ? null : encryptedBody;
+    reqConfig.data = dataObj == null ? null : JSON.stringify(encryptedBody);
     reqConfig.headers['X-DATA-ENC-INFO'] = encryptedHeader;
     reqConfig.cipherInfo = cipherInfo;
   }

@@ -22,11 +22,25 @@ const marshallDateStr2DateObj = (dataObj: any) => {
   }
   keyList.forEach((key, i) => {
     try {
-      let value = dataObj[key] == null ? null : parseDateToUtc(dataObj[key]);
-      dataObj[key + '-org'] = dataObj[key];
-      dataObj[key] = value;
+      const dataValOri = dataObj[key];
+      // if (dataValOri != null) {
+      //   console.log(
+      //     'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataValOri: ',
+      //     dataValOri
+      //   );
+      // }
+      const dataVal =
+        dataValOri == null
+          ? null
+          : parseDateToUtc(dataValOri);
+          // console.log(
+          //   'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataVal: ',
+          //   dataVal
+          // );
+          dataObj[key + '-ori'] = dataValOri;
+      dataObj[key] = dataVal;
     } catch (err) {
-      console.log('lib/api - marshallDateStr2DateObj - err: [' + err + ']');
+      console.log('lib/api - marshallDateStr2DateObj - i: [' + i + '], key: [' + key + '], err: [' + err + ']');
     }
   });
   return dataObj;
@@ -55,7 +69,9 @@ interface ProcessorAxiosRequestConfig<D = any>
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const initReqConfigProcessors = (reqConfig: ProcessorAxiosRequestConfig): ProcessorAxiosRequestConfig => {
+const initReqConfigProcessors = (
+  reqConfig: ProcessorAxiosRequestConfig
+): ProcessorAxiosRequestConfig => {
   reqConfig.processors =
     reqConfig.processors == null
       ? {
@@ -65,7 +81,7 @@ const initReqConfigProcessors = (reqConfig: ProcessorAxiosRequestConfig): Proces
         }
       : reqConfig.processors;
   return reqConfig;
-}
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -5,25 +5,29 @@ import { useTranslation, Trans } from 'react-i18next';
 
 import AuthContext from '../../../base/stores/AuthContext';
 
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import Menu from '@mui/material/Menu';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import {
+  Box,
+  IconButton,
+  Typography,
+  Divider,
+  Paper,
+  Menu,
+  MenuList,
+  MenuItem,
+  Tooltip,
+  Avatar,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
+import {
+  AssignmentInd as AssignmentIndIcon,
+  Person as PersonIcon,
+  Dashboard as DashboardIcon,
+  Login as LoginIcon,
+  Logout as LogoutIcon,
+  Settings as SettingsIcon,
+} from '@mui/icons-material';
 
 // type SettingType = {
 //   i18n?: string;

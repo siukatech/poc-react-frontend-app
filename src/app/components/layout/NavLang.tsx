@@ -5,14 +5,16 @@ import { useTranslation, Trans } from 'react-i18next';
 
 import AuthContext from '../../../base/stores/AuthContext';
 
-import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Tooltip,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 
-import LanguageIcon from '@mui/icons-material/Language';
+import { Language as LanguageIcon } from '@mui/icons-material';
 
 const NavLang = () => {
   const { t, i18n, ready } = useTranslation();
@@ -25,7 +27,7 @@ const NavLang = () => {
 
   const changeLanguageHandler = (lng: string) => {
     console.log('changeLanguageHandler - ready: ', ready);
-    if ( ready ) {
+    if (ready) {
       i18n.changeLanguage(lng);
       localStorage.setItem('i18nlng', lng);
     }

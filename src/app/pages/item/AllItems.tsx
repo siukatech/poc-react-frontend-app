@@ -1,18 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  AccordionActions,
+  Grid,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Stack,
+  Typography,
+  Paper,
+} from '@mui/material';
+import { Masonry } from '@mui/lab';
 
 import { formatDate, formatDatetime } from '../../../base/utils/date';
-
 import { getAllItems } from '../../services/ItemService';
-
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import ItemDetail from '../../components/item/ItemDetail';
 
 type Item = {
   id: number;
@@ -22,9 +31,25 @@ type Item = {
   versionNo: number;
 };
 
+const minHeights: number[] = [150, 30, 90, 70, 90, 100, 150, 30, 50, 80];
+const resolveMinHeight: (idx: number) => number = (idx: number) => {
+  let minHeight = 0;
+  if (idx < minHeights.length) {
+    minHeight = minHeights[idx];
+  } else {
+    const remaining: number = idx % minHeights.length;
+    // console.log(
+    //   'resolveMinHeight - idx: [' + idx + '], remaining: [' + remaining + ']'
+    // );
+    minHeight = minHeights[remaining];
+  }
+  return minHeight;
+};
+
 const AllItems = () => {
-  const [items, setItems] = useState<Item[]>([]);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const [items, setItems] = useState<null | Item[]>(null);
 
   useEffect(() => {
     // axiosService
@@ -40,11 +65,26 @@ const AllItems = () => {
       const data = await getAllItems();
       setItems(data);
     };
-    fetchData().catch(console.error);
+    fetchData().catch((err) => {
+      console.error('AllItem - useEffect - err: ', err);
+    });
   }, []);
+
   return (
     <>
-      <Grid container spacing={2}>
+      {items && (
+        <Masonry columns={{ xs: 2, sm: 3, md: 4 }} spacing={2}>
+          {items.map((itemObj, idx) => (
+            <ItemDetail
+              key={idx}
+              itemObj={itemObj}
+              defaultExpanded={false}
+              minHeight={resolveMinHeight(idx)}
+            ></ItemDetail>
+          ))}
+        </Masonry>
+      )}
+      {/* <Grid container spacing={2}>
         {items.map((itemObj, idx) => (
           <Grid item>
             <Card variant="outlined">
@@ -70,7 +110,7 @@ const AllItems = () => {
             </Card>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </>
   );
 };

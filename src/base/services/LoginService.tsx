@@ -1,5 +1,5 @@
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import axiosService from '../axios/axios-service';
 
 const STORAGE_KEY_TOKENS = 'tokens';
@@ -115,7 +115,7 @@ const doRefreshToken = async (): Promise<any> => {
       ']'
   );
   try {
-    let apiResponse = await axios.post(oauthRefreshTokenApi, payload);
+    const apiResponse = await axios.post(oauthRefreshTokenApi, payload);
     const tokensRefreshed = apiResponse.data;
     saveTokens(tokensRefreshed);
     return tokensRefreshed;
@@ -125,7 +125,8 @@ const doRefreshToken = async (): Promise<any> => {
     sessionStorage.removeItem(STORAGE_KEY_TOKENS);
     sessionStorage.removeItem(STORAGE_KEY_USER);
 
-    return null;
+    // return err as AxiosError;
+    throw err;
   }
 };
 

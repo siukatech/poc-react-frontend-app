@@ -18,11 +18,9 @@ const prePublicDataObjProcessor = (
   //     postDataRetProcessor: postPublicDataRetProcessor,
   //   },
   // );
+  if (reqConfig === null) reqConfig = initReqConfigProcessors(reqConfig);
   if (reqConfig.processors != null) {
     reqConfig.processors.postDataRetProcessor = postPublicDataRetProcessor;
-  }
-  else {
-    reqConfig = initReqConfigProcessors(reqConfig);
   }
   // }
   console.log('prePublicDataObjProcessor - 1 - reqConfig: ', reqConfig);

@@ -1,16 +1,18 @@
 import { useState } from 'react';
 
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Fab from '@mui/material/Fab';
-import Fade from '@mui/material/Fade';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  CssBaseline,
+  useScrollTrigger,
+  Box,
+  Container,
+  Fab,
+  Fade,
+} from '@mui/material';
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { KeyboardArrowUp as KeyboardArrowUpIcon } from '@mui/icons-material';
 
 const ScrollTop = ({
   children,
@@ -46,8 +48,7 @@ const ScrollTop = ({
   return (
     <>
       {
-      // !open && 
-      (
+        // !open &&
         <Fade in={trigger}>
           <Box
             onClick={backToTopHandler}
@@ -57,7 +58,7 @@ const ScrollTop = ({
             {children}
           </Box>
         </Fade>
-      )}
+      }
     </>
   );
 };

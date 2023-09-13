@@ -31,10 +31,9 @@ const preProtectedDataObjProcessor = (
     //     postDataRetProcessor: postProtectedDataRetProcessor,
     //   },
     // );
+    if (reqConfig === null) reqConfig = initReqConfigProcessors(reqConfig);
     if (reqConfig.processors != null) {
       reqConfig.processors.postDataRetProcessor = postProtectedDataRetProcessor;
-    } else {
-      reqConfig = initReqConfigProcessors(reqConfig);
     }
   }
   // }

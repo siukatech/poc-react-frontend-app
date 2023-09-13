@@ -4,45 +4,49 @@ import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
 import { Theme, styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBarMui from '@mui/material/AppBar';
-import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Container from '@mui/material/Container';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Fab from '@mui/material/Fab';
-import Fade from '@mui/material/Fade';
+import {
+  Box,
+  CssBaseline,
+  AppBar as AppBarMui,
+  Drawer,
+  Toolbar,
+  IconButton,
+  Typography,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Container,
+  Menu,
+  MenuItem,
+  Button,
+  Tooltip,
+  Avatar,
+  useScrollTrigger,
+  Fab,
+  Fade,
+} from '@mui/material';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import HomeIcon from '@mui/icons-material/Home';
-import AdbIcon from '@mui/icons-material/Adb';
-import SmartphoneIcon from '@mui/icons-material/Smartphone';
-import EventIcon from '@mui/icons-material/Event';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {
+  Menu as MenuIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  MoveToInbox as MoveToInboxIcon,
+  Mail as MailIcon,
+  Home as HomeIcon,
+  Adb as AdbIcon,
+  Smartphone as SmartphoneIcon,
+  Event as EventIcon,
+  Storefront as StorefrontIcon,
+  AssignmentInd as AssignmentIndIcon,
+  Person as PersonIcon,
+  Dashboard as DashboardIcon,
+  Login as LoginIcon,
+  Logout as LogoutIcon,
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+} from '@mui/icons-material';
 
 import AuthContext from '../../../base/stores/AuthContext';
 
@@ -278,9 +282,9 @@ const Layout = (props: {
               </IconButton>
               <Typography
                 variant="h6"
-                noWrap
                 component="div"
-                // href="/"
+                noWrap
+                // href="/" // not-working
                 sx={{
                   mr: 2,
                   fontFamily: 'monospace',
@@ -288,7 +292,11 @@ const Layout = (props: {
                   letterSpacing: '.3rem',
                   color: 'inherit',
                   textDecoration: 'none',
+                  '&:hover': {
+                    cursor: 'pointer',
+                  },
                 }}
+                onClick={() => navigate('/')}
               >
                 {t('app.title')} [{`${drawerToggle}`}]
               </Typography>
@@ -327,7 +335,6 @@ const Layout = (props: {
               </Typography>
             </Box>
 
-
             <NavLang />
             <NavNoti />
             <NavUser />
@@ -364,7 +371,6 @@ const Layout = (props: {
           <DrawerHeader />
           <Outlet />
         </MainMd>
-
       </Box>
       <ScrollTop open={drawerToggle} {...props}>
         <Fab size="small" aria-label="scroll back to top">
