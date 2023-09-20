@@ -16,6 +16,7 @@ const Redirect = () => {
   const error = searchParams?.get('error');
   const errorDescription = searchParams?.get('error_description');
   const clientName = process.env.REACT_APP_OAUTH_CLIENT_NAME;
+  const authorizeUrl = authorize(clientName);
 
   useEffect(() => {
     if (error == null) {
@@ -116,11 +117,12 @@ const Redirect = () => {
 
         tokenFetch();
       } else if (!code) {
-        const authorizeUrl = authorize(clientName);
+        // const authorizeUrl = authorize(clientName);
         console.log(
           'Redirect - useEffect - authorizeUrl: [' + authorizeUrl + ']'
         );
         window.location.href = authorizeUrl;
+        // window.location.href = 'https://www.google.com';
       }
     } else {
       // do nothing
@@ -129,7 +131,14 @@ const Redirect = () => {
 
   return (
     <>
-      {error == null && <p>Redirecting...</p>}
+      {error == null && (
+        <>
+          <p>
+            Redirecting... code: [{code}], error: [{error}]
+          </p>
+          <a href={authorizeUrl}>Click here</a>
+        </>
+      )}
       {error != null && <p>{errorDescription}</p>}
     </>
   );
