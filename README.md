@@ -13,14 +13,44 @@ npm i -S crypto-js jsencrypt randomstring
 npm i -S i18next i18next-http-backend react-i18next
 ```
 
+
+**Fix of peerDependencies**  
+```json
+  ...
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "__fixes__": "https://github.com/facebook/create-react-app/issues/13080#issuecomment-1515280885",
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5"
+    }
+  },
+  "scripts": {
+  ...
+```
+
 **MUI**
 ```shell
 npm i -S @mui/material @emotion/react @emotion/styled
 npm i -S @mui/icons-material
-#npm i -S @mui/lab
-npm i -S --legacy-peer-deps @mui/lab
-npm i -S --legacy-peer-deps @mui/x-date-pickers
+#npm i -S --legacy-peer-deps @mui/lab
+#npm i -S --legacy-peer-deps @mui/x-date-pickers
+npm i -S @mui/lab
+npm i -S @mui/x-date-pickers
 ```
+
+**Handle warning**  
+```shell
+# install deprecated package to dev by --save-dev
+npm i --save-dev @babel/plugin-proposal-private-property-in-object
+
+# downgrade typescript to 5.1.3 to prevent eslint error
+npm i --save typescript@5.1.3
+```
+
 
 **Reference:**
 https://mui.com/material-ui/getting-started/installation/  
