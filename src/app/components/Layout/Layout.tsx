@@ -162,7 +162,7 @@ const DrawerContent = ({
   pages: any[];
 }) => {
   const { t, i18n } = useTranslation();
-  const { user, logout } = useContext(AuthContext);
+  const { user, doLogout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
@@ -206,7 +206,7 @@ const Layout = (props: {
   children?: React.ReactNode;
 }) => {
   const { t, i18n } = useTranslation();
-  const { user, logout } = useContext(AuthContext);
+  const { user, doLogout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [drawerToggle, setDrawerToggle] = useState(false);

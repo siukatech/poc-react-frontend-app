@@ -73,7 +73,7 @@ const settings =
 
 const NavUser = () => {
   const { t, i18n } = useTranslation();
-  const { user, logout } = useContext(AuthContext);
+  const { user, doLogout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);

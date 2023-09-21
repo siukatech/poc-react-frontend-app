@@ -9,19 +9,22 @@ import {
   restoreUser,
   doAuthLogin,
   doAuthLogout,
+  doCheckTimeout,
 } from '../services/LoginService';
 import type { DoAuthLoginPayload } from '../services/LoginService';
 
 type AuthContextObj = {
   user: any;
-  login: (payload: DoAuthLoginPayload) => void;
-  logout: () => void;
+  doLogin: (payload: DoAuthLoginPayload) => void;
+  doLogout: () => void;
+  checkTimeout: () => void;
 };
 
 const AuthContext = createContext<AuthContextObj>({
   user: null,
-  login: () => {},
-  logout: () => {},
+  doLogin: () => {},
+  doLogout: () => {},
+  checkTimeout: () => {},
 });
 
 export const AuthContextProvider = (props: { children: React.ReactNode }) => {
@@ -41,7 +44,7 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   const navigate = useNavigate();
 
-  const login = async (payload: DoAuthLoginPayload): Promise<void> => {
+  const doLogin = (payload: DoAuthLoginPayload) => {
     // let authCodeLoginUrl =
     //   process.env.REACT_APP_API_DOMAIN_PREFIX +
     //   process.env.REACT_APP_API_V1_PUBLIC_URI +
@@ -75,23 +78,47 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
     //   user[key] = myUserInfo[key];
     // }
     // sessionStorage.setItem('user', JSON.stringify(user));
-    const user = await doAuthLogin(payload);
+    const user = doAuthLogin(payload);
     console.log(
       'AuthContextProvider - login - user: [' + JSON.stringify(user) + ']'
     );
     setUser(user);
     navigate('/');
   };
-  const logout = async (): Promise<void> => {
-    // invoke the logout API call, for our NestJS API no logout API
-    await doAuthLogout();
 
-    //
-    setUser(null);
-    navigate('/');
+  // const doLogout = async (): Promise<void> => {
+  //   // invoke the logout API call, for our NestJS API no logout API
+  //   await doAuthLogout();
+
+  //   //
+  //   setUser(null);
+  //   navigate('/');
+  // };
+  const doLogout = () => {
+    doAuthLogout();
   };
+
+  // const checkTimeout = async (): Promise<void> => {
+  //   try {
+  //     await doCheckTimeout();
+  //   }
+  //   catch (err) {
+  //     console.error('AuthContext - checkTimeout - err: ', err);
+  //     // return Promise.reject(err);
+  //     throw err;
+  //   }
+  // }
+  const checkTimeout = () => {
+    const checkTimeoutErr = doCheckTimeout();
+    if ( checkTimeoutErr != null ) {
+      // return Promise.reject(checkTimeoutErr);
+      throw checkTimeoutErr;
+    }
+    // return Promise.resolve();
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, doLogin, doLogout, checkTimeout }}>
       {props.children}
     </AuthContext.Provider>
   );

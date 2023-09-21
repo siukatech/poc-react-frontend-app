@@ -97,7 +97,7 @@ type NavNotiProps = {
 const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
   const { t, i18n } = useTranslation();
   const [notis, setNotis] = useState<any[]>([]);
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const theme = useTheme();
 

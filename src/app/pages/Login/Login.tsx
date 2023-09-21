@@ -36,7 +36,7 @@ const Login = () => {
   const loginFormRef = useRef<null | HTMLFormElement>(null);
   const usernameInputRef = useRef<null | HTMLInputElement>(null);
   const passwordInputRef = useRef<null | HTMLInputElement>(null);
-  const { login } = useContext(AuthContext);
+  const { doLogin } = useContext(AuthContext);
   const [isDirty, setIsDirty] = useState(false);
 
   const { t, i18n } = useTranslation();
@@ -50,7 +50,7 @@ const Login = () => {
       username: usernameInputRef.current?.value,
       password: passwordInputRef.current?.value,
     };
-    await login(payload);
+    await doLogin(payload);
   };
 
   const resetFormHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {

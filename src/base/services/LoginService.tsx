@@ -55,6 +55,36 @@ const saveTokens = (tokens: {}) => {
 const saveUser = (user: {}) => {
   saveJsonObj(STORAGE_KEY_USER, user);
 };
+const clearStorageItems = () => {
+  sessionStorage.removeItem(STORAGE_KEY_TOKENS);
+  sessionStorage.removeItem(STORAGE_KEY_USER);
+}
+
+const doCheckTimeout = async () => {
+  const tokens = restoreTokens();
+  console.log('LoginService - doCheckTimeout - start - tokens: ', tokens);
+  if (tokens != null) {
+    try {
+      const myUserInfoRes = await axiosService.post(API_MY_USER_INFO);
+      const myUserInfo = myUserInfoRes.data;
+      saveUser(myUserInfo);
+    } catch (err) {
+      console.error('LoginService - doCheckTimeout - err: ', err);
+
+      clearStorageItems();
+
+      // throw new AxiosError('Login timeout', AxiosError.ERR_CANCELED);
+      // return Promise.reject(new AxiosError('Login timeout', AxiosError.ERR_CANCELED));
+      return new AxiosError('Login timeout', AxiosError.ERR_CANCELED);
+    }
+  }
+  else {
+    // throw new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST);
+    // return Promise.reject(new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST));
+    return new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST);
+  }
+  console.log('LoginService - doCheckTimeout - end');
+};
 
 type DoAuthLoginPayload = {
   username?: string;
@@ -122,8 +152,7 @@ const doRefreshToken = async (): Promise<any> => {
   } catch (err) {
     console.error('LoginService - doRefreshToken - err: ', err);
 
-    sessionStorage.removeItem(STORAGE_KEY_TOKENS);
-    sessionStorage.removeItem(STORAGE_KEY_USER);
+    clearStorageItems();
 
     // return err as AxiosError;
     throw err;
@@ -144,12 +173,12 @@ const doAuthLogout = async (): Promise<void> => {
         }
       );
       console.log('LoginService - doAuthLogout - apiResponse: ', apiResponse);
+      clearStorageItems();
     } catch (err) {
       console.log('LoginService - doAuthLogout - err: ', err);
+      clearStorageItems();
     }
   }
-  sessionStorage.removeItem(STORAGE_KEY_TOKENS);
-  sessionStorage.removeItem(STORAGE_KEY_USER);
 };
 
 export {
@@ -160,6 +189,7 @@ export {
   doAuthLogin,
   doRefreshToken,
   doAuthLogout,
+  doCheckTimeout,
 };
 
 export type {
