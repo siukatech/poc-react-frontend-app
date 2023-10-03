@@ -21,15 +21,9 @@ import { Masonry } from '@mui/lab';
 
 import { formatDate, formatDatetime } from '../../../base/utils/date';
 import { getAllItems } from '../../services/ItemService';
+import { IItem } from '../../components/Item/Model';
 import ItemDetail from '../../components/Item/ItemDetail';
 
-type Item = {
-  id: number;
-  name: string;
-  purchasedDate: Date;
-  lastModifiedDatetime: Date;
-  versionNo: number;
-};
 
 const minHeights: number[] = [150, 30, 90, 70, 90, 100, 150, 30, 50, 80];
 const resolveMinHeight: (idx: number) => number = (idx: number) => {
@@ -49,7 +43,7 @@ const resolveMinHeight: (idx: number) => number = (idx: number) => {
 const AllItems = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [items, setItems] = useState<null | Item[]>(null);
+  const [items, setItems] = useState<null | IItem[]>(null);
 
   useEffect(() => {
     // axiosService
@@ -116,3 +110,4 @@ const AllItems = () => {
 };
 
 export default AllItems;
+

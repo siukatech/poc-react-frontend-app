@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
@@ -50,13 +50,16 @@ import {
 
 import AuthContext from '../../../base/stores/AuthContext';
 
+import ImgComponent from '../UI/ImgComponent';
+import DrawerHeader from '../UI/DrawerHeader';
+
 import NavLang from './NavLang';
 import NavNoti, { NavNotiDisplayType } from './NavNoti';
 import NavUser from './NavUser';
 import ScrollTop from './ScrollTop';
-import ImgComponent from '../UI/ImgComponent';
 
 import logo192 from '../../assets/logo192.png';
+import DrawerMenu from './DrawerMenu';
 
 const drawerWidth = 240;
 
@@ -137,69 +140,65 @@ const AppBarXs = styled(AppBarMui, {
   }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
+// const DrawerHeader = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   padding: theme.spacing(0, 1),
+//   // necessary for content to be below app bar
+//   ...theme.mixins.toolbar,
+//   justifyContent: 'flex-end',
+// }));
 
-type DrawerContentProps = {
-  toggleDrawerHandler: () => void;
-  theme: Theme;
-  pages: any[];
-};
+// type DrawerContentProps = {
+//   toggleDrawerHandler: () => void;
+//   theme: Theme;
+//   pages: any[];
+// };
 
-const DrawerContent = ({
-  toggleDrawerHandler,
-  theme,
-  pages,
-}: {
-  toggleDrawerHandler: () => void;
-  theme: Theme;
-  pages: any[];
-}) => {
-  const { t, i18n } = useTranslation();
-  const { user, doLogout } = useContext(AuthContext);
-  const navigate = useNavigate();
+// const DrawerContent: React.FC<DrawerContentProps> = ({
+//   toggleDrawerHandler,
+//   theme,
+//   pages,
+// }) => {
+//   const { t, i18n } = useTranslation();
+//   const { user, doLogout } = useContext(AuthContext);
+//   const navigate = useNavigate();
 
-  return (
-    <>
-      <DrawerHeader>
-        <IconButton onClick={toggleDrawerHandler}>
-          {theme.direction === 'ltr' ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </IconButton>
-      </DrawerHeader>
-      <Divider />
-      <List>
-        {pages.map((page) => (
-          <ListItem key={page.i18n} disablePadding>
-            <ListItemButton onClick={() => navigate(page.link)}>
-              <ListItemIcon>
-                {/* <HomeIcon /> */}
-                {/* <MailIcon /> */}
-                {page.icon}
-              </ListItemIcon>
-              <ListItemText primary={t(`${page.i18n}`)} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <DrawerHeader>
+//         <IconButton onClick={toggleDrawerHandler}>
+//           {theme.direction === 'ltr' ? (
+//             <ChevronLeftIcon />
+//           ) : (
+//             <ChevronRightIcon />
+//           )}
+//         </IconButton>
+//       </DrawerHeader>
+//       <Divider />
+//       <List>
+//         {pages.map((page) => (
+//           <ListItem key={page.i18n} disablePadding>
+//             <ListItemButton onClick={() => navigate(page.link)}>
+//               <ListItemIcon>
+//                 {/* <HomeIcon /> */}
+//                 {/* <MailIcon /> */}
+//                 {page.icon}
+//               </ListItemIcon>
+//               <ListItemText primary={t(`${page.i18n}`)} />
+//             </ListItemButton>
+//           </ListItem>
+//         ))}
+//       </List>
+//     </>
+//   );
+// };
 
-const pages = [
-  { i18n: 'menu.home', link: '/', icon: <HomeIcon /> },
-  { i18n: 'menu.items', link: '/items', icon: <EventIcon /> },
-  { i18n: 'menu.shops', link: '/shops', icon: <StorefrontIcon /> },
-];
+// const pages = [
+//   { i18n: 'menu.home', link: '/', icon: <HomeIcon /> },
+//   { i18n: 'menu.items', link: '/items', icon: <EventIcon /> },
+//   { i18n: 'menu.shops', link: '/shops', icon: <StorefrontIcon /> },
+// ];
 
 const Layout = (props: {
   window?: () => Window;
@@ -216,45 +215,6 @@ const Layout = (props: {
     setDrawerToggle(!drawerToggle);
   };
 
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLButtonElement>(
-    null
-  );
-
-  const openNavMenuHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorElNav(evt.currentTarget);
-  };
-  const closeNavMenuHandler = () => {
-    setAnchorElNav(null);
-  };
-
-  const drawerContent = (
-    <>
-      <DrawerHeader>
-        <ImgComponent
-          src={logo192}
-          sx={{ width: 45, marginLeft: 'auto', marginRight: 'auto' }}
-        />
-        <IconButton onClick={toggleDrawerHandler}>
-          {theme.direction === 'ltr' ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </IconButton>
-      </DrawerHeader>
-      <Divider />
-      <List>
-        {pages.map((page) => (
-          <ListItem key={page.i18n} disablePadding>
-            <ListItemButton onClick={() => navigate(page.link)}>
-              <ListItemIcon>{page.icon}</ListItemIcon>
-              <ListItemText primary={t(`${page.i18n}`)} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
 
   return (
     <>
@@ -289,7 +249,11 @@ const Layout = (props: {
               </IconButton>
               <ImgComponent
                 src={logo192}
-                sx={{ width: 45, mr: 1, ...(drawerToggle && { display: 'none' }) }}
+                sx={{
+                  width: 45,
+                  mr: 1,
+                  ...(drawerToggle && { display: 'none' }),
+                }}
               />
               <Typography
                 variant="h6"
@@ -306,7 +270,7 @@ const Layout = (props: {
                   '&:hover': {
                     cursor: 'pointer',
                   },
-                  ...(!drawerToggle && { mt: '6px' })
+                  ...(!drawerToggle && { mt: '6px' }),
                 }}
                 onClick={() => navigate('/')}
               >
@@ -372,7 +336,8 @@ const Layout = (props: {
           anchor="left"
           open={drawerToggle}
         >
-          {drawerContent}
+          {/* {drawerContent} */}
+          <DrawerMenu theme={theme} toggleDrawerHandler={toggleDrawerHandler} />
         </Drawer>
 
         <MainMd

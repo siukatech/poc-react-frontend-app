@@ -40,6 +40,8 @@ npm i -S @mui/icons-material
 #npm i -S --legacy-peer-deps @mui/x-date-pickers
 npm i -S @mui/lab
 npm i -S @mui/x-date-pickers
+npm i -S @mui/utils
+npm i -S @mui/x-data-grid
 ```
 
 **Handle warning**  

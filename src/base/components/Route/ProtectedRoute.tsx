@@ -56,7 +56,7 @@ const ProtectedRoute = ({ children, accessBy }: IProtectedRouteProps) => {
       //   setCheckTimeoutErr(err);
       // }
     }
-  }, []);
+  }, [accessBy, checkTimeout]);
 
   let dialogPromptInfo: IDialogPromptInfo = {};
   if (checkTimeoutErr != null) {
@@ -81,6 +81,7 @@ const ProtectedRoute = ({ children, accessBy }: IProtectedRouteProps) => {
       }
       else {
         // navigate('/');
+        showChildren = true;
       }
     } else if (accessBy === ProtectedRouteAccessBy.PROTECTED) {
       if (user) {
@@ -98,7 +99,7 @@ const ProtectedRoute = ({ children, accessBy }: IProtectedRouteProps) => {
   // return <Navigate to="/?access=denied" />;
   return (
     <>
-      <div>dialogPromptInfo.title: [{dialogPromptInfo.title}], showChildren: [{showChildren + ''}]</div>
+      <div>dialogPromptInfo.title: [{dialogPromptInfo.title}], showChildren: [{showChildren + ''}], checkTimeoutErr.code: [{checkTimeoutErr?.code}]</div>
       {dialogPromptInfo.title != null && (
         <DialogPrompt
           open={true}
@@ -110,7 +111,7 @@ const ProtectedRoute = ({ children, accessBy }: IProtectedRouteProps) => {
         />
       )}
       {dialogPromptInfo.title == null && showChildren && children}
-      {dialogPromptInfo.title == null && !showChildren && (<Navigate to={`/`} />)}
+      {/* {dialogPromptInfo.title == null && checkTimeoutErr == null && !showChildren && (<Navigate to={`/?dialogPromptInfo.title=${dialogPromptInfo.title}&showChildren=${showChildren}&checkTimeoutErr.code=${checkTimeoutErr?.code}`} />)} */}
     </>
   );
 };

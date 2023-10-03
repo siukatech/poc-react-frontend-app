@@ -96,6 +96,7 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   // };
   const doLogout = () => {
     doAuthLogout();
+    setUser(null);
   };
 
   // const checkTimeout = async (): Promise<void> => {
