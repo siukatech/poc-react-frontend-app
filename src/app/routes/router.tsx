@@ -16,9 +16,10 @@ import {
 } from '@mui/material/styles';
 
 import { AuthContextProvider } from '../../base/stores/AuthContext';
-import ProtectedRoute, {
-  ProtectedRouteAccessBy,
-} from '../../base/components/Route/ProtectedRoute';
+import ProtectedResource, {
+  ProtectedResourceAccessBy,
+  ProtectedResourceDisplayType,
+} from '../../base/components/Security/ProtectedResource';
 
 import Layout from '../components/Layout/Layout';
 import PersistentDrawerLeft from '../components/Layout/PersistentDrawerLeft';
@@ -60,55 +61,85 @@ const router = createBrowserRouter(
         {
           path: '/login',
           element: (
-            <ProtectedRoute accessBy={ProtectedRouteAccessBy.PUBLIC}>
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PUBLIC}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
               <Login />
-            </ProtectedRoute>
+            </ProtectedResource>
           ),
         },
         {
           path: '/logout',
           element: (
-            <ProtectedRoute accessBy={ProtectedRouteAccessBy.PROTECTED}>
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PROTECTED}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
               <Logout />
-            </ProtectedRoute>
+            </ProtectedResource>
           ),
         },
-        // { path: '/items', exact: true, element: <ProtectedRoute accessBy="authenticated" ><AllItems /></ProtectedRoute> },
+        // { path: '/items', exact: true, element: <ProtectedResource accessBy="authenticated" ><AllItems /></ProtectedResource> },
         {
           path: '/items',
           element: (
-            <ProtectedRoute accessBy={ProtectedRouteAccessBy.PROTECTED}>
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PROTECTED}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
               <AllItems />
-            </ProtectedRoute>
+            </ProtectedResource>
           ),
         },
         {
           path: '/items/:itemId',
           element: (
-            <ProtectedRoute accessBy={ProtectedRouteAccessBy.PROTECTED}>
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PROTECTED}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
               <ViewItem />
-            </ProtectedRoute>
+            </ProtectedResource>
           ),
         },
         {
           path: '/items/:itemId/edit',
           element: (
-            <ProtectedRoute accessBy={ProtectedRouteAccessBy.PROTECTED}>
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PROTECTED}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
               <EditItem />
-            </ProtectedRoute>
+            </ProtectedResource>
           ),
         },
         {
           path: '/merchants',
           element: (
-            <ProtectedRoute accessBy={ProtectedRouteAccessBy.PUBLIC}>
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PUBLIC}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
               <AllMerchants />
-            </ProtectedRoute>
+            </ProtectedResource>
           ),
         },
         // // { path: '/items/new', element: <NewItem /> },
-        // { path: '/merchants', exact: true, element: <ProtectedRoute accessBy={ProtectedRouteAccessBy.PROTECTED} ><AllItems /></ProtectedRoute> },
-        // { path: '/shops', exact: true, element: <ProtectedRoute accessBy={ProtectedRouteAccessBy.PROTECTED} ><AllItems /></ProtectedRoute> },
+        // { path: '/merchants', exact: true, element: <ProtectedResource accessBy={ProtectedResourceAccessBy.PROTECTED} ><AllItems /></ProtectedResource> },
+        // { path: '/shops', exact: true, element: <ProtectedResource accessBy={ProtectedResourceAccessBy.PROTECTED} ><AllItems /></ProtectedResource> },
         { path: '*', element: <NotFound /> },
       ],
     },

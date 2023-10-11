@@ -11,7 +11,7 @@ const prePublicDataObjProcessor = (
   //
   reqConfig = preDataObjProcessor(reqConfig);
   //
-  // if (reqConfig.url.indexOf(process.env.REACT_APP_API_V1_PUBLIC_URI) >= 0) {
+  // if (reqConfig.url.indexOf(process.env.REACT_APP_API_PATH_V1_PUBLIC) >= 0) {
   // reqConfig.processors = deepMergeObject(
   //   reqConfig.processors,
   //   {

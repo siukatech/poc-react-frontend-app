@@ -28,7 +28,7 @@ axiosService.interceptors.request.use(
     // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
     // config.headers['Authorization'] = `Bearer ${tokens.access_token}`;
     // // config.processors = config.processors ?? {};
-    // if (config.url.indexOf(process.env.REACT_APP_API_V1_PUBLIC_URI) >= 0) {
+    // if (config.url.indexOf(process.env.REACT_APP_API_PATH_V1_PUBLIC) >= 0) {
     //   config.processors = deepMergeObject(
     //     {
     //       postDataRetProcessor: postPublicDataRetProcessor,
@@ -44,7 +44,9 @@ axiosService.interceptors.request.use(
     );
     console.log('interceptor.request - 1 - configProcessed: ', configProcessed);
     return configProcessed;
-  }
+  },
+  undefined,
+  { synchronous: true }
 );
 axiosService.interceptors.request.use(
   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
@@ -52,7 +54,7 @@ axiosService.interceptors.request.use(
     //   'interceptor.request - 2 - config.interceptors: ',
     //   config.interceptors
     // );
-    // if (config.url.indexOf(process.env.REACT_APP_API_V1_PROTECTED_URI) >= 0) {
+    // if (config.url.indexOf(process.env.REACT_APP_API_PATH_V1_PROTECTED) >= 0) {
     //   config.processors = deepMergeObject(
     //     {
     //       postDataRetProcessor: postProtectedDataRetProcessor,
@@ -68,7 +70,9 @@ axiosService.interceptors.request.use(
     );
     console.log('interceptor.request - 2 - configProcessed: ', configProcessed);
     return configProcessed;
-  }
+  },
+  undefined,
+  { synchronous: true }
 );
 axiosService.interceptors.request.use(
   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
@@ -76,7 +80,7 @@ axiosService.interceptors.request.use(
     //   'interceptor.request - 3 - config.interceptors: ',
     //   config.interceptors
     // );
-    // if (config.url.indexOf(process.env.REACT_APP_API_V1_ENCRYPTED_URI) >= 0) {
+    // if (config.url.indexOf(process.env.REACT_APP_API_PATH_V1_ENCRYPTED) >= 0) {
     //   config.processors = deepMergeObject(
     //     {
     //       postDataRetProcessor: postEncryptedDataRetProcessor,
@@ -92,7 +96,9 @@ axiosService.interceptors.request.use(
     );
     console.log('interceptor.request - 3 - configProcessed: ', configProcessed);
     return configProcessed;
-  }
+  },
+  undefined,
+  { synchronous: true }
 );
 
 axiosService.interceptors.response.use(
@@ -110,7 +116,8 @@ axiosService.interceptors.response.use(
     );
     return response;
   },
-  async (err): Promise<any> => {
+  // async (err): Promise<any> => {
+  async (err) => {
     console.log('interceptor.response.err - 1');
     console.log('interceptor.response.err - 1 - err: ', err);
     let retStatus = err.response?.status;
@@ -123,12 +130,12 @@ axiosService.interceptors.response.use(
       // };
 
       // let tokenRefreshUrl =
-      //   process.env.REACT_APP_API_DOMAIN_PREFIX +
-      //   process.env.REACT_APP_API_V1_PUBLIC_URI +
-      //   process.env.REACT_APP_OAUTH_REFRESH_TOKEN_URI;
+      //   process.env.REACT_APP_API_PATH_PREFIX +
+      //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
+      //   process.env.REACT_APP_API_OAUTH_REFRESH_TOKEN;
       // tokenRefreshUrl = tokenRefreshUrl.replace(
       //   '{0}',
-      //   process.env.REACT_APP_OAUTH_CLIENT_NAME
+      //   process.env.REACT_APP_API_OAUTH_CLIENT_NAME
       // );
       // console.log(
       //   'axiosService - response.use - tokenRefreshUrl: [' +

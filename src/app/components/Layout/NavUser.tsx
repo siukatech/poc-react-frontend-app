@@ -118,7 +118,7 @@ const NavUser = () => {
             >
               <Avatar
                 alt={user?.loginId}
-                src="/static/images/avatar/2.jpg"
+                // src="/static/images/avatar/2.jpg"
                 sx={{ width: 24, height: 24 }}
               />
             </IconButton>

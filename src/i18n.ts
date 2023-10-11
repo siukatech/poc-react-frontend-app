@@ -5,10 +5,11 @@ import Backend from 'i18next-http-backend';
 
 // typescript is required to wrap a function to call in index.tsx
 const initI18n = () => {
-  let i18nLangUrl: string =
-    (process.env.REACT_APP_API_DOMAIN_PREFIX as string) +
-    (process.env.REACT_APP_API_V1_PUBLIC_URI as string) +
-    (process.env.REACT_APP_I18N_LANG_URI as string);
+  const i18nLangUrl: string =
+    (process.env.REACT_APP_API_PATH_PREFIX as string) +
+    (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
+    (process.env.REACT_APP_API_PATH_I18N_LANG as string);
+    console.log(`i18nLangUrl: [${i18nLangUrl}]`);
 
   i18n
     // 使用 i18next-http-backend

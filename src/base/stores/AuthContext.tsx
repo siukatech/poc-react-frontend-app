@@ -1,8 +1,8 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import axiosService from '../axios/axios-service';
 import {
@@ -10,24 +10,32 @@ import {
   doAuthLogin,
   doAuthLogout,
   doCheckTimeout,
+  doCheckPermissionByRegex as doCheckPermission,
+  // doCheckPermissionByMap as doCheckPermission,
 } from '../services/LoginService';
 import type { DoAuthLoginPayload } from '../services/LoginService';
+import { IUser } from '../../app/components/User/Model';
 
 type AuthContextObj = {
-  user: any;
+  user?: IUser;
   doLogin: (payload: DoAuthLoginPayload) => void;
   doLogout: () => void;
   checkTimeout: () => void;
+  checkPermission: typeof doCheckPermission;
+  timeoutErr?: AxiosError;
 };
 
 const AuthContext = createContext<AuthContextObj>({
-  user: null,
+  // user: undefined,
   doLogin: () => {},
   doLogout: () => {},
   checkTimeout: () => {},
+  checkPermission: () => false,
+  // timeoutErr: AxiosError,
 });
 
 export const AuthContextProvider = (props: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(() => {
     // // if (sessionStorage.getItem('tokens')) {
     // //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
@@ -41,18 +49,49 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // return null;
     return restoreUser();
   });
+  const [timeoutErr, setTimeoutErr] = useState<any>(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (user == null) {
+      const fetchData = async () => {
+        try {
+          // // await checkTimeout();
+          await checkTimeout();
+          // try {
+          //   checkTimeout();
+          // } catch (err) {
+          //   console.error('ProtectedResource - useEffect - err 1: ', err);
+          //   setTimeoutErr(err);
+          // }
+        } catch (err) {
+          console.error('ProtectedResource - useEffect - 2 - err: ', err);
+          setTimeoutErr(err);
+        }
+      };
+      fetchData();
+      // .catch((reject) => {
+      //   console.error('ProtectedResource - useEffect - reject 2: ', reject);
+      //   (reject as Promise<AxiosError>).then((err) => setTimeoutErr(err));
+      //   // setTimeoutErr(err);
+      // })
+      // try {
+      //   checkTimeout();
+      // } catch (err) {
+      //   console.error('ProtectedResource - useEffect - err: ', err);
+      //   setTimeoutErr(err);
+      // }
+    }
+  }, [user]);
 
   const doLogin = (payload: DoAuthLoginPayload) => {
     // let authCodeLoginUrl =
-    //   process.env.REACT_APP_API_DOMAIN_PREFIX +
-    //   process.env.REACT_APP_API_V1_PUBLIC_URI +
-    //   process.env.REACT_APP_OAUTH_AUTHORIZE_URI;
+    //   process.env.REACT_APP_API_PATH_PREFIX +
+    //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
+    //   process.env.REACT_APP_API_OAUTH_AUTHORIZE;
     // // authCodeLoginUrl += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
     // authCodeLoginUrl = authCodeLoginUrl.replace(
     //   '{0}',
-    //   process.env.REACT_APP_OAUTH_CLIENT_NAME
+    //   process.env.REACT_APP_API_OAUTH_CLIENT_NAME
     // );
     // console.log(
     //   'AuthContextProvider - login - authCodeLoginUrl: [' +
@@ -64,9 +103,9 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // sessionStorage.setItem('tokens', JSON.stringify(tokens));
     // //
     // // tokens MUST be saved to the sessionStorage before my-user-info api called
-    // let myUserInfoUrl = process.env.REACT_APP_API_DOMAIN_PREFIX +
-    // process.env.REACT_APP_API_V1_PROTECTED_URI +
-    // process.env.REACT_APP_MY_USER_INFO_URI;
+    // let myUserInfoUrl = process.env.REACT_APP_API_PATH_PREFIX +
+    // process.env.REACT_APP_API_PATH_V1_PROTECTED +
+    // process.env.REACT_APP_API_PATH_MY_USER_INFO;
     // const myUserInfoRes = await axiosService.post(myUserInfoUrl);
     // const myUserInfo = myUserInfoRes.data;
     // //
@@ -74,7 +113,7 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // console.log(
     //   'AuthContextProvider - login - user: [' + JSON.stringify(user) + '], myUserInfo: [' + JSON.stringify(myUserInfo) + ']'
     // );
-    // for (let key in myUserInfo) {
+    // for (const key in myUserInfo) {
     //   user[key] = myUserInfo[key];
     // }
     // sessionStorage.setItem('user', JSON.stringify(user));
@@ -109,17 +148,26 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   //     throw err;
   //   }
   // }
-  const checkTimeout = () => {
-    const checkTimeoutErr = doCheckTimeout();
-    if ( checkTimeoutErr != null ) {
-      // return Promise.reject(checkTimeoutErr);
-      throw checkTimeoutErr;
+  const checkTimeout = async () => {
+    const timeoutErr = await doCheckTimeout();
+    if (timeoutErr != null) {
+      // return Promise.reject(timeoutErr);
+      throw timeoutErr;
     }
     // return Promise.resolve();
   };
 
   return (
-    <AuthContext.Provider value={{ user, doLogin, doLogout, checkTimeout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        doLogin,
+        doLogout,
+        checkTimeout,
+        checkPermission: doCheckPermission,
+        timeoutErr,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

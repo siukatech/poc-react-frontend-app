@@ -18,7 +18,7 @@ const preProtectedDataObjProcessor = (
   //
   reqConfig = prePublicDataObjProcessor(reqConfig);
   //
-  // if (reqConfig.url.indexOf(process.env.REACT_APP_API_V1_PROTECTED_URI) >= 0) {
+  // if (reqConfig.url.indexOf(process.env.REACT_APP_API_PATH_V1_PROTECTED) >= 0) {
   const tokens = restoreTokens();
   if (tokens != null) {
     // reqConfig.headers.common = reqConfig.headers.common ?? {};

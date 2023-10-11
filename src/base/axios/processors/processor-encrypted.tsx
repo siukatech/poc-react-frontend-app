@@ -22,7 +22,7 @@ const preEncryptedDataObjProcessor = (
   reqConfig = preProtectedDataObjProcessor(reqConfig);
   //
   const apiEncryptedUriPrefix: string = process.env
-    .REACT_APP_API_ENCRYPTED_URI_PREFIX as string;
+    .REACT_APP_API_PREFIX_ENCRYPTED as string;
   if (reqConfig.url != null && reqConfig.url.indexOf(apiEncryptedUriPrefix) >= 0) {
     // reqConfig.processors = deepMergeObject(
     //   reqConfig.processors,

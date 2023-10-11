@@ -26,6 +26,10 @@ import ImgComponent from '../UI/ImgComponent';
 import IconComponent, { IconNames } from '../UI/IconComponent';
 
 import logo192 from '../../assets/logo192.png';
+import ProtectedResource, {
+  ProtectedResourceAccessBy,
+  ProtectedResourceDisplayType,
+} from '../../../base/components/Security/ProtectedResource';
 
 const pages = [
   { i18n: 'menu.home', link: '/', icon: 'Home' },
@@ -67,14 +71,22 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
       <Divider />
       <List>
         {pages.map((page) => (
-          <ListItem key={page.i18n} disablePadding>
-            <ListItemButton onClick={() => navigate(page.link)}>
-              <ListItemIcon>
-                <IconComponent name={page.icon as IconNames} />
-              </ListItemIcon>
-              <ListItemText primary={t(`${page.i18n}`)} />
-            </ListItemButton>
-          </ListItem>
+          <ProtectedResource
+            key={page.i18n}
+            accessBy={ProtectedResourceAccessBy.PROTECTED}
+            displayType={ProtectedResourceDisplayType.DISABLED}
+            resourceName={`${page.i18n}`}
+            accessRights={`view`}
+          >
+            <ListItem key={page.i18n} disablePadding>
+              <ListItemButton onClick={() => navigate(page.link)}>
+                <ListItemIcon>
+                  <IconComponent name={page.icon as IconNames} />
+                </ListItemIcon>
+                <ListItemText primary={t(`${page.i18n}`)} />
+              </ListItemButton>
+            </ListItem>
+          </ProtectedResource>
         ))}
       </List>
     </>
