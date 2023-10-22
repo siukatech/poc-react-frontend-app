@@ -12,7 +12,7 @@ export async function getAllItems() {
   const response = await axiosService
   .get(`${API_URI}`)
   // .then((response) => {
-  //   dataHandler(response.data);
+  //   handleData(response.data);
   // });
   return response.data;
 //  return api.getEncryptedList(`${API_URI}`);
