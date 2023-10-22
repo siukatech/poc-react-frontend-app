@@ -8,16 +8,16 @@ import MainContent from './MainContent';
 
 const Layout = (props) => {
   const [leftSidebarCollapsed, setLeftSidebarCollapsed] = useState(false);
-  const leftSidebarCollapsedHandler = () => {
+  const handleLeftSidebarCollapse = () => {
     setLeftSidebarCollapsed(!leftSidebarCollapsed);
   };
 
   return (
     <Fragment>
-      <TopNavigation onLeftSidebarCollapsed={leftSidebarCollapsedHandler} />
+      <TopNavigation onLeftSidebarCollapsed={handleLeftSidebarCollapse} />
       <div className={classes.content}>
         <LeftSideBar
-          onLeftSidebarCollapsed={leftSidebarCollapsedHandler}
+          onLeftSidebarCollapsed={handleLeftSidebarCollapse}
           leftSidebarCollapsed={leftSidebarCollapsed}
         />
         <MainContent>

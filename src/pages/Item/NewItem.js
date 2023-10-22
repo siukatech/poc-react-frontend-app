@@ -19,7 +19,7 @@ const NewItem = () => {
   //   }
   // }, [postStatus]);
 
-  const addNewHandler = (itemRec) => {
+  const handleAddNew = (itemRec) => {
     postRequest(itemRec);
   };
 
@@ -37,7 +37,7 @@ const NewItem = () => {
         />
       )}
       <div>postStatus: {postStatus}</div>
-      <ItemForm onSubmit={addNewHandler} />
+      <ItemForm onSubmit={handleAddNew} />
     </>
   );
 };

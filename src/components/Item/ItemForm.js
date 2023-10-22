@@ -61,7 +61,7 @@ const ItemForm = (props) => {
 
   // const blocker = useBlocker('Are you sure you want to leave? All your entered data will be lost!', isDirty);
 
-  const submitFormHandler = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     let itemRec = {
       //id: itemObj == null ? null : itemObj.id
@@ -73,7 +73,7 @@ const ItemForm = (props) => {
     };
     console.log(itemRec);
     console.log(
-      'submitFormHandler - isDirty: [' +
+      'handleFormSubmit - isDirty: [' +
         isDirty +
         // '], blocker.state: [' +
         // blocker.state +
@@ -83,7 +83,7 @@ const ItemForm = (props) => {
 
     // setIsDirty((prevState) => {
     //   console.log(
-    //     'finishEnteringHandler - prevState: [' +
+    //     'handleEnteringFinish - prevState: [' +
     //       prevState +
     //       // '], blocker.state: [' +
     //       // blocker.state +
@@ -98,7 +98,7 @@ const ItemForm = (props) => {
     //   blocker.proceed();
   };
 
-  const resetFormHandler = (e) => {
+  const handleFormReset = (e) => {
     e.preventDefault();
     console.log(e);
     if (e.target.form != null) {
@@ -107,10 +107,10 @@ const ItemForm = (props) => {
     setIsDirty(false);
   };
 
-  // const finishEnteringHandler = () => {
+  // const handleEnteringFinish = () => {
   //   setIsDirty((prevState) => {
   //     console.log(
-  //       'finishEnteringHandler - prevState: [' +
+  //       'handleEnteringFinish - prevState: [' +
   //         prevState +
   //         '], blocker.state: [' +
   //         blocker.state +
@@ -119,11 +119,11 @@ const ItemForm = (props) => {
   //     return '';
   //   });
   // };
-  const formFocusedHandler = () => {
+  const handleFormFocus = () => {
     //navigate(-1);
     //setIsDirty(true);
     setIsDirty((prevState) => {
-      console.log('formFocusedHandler - prevState: [' + prevState + ']');
+      console.log('handleFormFocus - prevState: [' + prevState + ']');
       if (prevState === true) {
         return prevState;
       } else return true;
@@ -158,10 +158,10 @@ const ItemForm = (props) => {
         isDirty={isDirty}
       />
       {
-        //          onFocus={formFocusedHandler}
+        //          onFocus={handleFormFocus}
       }
       <Card>
-        <form className={classes.form} onSubmit={submitFormHandler}>
+        <form className={classes.form} onSubmit={handleFormSubmit}>
           <div className={classes.control}>
             <label>{t('form.blocker.state')}: </label>
             <div>{blocker.state}</div>
@@ -190,7 +190,7 @@ const ItemForm = (props) => {
               type="text"
               id="name"
               ref={nameInputRef}
-              onFocus={formFocusedHandler}
+              onFocus={handleFormFocus}
               defaultValue={itemObj.name}
             />
           </div>
@@ -200,16 +200,16 @@ const ItemForm = (props) => {
               type="date"
               id="purchasedDate"
               ref={purchasedDateInputRef}
-              onFocus={formFocusedHandler}
+              onFocus={handleFormFocus}
               defaultValue={purchasedDateValue}
             />
           </div>
           <div className={classes.actions}>
             {
-              //<button onClick={finishEnteringHandler} >{t('button.save')}</button>
+              //<button onClick={handleEnteringFinish} >{t('button.save')}</button>
             }
             <button>{t('button.save')}</button>
-            <button onClick={resetFormHandler}>{t('button.reset')}</button>
+            <button onClick={handleFormReset}>{t('button.reset')}</button>
             <button
               onClick={(e) => {
                 e.preventDefault();

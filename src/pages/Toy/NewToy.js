@@ -19,7 +19,7 @@ const NewToy = () => {
   //   }
   // }, [postStatus]);
 
-  const addNewHandler = (toyRec) => {
+  const handleAddNew = (toyRec) => {
     postRequest(toyRec);
   };
 
@@ -37,7 +37,7 @@ const NewToy = () => {
         />
       )}
       <div>postStatus: {postStatus}</div>
-      <ToyForm onSubmit={addNewHandler} />
+      <ToyForm onSubmit={handleAddNew} />
     </>
   );
 };

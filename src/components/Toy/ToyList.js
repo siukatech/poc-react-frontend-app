@@ -26,7 +26,7 @@ const ToyList = (props) => {
   const isSortingAscending = queryParams.get('Sort') === 'asc';
   const sortedToys = sortToys(props.items, isSortingAscending);
 
-  const changeSortingHandler = (e) => {
+  const handleSortingChange = (e) => {
     // navigate.push({
     //   pathname: location.pathname
     //   , search: `${(isSortingAscending? 'desc': 'asc')}`
@@ -44,7 +44,7 @@ const ToyList = (props) => {
   return (
     <Fragment>
       <div className={classes.sorting}>
-        <button onClick={changeSortingHandler}>
+        <button onClick={handleSortingChange}>
           Sort {isSortingAscending ? 'Descending' : 'Ascending'}
         </button>
       </div>

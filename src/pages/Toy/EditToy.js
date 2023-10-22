@@ -31,7 +31,7 @@ const EditToy = () => {
     getRequest(toyId);
   }, [getRequest, showConfirmDialog]);
 
-  const updateHandler = (toyRec) => {
+  const handleUpdate = (toyRec) => {
     setShowConfirmDialog(true);
     //toyRec.versionNo = 1;
     //toyRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
@@ -67,7 +67,7 @@ const EditToy = () => {
         getStatus: {getStatus}, putStatus: {putStatus}
       </div>
       {getStatus === 'completed' && (
-        <ToyForm onSubmit={updateHandler} toyObj={loadedObj} />
+        <ToyForm onSubmit={handleUpdate} toyObj={loadedObj} />
       )}
     </>
   );

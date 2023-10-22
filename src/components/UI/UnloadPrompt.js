@@ -12,7 +12,7 @@ const UnloadPrompt = ({ blocker, message, isDirty, chooseModal = true }) => {
 
   useEffect(() => {
     console.log(
-      'UnloadPrompt - useEffect - beforeUnloadHandler - 1 - isActive: [' +
+      'UnloadPrompt - useEffect - handleBeforeUnload - 1 - isActive: [' +
         isActive +
         '], isDirty: [' +
         isDirty +
@@ -34,7 +34,7 @@ const UnloadPrompt = ({ blocker, message, isDirty, chooseModal = true }) => {
 
   // if (isActive && isDirty) {
   //   console.log(
-  //     'UnloadPrompt - useEffect - beforeUnloadHandler - 2 - isActive: [' +
+  //     'UnloadPrompt - useEffect - handleBeforeUnload - 2 - isActive: [' +
   //       isActive +
   //       '], isDirty: [' +
   //       isDirty +

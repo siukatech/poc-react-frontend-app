@@ -31,7 +31,7 @@ const EditItem = () => {
     getRequest(itemId);
   }, [getRequest, showConfirmDialog]);
 
-  const updateHandler = (itemRec) => {
+  const handleUpdate = (itemRec) => {
     setShowConfirmDialog(true);
     //itemRec.versionNo = 1;
     //itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
@@ -67,7 +67,7 @@ const EditItem = () => {
         getStatus: {getStatus}, putStatus: {putStatus}
       </div>
       {getStatus === 'completed' && (
-        <ItemForm onSubmit={updateHandler} itemObj={loadedObj} />
+        <ItemForm onSubmit={handleUpdate} itemObj={loadedObj} />
       )}
     </>
   );
