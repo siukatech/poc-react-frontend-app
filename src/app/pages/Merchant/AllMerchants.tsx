@@ -1,74 +1,70 @@
-import { Box, Divider, Grid, Stack } from '@mui/material';
+import { Fragment, useEffect, useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
+
+import { getAllMerchants } from '../../services/MerchantService';
+
 import { IMerchant } from '../../components/Merchant/Model';
 import MerchantCard from '../../components/Merchant/MerchantCard';
-import { Fragment } from 'react';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
+import MerchantCardList from '../../components/Merchant/MerchantCardList';
 
-const merchants: IMerchant[] = [
-  { id: 1, code: '1', name: '精品', description: '', shops: [] },
-  { id: 2, code: '2', name: '孤注一扭', description: '', shops: [] },
-  { id: 3, code: '3', name: 'Carousell', description: '', shops: [] },
-  { id: 4, code: '4', name: 'G Point', description: '', shops: [] },
-  { id: 5, code: '5', name: '五月玩具', description: '', shops: [] },
-  { id: 6, code: '6', name: '爆米', description: '', shops: [] },
-  { id: 7, code: '7', name: '玩具模型倉', description: '', shops: [] },
-];
+// const merchants: IMerchant[] = [
+//   { id: 1, mid: '1', name: '精品', description: '', shops: [] },
+//   { id: 2, mid: '2', name: '孤注一扭', description: '', shops: [] },
+//   { id: 3, mid: '3', name: 'Carousell', description: '', shops: [] },
+//   { id: 4, mid: '4', name: 'G Point', description: '', shops: [] },
+//   { id: 5, mid: '5', name: '五月玩具', description: '', shops: [] },
+//   { id: 6, mid: '6', name: '爆米', description: '', shops: [] },
+//   { id: 7, mid: '7', name: '玩具模型倉', description: '', shops: [] },
+// ];
 
 const AllMerchants = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
+  const [merchants, setMerchants] = useState<IMerchant[]>([]);
+
+  const {
+    data: data1,
+    isLoading,
+    isSuccess,
+  } = useQuery({
+    queryKey: ['merchantAll'],
+    queryFn: async (queryContext) => {
+      const data = await getAllMerchants();
+      return data;
+    },
+  });
+
+  useEffect(() => {
+    if (data1 != null) {
+      setMerchants(data1);
+    }
+  }, [data1]);
+
+  const handleCardButtonClick = (
+    evt: React.MouseEvent,
+    merchant: IMerchant
+  ) => {
+    navigate(`/merchants/${merchant.id}`);
+  };
+
   return (
     <>
-      <Box
-        sx={{
-          // width: '70%'
-          width: '100%',
-          marginRight: 'auto',
-        }}
-      >
-        <Stack
-          direction="row"
-          sx={{
-            width: 'auto',
-            overflowX: 'auto',
-          }}
-        >
-          {merchants.map((merchant, idx) => (
-            <Fragment key={`key-merchant-1-${idx}`}>
-              <MerchantCard
-                key={`key-merchant-2-${idx}`}
-                merchant={merchant}
-                buttonText={t('button.view')}
-                sx={{
-                  p: 1,
-                  m: 1,
-                  width: 220,
-                }}
-                buttonOnClick={() => {}}
-              />
-            </Fragment>
-          ))}
-        </Stack>
-      </Box>
-      <Divider />
-      <Grid container sx={{ justifyContent: 'center' }}>
-        {merchants.map((merchant, idx) => (
-          <Fragment key={`key-merchant-1-${idx}`}>
-            <Grid item sx={{ pb: 2 }}>
-              <MerchantCard
-                key={`key-merchant-2-${idx}`}
-                merchant={merchant}
-                buttonText={t('button.view')}
-                sx={{
-                  p: 1,
-                  m: 1,
-                  width: 220,
-                }}
-                buttonOnClick={() => {}}
-              />
-            </Grid>
-          </Fragment>
-        ))}
-      </Grid>
+      {isLoading && <LoadingSpinner />}
+      {isSuccess && (
+        <MerchantCardList
+          merchants={merchants}
+          handleCardButtonClick={handleCardButtonClick}
+        />
+      )}
+      {/* <Typography>This is a test.</Typography> */}
     </>
   );
 };

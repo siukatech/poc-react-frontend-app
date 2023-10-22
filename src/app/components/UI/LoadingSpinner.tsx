@@ -5,7 +5,7 @@ import { Modal, CircularProgress, Box } from '@mui/material';
 const LoadingSpinner = () => {
   return (
     <>
-      <Modal open={true}>
+      <Modal open={true} hideBackdrop={true} >
         <Box
           sx={{
             display: 'flex',

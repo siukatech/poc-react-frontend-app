@@ -15,8 +15,8 @@ import {
 import { IMerchant, IMerchantShopPrompt } from './Model';
 import { IShop } from '../Shop/Model';
 
-const resolveShopByCode = (shops: IShop[], code: string) => {
-  const results = shops.filter((shop, idx) => shop.code === code);
+const resolveShopByMid = (shops: IShop[], mid: string) => {
+  const results = shops.filter((shop, idx) => shop.mid === mid);
   if (results.length > 0) return results[0];
   else return null;
 };
@@ -38,14 +38,14 @@ const MerchantShopPrompt: React.FC<MerchantShopPromptProps> = ({
     merchant: merchant,
     shop: {
       id: -1,
-      code: '',
+      mid: '',
       name: '',
       description: '',
     } as IShop,
   });
 
   const handleShopChange = (evt: SelectChangeEvent) => {
-    const shop = resolveShopByCode(merchant.shops, merchant.code);
+    const shop = resolveShopByMid(merchant.shops, merchant.mid);
     setPromptData({
       ...promptData,
       ['shop']: shop,

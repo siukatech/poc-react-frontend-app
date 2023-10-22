@@ -2,9 +2,10 @@ import { IShop } from "../../Shop/Model";
 
 interface IMerchant {
   id: number;
-  code: string;
+  mid: string;
   name: string;
   description?: string;
+  status: string;
   shops: IShop[];
 }
 

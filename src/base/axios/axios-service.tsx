@@ -22,7 +22,7 @@ const axiosService = axios.create({
 // https://axios-http.com/docs/req_config
 axiosService.interceptors.request.use(
   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-    console.log('interceptor.request - 1');
+    // console.log('interceptor.request - 1');
     // const tokens = restoreTokens();
     // // config.headers.common = config.headers.common ?? {};
     // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
@@ -42,7 +42,7 @@ axiosService.interceptors.request.use(
     let configProcessed = preEncryptedDataObjProcessor(
       config as ProcessorAxiosRequestConfig
     );
-    console.log('interceptor.request - 1 - configProcessed: ', configProcessed);
+    // console.log('interceptor.request - 1 - configProcessed: ', configProcessed);
     return configProcessed;
   },
   undefined,
@@ -68,7 +68,7 @@ axiosService.interceptors.request.use(
     let configProcessed = preProtectedDataObjProcessor(
       config as ProcessorAxiosRequestConfig
     );
-    console.log('interceptor.request - 2 - configProcessed: ', configProcessed);
+    // console.log('interceptor.request - 2 - configProcessed: ', configProcessed);
     return configProcessed;
   },
   undefined,
@@ -94,7 +94,7 @@ axiosService.interceptors.request.use(
     let configProcessed = prePublicDataObjProcessor(
       config as ProcessorAxiosRequestConfig
     );
-    console.log('interceptor.request - 3 - configProcessed: ', configProcessed);
+    // console.log('interceptor.request - 3 - configProcessed: ', configProcessed);
     return configProcessed;
   },
   undefined,
@@ -103,22 +103,21 @@ axiosService.interceptors.request.use(
 
 axiosService.interceptors.response.use(
   (response) => {
-    console.log('interceptor.response.normal - 1');
+    // console.log('interceptor.response.normal - 1');
     const processedConfig: ProcessorAxiosRequestConfig =
       response.config as ProcessorAxiosRequestConfig;
     response.data = processedConfig.processors?.postDataRetProcessor(
       response.data,
       processedConfig
     );
-    console.log(
-      'interceptor.response.normal - 1 - processedConfig: ',
-      processedConfig
-    );
+    // console.log(
+    //   'interceptor.response.normal - 1 - processedConfig: ',
+    //   processedConfig
+    // );
     return response;
   },
   // async (err): Promise<any> => {
   async (err) => {
-    console.log('interceptor.response.err - 1');
     console.log('interceptor.response.err - 1 - err: ', err);
     let retStatus = err.response?.status;
     let errorCode = err.code;
@@ -149,13 +148,25 @@ axiosService.interceptors.response.use(
         // const tokensRefreshed = await doRefreshToken();
         // if (tokensRefreshed != null) {
         const refreshTokenResult: any = await doRefreshToken();
+        console.log('interceptor.response.err - 1 - refreshTokenResult: ', refreshTokenResult);
         if (!(refreshTokenResult instanceof AxiosError)) {
           const tokensRefreshed = refreshTokenResult;
+          console.log('interceptor.response.err - 1 - tokensRefreshed: ', tokensRefreshed);
           err.config.headers[
             'Authorization'
           ] = `Bearer ${tokensRefreshed.access_token}`;
-          return axios(err.config);
+          //
+          //
+          // the created axios instance (axiosService, not axios) MUST be used.
+          // because the interceptor(s) of request and response are required for the follow-up.
+          //
+          //// return axios(err.config);
+          // const axiosResRefreshed = await axios(err.config);
+          const axiosResRefreshed = await axiosService(err.config);
+          console.log(`interceptor.response.err - 1 - axiosResRefreshed: `, axiosResRefreshed);
+          return axiosResRefreshed;
         }
+        console.log('interceptor.response.err - 1 - end');
       } catch (doRefreshTokenErr) {
         console.log(
           'interceptor.response.err - 1 - doRefreshTokenErr: ',

@@ -52,7 +52,7 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const [timeoutErr, setTimeoutErr] = useState<any>(null);
 
   useEffect(() => {
-    if (user == null) {
+    if (user != null) {
       const fetchData = async () => {
         try {
           // // await checkTimeout();
@@ -83,7 +83,7 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
     }
   }, [user]);
 
-  const doLogin = (payload: DoAuthLoginPayload) => {
+  const doLogin = async (payload: DoAuthLoginPayload) => {
     // let authCodeLoginUrl =
     //   process.env.REACT_APP_API_PATH_PREFIX +
     //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
@@ -117,7 +117,7 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
     //   user[key] = myUserInfo[key];
     // }
     // sessionStorage.setItem('user', JSON.stringify(user));
-    const user = doAuthLogin(payload);
+    const user = await doAuthLogin(payload);
     console.log(
       'AuthContextProvider - login - user: [' + JSON.stringify(user) + ']'
     );

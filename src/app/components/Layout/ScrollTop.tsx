@@ -32,7 +32,7 @@ const ScrollTop = ({
     threshold: 100,
   });
 
-  const backToTopHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleBackToTop = (event: React.MouseEvent<HTMLDivElement>) => {
     const anchor = (
       (event.target as HTMLDivElement).ownerDocument || document
     ).querySelector('#back-to-top-anchor');
@@ -51,7 +51,7 @@ const ScrollTop = ({
         // !open &&
         <Fade in={trigger}>
           <Box
-            onClick={backToTopHandler}
+            onClick={handleBackToTop}
             role="presentation"
             sx={{ position: 'fixed', bottom: 16, right: 16 }}
           >

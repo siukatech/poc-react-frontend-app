@@ -78,10 +78,10 @@ const NavUser = () => {
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const openUserMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
+  const handleUserMenuOpen = (evt: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(evt.currentTarget);
   };
-  const closeUserMenuHandler = () => {
+  const handleUserMenuClose = () => {
     setAnchorElUser(null);
   };
 
@@ -108,7 +108,7 @@ const NavUser = () => {
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title={t('menu.user.tooltip')}>
             <IconButton
-              onClick={openUserMenuHandler}
+              onClick={handleUserMenuOpen}
               size="large"
               aria-label={t('menu.user')}
               aria-controls="menu-user"
@@ -137,14 +137,14 @@ const NavUser = () => {
               horizontal: 'right',
             }}
             open={Boolean(anchorElUser)}
-            onClose={closeUserMenuHandler}
+            onClose={handleUserMenuClose}
           >
             {settings.map((setting, idx) => (
               <div key={idx}>
                 {!setting.divider && (
                   <MenuItem
                     onClick={() => {
-                      closeUserMenuHandler();
+                      handleUserMenuClose();
                       navigate(`${setting.link}`);
                     }}
                   >

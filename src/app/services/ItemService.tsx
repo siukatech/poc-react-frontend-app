@@ -5,16 +5,17 @@ const API_DOMAIN: string = process.env.REACT_APP_API_PATH_PREFIX as string;
 const API: string =
   (API_DOMAIN as string) +
   (process.env.REACT_APP_API_PATH_V1_ENCRYPTED as string) +
-  '/items';
+  (process.env.REACT_APP_API_PATH_ITEM as string) +
+  '';
 const API_ENCRYPTED: string =
   (API_DOMAIN as string) +
   (process.env.REACT_APP_API_PATH_V1_ENCRYPTED as string) +
-  '/items';
-
+  (process.env.REACT_APP_API_PATH_ITEM as string) +
+  '';
 export async function getAllItems(): Promise<any> {
   const response = await axiosService.get(`${API}`);
   // .then((response) => {
-  //   dataHandler(response.data);
+  //   handleData(response.data);
   // });
   return response.data;
   //  return api.getEncryptedList(`${API}`);
@@ -55,3 +56,4 @@ export async function deleteSingleItem(itemId: number): Promise<any> {
   const response = await axiosService.delete(`${API}/${itemId}`);
   return response.data;
 }
+

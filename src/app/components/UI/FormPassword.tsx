@@ -26,7 +26,7 @@ const FormPassword = ({ inputId, formLabel, className, inputRef, onFocus, defaul
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const showPasswordHandler = (evt: React.MouseEvent<HTMLElement>) => {
+  const handlePasswordShow = (evt: React.MouseEvent<HTMLElement>) => {
     setShowPassword(!showPassword);
   };
 
@@ -44,8 +44,8 @@ const FormPassword = ({ inputId, formLabel, className, inputRef, onFocus, defaul
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={showPasswordHandler}
-              onMouseDown={showPasswordHandler}
+              onClick={handlePasswordShow}
+              onMouseDown={handlePasswordShow}
               edge="end"
             >
               {showPassword ? <VisibilityOff /> : <Visibility />}

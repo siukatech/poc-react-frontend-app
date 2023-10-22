@@ -14,6 +14,15 @@ npm i -S i18next i18next-http-backend react-i18next
 ```
 
 
+
+**Others**
+```shell
+# dependencies for easy-scoll-box
+npm i -S lodash
+npm i --save-dev @types/lodash
+```
+
+
 **Fix of peerDependencies**  
 ```json
   ...
@@ -65,6 +74,32 @@ https://mui.com/material-ui/material-icons/
 
 
 
+## JSON Schema Form
+**rjsf**
+react-jsonschema-form
+```shell
+npm i -S @rjsf/core @rjsf/utils
+npm uninstall --save @rjsf/validator-ajv6
+npm i -S @rjsf/validator-ajv8
+npm i -S @rjsf/mui
+```
+
+
+
+**Readonly form implementation**  
+Add a ThemeProvider to wrap the <Form/> component.  
+
+
+
+**Reference:**
+https://jsonforms.discourse.group/t/switch-to-a-view-only-schema/403/4  
+https://github.com/mingfang/jsonforms-demo/blob/master/src/index.tsx#L9  
+https://github.com/rjsf-team/react-jsonschema-form/issues/1987#issuecomment-1147517375  
+
+
+
+
+
 ## Axios
 **Reference:**  
 https://github.com/chinesedfan/You-Dont-Know-Axios#interceptors  
@@ -110,6 +145,10 @@ npm i -S --legacy-peer-deps @types/randomstring
 **Reference:**  
 https://github.com/codedthemes/mantis-free-react-admin-template/blob/main/src/layout/MainLayout/Header/HeaderContent/Notification.js  
 https://github.com/codedthemes/mantis-free-react-admin-template/blob/main/src/components/MainCard.js  
+
+
+
+
 
 
 
@@ -225,31 +264,31 @@ const EditItem = (props: any) => {
   //   itemObj.purchasedDate == null ? new Date() : itemObj.purchasedDate;
   // let purchasedDateValue = purchasedDateValueRaw.toISOString().substring(0, 10);
 
-  const submitFormHandler = async (
+  const handleFormSubmit = async (
     evt: React.FormEvent<HTMLFormElement>
   ): Promise<any> => {
     evt.preventDefault();
     setIsDirty(false);
   };
 
-  // const resetFormHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  // const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {
   //   evt.preventDefault();
   //   evt.currentTarget.form?.reset();
   //   setIsDirty(false);
   // };
 
-  const focusFormHandler = (
+  const handleFormFocus = (
     evt: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     //navigate(-1);
     //setIsDirty(true);
     console.log(
-      'EditItem - focusFormHandler - evt.target.value: ',
+      'EditItem - handleFormFocus - evt.target.value: ',
       evt.target.value
     );
     setIsDirty((prevState) => {
       console.log(
-        'EditItem - focusFormHandler - prevState: [' + prevState + ']'
+        'EditItem - handleFormFocus - prevState: [' + prevState + ']'
       );
       if (prevState === true) {
         return prevState;
@@ -257,7 +296,7 @@ const EditItem = (props: any) => {
     });
   };
 
-  const changeTextFieldHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextFieldChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setItemObj({
       ...itemObj,
@@ -266,14 +305,14 @@ const EditItem = (props: any) => {
   };
 
   // https://stackoverflow.com/a/69440640
-  const changeDateFieldHandler = (name: string, value: any) => {
+  const handleDateFieldChange = (name: string, value: any) => {
     setItemObj({
       ...itemObj,
       [name]: value,
     });
   };
 
-  const okDialogPromptHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOkDialogPrompt = (evt: React.MouseEvent<HTMLButtonElement>) => {
     navigate(`/login`);
   };
 
@@ -291,15 +330,15 @@ const EditItem = (props: any) => {
           open={isError}
           title={t('error.login.expired')}
           message={t('error.login.expired')}
-          onOk={okDialogPromptHandler}
+          onOk={handleOkDialogPrompt}
         />
       )}
       {!isLoading && !isError && (
         <ItemForm
           itemObj={itemObj}
-          submitFormHandler={submitFormHandler}
-          // changeTextFieldHandler={changeTextFieldHandler}
-          // changeDateFieldHandler={changeDateFieldHandler}
+          handleFormSubmit={handleFormSubmit}
+          // handleTextFieldChange={handleTextFieldChange}
+          // handleDateFieldChange={handleDateFieldChange}
         ></ItemForm>
       )}
     </>
@@ -391,37 +430,37 @@ const EditItem = (props: any) => {
     getRequest(itemId);
   }, [getRequest]);
 
-  // const submitFormHandler = async (
+  // const handleFormSubmit = async (
   //   evt: React.FormEvent<HTMLFormElement>
   // ): Promise<any> => {
   //   evt.preventDefault();
   // };
-  const submitFormHandler = (itemRec: IItem) => {
+  const handleFormSubmit = (itemRec: IItem) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
-    console.log('EditItem - submitFormHandler - itemRec: ', itemRec);
+    console.log('EditItem - handleFormSubmit - itemRec: ', itemRec);
     putRequest(itemRec);
   };
 
-  // const resetFormHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  // const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {
   //   evt.preventDefault();
   //   evt.currentTarget.form?.reset();
   //   setIsDirty(false);
   // };
 
-  // const focusFormHandler = (
+  // const handleFormFocus = (
   //   evt: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   // ) => {
   //   //navigate(-1);
   //   //setIsDirty(true);
   //   console.log(
-  //     'EditItem - focusFormHandler - evt.target.value: ',
+  //     'EditItem - handleFormFocus - evt.target.value: ',
   //     evt.target.value
   //   );
   //   setIsDirty((prevState) => {
   //     console.log(
-  //       'EditItem - focusFormHandler - prevState: [' + prevState + ']'
+  //       'EditItem - handleFormFocus - prevState: [' + prevState + ']'
   //     );
   //     if (prevState === true) {
   //       return prevState;
@@ -429,7 +468,7 @@ const EditItem = (props: any) => {
   //   });
   // };
 
-  // const changeTextFieldHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleTextFieldChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
   //   const { name, value } = evt.target;
   //   setItemObj({
   //     ...itemObj,
@@ -438,18 +477,18 @@ const EditItem = (props: any) => {
   // };
 
   // // https://stackoverflow.com/a/69440640
-  // const changeDateFieldHandler = (name: string, value: any) => {
+  // const handleDateFieldChange = (name: string, value: any) => {
   //   setItemObj({
   //     ...itemObj,
   //     [name]: value,
   //   });
   // };
 
-  const navigateokDialogPromptHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOkDialogPrompt = (evt: React.MouseEvent<HTMLButtonElement>) => {
     navigate(`/login`);
   };
 
-  const formPutErrorMessageHandler = (putError: any): string => {
+  const handleFormPutError = (putError: any): string => {
     return '';
   }
 
@@ -516,9 +555,9 @@ const EditItem = (props: any) => {
       {getStatus === HttpReducerStateStatus.COMPLETED && (
         <ItemForm
           itemObj={itemObj}
-          onSubmit={submitFormHandler}
-          // changeTextFieldHandler={changeTextFieldHandler}
-          // changeDateFieldHandler={changeDateFieldHandler}
+          onSubmit={handleFormSubmit}
+          // handleTextFieldChange={handleTextFieldChange}
+          // handleDateFieldChange={handleDateFieldChange}
         ></ItemForm>
       )}
     </>

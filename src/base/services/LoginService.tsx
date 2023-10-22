@@ -2,7 +2,9 @@ import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 import axiosService from '../axios/axios-service';
 import { restoreJsonStr, saveJsonObj } from '../utils/storage';
-import { IUser, IPermission } from '../../app/components/User/Model';
+import { IUser, IUserPermission } from '../../app/components/User/Model';
+
+const APP_NAME = process.env.REACT_APP_APP_NAME as string;
 
 const STORAGE_KEYS = ['tokens', 'user'];
 const [STORAGE_KEY_TOKENS, STORAGE_KEY_USER] = STORAGE_KEYS;
@@ -56,10 +58,10 @@ const clearStorageItems = () => {
 };
 
 const composePermissionPhrase = (
-  resourceName: string,
+  resourceMid: string,
   accessRight: string
 ): string => {
-  const permissionPhrase = `${resourceName}:${accessRight}`;
+  const permissionPhrase = `${resourceMid}:${accessRight}`;
   return permissionPhrase;
 };
 
@@ -68,20 +70,25 @@ const parseResourceName = (resourceName: string): string[] => {
   return resourceParts;
 };
 
-const marshalPermissions = (userPermissions: IPermission[]) => {
+const marshalPermissions = (userPermissions: IUserPermission[]) => {
   let permissions: any = {};
   for (let ppp = 0; ppp < userPermissions.length; ppp++) {
     const userPermission = userPermissions[ppp];
     const permissionPhrase = composePermissionPhrase(
-      userPermission.resourceName,
+      userPermission.resourceMid,
       userPermission.accessRight
     );
-    const resourceParts = parseResourceName(userPermission.resourceName);
-    permissions[resourceParts[0]] =
-      permissions[resourceParts[0]] == null
+    // const resourceParts = parseResourceName(userPermission.resourceMid);
+    // permissions[resourceParts[0]] =
+    //   permissions[resourceParts[0]] == null
+    //     ? {}
+    //     : permissions[resourceParts[0]];
+    // permissions[resourceParts[0]][permissionPhrase] = userPermission;
+    permissions[userPermission.appMid] =
+      permissions[userPermission.appMid] == null
         ? {}
-        : permissions[resourceParts[0]];
-    permissions[resourceParts[0]][permissionPhrase] = userPermission;
+        : permissions[userPermission.appMid];
+    permissions[userPermission.appMid][permissionPhrase] = userPermission;
   }
   return permissions;
 };
@@ -119,7 +126,8 @@ const doCheckTimeout = async () => {
   if (tokens != null) {
     try {
       let user = restoreUser();
-      refreshUserInfo(user);
+      await refreshUserInfo(user);
+      user = restoreUser();
     } catch (err) {
       console.error('LoginService - doCheckTimeout - err: ', err);
       // clearStorageItems();
@@ -157,9 +165,10 @@ const doAuthLogin = async (payload: DoAuthLoginPayload): Promise<IUser> => {
   const apiResponse = await axios.post(oauthAuthorizeApi, payload);
   const tokens = apiResponse.data;
   saveTokens(tokens);
+  console.log('LoginService - doAuthLoginToStorage - tokens: ', tokens);
   //
   let user: any = jwt_decode(tokens.access_token);
-  refreshUserInfo(user);
+  await refreshUserInfo(user);
   user = restoreUser();
   return user;
 };
@@ -183,8 +192,17 @@ const doRefreshToken = async (): Promise<any> => {
   );
   try {
     const apiResponse = await axios.post(oauthRefreshTokenApi, payload);
+    console.log('LoginService - doRefreshToken - apiResponse: ', apiResponse);
     const tokensRefreshed = apiResponse.data;
+    console.log(
+      'LoginService - doRefreshToken - tokensRefreshed 1: ',
+      tokensRefreshed
+    );
     saveTokens(tokensRefreshed);
+    console.log(
+      'LoginService - doRefreshToken - tokensRefreshed 2: ',
+      tokensRefreshed
+    );
     return tokensRefreshed;
   } catch (err) {
     console.error('LoginService - doRefreshToken - err: ', err);
@@ -261,14 +279,17 @@ const doCheckPermissionByRegex = (
       const userPermissions = user.permissions == null ? {} : user.permissions;
       // for...in - array
       // for...of - object
-      const resourceParts = parseResourceName(resourceName);
+      // const resourceParts = parseResourceName(resourceName);
+      // const resourcePartPermissions =
+      //   userPermissions[resourceParts[0]] == null
+      //     ? {}
+      //     : userPermissions[resourceParts[0]];
       const resourcePartPermissions =
-        userPermissions[resourceParts[0]] == null
-          ? {}
-          : userPermissions[resourceParts[0]];
-      console.log(
-        `LoginService - doCheckPermissionByRegex - resourceParts[0]: [${resourceParts[0]}], resourcePartPermissions: `, resourcePartPermissions
-      );
+        userPermissions[APP_NAME] == null ? {} : userPermissions[APP_NAME];
+      // console.log(
+      //   `LoginService - doCheckPermissionByRegex - APP_NAME: [${APP_NAME}], resourceName: [${resourceName}], accessRight: [${accessRight}], resourcePartPermissions: `,
+      //   resourcePartPermissions
+      // );
       for (const permissionPhrase in resourcePartPermissions) {
         const userPermission = resourcePartPermissions[permissionPhrase];
         const regexTmpl = permissionPhrase
@@ -276,9 +297,9 @@ const doCheckPermissionByRegex = (
           .replaceAll(`*`, `[\\w\\W]+`);
         const regexTester = new RegExp(regexTmpl, 'g');
         const regexResult = regexTester.test(resourcePhrase);
-        console.log(
-          `LoginService - doCheckPermissionByRegex - resourcePhrase: [${resourcePhrase}], regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`
-        );
+        // console.log(
+        //   `LoginService - doCheckPermissionByRegex - resourcePhrase: [${resourcePhrase}], regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`
+        // );
         if (regexResult) {
           matchedPermissions.push({
             resourcePhrase,
@@ -291,9 +312,9 @@ const doCheckPermissionByRegex = (
     }
     hasPermission = matchedPermissions.length > 0;
   }
-  console.log(
-    `LoginService - doCheckPermissionByRegex - hasPermission: [${hasPermission}]`
-  );
+  // console.log(
+  //   `LoginService - doCheckPermissionByRegex - hasPermission: [${hasPermission}], resourceName: [${resourceName}], accessRight: [${accessRights}]`
+  // );
   return hasPermission;
 };
 

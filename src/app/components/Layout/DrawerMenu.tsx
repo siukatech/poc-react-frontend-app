@@ -32,21 +32,22 @@ import ProtectedResource, {
 } from '../../../base/components/Security/ProtectedResource';
 
 const pages = [
-  { i18n: 'menu.home', link: '/', icon: 'Home' },
+  { i18n: 'menu.home', link: '/', icon: 'HomeOutlined' },
   { i18n: 'menu.items', link: '/items', icon: 'Event' },
-  { i18n: 'menu.shops', link: '/shops', icon: 'Storefront' },
+  { i18n: 'menu.shops', link: '/shops', icon: 'ShopOutlined' },
   { i18n: 'menu.merchants', link: '/merchants', icon: 'Storefront' },
+  { i18n: 'menu.i18n', link: '/i18ns', icon: 'Language' },
 ];
 
 type DrawerMenuProps = {
   theme: Theme;
-  toggleDrawerHandler: () => void;
+  handleDrawerToggle: () => void;
   // pages: any[];
 };
 
 const DrawerMenu: React.FC<DrawerMenuProps> = ({
   theme,
-  toggleDrawerHandler,
+  handleDrawerToggle,
   // pages,
 }) => {
   const { t, i18n } = useTranslation();
@@ -60,7 +61,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
           src={logo192}
           sx={{ width: 45, marginLeft: 'auto', marginRight: 'auto' }}
         />
-        <IconButton onClick={toggleDrawerHandler}>
+        <IconButton onClick={handleDrawerToggle}>
           {theme.direction === 'ltr' ? (
             <ChevronLeftIcon />
           ) : (
@@ -69,7 +70,11 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List>
+      <List
+        sx={{
+          ml: 0.8,
+        }}
+      >
         {pages.map((page) => (
           <ProtectedResource
             key={page.i18n}

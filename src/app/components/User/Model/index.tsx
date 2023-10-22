@@ -3,11 +3,12 @@ interface IUser {
   permissions?: any;
 }
 
-interface IPermission {
-  resourceName: string;
+interface IUserPermission {
+  appMid: string;
+  resourceMid: string;
   accessRight: string;
 }
 
-export type { IUser, IPermission };
+export type { IUser, IUserPermission };
 
 

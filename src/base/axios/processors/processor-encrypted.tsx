@@ -75,19 +75,19 @@ const preEncryptedDataObjProcessor = (
     const encryptedBody = CryptoJS.enc.Base64.stringify(encryptedBodyWa);
     const encryptedHeader = CryptoJS.enc.Base64.stringify(encryptedHeaderWa);
 
-    console.log(
-      'preEncryptedDataObjProcessor - typeof cipherInfoRsa: [' +
-        typeof cipherInfoRsa +
-        '], cipherInfoRsa.length: [' +
-        (typeof cipherInfoRsa === 'string'
-          ? cipherInfoRsa.length
-          : cipherInfoRsa) +
-        '], cipherInfoRsa: [' +
-        cipherInfoRsa +
-        '], encryptedData: [' +
-        encryptedData +
-        ']'
-    );
+    // console.log(
+    //   'preEncryptedDataObjProcessor - typeof cipherInfoRsa: [' +
+    //     typeof cipherInfoRsa +
+    //     '], cipherInfoRsa.length: [' +
+    //     (typeof cipherInfoRsa === 'string'
+    //       ? cipherInfoRsa.length
+    //       : cipherInfoRsa) +
+    //     '], cipherInfoRsa: [' +
+    //     cipherInfoRsa +
+    //     '], encryptedData: [' +
+    //     encryptedData +
+    //     ']'
+    // );
 
     // const reqConfig = deepMergeObject(
     //   {
@@ -111,8 +111,8 @@ const postEncryptedDataRetProcessor = (
   dataRet: any,
   reqConfig: ProcessorAxiosRequestConfig
 ): any => {
-  console.log('postEncryptedDataRetProcessor - start');
-  console.log('postEncryptedDataRetProcessor - dataRet: [' + dataRet + ']');
+  // console.log('postEncryptedDataRetProcessor - start');
+  // console.log('postEncryptedDataRetProcessor - dataRet: [' + dataRet + ']');
   const cipherInfo = reqConfig['cipherInfo'];
   if (cipherInfo != null) {
     // const encryptedData = {
@@ -160,7 +160,7 @@ const postEncryptedDataRetProcessor = (
   } else {
     //dataRet = dataRet;
   }
-  console.log('postEncryptedDataRetProcessor - end');
+  // console.log('postEncryptedDataRetProcessor - end');
   return postProtectedDataRetProcessor(dataRet, reqConfig);
 };
 

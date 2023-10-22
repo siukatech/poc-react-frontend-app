@@ -36,7 +36,7 @@ const UnloadPrompt = ({
 
   useEffect(() => {
     console.log(
-      'UnloadPrompt - useEffect - beforeUnloadHandler - 1 - isActive: [' +
+      'UnloadPrompt - useEffect - handleBeforeUnload - 1 - isActive: [' +
         isActive +
         '], isDirty: [' +
         isDirty +

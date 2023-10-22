@@ -40,7 +40,7 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
 
-  const submitFormHandler = async (
+  const handleFormSubmit = async (
     evt: FormEvent<HTMLFormElement>
   ): Promise<any> => {
     evt.preventDefault();
@@ -52,7 +52,7 @@ const Login = () => {
     await doLogin(payload);
   };
 
-  const resetFormHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     console.log(evt);
     // if (evt?.target?.form != null) {
@@ -63,11 +63,11 @@ const Login = () => {
     setIsDirty(false);
   };
 
-  const focusFormHandler = () => {
+  const handleFormFocus = () => {
     //navigate(-1);
     //setIsDirty(true);
     setIsDirty((prevState) => {
-      console.log('focusFormHandler - prevState: [' + prevState + ']');
+      console.log('handleFormFocus - prevState: [' + prevState + ']');
       if (prevState === true) {
         return prevState;
       } else return true;
@@ -80,7 +80,7 @@ const Login = () => {
         <Card>
           <Box
             component="form"
-            onSubmit={submitFormHandler}
+            onSubmit={handleFormSubmit}
             sx={{ display: 'flex', justifyContent: 'center', p: 1, m: 1 }}
             // ref={loginFormRef}
           >
@@ -106,7 +106,7 @@ const Login = () => {
                     formLabel={t('login.password.label')}
                     className={``}
                     inputRef={passwordInputRef}
-                    onFocus={focusFormHandler}
+                    onFocus={handleFormFocus}
                     defaultValue={`admin01`}
                   />
                   <FormHelperText id="formPassword-helper">
@@ -123,7 +123,7 @@ const Login = () => {
                   <Button variant="outlined" color="primary" type="submit">
                     {t('button.login')}
                   </Button>
-                  {/* <Button variant="outlined" color="secondary" type="button" onClick={resetFormHandler}>
+                  {/* <Button variant="outlined" color="secondary" type="button" onClick={handleFormReset}>
               {t('button.reset')}
             </Button> */}
                   <Button variant="outlined" color="secondary" type="reset">

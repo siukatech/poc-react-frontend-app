@@ -4,26 +4,12 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-
-import {
-  ThemeProvider,
-  Theme,
-  createTheme,
-  styled,
-  useTheme,
-} from '@mui/material/styles';
-
-import { AuthContextProvider } from '../../base/stores/AuthContext';
 import ProtectedResource, {
   ProtectedResourceAccessBy,
   ProtectedResourceDisplayType,
 } from '../../base/components/Security/ProtectedResource';
 
-import Layout from '../components/Layout/Layout';
-import PersistentDrawerLeft from '../components/Layout/PersistentDrawerLeft';
-import Home from '../pages/Main/Home';
+import RootElement from './RootElement';
 import NotFound from '../pages/Main/NotFound';
 import ErrorPage from '../pages/Main/ErrorPage';
 import Login from '../pages/Login/Login';
@@ -34,8 +20,10 @@ import EditItem from '../pages/Item/EditItem';
 import ViewItem from '../pages/Item/ViewItem';
 import ContentLong from '../pages/Sample/ContentLong';
 
-import theme from '../themes/theme';
 import AllMerchants from '../pages/Merchant/AllMerchants';
+import ViewMerchant from '../pages/Merchant/ViewMerchant';
+import EditMerchant from '../pages/Merchant/EditMerchant';
+
 
 const router = createBrowserRouter(
   // delfine method 1
@@ -43,13 +31,7 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: (
-        <ThemeProvider theme={theme}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <AuthContextProvider>
-              <Layout />
-            </AuthContextProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
+        <RootElement />
       ),
       // element: <AuthContextProvider><PersistentDrawerLeft /></AuthContextProvider>,
       errorElement: <ErrorPage />,
@@ -74,15 +56,16 @@ const router = createBrowserRouter(
         {
           path: '/logout',
           element: (
-            <ProtectedResource
-              accessBy={ProtectedResourceAccessBy.PROTECTED}
-              displayType={ProtectedResourceDisplayType.DISABLED}
-              resourceName={``}
-              accessRights={``}
-            >
+            // <ProtectedResource
+            //   accessBy={ProtectedResourceAccessBy.PROTECTED}
+            //   displayType={ProtectedResourceDisplayType.DISABLED}
+            //   resourceName={``}
+            //   accessRights={``}
+            // >
+            //   <Logout />
+            // </ProtectedResource>
               <Logout />
-            </ProtectedResource>
-          ),
+            ),
         },
         // { path: '/items', exact: true, element: <ProtectedResource accessBy="authenticated" ><AllItems /></ProtectedResource> },
         {
@@ -137,6 +120,58 @@ const router = createBrowserRouter(
             </ProtectedResource>
           ),
         },
+        {
+          path: '/merchants/:merchantId',
+          element: (
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PROTECTED}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
+              <ViewMerchant />
+            </ProtectedResource>
+          ),
+        },
+        {
+          path: '/merchants/:merchantId/edit',
+          element: (
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PROTECTED}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
+              <EditItem />
+            </ProtectedResource>
+          ),
+        },
+        // {
+        //   path: '/shops/:shopId',
+        //   element: (
+        //     <ProtectedResource
+        //       accessBy={ProtectedResourceAccessBy.PROTECTED}
+        //       displayType={ProtectedResourceDisplayType.DISABLED}
+        //       resourceName={``}
+        //       accessRights={``}
+        //     >
+        //       <ViewItem />
+        //     </ProtectedResource>
+        //   ),
+        // },
+        // {
+        //   path: '/shops/:shopId/edit',
+        //   element: (
+        //     <ProtectedResource
+        //       accessBy={ProtectedResourceAccessBy.PROTECTED}
+        //       displayType={ProtectedResourceDisplayType.DISABLED}
+        //       resourceName={``}
+        //       accessRights={``}
+        //     >
+        //       <EditItem />
+        //     </ProtectedResource>
+        //   ),
+        // },
         // // { path: '/items/new', element: <NewItem /> },
         // { path: '/merchants', exact: true, element: <ProtectedResource accessBy={ProtectedResourceAccessBy.PROTECTED} ><AllItems /></ProtectedResource> },
         // { path: '/shops', exact: true, element: <ProtectedResource accessBy={ProtectedResourceAccessBy.PROTECTED} ><AllItems /></ProtectedResource> },

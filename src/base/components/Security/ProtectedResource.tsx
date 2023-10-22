@@ -70,8 +70,7 @@ const checkShowChildren = (
     if (accessBy === ProtectedResourceAccessBy.PUBLIC) {
       showChildren = true;
       console.log(
-        'ProtectedResource - checkShowChildren - accessBy: ',
-        accessBy
+        `ProtectedResource - checkShowChildren - accessBy: [${accessBy}], refinedChildren: `, refinedChildren
       );
     } else if (accessBy === ProtectedResourceAccessBy.PROTECTED) {
       showChildren = false;
@@ -197,7 +196,7 @@ const ProtectedResource = ({
     `${accessBy}` +
     // + '], disabledEleCfg?.disabled: [' + `${disabledEleCfg?.disabled}`
     ']';
-  console.log('ProtectedResource - debugInfo: ', debugInfo);
+  // console.log('ProtectedResource - debugInfo: ', debugInfo);
 
   // return <Navigate to="/?access=denied" />;
   return (

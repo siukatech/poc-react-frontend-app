@@ -150,13 +150,13 @@ const AppBarXs = styled(AppBarMui, {
 // }));
 
 // type DrawerContentProps = {
-//   toggleDrawerHandler: () => void;
+//   handleDrawerToggle: () => void;
 //   theme: Theme;
 //   pages: any[];
 // };
 
 // const DrawerContent: React.FC<DrawerContentProps> = ({
-//   toggleDrawerHandler,
+//   handleDrawerToggle,
 //   theme,
 //   pages,
 // }) => {
@@ -167,7 +167,7 @@ const AppBarXs = styled(AppBarMui, {
 //   return (
 //     <>
 //       <DrawerHeader>
-//         <IconButton onClick={toggleDrawerHandler}>
+//         <IconButton onClick={handleDrawerToggle}>
 //           {theme.direction === 'ltr' ? (
 //             <ChevronLeftIcon />
 //           ) : (
@@ -211,7 +211,7 @@ const Layout = (props: {
   const [drawerToggle, setDrawerToggle] = useState(false);
   const theme = useTheme();
 
-  const toggleDrawerHandler = () => {
+  const handleDrawerToggle = () => {
     setDrawerToggle(!drawerToggle);
   };
 
@@ -230,7 +230,7 @@ const Layout = (props: {
             {/* <IconButton
                 color="inherit"
                 aria-label="open drawer"
-                onClick={toggleDrawerHandler}
+                onClick={handleDrawerToggle}
                 edge="start"
                 sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
               >
@@ -241,7 +241,7 @@ const Layout = (props: {
                 size="small"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={toggleDrawerHandler}
+                onClick={handleDrawerToggle}
                 edge="start"
                 sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
               >
@@ -286,7 +286,7 @@ const Layout = (props: {
               }}
             >
               <MenuIcon
-                onClick={toggleDrawerHandler}
+                onClick={handleDrawerToggle}
                 // edge="start"
                 sx={{ mr: 1 }}
               />
@@ -337,7 +337,7 @@ const Layout = (props: {
           open={drawerToggle}
         >
           {/* {drawerContent} */}
-          <DrawerMenu theme={theme} toggleDrawerHandler={toggleDrawerHandler} />
+          <DrawerMenu theme={theme} handleDrawerToggle={handleDrawerToggle} />
         </Drawer>
 
         <MainMd

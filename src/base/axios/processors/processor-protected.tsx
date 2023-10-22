@@ -14,7 +14,7 @@ import { restoreTokens } from '../../services/LoginService';
 const preProtectedDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
 ): ProcessorAxiosRequestConfig => {
-  console.log('preProtectedDataObjProcessor - 1');
+  // console.log('preProtectedDataObjProcessor - 1');
   //
   reqConfig = prePublicDataObjProcessor(reqConfig);
   //
@@ -39,7 +39,7 @@ const preProtectedDataObjProcessor = (
   // }
   // reqConfig.interceptors = reqConfig.interceptors ?? [];
   // reqConfig.interceptors.push(1);
-  console.log('preProtectedDataObjProcessor - 1 - reqConfig: ', reqConfig);
+  // console.log('preProtectedDataObjProcessor - 1 - reqConfig: ', reqConfig);
 
   return reqConfig;
 };

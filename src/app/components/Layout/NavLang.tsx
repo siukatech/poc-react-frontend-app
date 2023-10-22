@@ -25,8 +25,8 @@ const NavLang = () => {
     { lang: 'zh-CN', i18n: 'menu.lang.cn' },
   ];
 
-  const changeLanguageHandler = (lng: string) => {
-    console.log('changeLanguageHandler - ready: ', ready);
+  const handleLanguageChange = (lng: string) => {
+    console.log('handleLanguageChange - ready: ', ready);
     if (ready) {
       i18n.changeLanguage(lng);
       localStorage.setItem('i18nlng', lng);
@@ -35,10 +35,10 @@ const NavLang = () => {
 
   const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
 
-  const openLangMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
+  const handleLangMenuOpen = (evt: React.MouseEvent<HTMLElement>) => {
     setAnchorElLang(evt.currentTarget);
   };
-  const closeLangMenuHandler = () => {
+  const handleLangMenuClose = () => {
     setAnchorElLang(null);
   };
 
@@ -47,7 +47,7 @@ const NavLang = () => {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title={t('menu.lang')}>
           <IconButton
-            onClick={openLangMenuHandler}
+            onClick={handleLangMenuOpen}
             size="large"
             aria-label={t('menu.lang')}
             aria-controls="menu-lang"
@@ -72,14 +72,14 @@ const NavLang = () => {
             horizontal: 'right',
           }}
           open={Boolean(anchorElLang)}
-          onClose={closeLangMenuHandler}
+          onClose={handleLangMenuClose}
         >
           {langs.map((lang, idx) => (
             <MenuItem
               key={idx}
               onClick={() => {
-                closeLangMenuHandler();
-                changeLanguageHandler(lang.lang);
+                handleLangMenuClose();
+                handleLanguageChange(lang.lang);
               }}
             >
               <Typography textAlign="center">{t(`${lang.i18n}`)}</Typography>

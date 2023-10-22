@@ -1,7 +1,7 @@
 
 interface IShop {
   id: number;
-  code: string;
+  mid: string;
   name: string;
   description?: string;
 }

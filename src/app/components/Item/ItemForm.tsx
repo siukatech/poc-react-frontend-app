@@ -48,13 +48,13 @@ const formFieldSxDefault = { m: 1, width: '90%' };
 const ItemForm = ({
   itemObj,
   onSubmit,
-}: // changeTextFieldHandler,
-// changeDateFieldHandler,
+}: // handleTextFieldChange,
+// handleDateFieldChange,
 {
   itemObj: IItem;
   onSubmit: (itemRec: IItem) => void;
-  // changeTextFieldHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  // changeDateFieldHandler: (name: string, value: any) => void;
+  // handleTextFieldChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  // handleDateFieldChange: (name: string, value: any) => void;
 }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -70,40 +70,40 @@ const ItemForm = ({
 
   const blocker = useBlocker(isDirty);
 
-  const submitFormHandler = (evt: React.FormEvent<HTMLFormElement>): void => {
+  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
     setIsDirty(false);
 
     onSubmit(itemRec);
   };
 
-  const resetFormHandler = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     evt.currentTarget.form?.reset();
     setIsDirty(false);
   };
 
-  const focusFormHandler = (
+  const handleFormFocus = (
     evt: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     //navigate(-1);
     //setIsDirty(true);
     console.log(
-      'ItemForm - focusFormHandler - evt.target.value: ',
+      'ItemForm - handleFormFocus - evt.target.value: ',
       evt.target.value
     );
     // setIsDirty((prevState) => {
     //   console.log(
-    //     'ItemForm - focusFormHandler - prevState: [' + prevState + ']'
+    //     'ItemForm - handleFormFocus - prevState: [' + prevState + ']'
     //   );
     //   if (prevState === true) {
     //     return prevState;
     //   } else return true;
     // });
-    console.log('ItemForm - focusFormHandler - blocker: ', blocker);
+    console.log('ItemForm - handleFormFocus - blocker: ', blocker);
   };
 
-  const changeTextFieldHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextFieldChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     //
     // Reference:
@@ -121,10 +121,10 @@ const ItemForm = ({
 
   // Reference:
   // https://stackoverflow.com/a/69440640
-  const changeDateFieldHandler = (name: string, value: any) => {
+  const handleDateFieldChange = (name: string, value: any) => {
     const timezoneOffset = getTimezoneOffset(TIMEZONE_DEFAULT, value);
     const valueWithTimezoneOffset = console.log(
-      'ItemForm - changeDateFieldHandler - name: [' +
+      'ItemForm - handleDateFieldChange - name: [' +
         name +
         '], value: [' +
         value +
@@ -148,7 +148,7 @@ const ItemForm = ({
         <Card>
           <Box
             component="form"
-            onSubmit={submitFormHandler}
+            onSubmit={handleFormSubmit}
             // sx={{ display: 'flex', justifyContent: 'center', p: 1, m: 1 }}
             sx={{
               display: 'flex',
@@ -225,7 +225,7 @@ const ItemForm = ({
                     name="name"
                     helperText={t('item.name.helperText')}
                     sx={{ ...formFieldSxDefault }}
-                    onFocus={focusFormHandler}
+                    onFocus={handleFormFocus}
                     // defaultValue={itemObj?.name}
                     // value={nameVal || ''}
                     value={itemRec?.name}
@@ -233,7 +233,7 @@ const ItemForm = ({
                     //   // setNameVal(evt.target.value);
                     //   setItemObj({ ...itemObj, name: evt.target.value });
                     // }}
-                    onChange={changeTextFieldHandler}
+                    onChange={handleTextFieldChange}
                   />
                   <DatePicker
                     label={t('item.purchasedDate')}
@@ -253,7 +253,7 @@ const ItemForm = ({
                     //     : void 0;
                     // }}
                     onChange={(val) =>
-                      changeDateFieldHandler('purchasedDate', val)
+                      handleDateFieldChange('purchasedDate', val)
                     }
                   />
                   <ButtonGroup
@@ -264,14 +264,14 @@ const ItemForm = ({
                     <Button variant="outlined" color="primary" type="submit">
                       {t('button.save')}
                     </Button>
-                    {/* <Button variant="outlined" color="secondary" type="button" onClick={resetFormHandler}>
+                    {/* <Button variant="outlined" color="secondary" type="button" onClick={handleFormReset}>
               {t('button.reset')}
             </Button> */}
                     <Button
                       variant="outlined"
                       color="secondary"
                       type="reset"
-                      onClick={resetFormHandler}
+                      onClick={handleFormReset}
                     >
                       {t('button.reset')}
                     </Button>

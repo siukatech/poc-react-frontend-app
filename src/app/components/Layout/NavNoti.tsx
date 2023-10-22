@@ -118,20 +118,20 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
 
   const [anchorElNoti, setAnchorElNoti] = useState<null | HTMLElement>(null);
 
-  const openNotiMenuHandler = (evt: React.MouseEvent<HTMLElement>) => {
+  const handleNotiMenuOpen = (evt: React.MouseEvent<HTMLElement>) => {
     // console.log(
-    //   'NavNoti - openNotiMenuHandler - evt.currentTarget: ',
+    //   'NavNoti - handleNotiMenuOpen - evt.currentTarget: ',
     //   evt.currentTarget
     // );
     // setAnchorElNoti(evt.currentTarget);
-    openNotiElementHandler(evt.currentTarget);
+    handleNotiElementOpen(evt.currentTarget);
   };
-  // const closeNotiMenuHandler = () => {
+  // const handleNotiMenuClose = () => {
   //   setAnchorElNoti(null);
   // };
-  const openNotiElementHandler = (currentTarget: null | HTMLElement) => {
+  const handleNotiElementOpen = (currentTarget: null | HTMLElement) => {
     // console.log(
-    //   'NavNoti - openNotiMenuHandler - currentTarget: ',
+    //   'NavNoti - handleNotiMenuOpen - currentTarget: ',
     //   currentTarget
     // );
     setAnchorElNoti((prevState) => {
@@ -141,16 +141,16 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
   };
 
   const [notiDialogOpen, setNotiDialogOpen] = useState(false);
-  const openNotiDialogHandler = () => {
+  const handleNotiDialogOpen = () => {
     setNotiDialogOpen(true);
   };
-  const closeNotiDialogHandler = () => {
+  const handleNotiDialogClose = () => {
     setNotiDialogOpen(false);
   };
-  const clickNotiOneHandler = (noti: any) => {
+  const handleNotiOneClick = (noti: any) => {
     navigate(noti.href);
   };
-  const clearNotiAllHandler = () => {};
+  const handleNotiAllClear = () => {};
 
   return (
     <>
@@ -158,14 +158,14 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
         <ClickAwayListener
           onClickAway={() => {
             // console.log('NavNoti - ClickAwayListener - clicked');
-            openNotiElementHandler(null);
+            handleNotiElementOpen(null);
           }}
         >
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={t('menu.noti.tooltip')}>
               <IconButton
                 // id="long-button"
-                onClick={openNotiMenuHandler}
+                onClick={handleNotiMenuOpen}
                 size="large"
                 aria-label={`${t('menu.noti')}-${displayType}`}
                 aria-controls={`menu-noti-${displayType}`}
@@ -204,7 +204,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
                   horizontal: 'right',
                 }}
                 open={Boolean(anchorElNoti)}
-                onClose={openNotiMenuHandler}
+                onClose={handleNotiMenuOpen}
                 // Popover={{
                 //   style: {
                 //     // maxHeight: notis.length * 4.5,
@@ -253,7 +253,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
                         <MenuItem
                           key={`type-2-${idx}`}
                           onClick={() => {
-                            openNotiElementHandler(null);
+                            handleNotiElementOpen(null);
                           }}
                           sx={{ paddingLeft: 1 }}
                         >
@@ -352,7 +352,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
                       </Typography>
                     }
                     action={
-                      <IconButton onClick={() => openNotiElementHandler(null)}>
+                      <IconButton onClick={() => handleNotiElementOpen(null)}>
                         <CloseOutlinedIcon />
                       </IconButton>
                     }
@@ -443,7 +443,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
 
             {/* <Tooltip title={t('menu.noti.tooltip')}>
             <IconButton
-              onClick={openNotiMenuHandler}
+              onClick={handleNotiMenuOpen}
               size="large"
               aria-label={t('menu.noti')}
               aria-controls="menu-noti-2"
@@ -470,7 +470,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
               horizontal: 'right',
             }}
             open={Boolean(anchorElNoti)}
-            onClose={closeNotiMenuHandler}
+            onClose={handleNotiMenuClose}
           >
             <MenuItem>
               <Typography textAlign="center">{t('menu.noti.title')}</Typography>
@@ -486,7 +486,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
                 <MenuItem
                   key={idx}
                   onClick={() => {
-                    closeNotiMenuHandler();
+                    handleNotiMenuClose();
                   }}
                 >
                   <Typography textAlign="center">{noti.message}</Typography>
@@ -509,7 +509,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
 
             {/* <Tooltip title={t('menu.noti.tooltip')}>
             <IconButton
-              onClick={openNotiDialogHandler}
+              onClick={handleNotiDialogOpen}
               size="large"
               aria-label={t('menu.noti')}
               aria-controls="menu-noti-dialog"
@@ -523,7 +523,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
             </IconButton>
           </Tooltip>
           <Dialog
-            onClose={closeNotiDialogHandler}
+            onClose={handleNotiDialogClose}
             open={notiDialogOpen}
             fullWidth={true}
             //
@@ -542,7 +542,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
               <List sx={{ pt: 0 }}>
                 {notis.map((noti, idx) => (
                   <ListItem disableGutters key={idx}>
-                    <ListItemButton onClick={() => clickNotiOneHandler(noti)}>
+                    <ListItemButton onClick={() => handleNotiOneClick(noti)}>
                       <ListItemText primary={noti.message} />
                     </ListItemButton>
                   </ListItem>
@@ -556,7 +556,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
                   width: '100%',
                   // justifyContent: 'right',
                 }}
-                onClick={clearNotiAllHandler}
+                onClick={handleNotiAllClear}
               >
                 {t('button.mark.as.read')}
               </Button>
