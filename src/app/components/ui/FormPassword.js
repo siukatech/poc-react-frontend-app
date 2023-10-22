@@ -14,7 +14,7 @@ const FormPassword = ({
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const showPasswordHandler = (evt) => {
+  const handlePasswordShow = (evt) => {
     setShowPassword(!showPassword);
   };
 
@@ -27,8 +27,8 @@ const FormPassword = ({
           onFocus={onFocus}
         />
         <InputGroup.Text>
-          {showPassword && <EyeSlash onClick={showPasswordHandler} title={t('Show Password')} />}
-          {!showPassword && <Eye onClick={showPasswordHandler} title={t('Hide Password')} />}
+          {showPassword && <EyeSlash onClick={handlePasswordShow} title={t('Show Password')} />}
+          {!showPassword && <Eye onClick={handlePasswordShow} title={t('Hide Password')} />}
         </InputGroup.Text>
       </InputGroup>
     </>

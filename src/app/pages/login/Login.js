@@ -18,7 +18,7 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
 
-  const loginSubmitHandler = async (evt) => {
+  const handleLoginSubmit = async (evt) => {
     evt.preventDefault();
     setIsDirty(false);
     let payload = {
@@ -28,7 +28,7 @@ const Login = () => {
     await login(payload);
   };
 
-  const resetFormHandler = (evt) => {
+  const handleFormReset = (evt) => {
     evt.preventDefault();
     console.log(evt);
     if (evt.target.form != null) {
@@ -37,11 +37,11 @@ const Login = () => {
     setIsDirty(false);
   };
 
-  const formFocusedHandler = () => {
+  const handleFormFocus = () => {
     //navigate(-1);
     //setIsDirty(true);
     setIsDirty((prevState) => {
-      console.log('formFocusedHandler - prevState: [' + prevState + ']');
+      console.log('handleFormFocus - prevState: [' + prevState + ']');
       if (prevState === true) {
         return prevState;
       } else return true;
@@ -55,13 +55,13 @@ const Login = () => {
         <Row>
           <Col className="col-md-8 offset-md-2">
             <legend>Login Form</legend>
-            <form onSubmit={loginSubmitHandler}>
+            <form onSubmit={handleLoginSubmit}>
               <Form.Group className="mb-3" controlId="formUserName">
                 <Form.Label>User Name</Form.Label>
                 <Form.Control
                   type="text"
                   ref={usernameInputRef}
-                  onFocus={formFocusedHandler}
+                  onFocus={handleFormFocus}
                 />
               </Form.Group>
               {/*<Form.Group className="mb-3" controlId="formPassword">
@@ -69,7 +69,7 @@ const Login = () => {
                 <Form.Control
                   type="password"
                   ref={passwordInputRef}
-                  onFocus={formFocusedHandler}
+                  onFocus={handleFormFocus}
                 />
   </Form.Group>*/}
               <Form.Group className="mb-3" controlId="formPassword">
@@ -77,7 +77,7 @@ const Login = () => {
                 <FormPassword
                   className="mb-3" 
                   inputRef={passwordInputRef}
-                  onFocus={formFocusedHandler}
+                  onFocus={handleFormFocus}
                 />
               </Form.Group>
               <Stack direction="horizontal" gap={2}>
@@ -87,7 +87,7 @@ const Login = () => {
                 <Button
                   variant="secondary"
                   type="button"
-                  onClick={resetFormHandler}
+                  onClick={handleFormReset}
                 >
                   Reset
                 </Button>
