@@ -23,17 +23,17 @@ const NavLang = () => {
     { lang: 'zh-CN', i18n: 'menu.lang.cn' },
   ];
 
-  const changeLanguageHandler = (lng) => {
+  const handleLanguageChange = (lng) => {
     i18n.changeLanguage(lng);
     localStorage.setItem('i18nlng', lng);
   };
 
   const [anchorElLang, setAnchorElLang] = useState(null);
 
-  const openLangMenuHandler = (event) => {
+  const handleLangMenuOpen = (event) => {
     setAnchorElLang(event.currentTarget);
   };
-  const closeLangMenuHandler = () => {
+  const handleLangMenuClose = () => {
     setAnchorElLang(null);
   };
 
@@ -42,7 +42,7 @@ const NavLang = () => {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title={t('menu.lang')}>
           <IconButton
-            onClick={openLangMenuHandler}
+            onClick={handleLangMenuOpen}
             size="large"
             aria-label={t('menu.lang')}
             aria-controls="menu-lang"
@@ -67,14 +67,14 @@ const NavLang = () => {
             horizontal: 'right',
           }}
           open={Boolean(anchorElLang)}
-          onClose={closeLangMenuHandler}
+          onClose={handleLangMenuClose}
         >
           {langs.map((lang, idx) => (
             <MenuItem
               key={idx}
               onClick={() => {
-                closeLangMenuHandler();
-                changeLanguageHandler(lang.lang);
+                handleLangMenuClose();
+                handleLanguageChange(lang.lang);
               }}
             >
               <Typography textAlign="center">{t(`${lang.i18n}`)}</Typography>

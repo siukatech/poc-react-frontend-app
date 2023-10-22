@@ -25,7 +25,7 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
 
-  const loginSubmitHandler = async (evt) => {
+  const handleLoginSubmit = async (evt) => {
     evt.preventDefault();
     setIsDirty(false);
     let payload = {
@@ -35,7 +35,7 @@ const Login = () => {
     await login(payload);
   };
 
-  const resetFormHandler = (evt) => {
+  const handleFormReset = (evt) => {
     evt.preventDefault();
     console.log(evt);
     if (evt.target.form != null) {
@@ -44,11 +44,11 @@ const Login = () => {
     setIsDirty(false);
   };
 
-  const formFocusedHandler = () => {
+  const handleFormFocus = () => {
     //navigate(-1);
     //setIsDirty(true);
     setIsDirty((prevState) => {
-      console.log('formFocusedHandler - prevState: [' + prevState + ']');
+      console.log('handleFormFocus - prevState: [' + prevState + ']');
       if (prevState === true) {
         return prevState;
       } else return true;
@@ -60,7 +60,7 @@ const Login = () => {
     <>
       <Box
         component="form"
-        onSubmit={loginSubmitHandler}
+        onSubmit={handleLoginSubmit}
         sx={{ display: 'flex', justifyContent: 'center', p: 1, m: 1 }}
       >
         <Stack sx={{ width: '100%' }}>
@@ -84,7 +84,7 @@ const Login = () => {
               formLabel={t('login.password.label')}
               className={``}
               inputRef={passwordInputRef}
-              onFocus={formFocusedHandler}
+              onFocus={handleFormFocus}
               defaultValue={`admin01`}
             />
             <FormHelperText id="formPassword-helper">
@@ -99,7 +99,7 @@ const Login = () => {
             <Button variant="outlined" color="primary" type="submit">
               {t('button.login')}
             </Button>
-            <Button variant="outlined" color="secondary" type="button" onClick={resetFormHandler}>
+            <Button variant="outlined" color="secondary" type="button" onClick={handleFormReset}>
               {t('button.reset')}
             </Button>
           </ButtonGroup>
@@ -107,7 +107,7 @@ const Login = () => {
       </Box>
       {/* <Box
         component="form"
-        onSubmit={loginSubmitHandler}
+        onSubmit={handleLoginSubmit}
         sx={{ display: 'flex', justifyContent: 'center', p: 1, m: 1 }}
       >
         <Grid container spacing={2}>
@@ -131,7 +131,7 @@ const Login = () => {
                 formLabel={t('login.password.label')}
                 className={``}
                 inputRef={passwordInputRef}
-                onFocus={formFocusedHandler}
+                onFocus={handleFormFocus}
               />
               <FormHelperText id="formPassword-helper">
                 {t('login.password.helperText')}
@@ -151,7 +151,7 @@ const Login = () => {
                 variant="outlined"
                 color="secondary"
                 type="button"
-                onClick={resetFormHandler}
+                onClick={handleFormReset}
               >
                 {t('button.reset')}
               </Button>

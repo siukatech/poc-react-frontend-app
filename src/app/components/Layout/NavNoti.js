@@ -55,24 +55,24 @@ const NavNoti = () => {
 
   const [anchorElNoti, setAnchorElNoti] = useState(null);
 
-  const openNotiMenuHandler = (event) => {
+  const handleNotiMenuOpen = (event) => {
     setAnchorElNoti(event.currentTarget);
   };
-  const closeNotiMenuHandler = () => {
+  const handleNotiMenuClose = () => {
     setAnchorElNoti(null);
   };
 
   const [notiDialogOpen, setNotiDialogOpen] = useState(false);
-  const openNotiDialogHandler = () => {
+  const handleNotiDialogOpen = () => {
     setNotiDialogOpen(true);
   };
-  const closeNotiDialogHandler = () => {
+  const handleNotiDialogClose = () => {
     setNotiDialogOpen(false);
   };
-  const clickNotiOneHandler = (noti) => {
+  const handleNotiOneClick = (noti) => {
     navigate(noti.href);
   };
-  const clearNotiAllHandler = () => {};
+  const handleNotiAllClear = () => {};
 
   return (
     <>
@@ -81,7 +81,7 @@ const NavNoti = () => {
           <Tooltip title={t('menu.noti.tooltip')}>
             <IconButton
               // id="long-button"
-              onClick={openNotiMenuHandler}
+              onClick={handleNotiMenuOpen}
               size="large"
               aria-label={t('menu.noti')}
               aria-controls="menu-noti"
@@ -113,7 +113,7 @@ const NavNoti = () => {
               horizontal: 'right',
             }}
             open={Boolean(anchorElNoti)}
-            onClose={closeNotiMenuHandler}
+            onClose={handleNotiMenuClose}
             // Popover={{
             //   style: {
             //     // maxHeight: notis.length * 4.5,
@@ -141,7 +141,7 @@ const NavNoti = () => {
                     <MenuItem
                       key={`type-1-${idx}`}
                       onClick={() => {
-                        closeNotiMenuHandler();
+                        handleNotiMenuClose();
                       }}
                     >
                       <Typography textAlign="left" sx={{ overflowX: 'hidden' }}>
@@ -154,7 +154,7 @@ const NavNoti = () => {
                     <MenuItem
                       key={`type-2-${idx}`}
                       onClick={() => {
-                        closeNotiMenuHandler();
+                        handleNotiMenuClose();
                       }}
                       sx={{ paddingLeft: 1 }}
                     >
@@ -203,7 +203,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
 
           {/* <Tooltip title={t('menu.noti.tooltip')}>
             <IconButton
-              onClick={openNotiMenuHandler}
+              onClick={handleNotiMenuOpen}
               size="large"
               aria-label={t('menu.noti')}
               aria-controls="menu-noti-2"
@@ -230,7 +230,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
               horizontal: 'right',
             }}
             open={Boolean(anchorElNoti)}
-            onClose={closeNotiMenuHandler}
+            onClose={handleNotiMenuClose}
           >
             <MenuItem>
               <Typography textAlign="center">{t('menu.noti.title')}</Typography>
@@ -246,7 +246,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
                 <MenuItem
                   key={idx}
                   onClick={() => {
-                    closeNotiMenuHandler();
+                    handleNotiMenuClose();
                   }}
                 >
                   <Typography textAlign="center">{noti.message}</Typography>
@@ -269,7 +269,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
 
           {/* <Tooltip title={t('menu.noti.tooltip')}>
             <IconButton
-              onClick={openNotiDialogHandler}
+              onClick={handleNotiDialogOpen}
               size="large"
               aria-label={t('menu.noti')}
               aria-controls="menu-noti-dialog"
@@ -283,7 +283,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
             </IconButton>
           </Tooltip>
           <Dialog
-            onClose={closeNotiDialogHandler}
+            onClose={handleNotiDialogClose}
             open={notiDialogOpen}
             fullWidth={true}
             // https://stackoverflow.com/a/69231667
@@ -300,7 +300,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
               <List sx={{ pt: 0 }}>
                 {notis.map((noti, idx) => (
                   <ListItem disableGutters key={idx}>
-                    <ListItemButton onClick={() => clickNotiOneHandler(noti)}>
+                    <ListItemButton onClick={() => handleNotiOneClick(noti)}>
                       <ListItemText primary={noti.message} />
                     </ListItemButton>
                   </ListItem>
@@ -314,7 +314,7 @@ import LogoutIcon from '@mui/icons-material/Logout'; */}
                   width: '100%',
                   // justifyContent: 'right',
                 }}
-                onClick={clearNotiAllHandler}
+                onClick={handleNotiAllClear}
               >
                 {t('button.mark.as.read')}
               </Button>

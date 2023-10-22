@@ -143,7 +143,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const DrawerContent = ({
-  toggleDrawerHandler,
+  handleDrawerToggle,
   theme,
   pages,
   ListItem,
@@ -158,7 +158,7 @@ const DrawerContent = ({
   return (
     <>
       <DrawerHeader>
-        <IconButton onClick={toggleDrawerHandler}>
+        <IconButton onClick={handleDrawerToggle}>
           {theme.direction === 'ltr' ? (
             <ChevronLeftIcon />
           ) : (
@@ -200,23 +200,23 @@ const Layout = (props) => {
   const [drawerToggle, setDrawerToggle] = useState(false);
   const theme = useTheme();
 
-  const toggleDrawerHandler = () => {
+  const handleDrawerToggle = () => {
     setDrawerToggle(!drawerToggle);
   };
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const openNavMenuHandler = (event) => {
+  const handleNavMenuOpen = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const closeNavMenuHandler = () => {
+  const handleNavMenuClose = () => {
     setAnchorElNav(null);
   };
 
   const drawerContent = (
     <>
       <DrawerHeader>
-        <IconButton onClick={toggleDrawerHandler}>
+        <IconButton onClick={handleDrawerToggle}>
           {theme.direction === 'ltr' ? (
             <ChevronLeftIcon />
           ) : (
@@ -252,7 +252,7 @@ const Layout = (props) => {
             {/* <IconButton
                 color="inherit"
                 aria-label="open drawer"
-                onClick={toggleDrawerHandler}
+                onClick={handleDrawerToggle}
                 edge="start"
                 sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
               >
@@ -265,7 +265,7 @@ const Layout = (props) => {
                 size="small"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={toggleDrawerHandler}
+                onClick={handleDrawerToggle}
                 edge="start"
                 sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
               >
@@ -293,7 +293,7 @@ const Layout = (props) => {
                 <Button
                   key={page.i18n}
                   onClick={() => {
-                    closeNavMenuHandler();
+                    handleNavMenuClose();
                     navigate(page.link);
                   }}
                   sx={{ my: 2, color: 'white', display: 'block' }}
@@ -309,7 +309,7 @@ const Layout = (props) => {
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={openNavMenuHandler}
+                  onClick={handleNavMenuOpen}
                   color="inherit"
                 >
                   <MenuIcon />
@@ -327,7 +327,7 @@ const Layout = (props) => {
                     horizontal: 'left',
                   }}
                   open={Boolean(anchorElNav)}
-                  onClick={closeNavMenuHandler}
+                  onClick={handleNavMenuClose}
                   sx={{
                     display: { xs: 'block', md: 'none' },
                   }}
@@ -336,7 +336,7 @@ const Layout = (props) => {
                     <MenuItem
                       key={page.i18n}
                       onClick={() => {
-                        closeNavMenuHandler();
+                        handleNavMenuClose();
                         navigate(page.link);
                       }}
                     >
@@ -368,12 +368,12 @@ const Layout = (props) => {
               }}
             >
               <MenuIcon
-                onClick={toggleDrawerHandler}
+                onClick={handleDrawerToggle}
                 edge="start"
                 sx={{ mr: 1 }}
               />
               {/* <MenuIcon
-              onClick={toggleDrawerHandler}
+              onClick={handleDrawerToggle}
               edge="start"
               sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
             /> */}
@@ -381,7 +381,7 @@ const Layout = (props) => {
                   size="small"
                   color="inherit"
                   aria-label="open drawer"
-                  onClick={toggleDrawerHandler}
+                  onClick={handleDrawerToggle}
                   edge="start"
                   sx={{ mr: 1, ...(drawerToggle && { display: 'none' }) }}
                 >
@@ -442,7 +442,7 @@ const Layout = (props) => {
           variant="temporary"
           anchor="left"
           open={drawerToggle}
-          onClose={toggleDrawerHandler}
+          onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
