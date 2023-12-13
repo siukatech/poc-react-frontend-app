@@ -9,7 +9,7 @@ import ProtectedResource, {
   ProtectedResourceDisplayType,
 } from '../../base/components/Security/ProtectedResource';
 
-import RootElement from './RootElement';
+import AppMain from './AppMain';
 import NotFound from '../pages/Main/NotFound';
 import ErrorPage from '../pages/Main/ErrorPage';
 import Login from '../pages/Login/Login';
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: (
-        <RootElement />
+        <AppMain />
       ),
       // element: <AuthContextProvider><PersistentDrawerLeft /></AuthContextProvider>,
       errorElement: <ErrorPage />,
@@ -110,15 +110,16 @@ const router = createBrowserRouter(
         {
           path: '/merchants',
           element: (
-            <ProtectedResource
-              accessBy={ProtectedResourceAccessBy.PUBLIC}
-              displayType={ProtectedResourceDisplayType.DISABLED}
-              resourceName={``}
-              accessRights={``}
-            >
+            // <ProtectedResource
+            //   accessBy={ProtectedResourceAccessBy.PUBLIC}
+            //   displayType={ProtectedResourceDisplayType.DISABLED}
+            //   resourceName={``}
+            //   accessRights={``}
+            // >
+            //   <AllMerchants />
+            // </ProtectedResource>
               <AllMerchants />
-            </ProtectedResource>
-          ),
+            ),
         },
         {
           path: '/merchants/:merchantId',
@@ -142,7 +143,7 @@ const router = createBrowserRouter(
               resourceName={``}
               accessRights={``}
             >
-              <EditItem />
+              <EditMerchant />
             </ProtectedResource>
           ),
         },
