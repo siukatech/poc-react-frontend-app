@@ -28,31 +28,40 @@ const AllMerchants = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  const [merchants, setMerchants] = useState<IMerchant[]>([]);
+  // const [merchants, setMerchants] = useState<IMerchant[]>([]);
 
   const {
-    data: data1,
+    // data: data1,
+    data: merchants,
     isLoading,
     isSuccess,
   } = useQuery({
     queryKey: ['merchantAll'],
     queryFn: async (queryContext) => {
+      console.log(`AllMerchants - useQuery - start`);
       const data = await getAllMerchants();
+      // const data: any[] = [];
       return data;
     },
   });
 
-  useEffect(() => {
-    if (data1 != null) {
-      setMerchants(data1);
-    }
-  }, [data1]);
+  // useEffect(() => {
+  //   if (data1 != null) {
+  //     setMerchants(data1);
+  //   }
+  // }, [data1]);
 
-  const handleCardButtonClick = (
+  const handleButtonViewClick = (
     evt: React.MouseEvent,
     merchant: IMerchant
   ) => {
     navigate(`/merchants/${merchant.id}`);
+  };
+  const handleButtonEditClick = (
+    evt: React.MouseEvent,
+    merchant: IMerchant
+  ) => {
+    navigate(`/merchants/${merchant.id}/edit`);
   };
 
   return (
@@ -61,7 +70,8 @@ const AllMerchants = () => {
       {isSuccess && (
         <MerchantCardList
           merchants={merchants}
-          handleCardButtonClick={handleCardButtonClick}
+          handleButtonViewClick={handleButtonViewClick}
+          handleButtonEditClick={handleButtonEditClick}
         />
       )}
       {/* <Typography>This is a test.</Typography> */}

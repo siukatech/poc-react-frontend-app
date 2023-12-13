@@ -35,7 +35,7 @@ const DialogPrompt = ({
         {message && (
           <DialogContent>
             <DialogContentText id="confirm-dialog-message">
-              {message}
+              {JSON.stringify(message)}
             </DialogContentText>
           </DialogContent>
         )}

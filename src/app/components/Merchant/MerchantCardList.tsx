@@ -28,32 +28,39 @@ const merchantCardJsx = (
   merchant: IMerchant,
   idx: number,
   t: TFunction,
-  handleCardButtonClick: TypeHandleCardButtonClick
+  handleButtonViewClick: TypeHandleCardButtonClick,
+  handleButtonEditClick?: TypeHandleCardButtonClick
 ) => {
   return (
     <MerchantCard
       key={`key-merchant-2-${idx}`}
-      merchant={merchant}
-      buttonText={t('button.view')}
       sx={{
         p: 1,
         m: 1,
         width: 220,
         // height: 300,
       }}
-      buttonOnClick={(evt) => handleCardButtonClick(evt, merchant)}
+      merchant={merchant}
+      buttonViewText={t('button.view')}
+      onButtonViewClick={(evt) => handleButtonViewClick(evt, merchant)}
+      buttonEditText={t('button.edit')}
+      onButtonEditClick={(evt) =>
+        handleButtonEditClick ? handleButtonEditClick(evt, merchant) : void 0
+      }
     />
   );
 };
 
 type MerchantCardListProps = {
   merchants: IMerchant[];
-  handleCardButtonClick: TypeHandleCardButtonClick;
+  handleButtonViewClick: TypeHandleCardButtonClick;
+  handleButtonEditClick?: TypeHandleCardButtonClick;
 };
 
 const MerchantCardList: React.FC<MerchantCardListProps> = ({
   merchants,
-  handleCardButtonClick,
+  handleButtonViewClick,
+  handleButtonEditClick,
 }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -96,7 +103,13 @@ const MerchantCardList: React.FC<MerchantCardListProps> = ({
               >
                 {merchants.map((merchant, idx) => (
                   <Fragment key={`key-merchant-stack-1-${idx}`}>
-                    {merchantCardJsx(merchant, idx, t, handleCardButtonClick)}
+                    {merchantCardJsx(
+                      merchant,
+                      idx,
+                      t,
+                      handleButtonViewClick,
+                      handleButtonEditClick
+                    )}
                   </Fragment>
                 ))}
               </Stack>
@@ -107,7 +120,13 @@ const MerchantCardList: React.FC<MerchantCardListProps> = ({
             {merchants.map((merchant, idx) => (
               <Fragment key={`key-merchant-grid-1-${idx}`}>
                 <Grid item sx={{ pb: 2 }}>
-                  {merchantCardJsx(merchant, idx, t, handleCardButtonClick)}
+                  {merchantCardJsx(
+                    merchant,
+                    idx,
+                    t,
+                    handleButtonViewClick,
+                    handleButtonEditClick
+                  )}
                 </Grid>
               </Fragment>
             ))}
@@ -127,7 +146,7 @@ const MerchantCardList: React.FC<MerchantCardListProps> = ({
               <Fragment key={`key-merchant-imageList-1-${idx}`}>
                 <ImageListItem>
                   <ImageListItemBar title={merchant.name} />
-                  {merchantCardJsx(merchant, idx, t, handleCardButtonClick)}
+                  {merchantCardJsx(merchant, idx, t, handleButtonViewClick, handleButtonEditClick)}
                 </ImageListItem>
               </Fragment>
             ))}
@@ -136,7 +155,7 @@ const MerchantCardList: React.FC<MerchantCardListProps> = ({
           <ScrollBox>
             {merchants.map((merchant, idx) => (
               <Fragment key={`key-merchant-scrollbox-1-${idx}`}>
-                {merchantCardJsx(merchant, idx, t, handleCardButtonClick)}
+                {merchantCardJsx(merchant, idx, t, handleButtonViewClick, handleButtonEditClick)}
               </Fragment>
             ))}
           </ScrollBox> */}

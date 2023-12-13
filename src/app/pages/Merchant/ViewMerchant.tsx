@@ -21,7 +21,7 @@ import MuiTitleFieldTemplate from '../../../base/rjsf/MuiTitleFieldTemplate';
 import MuiFieldTemplate from '../../../base/rjsf/MuiFieldTemplate';
 import { intlSchema } from '../../../base/rjsf/translation-service';
 
-import { dataSchema, uiSchema } from './SchemaMerchant';
+import { rjsf_dataSchema, rjsf_uiSchema } from './SchemaMerchant';
 
 const ViewMerchant = () => {
   const { t, i18n } = useTranslation();
@@ -29,9 +29,10 @@ const ViewMerchant = () => {
   const params = useParams();
 
   const { merchantId } = params;
-  console.log('EditMerchant - merchantId: ', merchantId);
+  console.log('ViewMerchant - merchantId: ', merchantId);
 
   const {
+    // data: data1,
     data: data1,
     isLoading,
     isSuccess,
@@ -73,8 +74,8 @@ const ViewMerchant = () => {
             }}
             // readonly={true}
             // schema={dataSchema}
-            schema={intlSchema(dataSchema, 'merchant', t)}
-            uiSchema={uiSchema}
+            schema={intlSchema(rjsf_dataSchema, 'merchant', t)}
+            uiSchema={rjsf_uiSchema}
             formData={formData}
             validator={validator}
             onChange={handleFormChange}

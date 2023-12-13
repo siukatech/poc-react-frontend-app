@@ -15,15 +15,19 @@ import IconComponent from '../UI/IconComponent';
 
 type MerchantCardProps = {
   merchant: IMerchant;
-  buttonText: string;
-  buttonOnClick: (evt: React.MouseEvent<HTMLElement>) => void;
+  buttonViewText: string;
+  onButtonViewClick: (evt: React.MouseEvent<HTMLElement>) => void;
+  buttonEditText?: string;
+  onButtonEditClick?: (evt: React.MouseEvent<HTMLElement>) => void;
   sx?: SxProps<Theme>;
 };
 
 const MerchantCard: React.FC<MerchantCardProps> = ({
   merchant,
-  buttonText,
-  buttonOnClick,
+  buttonViewText,
+  onButtonViewClick,
+  buttonEditText,
+  onButtonEditClick,
   sx,
 }) => {
   return (
@@ -54,9 +58,12 @@ const MerchantCard: React.FC<MerchantCardProps> = ({
           {merchant.name}
         </CardContent>
         <CardActions sx={{ justifyContent: 'center' }}>
-          <Button variant="contained" onClick={buttonOnClick}>
-            {buttonText}
+          <Button variant="contained" onClick={onButtonViewClick}>
+            {buttonViewText}
           </Button>
+          {onButtonEditClick && <Button variant="contained" onClick={onButtonEditClick}>
+            {buttonEditText}
+          </Button>}
         </CardActions>
       </Card>
     </>
