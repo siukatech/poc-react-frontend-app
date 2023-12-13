@@ -18,18 +18,19 @@ import { Language as LanguageIcon } from '@mui/icons-material';
 
 import { STORAGE_KEY_I18N } from '../../../i18n';
 
+const langs = [
+  { lang: 'en', i18n: 'menu.lang.en' },
+  { lang: 'zh-TW', i18n: 'menu.lang.zh' },
+  { lang: 'zh-CN', i18n: 'menu.lang.cn' },
+];
+const langMap: any = langs.reduce(
+  (accumulator, lang) => ({ ...accumulator, [lang.lang]: lang }),
+  {}
+);
+
 const NavLang = () => {
   const { t, i18n, ready } = useTranslation();
 
-  const langs = [
-    { lang: 'en', i18n: 'menu.lang.en' },
-    { lang: 'zh-TW', i18n: 'menu.lang.zh' },
-    { lang: 'zh-CN', i18n: 'menu.lang.cn' },
-  ];
-  const langMap: any = langs.reduce(
-    (accumulator, lang) => ({ ...accumulator, [lang.lang]: lang }),
-    {}
-  );
   const langSelected = langMap[i18n.language];
 
   const handleLanguageChange = (lng: string) => {
