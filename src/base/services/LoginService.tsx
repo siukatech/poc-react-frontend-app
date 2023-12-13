@@ -215,6 +215,7 @@ const doRefreshToken = async (): Promise<any> => {
 };
 
 const doAuthLogout = async (): Promise<void> => {
+  console.log('LoginService - doAuthLogout - start');
   const tokens = restoreTokens();
   if (tokens != null) {
     try {
