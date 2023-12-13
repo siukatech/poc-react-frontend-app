@@ -29,18 +29,23 @@ const marshallDateStr2DateObj = (dataObj: any) => {
       //     dataValOri
       //   );
       // }
-      const dataVal =
-        dataValOri == null
-          ? null
-          : parseDateToUtc(dataValOri);
-          // console.log(
-          //   'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataVal: ',
-          //   dataVal
-          // );
-          dataObj[key + '-ori'] = dataValOri;
+      const dataVal = dataValOri == null ? null : parseDateToUtc(dataValOri);
+      // console.log(
+      //   'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataVal: ',
+      //   dataVal
+      // );
+      dataObj[key + '-ori'] = dataValOri;
       dataObj[key] = dataVal;
     } catch (err) {
-      console.log('lib/api - marshallDateStr2DateObj - i: [' + i + '], key: [' + key + '], err: [' + err + ']');
+      console.log(
+        'lib/api - marshallDateStr2DateObj - i: [' +
+          i +
+          '], key: [' +
+          key +
+          '], err: [' +
+          err +
+          ']'
+      );
     }
   });
   return dataObj;
@@ -100,12 +105,14 @@ const postDataRetProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
   // ): object[] | string | object => {
 ): any => {
-  if (Array.isArray(dataRet)) {
-    return postDataArrayProcessor(dataRet, reqConfig);
-  } else if (typeof dataRet === 'string') {
-    return postDataStringProcessor(dataRet, reqConfig);
-  } else {
-    return postDataObjProcessor(dataRet, reqConfig);
+  if (dataRet != null) {
+    if (Array.isArray(dataRet)) {
+      return postDataArrayProcessor(dataRet, reqConfig);
+    } else if (typeof dataRet === 'string') {
+      return postDataStringProcessor(dataRet, reqConfig);
+    } else {
+      return postDataObjProcessor(dataRet, reqConfig);
+    }
   }
 };
 
