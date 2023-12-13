@@ -85,7 +85,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
           >
             <ListItem key={page.i18n} disablePadding>
               <ListItemButton onClick={() => navigate(page.link)}>
-                <ListItemIcon>
+                <ListItemIcon title={t(`${page.i18n}`)} >
                   <IconComponent name={page.icon as IconNames} />
                 </ListItemIcon>
                 <ListItemText primary={t(`${page.i18n}`)} />
