@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// for typescript, "import './i18n';" will be ok.
 // import i18n from './i18n';
-import initI18n from './i18n';
+// import initI18n from './i18n';
+import './i18n';
 
-initI18n();
+// initI18n();   // for typescript, "import './i18n';" will be ok.
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(

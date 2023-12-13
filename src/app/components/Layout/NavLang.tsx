@@ -16,6 +16,8 @@ import {
 
 import { Language as LanguageIcon } from '@mui/icons-material';
 
+import { STORAGE_KEY_I18N } from '../../../i18n';
+
 const NavLang = () => {
   const { t, i18n, ready } = useTranslation();
 
@@ -24,12 +26,17 @@ const NavLang = () => {
     { lang: 'zh-TW', i18n: 'menu.lang.zh' },
     { lang: 'zh-CN', i18n: 'menu.lang.cn' },
   ];
+  const langMap: any = langs.reduce(
+    (accumulator, lang) => ({ ...accumulator, [lang.lang]: lang }),
+    {}
+  );
+  const langSelected = langMap[i18n.language];
 
   const handleLanguageChange = (lng: string) => {
     console.log('handleLanguageChange - ready: ', ready);
     if (ready) {
       i18n.changeLanguage(lng);
-      localStorage.setItem('i18nlng', lng);
+      localStorage.setItem(STORAGE_KEY_I18N, lng);
     }
   };
 
@@ -45,7 +52,10 @@ const NavLang = () => {
   return (
     <>
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title={t('menu.lang')}>
+        <Tooltip
+          // title={t('menu.lang')}
+          title={t(`${langSelected?.i18n}`)}
+        >
           <IconButton
             onClick={handleLangMenuOpen}
             size="large"
@@ -80,6 +90,12 @@ const NavLang = () => {
               onClick={() => {
                 handleLangMenuClose();
                 handleLanguageChange(lang.lang);
+              }}
+              sx={{
+                backgroundColor:
+                  lang.lang === i18n.language
+                    ? 'rgba(0,0,0,0.04)'
+                    : 'transparent',
               }}
             >
               <Typography textAlign="center">{t(`${lang.i18n}`)}</Typography>
