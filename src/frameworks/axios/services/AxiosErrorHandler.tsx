@@ -2,8 +2,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
 
 type TAxiosErrDetail = {
-  errorCode?: string;
-  errorRes?: AxiosResponse<unknown, any>;
+  errCode?: string;
+  errRes?: AxiosResponse<unknown, any>;
   resStatus?: number;
   resReqRes?: any;
   resData?: any;
@@ -11,7 +11,12 @@ type TAxiosErrDetail = {
 
 type TResponseErr = {
   status?: number;
+  timestamp?: string;
+  path?: string;
+  errCode?: string;
   message?: string;
+  resData?: any;
+  handler: TServerErrHandler;
 };
 
 type TServerErr = {
@@ -19,100 +24,190 @@ type TServerErr = {
   responseErr: TResponseErr;
 };
 
+type TServerErrHandler = {
+  title: string;
+  path?: string;
+};
+
+const SERVER_ERR_HANDLER_STATUS_DEFAULT = 999;
+
+const SERVER_ERR_HANDLER_MAP: any = {
+  401: {
+    title: 'error.login.expired',
+    path: '/login',
+  } as TServerErrHandler,
+  [SERVER_ERR_HANDLER_STATUS_DEFAULT]: {
+    title: 'error.dialog.title',
+  } as TServerErrHandler,
+};
+
 const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
-  const errorCode = axiosErr.code;
-  const errorRes = axiosErr.response;
-  const resStatus = errorRes?.status;
-  console.log(`AxiosErrorHandler - resolveAxiosErrDetails - axiosErr: `, axiosErr);
-  console.log(`AxiosErrorHandler - resolveAxiosErrDetails - resStatus: [${resStatus}], errorCode: [${errorCode}], errorRes: `, errorRes);
+  const errCode = axiosErr.code;
+  const errRes = axiosErr.response;
+  const resStatus = errRes?.status;
+  console.log(
+    `AxiosErrorHandler - resolveAxiosErrDetails - axiosErr: `,
+    axiosErr
+  );
+  console.log(
+    `AxiosErrorHandler - resolveAxiosErrDetails - resStatus: [${resStatus}], errCode: [${errCode}], errRes: `,
+    errRes
+  );
   const resReqRes =
-    errorRes?.request?.response == null || errorRes?.request?.response === ''
+    errRes?.request?.response == null || errRes?.request?.response === ''
       ? null
-      : errorRes.request.response;
+      : errRes.request.response;
   let resData =
-    resReqRes?.data == null || resReqRes?.data === '' ? null : resReqRes.data;
+    errRes?.data == null || errRes?.data === '' ? null : errRes.data;
   return {
-    errorCode,
-    errorRes,
+    errCode,
+    errRes,
     resStatus,
     resReqRes,
     resData,
   } as TAxiosErrDetail;
 };
 
+const resolveServerErrHandler = (
+  status: undefined | number
+): TServerErrHandler => {
+  let serverErrHandler;
+  if (status != null) {
+    serverErrHandler = SERVER_ERR_HANDLER_MAP[status];
+  }
+  serverErrHandler =
+    serverErrHandler == null
+      ? SERVER_ERR_HANDLER_MAP[SERVER_ERR_HANDLER_STATUS_DEFAULT]
+      : serverErrHandler;
+  return serverErrHandler;
+};
+
 const constructServerErr401 = (axiosErr: AxiosError): TServerErr => {
-  const { errorRes, resData } = resolveAxiosErrDetails(axiosErr);
-  let message = resData?.message || errorRes?.statusText || axiosErr.message;
+  const { errRes, resData } = resolveAxiosErrDetails(axiosErr);
+  let message = resData?.message || errRes?.statusText || axiosErr.message;
   return {
     axiosErr,
     responseErr: {
       status: 401,
       message: message,
+      resData,
     } as TResponseErr,
   } as TServerErr;
 };
 
 const resolveServerErr = (axiosErr: AxiosError) => {
-  const { errorCode, errorRes, resStatus, resReqRes, resData } =
+  const { errCode, errRes, resStatus, resReqRes, resData } =
     resolveAxiosErrDetails(axiosErr);
-  let responseErr = resData;
-  let serverErr;
-  console.log(`AxiosErrorHandler - resolveServerErr - resStatus: [${resStatus}], errorCode: [${errorCode}]`);
-  if (
-    resStatus === 401 ||
-    (resStatus == null && errorCode == 'ERR_NETWORK') || // CORS issue
-    (resStatus === 500 && errorCode == 'ERR_CANCELED')
-  ) {
-    serverErr = constructServerErr401(axiosErr);
-  } else {
+  const serverErrHandler = resolveServerErrHandler(resStatus);
+  let responseErr;
+
+  console.log(
+    `AxiosErrorHandler - resolveServerErr - preparation - resData: `,
+    resData
+  );
+  console.log(
+    `AxiosErrorHandler - resolveServerErr - preparation - axiosErr: `,
+    axiosErr
+  );
+  console.log(
+    `AxiosErrorHandler - resolveServerErr - preparation - errRes: `,
+    errRes
+  );
+  console.log(
+    `AxiosErrorHandler - resolveServerErr - preparation - resReqRes: `,
+    resReqRes
+  );
+  if (responseErr == null && resData != null) {
+    responseErr = {
+      ...resData,
+      errCode: errCode,
+      message: resData.error,
+      resData,
+      handler: serverErrHandler,
+    } as TResponseErr;
     console.log(
-      `AxiosErrorHandler - resolveServerErr - axiosErr - axiosErr: `,
-      axiosErr
+      `AxiosErrorHandler - resolveServerErr - resData - responseErr: `,
+      responseErr
+    );
+  }
+  if (responseErr == null && resReqRes != null) {
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - (responseErr == null && resReqRes != null)`
+    );
+    const data = JSON.parse(resReqRes);
+    responseErr = {
+      ...data,
+      errCode: errCode,
+      message: data.error,
+      resData,
+      handler: serverErrHandler,
+    } as TResponseErr;
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
+      responseErr
+    );
+  }
+  if (responseErr == null && errRes != null) {
+    responseErr = {
+      status: resStatus,
+      errCode: errCode,
+      message: errRes.statusText,
+      resData,
+      handler: serverErrHandler,
+    } as TResponseErr;
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - (responseErr == null && errRes != null)`
     );
     console.log(
-      `AxiosErrorHandler - resolveServerErr - errorRes - errorRes: `,
-      errorRes
+      `AxiosErrorHandler - resolveServerErr - errRes - responseErr: `,
+      responseErr
+    );
+  }
+  if (responseErr == null && axiosErr != null) {
+    responseErr = {
+      status: resStatus,
+      errCode: errCode,
+      message: axiosErr.message,
+      resData,
+      handler: serverErrHandler,
+    } as TResponseErr;
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
     );
     console.log(
-      `AxiosErrorHandler - resolveServerErr - resReqRes - resReqRes: `,
-      resReqRes
+      `AxiosErrorHandler - resolveServerErr - axiosErr - responseErr: `,
+      responseErr
     );
-    if (responseErr == null && resReqRes != null) {
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - (responseErr == null && resReqRes != null)`
-      );
-      const data = JSON.parse(resReqRes);
-      responseErr = { ...data } as TResponseErr;
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
-        responseErr
-      );
-    }
-    if (responseErr == null && errorRes != null) {
-      responseErr = {
-        status: resStatus,
-        message: errorRes.statusText,
-      } as TResponseErr;
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - (responseErr == null && errorRes != null)`
-      );
-    }
-    if (responseErr == null && axiosErr != null) {
-      responseErr = {
-        status: resStatus,
-        message: axiosErr.message,
-      } as TResponseErr;
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
-      );
-    }
-    serverErr = {
-      axiosErr,
-      responseErr,
-    } as TServerErr;
+  }
+  let serverErr = {
+    axiosErr,
+    responseErr,
+  } as TServerErr;
+  if (isAuthErr401(serverErr)) {
+    serverErr.responseErr.status = 401;
+    serverErr.responseErr.handler = resolveServerErrHandler(serverErr.responseErr.status);
   }
   return serverErr;
 };
 
+const isAuthErr401 = (serverErr: TServerErr) => {
+  let is401 = false;
+  const { responseErr } = serverErr;
+  let retStatus = responseErr?.status;
+  let errCode = responseErr?.errCode;
+  let path = responseErr?.path ? responseErr?.path : '';
+  if (
+    retStatus === 401 ||
+    (retStatus == null && errCode == 'ERR_NETWORK') || // CORS issue
+    (retStatus === 500 && errCode == 'ERR_CANCELED') ||
+    (retStatus === 500 &&
+      errCode == 'ERR_BAD_RESPONSE' &&
+      path.indexOf('auth/refresh-token/keycloak') >= 0)
+  ) {
+    is401 = true;
+  }
+  return is401;
+};
+
 export type { TResponseErr, TServerErr };
-export { resolveServerErr };
+export { resolveServerErr, isAuthErr401 };

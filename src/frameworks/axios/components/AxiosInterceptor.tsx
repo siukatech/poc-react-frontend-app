@@ -2,19 +2,28 @@ import React, { useContext, useMemo, useEffect, useState } from 'react';
 
 import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
 
-import AuthContext, { useAuthContext } from '../../../features/auth/stores/AuthContext';
+import AuthContext, {
+  useAuthContext,
+} from '../../../features/auth/stores/AuthContext';
 import axiosService from '../services/axios-service';
 
 import { ProcessorAxiosRequestConfig } from '../processors/processor-general';
 import { prePublicDataObjProcessor } from '../processors/processor-public';
 import { preProtectedDataObjProcessor } from '../processors/processor-protected';
 import { preEncryptedDataObjProcessor } from '../processors/processor-encrypted';
-import { doRefreshToken, restoreTokens } from '../../../features/auth/services/LoginService';
+import {
+  doRefreshToken,
+  restoreTokens,
+} from '../../../features/auth/services/LoginService';
 
 import DialogPrompt from '../../ui/components/DialogPrompt';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { resolveServerErr } from '../services/AxiosErrorHandler';
+import {
+  TServerErr,
+  isAuthErr401,
+  resolveServerErr,
+} from '../services/AxiosErrorHandler';
 
 enum InterceptorTypeEnum {
   REQUEST = 'REQUEST',
@@ -35,7 +44,8 @@ type AxiosInterceptorProps = {
 const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const [loginError, setLoginError] = useState();
+  const [loginErr, setLoginErr] = useState();
+  const [serverErr, setServerErr] = useState<TServerErr>();
   const { user, doLogout } = useAuthContext();
 
   const [interceptorIdMap, setInterceptorIdMap] = useState<any>({});
@@ -49,11 +59,11 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   useEffect(
     () => {
       let isInterceptorRegistered = false;
-      // console.log(`AxiosInterceptor - useMemo - interceptor.request - 1 - axiosService.interceptors: `, axiosService.interceptors);
+      // console.log(`AxiosInterceptor - useEffect - interceptor.request - 1 - axiosService.interceptors: `, axiosService.interceptors);
       const interceptorKey = 'request-1';
       const existingInterceptorId = interceptorIdMap[interceptorKey];
       console.log(
-        `AxiosInterceptor - useMemo - interceptor.request - 1 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
+        `AxiosInterceptor - useEffect - interceptor.request - 1 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
         interceptorIdMap
       );
       if (existingInterceptorId == null) {
@@ -61,28 +71,11 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
         // https://axios-http.com/docs/req_config
         const interceptorId = axiosService.interceptors.request.use(
           (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-            // console.log(`AxiosInterceptor - useMemo - interceptor.request - 1`);
-            // const tokens = restoreTokens();
-            // // config.headers.common = config.headers.common ?? {};
-            // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
-            // config.headers['Authorization'] = `Bearer ${tokens.access_token}`;
-            // // config.processors = config.processors ?? {};
-            // if (config.url.indexOf(process.env.REACT_APP_API_PATH_V1_PUBLIC) >= 0) {
-            //   config.processors = deepMergeObject(
-            //     {
-            //       postDataRetProcessor: postPublicDataRetProcessor,
-            //     },
-            //     config.processors
-            //   );
-            // }
-            // // config.interceptors = config.interceptors ?? [];
-            // // config.interceptors.push(1);
-            // config = prePublicDataObjProcessor(config);
             let configProcessed = preEncryptedDataObjProcessor(
               config as ProcessorAxiosRequestConfig
             );
             console.log(
-              `AxiosInterceptor - useMemo - interceptor.request - 1 - configProcessed: `,
+              `AxiosInterceptor - useEffect - interceptor.request - 1 - configProcessed: `,
               configProcessed
             );
             return configProcessed;
@@ -91,7 +84,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           { synchronous: true }
         );
         console.log(
-          `AxiosInterceptor - useMemo - interceptor.request - 1 - interceptorId: [${interceptorId}], isInterceptorRegistered: [${isInterceptorRegistered}]`
+          `AxiosInterceptor - useEffect - interceptor.request - 1 - interceptorId: [${interceptorId}], isInterceptorRegistered: [${isInterceptorRegistered}]`
         );
         setInterceptorIdMap((prev: any) => ({
           ...prev,
@@ -124,38 +117,23 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
       const interceptorKey = 'request-2';
       const existingInterceptorId = interceptorIdMap[interceptorKey];
       console.log(
-        `AxiosInterceptor - useMemo - interceptor.request - 2 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
+        `AxiosInterceptor - useEffect - interceptor.request - 2 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
         interceptorIdMap
       );
       if (existingInterceptorId == null) {
         const interceptorId = axiosService.interceptors.request.use(
           (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-            // console.log(
-            //   'interceptor.request - 2 - config.interceptors: ',
-            //   config.interceptors
-            // );
-            // if (config.url.indexOf(process.env.REACT_APP_API_PATH_V1_PROTECTED) >= 0) {
-            //   config.processors = deepMergeObject(
-            //     {
-            //       postDataRetProcessor: postProtectedDataRetProcessor,
-            //       preDataObjProcessor: preDataObjProcessor,
-            //     },
-            //     config.processors
-            //   );
-            // }
-            // // config.interceptors = config.interceptors ?? [];
-            // // config.interceptors.push(2);
             let configProcessed = preProtectedDataObjProcessor(
               config as ProcessorAxiosRequestConfig
             );
-            // console.log(`AxiosInterceptor - useMemo - interceptor.request - 2 - configProcessed: `, configProcessed);
+            // console.log(`AxiosInterceptor - useEffect - interceptor.request - 2 - configProcessed: `, configProcessed);
             return configProcessed;
           },
           undefined,
           { synchronous: true }
         );
         console.log(
-          `AxiosInterceptor - useMemo - interceptor.request - 2 - interceptorId: [${interceptorId}]`
+          `AxiosInterceptor - useEffect - interceptor.request - 2 - interceptorId: [${interceptorId}]`
         );
         setInterceptorIdMap((prev: any) => ({
           ...prev,
@@ -187,38 +165,23 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
       const interceptorKey = 'request-3';
       const existingInterceptorId = interceptorIdMap[interceptorKey];
       console.log(
-        `AxiosInterceptor - useMemo - interceptor.request - 3 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
+        `AxiosInterceptor - useEffect - interceptor.request - 3 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
         interceptorIdMap
       );
       if (existingInterceptorId == null) {
         const interceptorId = axiosService.interceptors.request.use(
           (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-            // console.log(
-            //   'interceptor.request - 3 - config.interceptors: ',
-            //   config.interceptors
-            // );
-            // if (config.url.indexOf(process.env.REACT_APP_API_PATH_V1_ENCRYPTED) >= 0) {
-            //   config.processors = deepMergeObject(
-            //     {
-            //       postDataRetProcessor: postEncryptedDataRetProcessor,
-            //       preDataObjProcessor: preDataObjProcessor,
-            //     },
-            //     config.processors
-            //   );
-            // }
-            // // config.interceptors = config.interceptors ?? [];
-            // // config.interceptors.push(3);
             let configProcessed = prePublicDataObjProcessor(
               config as ProcessorAxiosRequestConfig
             );
-            // console.log(`AxiosInterceptor - useMemo - interceptor.request - 3 - configProcessed: `, configProcessed);
+            // console.log(`AxiosInterceptor - useEffect - interceptor.request - 3 - configProcessed: `, configProcessed);
             return configProcessed;
           },
           undefined,
           { synchronous: true }
         );
         console.log(
-          `AxiosInterceptor - useMemo - interceptor.request - 3 - interceptorId: [${interceptorId}]`
+          `AxiosInterceptor - useEffect - interceptor.request - 3 - interceptorId: [${interceptorId}]`
         );
         setInterceptorIdMap((prev: any) => ({
           ...prev,
@@ -250,19 +213,18 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
       const interceptorKey = 'response-1';
       const existingInterceptorId = interceptorIdMap[interceptorKey];
       console.log(
-        `AxiosInterceptor - useMemo - interceptor.response - 1 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
+        `AxiosInterceptor - useEffect - interceptor.response - 1 - existingInterceptorId: [${existingInterceptorId}], interceptorIdMap: `,
         interceptorIdMap
       );
       if (existingInterceptorId == null) {
         const interceptorId = axiosService.interceptors.response.use(
           (response) => {
-            // console.log(`AxiosInterceptor - useMemo - interceptor.response.normal - 1`);
             console.log(
-              `AxiosInterceptor - useMemo - interceptor.response.normal - 1 - response: `,
+              `AxiosInterceptor - useEffect - interceptor.response.normal - 1 - response: `,
               response
             );
             console.log(
-              `AxiosInterceptor - useMemo - interceptor.response.normal - 1 - data: `,
+              `AxiosInterceptor - useEffect - interceptor.response.normal - 1 - data: `,
               response?.data
             );
             if (response) {
@@ -274,7 +236,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
               );
             }
             // console.log(
-            //   `AxiosInterceptor - useMemo - interceptor.response.normal - 1 - processedConfig: `,
+            //   `AxiosInterceptor - useEffect - interceptor.response.normal - 1 - processedConfig: `,
             //   processedConfig
             // );
             return response;
@@ -282,56 +244,30 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           // async (err): Promise<any> => {
           async (err) => {
             console.log(
-              `AxiosInterceptor - useMemo - interceptor.response.err - 1 - err: `,
+              `AxiosInterceptor - useEffect - interceptor.response.err - 1 - err: `,
               err
             );
             const serverErr = resolveServerErr(err);
             const { responseErr } = serverErr;
             let retStatus = responseErr?.status;
-            let errorCode = err.code;
+            let errorCode = responseErr?.errCode;
             console.log(
-              `AxiosInterceptor - useMemo - interceptor.response.err - 1 - retStatus: [${retStatus}], errorCode: [${errorCode}]`,
+              `AxiosInterceptor - useEffect - interceptor.response.err - 1 - retStatus: [${retStatus}], errorCode: [${errorCode}]`,
               err
             );
-            if (
-              retStatus === 401 ||
-              (retStatus == null && errorCode == 'ERR_NETWORK') || // CORS issue
-              (retStatus === 500 && errorCode == 'ERR_CANCELED')
-            ) {
-              // const tokens = restoreTokens();
-              // const payload = {
-              //   access_token: tokens?.access_token,
-              //   refresh_token: tokens?.refresh_token,
-              // };
-
-              // let tokenRefreshUrl =
-              //   process.env.REACT_APP_API_PATH_PREFIX +
-              //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
-              //   process.env.REACT_APP_API_OAUTH_REFRESH_TOKEN;
-              // tokenRefreshUrl = tokenRefreshUrl.replace(
-              //   '{0}',
-              //   process.env.REACT_APP_API_OAUTH_CLIENT_NAME
-              // );
-              // console.log(
-              //   'axiosService - response.use - tokenRefreshUrl: [' +
-              //     tokenRefreshUrl +
-              //     ']'
-              // );
-              // let apiResponse = await axios.post(tokenRefreshUrl, payload);
-              // sessionStorage.setItem('tokens', JSON.stringify(apiResponse.data));
-
+            if (isAuthErr401(serverErr)) {
               try {
                 // const tokensRefreshed = await doRefreshToken();
                 // if (tokensRefreshed != null) {
                 const refreshTokenResult: any = await doRefreshToken();
                 console.log(
-                  'AxiosInterceptor - useMemo - interceptor.response.err - 1 - refreshTokenResult: ',
+                  'AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - refreshTokenResult: ',
                   refreshTokenResult
                 );
                 if (!(refreshTokenResult instanceof AxiosError)) {
                   const tokensRefreshed = refreshTokenResult;
                   console.log(
-                    'AxiosInterceptor - useMemo - interceptor.response.err - 1 - tokensRefreshed: ',
+                    'AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - tokensRefreshed: ',
                     tokensRefreshed
                   );
                   err.config.headers[
@@ -346,49 +282,53 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
                   // const axiosResRefreshed = await axios(err.config);
                   const axiosResRefreshed = await axiosService(err.config);
                   console.log(
-                    `AxiosInterceptor - useMemo - interceptor.response.err - 1 - axiosResRefreshed: `,
+                    `AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - axiosResRefreshed: `,
                     axiosResRefreshed
                   );
                   return axiosResRefreshed;
                 }
                 console.log(
-                  `AxiosInterceptor - useMemo - interceptor.response.err - 1 - end`
+                  `AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - end`
                 );
               } catch (doRefreshTokenErr) {
-                console.log(
-                  `AxiosInterceptor - useMemo - interceptor.response.err - 1 - doRefreshTokenErr: `,
-                  doRefreshTokenErr
-                );
                 doLogout();
-                console.log(
-                  `AxiosInterceptor - useMemo - interceptor.response.err - 1 - doLogout - end`
-                );
                 const isAxiosError = doRefreshTokenErr instanceof AxiosError;
                 console.log(
-                  `AxiosInterceptor - useMemo - interceptor.response.err - 1 - isAxiosError: [${isAxiosError}]`
+                  `AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - err - isAxiosError: [${isAxiosError}], doRefreshTokenErr`,
+                  doRefreshTokenErr
                 );
                 // return Promise.reject(doRefreshTokenErr);
                 let rejectData;
+                let doRefreshTokenServerErr;
                 if (isAxiosError) {
                   rejectData = doRefreshTokenErr.response?.data;
+                  doRefreshTokenServerErr = resolveServerErr(doRefreshTokenErr);
                 }
                 rejectData =
                   !isAxiosError || rejectData == null ? '401' : rejectData;
                 console.log(
-                  `AxiosInterceptor - useMemo - interceptor.response.err - 1 - rejectData: `,
+                  `AxiosInterceptor - useEffect - interceptor.response.err - 1 - rejectData: `,
                   rejectData
                 );
-                setLoginError(rejectData);
+                setLoginErr(rejectData);
+                //
+                console.log(
+                  `AxiosInterceptor - useEffect - interceptor.response.err - 1 - doRefreshTokenServerErr: `,
+                  doRefreshTokenServerErr
+                );
+                setServerErr(doRefreshTokenServerErr);
+                //
                 // return Promise.reject(rejectData);
                 return Promise.reject(err);
               }
             } else {
+              setServerErr(serverErr);
               return Promise.reject(err);
             }
           }
         );
         console.log(
-          `AxiosInterceptor - useMemo - interceptor.response - 1 - interceptorId: [${interceptorId}]`
+          `AxiosInterceptor - useEffect - interceptor.response - 1 - interceptorId: [${interceptorId}]`
         );
         setInterceptorIdMap((prev: any) => ({
           ...prev,
@@ -414,71 +354,11 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
     ]
   );
 
-  // useMemo(() => {
-  //   const interceptorKey = 'response-2';
-  //   const existingInterceptorId = interceptorIdMap[interceptorKey];
-  //   console.log(
-  //     `AxiosInterceptor - useMemo - interceptor.response - 2 - existingInterceptorId: [${existingInterceptorId}]`
-  //   );
-  //   if (existingInterceptorId == null) {
-  //     setInterceptorIdMap((prev: any) => {
-  //     const interceptorId = axiosService.interceptors.response.use(
-  //       (response) => {
-  //         console.log(
-  //           `AxiosInterceptor - useMemo - interceptor.response.normal - 2`
-  //         );
-  //         console.log(
-  //           'interceptor.response.normal - 2 - response.config: ',
-  //           response.config
-  //         );
-  //         return response;
-  //       },
-  //       async (err): Promise<any> => {
-  //         console.log(
-  //           `AxiosInterceptor - useMemo - interceptor.response.err - 2`
-  //         );
-  //         console.log(
-  //           `AxiosInterceptor - useMemo - interceptor.response.err - 2 - err: `,
-  //           err
-  //         );
-  //         return Promise.reject(err);
-  //       }
-  //     );
-  //     axiosService.interceptors.response.use(
-  //       (response) => {
-  //         console.log(
-  //           `AxiosInterceptor - useMemo - interceptor.response.normal - 3`
-  //         );
-  //         console.log(
-  //           'interceptor.response.normal - 3 - response.config: ',
-  //           response.config
-  //         );
-  //         return response;
-  //       },
-  //       async (err): Promise<any> => {
-  //         console.log(
-  //           `AxiosInterceptor - useMemo - interceptor.response.err - 3`
-  //         );
-  //         console.log(
-  //           `AxiosInterceptor - useMemo - interceptor.response.err - 3 - err: `,
-  //           err
-  //         );
-  //         return Promise.reject(err);
-  //       }
-  //     );
-  ////     setInterceptorIdMap((prev: any) => ({
-  ////       ...prev,
-  ////       [interceptorKey]: interceptorId,
-  ////     }));
-  ////   }
-  //     return {
-  //       ...prev,
-  //       [interceptorKey]: interceptorId,
-  //     };
-  //   });
-  //   // return interceptorId;
-  // }, []);
-
+  /**
+   * Dont update the interceptorRecords
+   * That will cause the redundant update by useEffect failure.
+   * And lead to the interceptors' ejection failure.
+   */
   useEffect(() => {
     // setInterceptorRecords((prev: TInterceptorRecord[]) => {
     // const interceptorRecords = prev;
@@ -507,6 +387,10 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
     // });
   }, [interceptorRecords.length]);
 
+  const showDialog = serverErr != null;
+  const dialogTitleKey = serverErr ? serverErr.responseErr.handler.title : '';
+  // console.log(`AxiosInterceptor - dialogTitle: ${dialogTitle}`);
+
   console.log(
     `AxiosInterceptor - axiosService.interceptors: `,
     axiosService.interceptors
@@ -515,14 +399,17 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
 
   return (
     <>
-      {loginError && (
+      {showDialog && (
         <DialogPrompt
           open={true}
-          title={t('error.login.expired')}
-          message={loginError}
+          title={`${t(dialogTitleKey)} (${serverErr.responseErr.status || serverErr.responseErr.errCode})`}
+          message={JSON.stringify(serverErr)}
           onOk={() => {
-            setLoginError(undefined);
-            navigate(`/login`);
+            setLoginErr(undefined);
+            setServerErr(undefined);
+            if (serverErr?.responseErr?.handler.path) {
+              navigate(serverErr?.responseErr?.handler.path);
+            }
           }}
         />
       )}
