@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import router from './app/routes/router';
+import router from './frameworks/app/routes/router';
 
 
 function App() {
