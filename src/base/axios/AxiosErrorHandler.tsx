@@ -23,6 +23,8 @@ const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
   const errorCode = axiosErr.code;
   const errorRes = axiosErr.response;
   const resStatus = errorRes?.status;
+  console.log(`AxiosErrorHandler - resolveAxiosErrDetails - axiosErr: `, axiosErr);
+  console.log(`AxiosErrorHandler - resolveAxiosErrDetails - resStatus: [${resStatus}], errorCode: [${errorCode}], errorRes: `, errorRes);
   const resReqRes =
     errorRes?.request?.response == null || errorRes?.request?.response === ''
       ? null
@@ -55,6 +57,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
     resolveAxiosErrDetails(axiosErr);
   let responseErr = resData;
   let serverErr;
+  console.log(`AxiosErrorHandler - resolveServerErr - resStatus: [${resStatus}], errorCode: [${errorCode}]`);
   if (
     resStatus === 401 ||
     (resStatus == null && errorCode == 'ERR_NETWORK') || // CORS issue
@@ -62,13 +65,24 @@ const resolveServerErr = (axiosErr: AxiosError) => {
   ) {
     serverErr = constructServerErr401(axiosErr);
   } else {
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - axiosErr - axiosErr: `,
+      axiosErr
+    );
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - errorRes - errorRes: `,
+      errorRes
+    );
+    console.log(
+      `AxiosErrorHandler - resolveServerErr - resReqRes - resReqRes: `,
+      resReqRes
+    );
     if (responseErr == null && resReqRes != null) {
+      console.log(
+        `AxiosErrorHandler - resolveServerErr - (responseErr == null && resReqRes != null)`
+      );
       const data = JSON.parse(resReqRes);
       responseErr = { ...data } as TResponseErr;
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - resReqRes - resReqRes: `,
-        resReqRes
-      );
       console.log(
         `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
         responseErr
@@ -80,25 +94,16 @@ const resolveServerErr = (axiosErr: AxiosError) => {
         message: errorRes.statusText,
       } as TResponseErr;
       console.log(
-        `AxiosErrorHandler - resolveServerErr - errorRes - errorRes: `,
-        errorRes
-      );
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - errorRes - resReqRes: `,
-        resReqRes
+        `AxiosErrorHandler - resolveServerErr - (responseErr == null && errorRes != null)`
       );
     }
     if (responseErr == null && axiosErr != null) {
       responseErr = {
+        status: resStatus,
         message: axiosErr.message,
-      } as TResponseErr
+      } as TResponseErr;
       console.log(
-        `AxiosErrorHandler - resolveServerErr - axiosErr - axiosErr: `,
-        axiosErr
-      );
-      console.log(
-        `AxiosErrorHandler - resolveServerErr - axiosErr - resReqRes: `,
-        resReqRes
+        `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
       );
     }
     serverErr = {
