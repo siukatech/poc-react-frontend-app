@@ -13,28 +13,33 @@ import RouterMain from '../pages/RouterMain';
 import NotFound from '../pages/NotFound';
 import ErrorPage from '../pages/ErrorPage';
 
-import Login from '../../../features/auth/pages/Login';
-import Logout from '../../../features/auth/pages/Logout';
+// import Login from '../../../features/auth/pages/Login';
+// import Logout from '../../../features/auth/pages/Logout';
+import { Login, Logout } from '../../../features/auth';
 
-import AllItems from '../../../features/item/pages/AllItems';
-import EditItem from '../../../features/item/pages/EditItem';
-import ViewItem from '../../../features/item/pages/ViewItem';
+// import AllItems from '../../../features/item/pages/AllItems';
+// import EditItem from '../../../features/item/pages/EditItem';
+// import ViewItem from '../../../features/item/pages/ViewItem';
+import { AllItems, EditItem, ViewItem } from '../../../features/item';
 
-import ContentLong from '../../../features/sample/pages/ContentLong';
+// import ContentLong from '../../../features/sample/pages/ContentLong';
+import { ContentLong } from '../../../features/sample';
 
-import AllMerchants from '../../../features/merchant/pages/AllMerchants';
-import ViewMerchant from '../../../features/merchant/pages/ViewMerchant';
-import EditMerchant from '../../../features/merchant/pages/EditMerchant';
-
+// import AllMerchants from '../../../features/merchant/pages/AllMerchants';
+// import ViewMerchant from '../../../features/merchant/pages/ViewMerchant';
+// import EditMerchant from '../../../features/merchant/pages/EditMerchant';
+import {
+  AllMerchants,
+  ViewMerchant,
+  EditMerchant,
+} from '../../../features/merchant';
 
 const router = createBrowserRouter(
   // delfine method 1
   [
     {
       path: '/',
-      element: (
-        <RouterMain />
-      ),
+      element: <RouterMain />,
       // element: <AuthContextProvider><PersistentDrawerLeft /></AuthContextProvider>,
       errorElement: <ErrorPage />,
       //render: () => redirect('./toys'),
@@ -66,8 +71,8 @@ const router = createBrowserRouter(
             // >
             //   <Logout />
             // </ProtectedResource>
-              <Logout />
-            ),
+            <Logout />
+          ),
         },
         // { path: '/items', exact: true, element: <ProtectedResource accessBy="authenticated" ><AllItems /></ProtectedResource> },
         {
@@ -120,8 +125,8 @@ const router = createBrowserRouter(
             // >
             //   <AllMerchants />
             // </ProtectedResource>
-              <AllMerchants />
-            ),
+            <AllMerchants />
+          ),
         },
         {
           path: '/merchants/:merchantId',

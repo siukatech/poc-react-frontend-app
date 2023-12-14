@@ -7,8 +7,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import router from './frameworks/app/routes/router';
-
+// import router from './frameworks/app/routes/router';
+import { router } from './frameworks/app';
 
 function App() {
   return (
@@ -19,4 +19,3 @@ function App() {
 }
 
 export default App;
-

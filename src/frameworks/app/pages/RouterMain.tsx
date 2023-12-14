@@ -12,8 +12,10 @@ import LayoutLeft from '../components/LayoutLeft';
 import LayoutMini from '../components/LayoutMini';
 import MiniVariantDrawerLeft from '../components/MiniVariantDrawerLeft';
 
-import { AuthContextProvider } from '../../../features/auth/stores/AuthContext';
-import AxiosInterceptor from '../../axios/components/AxiosInterceptor';
+// import { AuthContextProvider } from '../../../features/auth/stores/AuthContext';
+// import AxiosInterceptor from '../../axios/components/AxiosInterceptor';
+import { AuthContextProvider } from '../../../features/auth';
+import { AxiosInterceptor } from '../../axios';
 
 const queryClient = new QueryClient({
   defaultOptions: {
