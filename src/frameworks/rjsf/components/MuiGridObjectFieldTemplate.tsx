@@ -18,7 +18,7 @@ const MuiGridObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     <>
       <Grid container>
         {uiGrid.map((gridConfig: any, idx1: number) => {
-          console.log(
+          console.debug(
             `MuiGridObjectFieldTemplate - idx1: [${idx1}], gridConfig: `,
             gridConfig
           );
@@ -28,7 +28,7 @@ const MuiGridObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
               (element) => element.name === elementName
             );
             const element = elements.length > 0 ? elements[0] : undefined;
-            console.log(
+            console.debug(
               `MuiGridObjectFieldTemplate - idx1: [${idx1}], idx2: [${idx2}], elementName: [${elementName}], elementWidth: [${elementWidth}]`
             );
             return (

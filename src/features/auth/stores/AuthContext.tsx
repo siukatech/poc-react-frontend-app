@@ -93,7 +93,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     //   '{0}',
     //   process.env.REACT_APP_API_OAUTH_CLIENT_NAME
     // );
-    // console.log(
+    // console.debug(
     //   'AuthContextProvider - login - authCodeLoginUrl: [' +
     //     authCodeLoginUrl +
     //     ']'
@@ -110,7 +110,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // const myUserInfo = myUserInfoRes.data;
     // //
     // let user = jwt_decode(tokens.access_token);
-    // console.log(
+    // console.debug(
     //   'AuthContextProvider - login - user: [' + JSON.stringify(user) + '], myUserInfo: [' + JSON.stringify(myUserInfo) + ']'
     // );
     // for (const key in myUserInfo) {
@@ -118,7 +118,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // }
     // sessionStorage.setItem('user', JSON.stringify(user));
     const user = await doAuthLogin(payload);
-    console.log(
+    console.debug(
       'AuthContextProvider - login - user: [' + JSON.stringify(user) + ']'
     );
     setUser(user);
@@ -134,10 +134,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   //   navigate('/');
   // };
   const doLogout = () => {
-    console.log('AuthContext - doLogout - start');
+    console.debug('AuthContext - doLogout - start');
     doAuthLogout();
     setUser(null);
-    console.log('AuthContext - doLogout - end');
+    console.debug('AuthContext - doLogout - end');
   };
 
   // const checkTimeout = async (): Promise<void> => {

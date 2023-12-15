@@ -35,7 +35,7 @@ const UnloadPrompt = ({
   const onCancel = isActive ? blocker.reset : () => {};
 
   useEffect(() => {
-    console.log(
+    console.debug(
       'UnloadPrompt - useEffect - handleBeforeUnload - 1 - isActive: [' +
         isActive +
         '], isDirty: [' +

@@ -5,7 +5,7 @@ import { TitleFieldProps } from '@rjsf/utils';
 const MuiTitleFieldTemplate = (props: TitleFieldProps) => {
   const { t } = useTranslation();
 
-  console.log(`MuiTitleFieldTemplate - props: `, props);
+  console.debug(`MuiTitleFieldTemplate - props: `, props);
 
   return <>{props.title}</>;
 };

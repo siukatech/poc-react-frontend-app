@@ -18,8 +18,8 @@ const formatDatetime = (date?: Date, pattern: string = DATE_TIME_FORMAT_DEFAULT)
 const parseDateToUtc = (obj: Date | string | number) => {
   const timezone: string = TIMEZONE_DEFAULT;
   let zonedDatetime = zonedTimeToUtc(obj, timezone);
-  // console.log('date - parseDateToUtc - zonedDatetime: ', zonedDatetime);
-  // console.log('date - parseDateToUtc - zonedDatetime.getTimezoneOffset: [' + Math.abs(zonedDatetime.getTimezoneOffset()) + ']');
+  // console.debug('date - parseDateToUtc - zonedDatetime: ', zonedDatetime);
+  // console.debug('date - parseDateToUtc - zonedDatetime.getTimezoneOffset: [' + Math.abs(zonedDatetime.getTimezoneOffset()) + ']');
   return zonedDatetime;
   // return parseJSON(obj);
   // return toDate(obj);

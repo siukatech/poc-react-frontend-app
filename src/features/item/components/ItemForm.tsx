@@ -88,19 +88,19 @@ const ItemForm = ({
   ) => {
     //navigate(-1);
     //setIsDirty(true);
-    console.log(
+    console.debug(
       'ItemForm - handleFormFocus - evt.target.value: ',
       evt.target.value
     );
     // setIsDirty((prevState) => {
-    //   console.log(
+    //   console.debug(
     //     'ItemForm - handleFormFocus - prevState: [' + prevState + ']'
     //   );
     //   if (prevState === true) {
     //     return prevState;
     //   } else return true;
     // });
-    console.log('ItemForm - handleFormFocus - blocker: ', blocker);
+    console.debug('ItemForm - handleFormFocus - blocker: ', blocker);
   };
 
   const handleTextFieldChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +123,7 @@ const ItemForm = ({
   // https://stackoverflow.com/a/69440640
   const handleDateFieldChange = (name: string, value: any) => {
     const timezoneOffset = getTimezoneOffset(TIMEZONE_DEFAULT, value);
-    const valueWithTimezoneOffset = console.log(
+    const valueWithTimezoneOffset = console.debug(
       'ItemForm - handleDateFieldChange - name: [' +
         name +
         '], value: [' +

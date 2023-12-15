@@ -49,7 +49,7 @@ const EditItem = (props: any) => {
   const params = useParams();
 
   const { itemId } = params;
-  console.log('EditItem - itemId: ', itemId);
+  console.debug('EditItem - itemId: ', itemId);
 
   const [showPutErrorDialog, setShowPutErrorDialog] = useState(true);
 
@@ -87,7 +87,7 @@ const EditItem = (props: any) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
-    console.log('EditItem - handleFormSubmit - itemRec: ', itemRec);
+    console.debug('EditItem - handleFormSubmit - itemRec: ', itemRec);
     putRequest(itemRec);
   };
 
@@ -102,12 +102,12 @@ const EditItem = (props: any) => {
   // ) => {
   //   //navigate(-1);
   //   //setIsDirty(true);
-  //   console.log(
+  //   console.debug(
   //     'EditItem - handleFormFocus - evt.target.value: ',
   //     evt.target.value
   //   );
   //   setIsDirty((prevState) => {
-  //     console.log(
+  //     console.debug(
   //       'EditItem - handleFormFocus - prevState: [' + prevState + ']'
   //     );
   //     if (prevState === true) {

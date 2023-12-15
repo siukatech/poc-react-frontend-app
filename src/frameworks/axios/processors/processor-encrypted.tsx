@@ -23,7 +23,7 @@ const preEncryptedDataObjProcessor = (
   //
   const apiEncryptedUriPrefix: string = process.env
     .REACT_APP_API_PREFIX_ENCRYPTED as string;
-    console.log(`processor-encrypted - preEncryptedDataObjProcessor - start`);
+    console.debug(`processor-encrypted - preEncryptedDataObjProcessor - start`);
   if (reqConfig.url != null && reqConfig.url.indexOf(apiEncryptedUriPrefix) >= 0) {
     // reqConfig.processors = deepMergeObject(
     //   reqConfig.processors,
@@ -46,8 +46,8 @@ const preEncryptedDataObjProcessor = (
 
     const dataObj = reqConfig.data;
     const dataObjStr = dataObj == null ? '' : JSON.stringify(dataObj);
-    // console.log(`processor-encrypted - preEncryptedDataObjProcessor - dataObj: `, dataObj);
-    console.log(`processor-encrypted - preEncryptedDataObjProcessor - dataObjStr: `, dataObjStr);
+    // console.debug(`processor-encrypted - preEncryptedDataObjProcessor - dataObj: `, dataObj);
+    console.debug(`processor-encrypted - preEncryptedDataObjProcessor - dataObjStr: `, dataObjStr);
     const userStr: string = sessionStorage.getItem('user') as string;
     const user: any = JSON.parse(userStr);
     const publicKeyBase64: string = user?.publicKey;
@@ -78,7 +78,7 @@ const preEncryptedDataObjProcessor = (
     const encryptedBody = CryptoJS.enc.Base64.stringify(encryptedBodyWa);
     const encryptedHeader = CryptoJS.enc.Base64.stringify(encryptedHeaderWa);
 
-    // console.log(
+    // console.debug(
     //   'preEncryptedDataObjProcessor - typeof cipherInfoRsa: [' +
     //     typeof cipherInfoRsa +
     //     '], cipherInfoRsa.length: [' +
@@ -114,8 +114,8 @@ const postEncryptedDataRetProcessor = (
   dataRet: any,
   reqConfig: ProcessorAxiosRequestConfig
 ): any => {
-  // console.log('postEncryptedDataRetProcessor - start');
-  // console.log('postEncryptedDataRetProcessor - dataRet: [' + dataRet + ']');
+  // console.debug('postEncryptedDataRetProcessor - start');
+  // console.debug('postEncryptedDataRetProcessor - dataRet: [' + dataRet + ']');
   const cipherInfo = reqConfig['cipherInfo'];
   if (dataRet != null && typeof dataRet === 'string' && cipherInfo != null) {
     // const encryptedData = {
@@ -130,7 +130,7 @@ const postEncryptedDataRetProcessor = (
     // encoder.setPrivateKey(publicKeyBase64);
     // const decryptedDataBase64 = encoder.decrypt(encryptedRsaDataStr);
     const decryptedDataBase64 = dataRet;
-    console.log(`processor-encrypted - postEncryptedDataRetProcessor - decryptedDataBase64: `, decryptedDataBase64);
+    console.debug(`processor-encrypted - postEncryptedDataRetProcessor - decryptedDataBase64: `, decryptedDataBase64);
 
     // Reference:
     // https://github.com/kyungw00k/encrypt-something-in-java-and-decrypt-it-in-javascript-by-example
@@ -149,7 +149,7 @@ const postEncryptedDataRetProcessor = (
       }
     );
     const dataStr = decryptedData.toString(CryptoJS.enc.Utf8);
-    // console.log(
+    // console.debug(
     //   'requestPublicRecord - dataRet: [' +
     //     dataRet +
     //     '], cipherInfo: [' +
@@ -164,7 +164,7 @@ const postEncryptedDataRetProcessor = (
   } else {
     //dataRet = dataRet;
   }
-  // console.log('postEncryptedDataRetProcessor - end');
+  // console.debug('postEncryptedDataRetProcessor - end');
   return postProtectedDataRetProcessor(dataRet, reqConfig);
 };
 

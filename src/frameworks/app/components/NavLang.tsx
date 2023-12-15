@@ -34,7 +34,7 @@ const NavLang = () => {
   const langSelected = langMap[i18n.language];
 
   const handleLanguageChange = (lng: string) => {
-    console.log('handleLanguageChange - ready: ', ready);
+    console.debug('handleLanguageChange - ready: ', ready);
     if (ready) {
       i18n.changeLanguage(lng);
       localStorage.setItem(STORAGE_KEY_I18N, lng);

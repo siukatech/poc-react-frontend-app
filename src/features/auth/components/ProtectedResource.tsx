@@ -45,7 +45,7 @@ const checkShowChildren = (
   // let disabledEleCfg: undefined | any = undefined;
   let refinedChildren: React.ReactNode = children;
   if (timeoutErr) {
-    console.log(
+    console.debug(
       'ProtectedResource - checkShowChildren - timeoutErr: ',
       timeoutErr
     );
@@ -69,7 +69,7 @@ const checkShowChildren = (
   } else {
     if (accessBy === ProtectedResourceAccessBy.PUBLIC) {
       showChildren = true;
-      console.log(
+      console.debug(
         `ProtectedResource - checkShowChildren - accessBy: [${accessBy}], refinedChildren: `,
         refinedChildren
       );
@@ -197,7 +197,7 @@ const ProtectedResource = ({
     `${accessBy}` +
     // + '], disabledEleCfg?.disabled: [' + `${disabledEleCfg?.disabled}`
     ']';
-  // console.log('ProtectedResource - debugInfo: ', debugInfo);
+  // console.debug('ProtectedResource - debugInfo: ', debugInfo);
 
   // return <Navigate to="/?access=denied" />;
   return (

@@ -22,7 +22,7 @@ const axiosService = axios.create({
 // // https://axios-http.com/docs/req_config
 // axiosService.interceptors.request.use(
 //   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-//     // console.log('interceptor.request - 1');
+//     // console.debug('interceptor.request - 1');
 //     // const tokens = restoreTokens();
 //     // // config.headers.common = config.headers.common ?? {};
 //     // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
@@ -42,7 +42,7 @@ const axiosService = axios.create({
 //     let configProcessed = preEncryptedDataObjProcessor(
 //       config as ProcessorAxiosRequestConfig
 //     );
-//     // console.log('interceptor.request - 1 - configProcessed: ', configProcessed);
+//     // console.debug('interceptor.request - 1 - configProcessed: ', configProcessed);
 //     return configProcessed;
 //   },
 //   undefined,
@@ -50,7 +50,7 @@ const axiosService = axios.create({
 // );
 // axiosService.interceptors.request.use(
 //   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-//     // console.log(
+//     // console.debug(
 //     //   'interceptor.request - 2 - config.interceptors: ',
 //     //   config.interceptors
 //     // );
@@ -68,7 +68,7 @@ const axiosService = axios.create({
 //     let configProcessed = preProtectedDataObjProcessor(
 //       config as ProcessorAxiosRequestConfig
 //     );
-//     // console.log('interceptor.request - 2 - configProcessed: ', configProcessed);
+//     // console.debug('interceptor.request - 2 - configProcessed: ', configProcessed);
 //     return configProcessed;
 //   },
 //   undefined,
@@ -76,7 +76,7 @@ const axiosService = axios.create({
 // );
 // axiosService.interceptors.request.use(
 //   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-//     // console.log(
+//     // console.debug(
 //     //   'interceptor.request - 3 - config.interceptors: ',
 //     //   config.interceptors
 //     // );
@@ -94,7 +94,7 @@ const axiosService = axios.create({
 //     let configProcessed = prePublicDataObjProcessor(
 //       config as ProcessorAxiosRequestConfig
 //     );
-//     // console.log('interceptor.request - 3 - configProcessed: ', configProcessed);
+//     // console.debug('interceptor.request - 3 - configProcessed: ', configProcessed);
 //     return configProcessed;
 //   },
 //   undefined,
@@ -103,14 +103,14 @@ const axiosService = axios.create({
 
 // axiosService.interceptors.response.use(
 //   (response) => {
-//     // console.log('interceptor.response.normal - 1');
+//     // console.debug('interceptor.response.normal - 1');
 //     const processedConfig: ProcessorAxiosRequestConfig =
 //       response.config as ProcessorAxiosRequestConfig;
 //     response.data = processedConfig.processors?.postDataRetProcessor(
 //       response.data,
 //       processedConfig
 //     );
-//     // console.log(
+//     // console.debug(
 //     //   'interceptor.response.normal - 1 - processedConfig: ',
 //     //   processedConfig
 //     // );
@@ -118,7 +118,7 @@ const axiosService = axios.create({
 //   },
 //   // async (err): Promise<any> => {
 //   async (err) => {
-//     console.log('interceptor.response.err - 1 - err: ', err);
+//     console.debug('interceptor.response.err - 1 - err: ', err);
 //     let retStatus = err.response?.status;
 //     let errorCode = err.code;
 //     if (
@@ -140,7 +140,7 @@ const axiosService = axios.create({
 //       //   '{0}',
 //       //   process.env.REACT_APP_API_OAUTH_CLIENT_NAME
 //       // );
-//       // console.log(
+//       // console.debug(
 //       //   'axiosService - response.use - tokenRefreshUrl: [' +
 //       //     tokenRefreshUrl +
 //       //     ']'
@@ -152,13 +152,13 @@ const axiosService = axios.create({
 //         // const tokensRefreshed = await doRefreshToken();
 //         // if (tokensRefreshed != null) {
 //         const refreshTokenResult: any = await doRefreshToken();
-//         console.log(
+//         console.debug(
 //           'interceptor.response.err - 1 - refreshTokenResult: ',
 //           refreshTokenResult
 //         );
 //         if (!(refreshTokenResult instanceof AxiosError)) {
 //           const tokensRefreshed = refreshTokenResult;
-//           console.log(
+//           console.debug(
 //             'interceptor.response.err - 1 - tokensRefreshed: ',
 //             tokensRefreshed
 //           );
@@ -173,15 +173,15 @@ const axiosService = axios.create({
 //           //// return axios(err.config);
 //           // const axiosResRefreshed = await axios(err.config);
 //           const axiosResRefreshed = await axiosService(err.config);
-//           console.log(
+//           console.debug(
 //             `interceptor.response.err - 1 - axiosResRefreshed: `,
 //             axiosResRefreshed
 //           );
 //           return axiosResRefreshed;
 //         }
-//         console.log('interceptor.response.err - 1 - end');
+//         console.debug('interceptor.response.err - 1 - end');
 //       } catch (doRefreshTokenErr) {
-//         console.log(
+//         console.debug(
 //           'interceptor.response.err - 1 - doRefreshTokenErr: ',
 //           doRefreshTokenErr
 //         );
@@ -194,31 +194,31 @@ const axiosService = axios.create({
 // );
 // // axiosService.interceptors.response.use(
 // //   (response) => {
-// //     console.log('interceptor.response.normal - 2');
-// //     console.log(
+// //     console.debug('interceptor.response.normal - 2');
+// //     console.debug(
 // //       'interceptor.response.normal - 2 - response.config: ',
 // //       response.config
 // //     );
 // //     return response;
 // //   },
 // //   async (err): Promise<any> => {
-// //     console.log('interceptor.response.err - 2');
-// //     console.log('interceptor.response.err - 2 - err: ', err);
+// //     console.debug('interceptor.response.err - 2');
+// //     console.debug('interceptor.response.err - 2 - err: ', err);
 // //     return Promise.reject(err);
 // //   }
 // // );
 // // axiosService.interceptors.response.use(
 // //   (response) => {
-// //     console.log('interceptor.response.normal - 3');
-// //     console.log(
+// //     console.debug('interceptor.response.normal - 3');
+// //     console.debug(
 // //       'interceptor.response.normal - 3 - response.config: ',
 // //       response.config
 // //     );
 // //     return response;
 // //   },
 // //   async (err): Promise<any> => {
-// //     console.log('interceptor.response.err - 3');
-// //     console.log('interceptor.response.err - 3 - err: ', err);
+// //     console.debug('interceptor.response.err - 3');
+// //     console.debug('interceptor.response.err - 3 - err: ', err);
 // //     return Promise.reject(err);
 // //   }
 // // );

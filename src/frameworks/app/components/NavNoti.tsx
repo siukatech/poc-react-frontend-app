@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext from '../../../features/auth/stores/AuthContext';
+import AuthContext, { useAuthContext } from '../../../features/auth/stores/AuthContext';
 import { formatDate, formatDatetime } from '../utils/date';
 
 import { Theme, styled, useTheme } from '@mui/material/styles';
@@ -97,7 +97,7 @@ type NavNotiProps = {
 const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
   const { t, i18n } = useTranslation();
   const [notis, setNotis] = useState<any[]>([]);
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -119,7 +119,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
   const [anchorElNoti, setAnchorElNoti] = useState<null | HTMLElement>(null);
 
   const handleNotiMenuOpen = (evt: React.MouseEvent<HTMLElement>) => {
-    // console.log(
+    // console.debug(
     //   'NavNoti - handleNotiMenuOpen - evt.currentTarget: ',
     //   evt.currentTarget
     // );
@@ -130,7 +130,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
   //   setAnchorElNoti(null);
   // };
   const handleNotiElementOpen = (currentTarget: null | HTMLElement) => {
-    // console.log(
+    // console.debug(
     //   'NavNoti - handleNotiMenuOpen - currentTarget: ',
     //   currentTarget
     // );
@@ -157,7 +157,7 @@ const NavNoti: React.FC<NavNotiProps> = ({ displayType }) => {
       {user && (
         <ClickAwayListener
           onClickAway={() => {
-            // console.log('NavNoti - ClickAwayListener - clicked');
+            // console.debug('NavNoti - ClickAwayListener - clicked');
             handleNotiElementOpen(null);
           }}
         >

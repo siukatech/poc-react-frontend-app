@@ -8,7 +8,7 @@ const recursiveCloneChildren = (
   newProps: any
 ): React.ReactElement[] => {
   if (children != null) {
-    // console.log(
+    // console.debug(
     //   `render - newProps: [${JSON.stringify(
     //     newProps
     //   )}], recursiveCloneChildren: `,

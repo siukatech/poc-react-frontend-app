@@ -7,7 +7,7 @@ import { preDataObjProcessor, postDataRetProcessor } from './processor-general';
 const prePublicDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
 ): ProcessorAxiosRequestConfig => {
-  // console.log('prePublicDataObjProcessor - 1');
+  // console.debug('prePublicDataObjProcessor - 1');
   //
   reqConfig = preDataObjProcessor(reqConfig);
   //
@@ -23,7 +23,7 @@ const prePublicDataObjProcessor = (
     reqConfig.processors.postDataRetProcessor = postPublicDataRetProcessor;
   }
   // }
-  // console.log('prePublicDataObjProcessor - 1 - reqConfig: ', reqConfig);
+  // console.debug('prePublicDataObjProcessor - 1 - reqConfig: ', reqConfig);
   return reqConfig;
 };
 

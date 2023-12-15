@@ -9,7 +9,7 @@ import {
 const MuiFieldTemplate = (props: FieldTemplateProps) => {
   const { t } = useTranslation();
 
-  console.log(`MuiFieldTemplate - props: `, props);
+  console.debug(`MuiFieldTemplate - props: `, props);
 
   return (<>
   {props.children}

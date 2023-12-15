@@ -32,7 +32,7 @@ const resolveMinHeight: (idx: number) => number = (idx: number) => {
     minHeight = minHeights[idx];
   } else {
     const remaining: number = idx % minHeights.length;
-    // console.log(
+    // console.debug(
     //   'resolveMinHeight - idx: [' + idx + '], remaining: [' + remaining + ']'
     // );
     minHeight = minHeights[remaining];

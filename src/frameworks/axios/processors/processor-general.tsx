@@ -24,20 +24,20 @@ const marshallDateStr2DateObj = (dataObj: any) => {
     try {
       const dataValOri = dataObj[key];
       // if (dataValOri != null) {
-      //   console.log(
+      //   console.debug(
       //     'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataValOri: ',
       //     dataValOri
       //   );
       // }
       const dataVal = dataValOri == null ? null : parseDateToUtc(dataValOri);
-      // console.log(
+      // console.debug(
       //   'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataVal: ',
       //   dataVal
       // );
       dataObj[key + '-ori'] = dataValOri;
       dataObj[key] = dataVal;
     } catch (err) {
-      console.log(
+      console.debug(
         'lib/api - marshallDateStr2DateObj - i: [' +
           i +
           '], key: [' +

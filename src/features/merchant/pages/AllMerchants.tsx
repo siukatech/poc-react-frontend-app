@@ -38,7 +38,7 @@ const AllMerchants = () => {
   } = useQuery({
     queryKey: ['merchantAll'],
     queryFn: async (queryContext) => {
-      console.log(`AllMerchants - useQuery - start`);
+      console.debug(`AllMerchants - useQuery - start`);
       const data = await getAllMerchants();
       // const data: any[] = [];
       return data;

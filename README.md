@@ -203,7 +203,7 @@ const EditItem = (props: any) => {
   const params = useParams();
 
   const { itemId } = params;
-  console.log('EditItem - itemId: ', itemId);
+  console.debug('EditItem - itemId: ', itemId);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -228,13 +228,13 @@ const EditItem = (props: any) => {
     // useEffect async
     // Reference:
     // https://devtrium.com/posts/async-functions-useeffect
-    console.log('EditItem - useEffect-1 - itemId: ', itemId);
+    console.debug('EditItem - useEffect-1 - itemId: ', itemId);
     if (itemId != null) {
       const fetchData = async () => {
         const data = (await getSingleItem(+itemId)) as IItem;
-        // console.log('EditItem - itemId: [' + itemId + '], data: ', data);
+        // console.debug('EditItem - itemId: [' + itemId + '], data: ', data);
         setItemObj(data);
-        console.log('EditItem - useEffect-1 - setItemObj');
+        console.debug('EditItem - useEffect-1 - setItemObj');
         // can use `!= null`, this includes both null and undefined
         if (data.name !== null && data.name !== undefined) {
           setNameVal(data.name);
@@ -282,12 +282,12 @@ const EditItem = (props: any) => {
   ) => {
     //navigate(-1);
     //setIsDirty(true);
-    console.log(
+    console.debug(
       'EditItem - handleFormFocus - evt.target.value: ',
       evt.target.value
     );
     setIsDirty((prevState) => {
-      console.log(
+      console.debug(
         'EditItem - handleFormFocus - prevState: [' + prevState + ']'
       );
       if (prevState === true) {
@@ -401,7 +401,7 @@ const EditItem = (props: any) => {
   const params = useParams();
 
   const { itemId } = params;
-  console.log('EditItem - itemId: ', itemId);
+  console.debug('EditItem - itemId: ', itemId);
 
   const [showPutErrorDialog, setShowPutErrorDialog] = useState(true);
 
@@ -439,7 +439,7 @@ const EditItem = (props: any) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
-    console.log('EditItem - handleFormSubmit - itemRec: ', itemRec);
+    console.debug('EditItem - handleFormSubmit - itemRec: ', itemRec);
     putRequest(itemRec);
   };
 
@@ -454,12 +454,12 @@ const EditItem = (props: any) => {
   // ) => {
   //   //navigate(-1);
   //   //setIsDirty(true);
-  //   console.log(
+  //   console.debug(
   //     'EditItem - handleFormFocus - evt.target.value: ',
   //     evt.target.value
   //   );
   //   setIsDirty((prevState) => {
-  //     console.log(
+  //     console.debug(
   //       'EditItem - handleFormFocus - prevState: [' + prevState + ']'
   //     );
   //     if (prevState === true) {

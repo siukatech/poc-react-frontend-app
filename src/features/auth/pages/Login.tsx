@@ -54,7 +54,7 @@ const Login = () => {
 
   const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    console.log(evt);
+    console.debug(evt);
     // if (evt?.target?.form != null) {
     //   evt?.target?.form.reset();
     // }
@@ -67,7 +67,7 @@ const Login = () => {
     //navigate(-1);
     //setIsDirty(true);
     setIsDirty((prevState) => {
-      console.log('handleFormFocus - prevState: [' + prevState + ']');
+      console.debug('handleFormFocus - prevState: [' + prevState + ']');
       if (prevState === true) {
         return prevState;
       } else return true;

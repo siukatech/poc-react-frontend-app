@@ -122,7 +122,7 @@ const refreshUserInfo = async (user: any) => {
 
 const doCheckTimeout = async () => {
   const tokens = restoreTokens();
-  console.log('LoginService - doCheckTimeout - start - tokens: ', tokens);
+  console.debug('LoginService - doCheckTimeout - start - tokens: ', tokens);
   if (tokens != null) {
     try {
       let user = restoreUser();
@@ -141,7 +141,7 @@ const doCheckTimeout = async () => {
     // return Promise.reject(new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST));
     return new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST);
   }
-  console.log('LoginService - doCheckTimeout - end');
+  console.debug('LoginService - doCheckTimeout - end');
 };
 
 type DoAuthLoginPayload = {
@@ -157,7 +157,7 @@ const doAuthLogin = async (payload: DoAuthLoginPayload): Promise<IUser> => {
     '{0}',
     process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string
   );
-  console.log(
+  console.debug(
     'LoginService - doAuthLoginToStorage - oauthAuthorizeApi: [' +
       oauthAuthorizeApi +
       ']'
@@ -165,7 +165,7 @@ const doAuthLogin = async (payload: DoAuthLoginPayload): Promise<IUser> => {
   const apiResponse = await axios.post(oauthAuthorizeApi, payload);
   const tokens = apiResponse.data;
   saveTokens(tokens);
-  console.log('LoginService - doAuthLoginToStorage - tokens: ', tokens);
+  console.debug('LoginService - doAuthLoginToStorage - tokens: ', tokens);
   //
   let user: any = jwt_decode(tokens.access_token);
   await refreshUserInfo(user);
@@ -185,21 +185,21 @@ const doRefreshToken = async (): Promise<any> => {
     '{0}',
     process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string
   );
-  console.log(
+  console.debug(
     'LoginService - doRefreshToken - oauthRefreshTokenApi: [' +
       oauthRefreshTokenApi +
       ']'
   );
   try {
     const apiResponse = await axios.post(oauthRefreshTokenApi, payload);
-    console.log('LoginService - doRefreshToken - apiResponse: ', apiResponse);
+    console.debug('LoginService - doRefreshToken - apiResponse: ', apiResponse);
     const tokensRefreshed = apiResponse.data;
-    console.log(
+    console.debug(
       'LoginService - doRefreshToken - tokensRefreshed 1: ',
       tokensRefreshed
     );
     saveTokens(tokensRefreshed);
-    console.log(
+    console.debug(
       'LoginService - doRefreshToken - tokensRefreshed 2: ',
       tokensRefreshed
     );
@@ -215,7 +215,7 @@ const doRefreshToken = async (): Promise<any> => {
 };
 
 const doAuthLogout = async (): Promise<void> => {
-  console.log('LoginService - doAuthLogout - start');
+  console.debug('LoginService - doAuthLogout - start');
   const tokens = restoreTokens();
   if (tokens != null) {
     try {
@@ -228,10 +228,10 @@ const doAuthLogout = async (): Promise<void> => {
           },
         }
       );
-      console.log('LoginService - doAuthLogout - apiResponse: ', apiResponse);
+      console.debug('LoginService - doAuthLogout - apiResponse: ', apiResponse);
       clearStorageItems();
     } catch (err) {
-      console.log('LoginService - doAuthLogout - err: ', err);
+      console.debug('LoginService - doAuthLogout - err: ', err);
       clearStorageItems();
     }
   }
@@ -249,7 +249,7 @@ const doAuthLogout = async (): Promise<void> => {
  * .replaceAll(`*`, `[\\w\\W]+`);
  * const regexTester = new RegExp(regexTmpl, 'g');
  * const regexResult = regexTester.test('ip-enduser-app.mainMeun.submissions:view');
- * console.log(`regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`);
+ * console.debug(`regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`);
  * @example <caption>Test code of regex template 2.</caption>
  * // false
  * const regexTmpl = `ip-enduser-app.*.submissions:create`
@@ -257,7 +257,7 @@ const doAuthLogout = async (): Promise<void> => {
  * .replaceAll(`*`, `[\\w\\W]+`);
  * const regexTester = new RegExp(regexTmpl, 'g');
  * const regexResult = regexTester.test('ip-enduser-app.mainMeun.submissions:view');
- * console.log(`regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`);
+ * console.debug(`regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`);
  *
  * @param user
  * @param resourceName
@@ -287,7 +287,7 @@ const doCheckPermissionByRegex = (
       //     : userPermissions[resourceParts[0]];
       const resourcePartPermissions =
         userPermissions[APP_NAME] == null ? {} : userPermissions[APP_NAME];
-      // console.log(
+      // console.debug(
       //   `LoginService - doCheckPermissionByRegex - APP_NAME: [${APP_NAME}], resourceName: [${resourceName}], accessRight: [${accessRight}], resourcePartPermissions: `,
       //   resourcePartPermissions
       // );
@@ -298,7 +298,7 @@ const doCheckPermissionByRegex = (
           .replaceAll(`*`, `[\\w\\W]+`);
         const regexTester = new RegExp(regexTmpl, 'g');
         const regexResult = regexTester.test(resourcePhrase);
-        // console.log(
+        // console.debug(
         //   `LoginService - doCheckPermissionByRegex - resourcePhrase: [${resourcePhrase}], regexTmpl: [${regexTmpl}], regexResult: [${regexResult}]`
         // );
         if (regexResult) {
@@ -313,7 +313,7 @@ const doCheckPermissionByRegex = (
     }
     hasPermission = matchedPermissions.length > 0;
   }
-  // console.log(
+  // console.debug(
   //   `LoginService - doCheckPermissionByRegex - hasPermission: [${hasPermission}], resourceName: [${resourceName}], accessRight: [${accessRights}]`
   // );
   return hasPermission;
@@ -397,7 +397,7 @@ const doCheckPermissionByRegex = (
 //         possibleResourceNames.push(`${refinedParts1.join('.')}:*`);
 //         possibleResourceNames.push(`${refinedParts2.join('.')}:*`);
 //       }
-//       console.log(
+//       console.debug(
 //         `LoginService - doCheckPermissionByMap - possibleResourceNames: `,
 //         possibleResourceNames
 //       );
@@ -419,11 +419,11 @@ const doCheckPermissionByRegex = (
 //       //   possibleResourceNames.push(`${refinedParts.join('.')}:${accessRight}`);
 //       //   possibleResourceNames.push(`${refinedParts.join('.')}:*`);
 //       // }
-//       // console.log(`LoginService - doCheckPermissionByMap - possibleResourceNames: `, possibleResourceNames);
+//       // console.debug(`LoginService - doCheckPermissionByMap - possibleResourceNames: `, possibleResourceNames);
 //     }
 //     hasPermission = matchedPermissions.length > 0;
 //   }
-//   console.log(
+//   console.debug(
 //     `LoginService - doCheckPermissionByMap - hasPermission: [${hasPermission}]`
 //   );
 //   return hasPermission;

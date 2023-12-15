@@ -45,11 +45,11 @@ const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
   const errCode = axiosErr.code;
   const errRes = axiosErr.response;
   const resStatus = errRes?.status;
-  console.log(
+  console.debug(
     `AxiosErrorHandler - resolveAxiosErrDetails - axiosErr: `,
     axiosErr
   );
-  console.log(
+  console.debug(
     `AxiosErrorHandler - resolveAxiosErrDetails - resStatus: [${resStatus}], errCode: [${errCode}], errRes: `,
     errRes
   );
@@ -101,19 +101,19 @@ const resolveServerErr = (axiosErr: AxiosError) => {
   const serverErrHandler = resolveServerErrHandler(resStatus);
   let responseErr;
 
-  console.log(
+  console.debug(
     `AxiosErrorHandler - resolveServerErr - preparation - resData: `,
     resData
   );
-  console.log(
+  console.debug(
     `AxiosErrorHandler - resolveServerErr - preparation - axiosErr: `,
     axiosErr
   );
-  console.log(
+  console.debug(
     `AxiosErrorHandler - resolveServerErr - preparation - errRes: `,
     errRes
   );
-  console.log(
+  console.debug(
     `AxiosErrorHandler - resolveServerErr - preparation - resReqRes: `,
     resReqRes
   );
@@ -125,13 +125,13 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - resData - responseErr: `,
       responseErr
     );
   }
   if (responseErr == null && resReqRes != null) {
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - (responseErr == null && resReqRes != null)`
     );
     const data = JSON.parse(resReqRes);
@@ -142,7 +142,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
       responseErr
     );
@@ -155,10 +155,10 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - (responseErr == null && errRes != null)`
     );
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - errRes - responseErr: `,
       responseErr
     );
@@ -171,10 +171,10 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
     );
-    console.log(
+    console.debug(
       `AxiosErrorHandler - resolveServerErr - axiosErr - responseErr: `,
       responseErr
     );

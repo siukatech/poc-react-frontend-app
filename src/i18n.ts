@@ -11,7 +11,7 @@ const i18nLangUrl: string =
   (process.env.REACT_APP_API_PATH_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_PATH_I18N_LANG as string);
-// console.log(`i18nLangUrl: [${i18nLangUrl}]`);
+// console.debug(`i18nLangUrl: [${i18nLangUrl}]`);
 
 i18n
   // 使用 i18next-http-backend
@@ -42,7 +42,7 @@ i18n
       // debug: true,
     },
     (err, t) => {
-      if (err) return console.log('something went wrong loading', err);
+      if (err) return console.debug('something went wrong loading', err);
     }
   );
 // };

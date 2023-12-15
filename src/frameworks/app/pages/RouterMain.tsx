@@ -36,7 +36,7 @@ const queryClient = new QueryClient({
       // Reference:
       // https://stackoverflow.com/a/77210074
       onError: (err) => {
-        console.log(
+        console.debug(
           `AppMain - queryClient - defaultOptions - onError - err: `,
           err
         );
@@ -48,7 +48,7 @@ const queryClient = new QueryClient({
             (retStatus == null && errorCode == 'ERR_NETWORK') || // CORS issue
             (retStatus === 500 && errorCode == 'ERR_CANCELED')
           ) {
-            console.log(
+            console.debug(
               `AppMain - queryClient - defaultOptions - onError - retStatus: [${retStatus}], errorCode: [${errorCode}]`,
               err
             );
