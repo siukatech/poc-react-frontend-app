@@ -11,6 +11,7 @@ npm i -S env-cmd
 npm i -S date-fns date-fns-tz
 npm i -S crypto-js jsencrypt randomstring
 npm i -S i18next i18next-http-backend react-i18next
+npm i -S uuidv7
 ```
 
 
@@ -41,6 +42,8 @@ npm i --save-dev @types/lodash
   ...
 ```
 
+
+
 **MUI**
 ```shell
 npm i -S @mui/material @emotion/react @emotion/styled
@@ -53,6 +56,8 @@ npm i -S @mui/utils
 npm i -S @mui/x-data-grid
 ```
 
+
+
 **Handle warning**  
 ```shell
 # install deprecated package to dev by --save-dev
@@ -63,7 +68,35 @@ npm i --save typescript@5.1.3
 ```
 
 
-**Reference:**
+
+**Audit fix**  
+***Reference:***  
+https://github.com/facebook/create-react-app/issues/12132#issuecomment-1130249584  
+Under `node -version` `16`, install the `@svgr/webpack@^6` manually.  
+And modify the `package.json` as below.  
+
+```shell
+npm i -S @svgr/webpack@^6.3.1
+```
+
+```json
+  ...
+  },
+  "overrides": {
+    ...
+    "@svgr/webpack": "$@svgr/webpack"
+  },
+  ...
+  "devDependencies": {
+    ...
+    "@svgr/webpack": "^6.5.1"
+  }
+  ...
+```
+
+
+
+**Reference:**  
 https://mui.com/material-ui/getting-started/installation/  
 https://mui.com/material-ui/react-drawer/  
 https://mui.com/material-ui/api/form-control/  
@@ -91,7 +124,7 @@ Add a ThemeProvider to wrap the <Form/> component.
 
 
 
-**Reference:**
+**Reference:**  
 https://jsonforms.discourse.group/t/switch-to-a-view-only-schema/403/4  
 https://github.com/mingfang/jsonforms-demo/blob/master/src/index.tsx#L9  
 https://github.com/rjsf-team/react-jsonschema-form/issues/1987#issuecomment-1147517375  

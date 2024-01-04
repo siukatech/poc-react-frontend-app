@@ -30,6 +30,7 @@
     "@types/react-dom": "^18.2.7",
     "axios": "^1.5.0",
     "crypto-js": "^4.1.1",
+    "css-select": "^4.3.0",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "env-cmd": "^10.1.0",
@@ -44,7 +45,9 @@
     "react-i18next": "^13.2.1",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
+    "svgo": "^3.2.0",
     "typescript": "^5.1.3",
+    "uuidv7": "^0.6.3",
     "web-vitals": "^2.1.4"
   },
   "peerDependencies": {
@@ -55,7 +58,8 @@
   "overrides": {
     "react-scripts": {
       "typescript": "^5"
-    }
+    },
+    "@svgr/webpack": "$@svgr/webpack"
   },
   "scripts": {
     "bak---start": "react-scripts start",
@@ -88,6 +92,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@svgr/webpack": "^6.5.1",
     "@types/lodash": "^4.14.200"
   }
 }
