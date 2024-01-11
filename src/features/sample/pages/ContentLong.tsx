@@ -1,12 +1,42 @@
-import { Typography } from '@mui/material';
+import { useState } from 'react';
+import { Divider, Typography } from '@mui/material';
+import AttachmentPane from '../../../frameworks/attachment/components/AttachmentPane';
+import { IAttachmentObj } from '../../../frameworks/attachment/models';
+import { useAuthContext } from '../../auth';
 
 const ContentLong = () => {
   const style = {
     // marginTop: '150px',
     // marginBottom: '150px',
   };
+
+  const { user } = useAuthContext();
+
+  const [attachmentObjList, setAttachmentObjList] = useState<
+    undefined | IAttachmentObj[]
+  >(undefined);
+
+  const handleAttachmentListChange = (
+    attachmentObjList: IAttachmentObj[],
+    isUploading: boolean
+  ) => {
+    console.debug(
+      `ContentLong - handleAttachmentListChange - isUploading: [${isUploading}], attachmentObjList: `,
+      attachmentObjList
+    );
+  };
+
   return (
     <>
+      {user && (
+        <>
+          <AttachmentPane
+            attachmentObjList={attachmentObjList}
+            onAttachmentListChange={handleAttachmentListChange}
+          />
+          <Divider />
+        </>
+      )}
       {[...new Array(12)].map((ccc, idx) => {
         return (
           <Typography
