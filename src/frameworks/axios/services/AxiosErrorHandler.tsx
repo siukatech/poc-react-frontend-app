@@ -27,17 +27,26 @@ type TServerErr = {
 type TServerErrHandler = {
   title: string;
   path?: string;
+  doLogout: boolean;
 };
 
 const SERVER_ERR_HANDLER_STATUS_DEFAULT = 999;
 
 const SERVER_ERR_HANDLER_MAP: any = {
-  401: {
+  '401': {
     title: 'error.login.expired',
     path: '/login',
+    doLogout: true,
   } as TServerErrHandler,
+  'undefined_ERR_NETWORK': {
+    title: 'error.login.expired',
+    path: '/login',
+    doLogout: true,
+  },
   [SERVER_ERR_HANDLER_STATUS_DEFAULT]: {
     title: 'error.dialog.title',
+    path: undefined,
+    doLogout: false,
   } as TServerErrHandler,
 };
 
@@ -69,11 +78,16 @@ const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
 };
 
 const resolveServerErrHandler = (
-  status: undefined | number
+  resStatus: undefined | number,
+  errCode: undefined | string
 ): TServerErrHandler => {
   let serverErrHandler;
-  if (status != null) {
-    serverErrHandler = SERVER_ERR_HANDLER_MAP[status];
+  console.debug(`resolveServerErrHandler - resStatus: [${resStatus}], resStatus_errCode: [${resStatus}_${errCode}]`);
+  if (serverErrHandler == null) {
+    serverErrHandler = SERVER_ERR_HANDLER_MAP[`${resStatus}`];
+  }
+  if (serverErrHandler == null) {
+    serverErrHandler = SERVER_ERR_HANDLER_MAP[`${resStatus}_${errCode}`];
   }
   serverErrHandler =
     serverErrHandler == null
@@ -98,7 +112,7 @@ const constructServerErr401 = (axiosErr: AxiosError): TServerErr => {
 const resolveServerErr = (axiosErr: AxiosError) => {
   const { errCode, errRes, resStatus, resReqRes, resData } =
     resolveAxiosErrDetails(axiosErr);
-  const serverErrHandler = resolveServerErrHandler(resStatus);
+  const serverErrHandler = resolveServerErrHandler(resStatus, errCode);
   let responseErr;
 
   console.debug(
@@ -183,14 +197,16 @@ const resolveServerErr = (axiosErr: AxiosError) => {
     axiosErr,
     responseErr,
   } as TServerErr;
-  if (isAuthErr401(serverErr)) {
+  if (isErrAuth401(serverErr)) {
     serverErr.responseErr.status = 401;
-    serverErr.responseErr.handler = resolveServerErrHandler(serverErr.responseErr.status);
+    serverErr.responseErr.handler = resolveServerErrHandler(
+      serverErr.responseErr.status, serverErr.responseErr.errCode
+    );
   }
   return serverErr;
 };
 
-const isAuthErr401 = (serverErr: TServerErr) => {
+const isErrAuth401 = (serverErr: TServerErr) => {
   let is401 = false;
   const { responseErr } = serverErr;
   let retStatus = responseErr?.status;
@@ -198,7 +214,7 @@ const isAuthErr401 = (serverErr: TServerErr) => {
   let path = responseErr?.path ? responseErr?.path : '';
   if (
     retStatus === 401 ||
-    (retStatus == null && errCode == 'ERR_NETWORK') || // CORS issue
+    // (retStatus == null && errCode == 'ERR_NETWORK') || // CORS issue, CORS should be thrown!!!
     (retStatus === 500 && errCode == 'ERR_CANCELED') ||
     (retStatus === 500 &&
       errCode == 'ERR_BAD_RESPONSE' &&
@@ -208,6 +224,20 @@ const isAuthErr401 = (serverErr: TServerErr) => {
   }
   return is401;
 };
+const isErrNetwork = (serverErr: TServerErr) => {
+  let result = false;
+  const { responseErr } = serverErr;
+  let retStatus = responseErr?.status;
+  let errCode = responseErr?.errCode;
+  let path = responseErr?.path ? responseErr?.path : '';
+  if (
+    retStatus == null &&
+    errCode == 'ERR_NETWORK' // CORS issue, CORS should be thrown!!!
+  ) {
+    result = true;
+  }
+  return result;
+};
 
 export type { TResponseErr, TServerErr };
-export { resolveServerErr, isAuthErr401 };
+export { resolveServerErr, isErrAuth401, isErrNetwork };

@@ -2,9 +2,7 @@ import React, { useContext, useMemo, useEffect, useState } from 'react';
 
 import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
 
-import AuthContext, {
-  useAuthContext,
-} from '../../../features/auth/stores/AuthContext';
+import { useAuthContext } from '../../../features/auth';
 import axiosService from '../services/axios-service';
 
 import { ProcessorAxiosRequestConfig } from '../processors/processor-general';
@@ -21,7 +19,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   TServerErr,
-  isAuthErr401,
+  isErrAuth401,
+  isErrNetwork,
   resolveServerErr,
 } from '../services/AxiosErrorHandler';
 
@@ -224,7 +223,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
               response
             );
             console.debug(
-              `AxiosInterceptor - useEffect - interceptor.response.normal - 1 - data: `,
+              `AxiosInterceptor - useEffect - interceptor.response.normal - 1 - length: [${response?.data?.length}], data: `,
               response?.data
             );
             if (response) {
@@ -251,11 +250,15 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
             const { responseErr } = serverErr;
             let retStatus = responseErr?.status;
             let errorCode = responseErr?.errCode;
+            const errAuth401 = isErrAuth401(serverErr);
+            const errNetwork = isErrNetwork(serverErr);
             console.debug(
-              `AxiosInterceptor - useEffect - interceptor.response.err - 1 - retStatus: [${retStatus}], errorCode: [${errorCode}]`,
+              `AxiosInterceptor - useEffect - interceptor.response.err - 1 - retStatus: [${retStatus}]` +
+                `, errorCode: [${errorCode}], errAuth401: [${errAuth401}], errNetwork: [${errNetwork}]` +
+                `, err: `,
               err
             );
-            if (isAuthErr401(serverErr)) {
+            if (errAuth401) {
               try {
                 // const tokensRefreshed = await doRefreshToken();
                 // if (tokensRefreshed != null) {
@@ -291,7 +294,6 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
                   `AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - end`
                 );
               } catch (doRefreshTokenErr) {
-                doLogout();
                 const isAxiosError = doRefreshTokenErr instanceof AxiosError;
                 console.debug(
                   `AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - err - isAxiosError: [${isAxiosError}], doRefreshTokenErr`,
@@ -303,6 +305,10 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
                 if (isAxiosError) {
                   rejectData = doRefreshTokenErr.response?.data;
                   doRefreshTokenServerErr = resolveServerErr(doRefreshTokenErr);
+                  //
+                  // if (doRefreshTokenServerErr.responseErr.handler.doLogout) {
+                  //   doLogout();
+                  // }
                 }
                 rejectData =
                   !isAxiosError || rejectData == null ? '401' : rejectData;
@@ -402,14 +408,20 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
       {showDialog && (
         <DialogPrompt
           open={true}
-          title={`${t(dialogTitleKey)} (${serverErr.responseErr.status || serverErr.responseErr.errCode})`}
+          title={`${t(dialogTitleKey)} (${
+            serverErr.responseErr.status || serverErr.responseErr.errCode
+          })`}
           message={JSON.stringify(serverErr)}
           onOk={() => {
+            if (serverErr.responseErr.handler.doLogout) {
+              doLogout();
+            }
+            const path = serverErr?.responseErr?.handler.path;
             setLoginErr(undefined);
             setServerErr(undefined);
-            if (serverErr?.responseErr?.handler.path) {
-              navigate(serverErr?.responseErr?.handler.path);
-            }
+            // if (path) {
+            //   navigate(path);
+            // }
           }}
         />
       )}
