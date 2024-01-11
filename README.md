@@ -158,6 +158,14 @@ npm run build:sit
 ```
 
 
+## webpack server fix ##
+Downgrade to avoid the overlay exception message.  
+
+```shell
+npm i webpack-dev-server@4.14.0 --save --save-exact --save-dev
+```
+
+
 
 # Convert to Typescript TS
 Install the typescript for react.  
