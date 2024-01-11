@@ -106,10 +106,15 @@ const postDataRetProcessor = (
   // ): object[] | string | object => {
 ): any => {
   if (dataRet != null) {
+    const typeofStr = typeof dataRet;
+    console.debug(`postDataRetProcessor - typeof: [${typeofStr}]`);
     if (Array.isArray(dataRet)) {
       return postDataArrayProcessor(dataRet, reqConfig);
     } else if (typeof dataRet === 'string') {
       return postDataStringProcessor(dataRet, reqConfig);
+    } else if (dataRet instanceof ArrayBuffer || dataRet instanceof Blob) {
+      // This is the critical part!!! The ArrayBuffer cannot be modified for download
+      return postDataBinaryProcessor(dataRet, reqConfig);
     } else {
       return postDataObjProcessor(dataRet, reqConfig);
     }
@@ -144,6 +149,20 @@ const postDataObjProcessor = (
 ): object => {
   const loadedObj = marshellDataObj({ ...dataRet });
   return loadedObj;
+};
+
+/**
+ * This is the critical part!!! The ArrayBuffer cannot be modified for download
+ *
+ * @param dataRet
+ * @param reqConfig
+ * @returns
+ */
+const postDataBinaryProcessor = (
+  dataRet: ArrayBuffer | Blob,
+  reqConfig: ProcessorAxiosRequestConfig
+): ArrayBuffer | Blob => {
+  return dataRet;
 };
 
 export { preDataObjProcessor, postDataRetProcessor, initReqConfigProcessors };
