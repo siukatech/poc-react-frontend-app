@@ -15,8 +15,8 @@ import RouterMain from './pages/RouterMain';
 
 import router from './routes/router';
 
-import shade from './themes/shade';
-import theme from './themes/theme';
+import shadeColor from './themes/shade-color';
+import themeOptions from './themes/theme-options';
 
 import {
   DATE_FORMAT_DEFAULT,
@@ -45,8 +45,8 @@ export {
   NotFound,
   router,
   RouterMain,
-  shade,
-  theme,
+  shadeColor,
+  themeOptions,
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,

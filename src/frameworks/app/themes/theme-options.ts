@@ -4,27 +4,30 @@ import {
   createTheme,
   styled,
   useTheme,
+  ThemeOptions,
 } from '@mui/material/styles';
 
-import shade from './shade';
-import { create } from 'domain';
+import shadeColor from './shade-color';
 
-const theme = createTheme({
+// const theme = createTheme({
+const themeOptions = {
   palette: {
     // mode: 'dark',
     mode: 'light',
     primary: {
-      main: shade[500],
+      main: shadeColor[500],
     },
   },
-});
+  // });
+} as ThemeOptions;
 
 /**
  * Reference:
  * https://github.com/mingfang/jsonforms-demo/blob/master/src/index.tsx#L9
  * https://github.com/rjsf-team/react-jsonschema-form/issues/1987#issuecomment-1147517375
  */
-const themeFormReadonly = createTheme({
+// const themeFormReadonly = createTheme({
+const themeFormReadonlyOptions = {
   components: {
     MuiTextField: {
       defaultProps: {
@@ -71,7 +74,10 @@ const themeFormReadonly = createTheme({
       disabled: 'black',
     },
   },
-});
+  // });
+} as ThemeOptions;
 
-export default theme;
-export { themeFormReadonly };
+// export default theme;
+// export { themeFormReadonly };
+export default themeOptions;
+export { themeFormReadonlyOptions };

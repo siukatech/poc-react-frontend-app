@@ -13,7 +13,7 @@ import { Form } from '@rjsf/mui';
 import { ThemeProvider } from '@mui/material';
 
 import { getSingleMerchant } from '../services/MerchantService';
-import { themeFormReadonly } from '../../../frameworks/app/themes/theme';
+import { themeFormReadonlyOptions } from '../../../frameworks/app/themes/theme-options';
 import LoadingSpinner from '../../../frameworks/ui/components/LoadingSpinner';
 
 import MuiGridObjectFieldTemplate from '../../../frameworks/rjsf/components/MuiGridObjectFieldTemplate';
@@ -65,7 +65,7 @@ const ViewMerchant = () => {
     <>
       {isLoading && <LoadingSpinner />}
       {isSuccess && (
-        <ThemeProvider theme={themeFormReadonly}>
+        <ThemeProvider theme={themeFormReadonlyOptions}>
           <Form
             templates={{
               ObjectFieldTemplate: MuiGridObjectFieldTemplate,

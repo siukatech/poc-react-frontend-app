@@ -2,7 +2,7 @@ import { Color } from '@mui/material';
 import { blue } from '@mui/material/colors';
 
 // copy blue
-const shade: Color = {
+const shadeColor: Color = {
   50: '#e3f2fd',
   100: '#bbdefb',
   200: '#90caf9',
@@ -19,4 +19,4 @@ const shade: Color = {
   A700: '#2962ff',
 };
 
-export default shade;
+export default shadeColor;

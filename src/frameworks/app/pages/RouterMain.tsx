@@ -6,7 +6,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import { AxiosError } from 'axios';
 
-import theme from '../themes/theme';
+import themeOptions from '../themes/theme-options';
 
 import LayoutLeft from '../components/LayoutLeft';
 import LayoutMini from '../components/LayoutMini';
@@ -16,6 +16,10 @@ import MiniVariantDrawerLeft from '../components/MiniVariantDrawerLeft';
 // import AxiosInterceptor from '../../axios/components/AxiosInterceptor';
 import { AuthContextProvider } from '../../../features/auth';
 import { AxiosInterceptor } from '../../axios';
+import { createTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { LNG_MUI_LOCALE_MAP } from '../../../i18n';
+import { useMemo } from 'react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,9 +65,15 @@ const queryClient = new QueryClient({
 });
 
 const RouterMain = () => {
+  const { i18n } = useTranslation();
+  const muiLocale = LNG_MUI_LOCALE_MAP[i18n.language];
+  const themeWithLocale = useMemo(
+    () => createTheme(themeOptions, muiLocale),
+    [themeOptions, muiLocale]
+  );
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeWithLocale}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <QueryClientProvider client={queryClient}>
             <AuthContextProvider>
