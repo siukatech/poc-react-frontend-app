@@ -440,6 +440,9 @@ export {
   doCheckTimeout,
   doCheckPermissionByRegex,
   // doCheckPermissionByMap,
+
+  STORAGE_KEY_TOKENS, 
+  STORAGE_KEY_USER,
 };
 
 export type { DoAuthLoginPayload };

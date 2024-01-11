@@ -17,9 +17,11 @@ import {
   doCheckPermissionByRegex,
   // doCheckPermissionByMap,
   DoAuthLoginPayload,
+  STORAGE_KEY_TOKENS,
+  STORAGE_KEY_USER,
 } from './services/LoginService';
 
-import AuthContext, { AuthContextProvider } from './stores/AuthContext';
+import AuthContext, { AuthContextProvider, useAuthContext } from './stores/AuthContext';
 
 export {
   ProtectedResource,
@@ -36,5 +38,8 @@ export {
   doCheckPermissionByRegex,
   AuthContext,
   AuthContextProvider,
+  useAuthContext,
+  STORAGE_KEY_TOKENS,
+  STORAGE_KEY_USER,
 };
 export type { IUser, IUserPermission, DoAuthLoginPayload };
