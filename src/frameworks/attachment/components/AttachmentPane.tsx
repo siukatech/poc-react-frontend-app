@@ -18,9 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 import { IconComponent } from '../../ui';
-import { el } from 'date-fns/locale';
 
-const MAX_RETRY = 5;
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -71,18 +69,33 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
     return readOnly != null ? readOnly : false;
   });
   const [valueErr, setValueErr] = useState<any>();
-  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     let filteredList = valueList.filter(
       (attachmentObj) => attachmentObj.isUploaded === false
     );
-    if (filteredList.length > 0 && retryCount < MAX_RETRY) {
+    console.debug(
+      `AttachmentPane - useEffect - 1 - filteredList.length: [${filteredList.length}], valueList: `,
+      valueList
+    );
+    if (filteredList.length > 0) {
+      console.debug(
+        `AttachmentPane - useEffect - 2 - filteredList.length: [${filteredList.length}], valueList: `,
+        valueList
+      );
+
       // upload
       const uploadAttachment = async () => {
-        setRetryCount((prevState) => prevState + 1);
-        const uploadedList = await uploadAttachmentObjList(valueList);
-        setValueList(uploadedList);
+        console.debug(
+          `AttachmentPane - useEffect - 3 - valueList: `,
+          valueList
+        );
+        const updatedList = await uploadAttachmentObjList(valueList);
+        console.debug(
+          `AttachmentPane - useEffect - 4 - updatedList: `,
+          updatedList
+        );
+        setValueList(updatedList);
         setIsUploading(false);
         if (fileInputRef.current && fileInputRef.current.value) {
           fileInputRef.current.value = '';
@@ -93,7 +106,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
       setIsUploading(false);
     }
     console.debug(
-      `AttachmentPane - useEffect - filteredList.length: [${filteredList.length}], valueList: `,
+      `AttachmentPane - useEffect - 5 - filteredList.length: [${filteredList.length}], valueList: `,
       valueList
     );
     onAttachmentListChange(valueList, filteredList.length > 0);
@@ -124,7 +137,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
         const targetFile = targetFiles[ccc];
         const valueMapTargetFile = valueMap[targetFile.name];
         console.debug(
-          `AttachmentPane - handleAttachmentChange - for - valueMapTargetFile is null: [${
+          `AttachmentPane - handleAttachmentChange - valueMapTargetFile is null: [${
             valueMapTargetFile == null
           }], targetFile: `,
           targetFile
@@ -218,15 +231,14 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
                     {attachmentObj.fileName}...
                   </Typography>
                 )}
-                {!isReadOnly &&
-                  attachmentObj.isUploaded && (
-                    <ListItemIcon
-                      sx={{ minWidth: 'auto', pl: 0.5, cursor: 'pointer' }}
-                      onClick={() => handleAttachmentDelete(attachmentObj, idx)}
-                    >
-                      <IconComponent name="DeleteOutline" />
-                    </ListItemIcon>
-                  )}
+                {!isReadOnly && attachmentObj.isUploaded && (
+                  <ListItemIcon
+                    sx={{ minWidth: 'auto', pl: 0.5, cursor: 'pointer' }}
+                    onClick={() => handleAttachmentDelete(attachmentObj, idx)}
+                  >
+                    <IconComponent name="DeleteOutline" />
+                  </ListItemIcon>
+                )}
                 {!isReadOnly &&
                   attachmentObj.isUploaded &&
                   attachmentObj.uploadErr && (

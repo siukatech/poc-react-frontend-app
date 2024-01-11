@@ -74,9 +74,20 @@ const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
   );
   const total = readyToUploadList.length;
   let pending = total;
-  const uploadedList: IAttachmentObj[] = [];
-  for (let ccc = 0; ccc < readyToUploadList.length; ccc++) {
+  console.debug(
+    `AttachmentService - uploadAttachmentObjList - total: [${total}]` +
+      `, pending: [${pending}], readyToUploadList: `,
+    readyToUploadList
+  );
+  // Here uses attachmentObjList to resolve the full list
+  const updatedList: IAttachmentObj[] = [];
+  for (let ccc = 0; ccc < attachmentObjList.length; ccc++) {
     const attachmentObj = attachmentObjList[ccc];
+    console.debug(
+      `AttachmentService - uploadAttachmentObjList - ccc: [${ccc}]` +
+        `, attachmentObj: `,
+      attachmentObj
+    );
     if (attachmentObj.targetFile && !attachmentObj.isUploaded) {
       let formData: FormData = new FormData();
       formData.append('file', attachmentObj.targetFile);
@@ -95,7 +106,7 @@ const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
         }
         attachmentObj.isUploaded = true;
         attachmentObj.targetFile = undefined;
-        uploadedList.push(attachmentObj);
+        updatedList.push(attachmentObj);
       } catch (err) {
         console.error(
           `AttachmentService - uploadAttachmentObjList - err: `,
@@ -105,13 +116,13 @@ const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
         attachmentObj.uploadErr = err;
         attachmentObj.isUploaded = true;
         attachmentObj.targetFile = undefined;
-        uploadedList.push(attachmentObj);
+        updatedList.push(attachmentObj);
       }
     } else if (attachmentObj.isUploaded) {
-      uploadedList.push(attachmentObj);
+      updatedList.push(attachmentObj);
     }
   }
-  return uploadedList;
+  return updatedList;
 };
 
 const getAttachmentObj = async (id: string): Promise<IAttachmentObj> => {
