@@ -37,7 +37,7 @@ const marshallDateStr2DateObj = (dataObj: any) => {
       dataObj[key + '-ori'] = dataValOri;
       dataObj[key] = dataVal;
     } catch (err) {
-      console.debug(
+      console.error(
         'lib/api - marshallDateStr2DateObj - i: [' +
           i +
           '], key: [' +
@@ -107,7 +107,7 @@ const postDataRetProcessor = (
 ): any => {
   if (dataRet != null) {
     const typeofStr = typeof dataRet;
-    console.debug(`postDataRetProcessor - typeof: [${typeofStr}]`);
+    // console.debug(`postDataRetProcessor - typeof: [${typeofStr}]`);
     if (Array.isArray(dataRet)) {
       return postDataArrayProcessor(dataRet, reqConfig);
     } else if (typeof dataRet === 'string') {

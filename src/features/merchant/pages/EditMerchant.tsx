@@ -34,7 +34,7 @@ const EditMerchant = () => {
   const params = useParams();
 
   const { merchantId } = params;
-  console.debug('EditMerchant - merchantId: ', merchantId);
+  // console.debug('EditMerchant - merchantId: ', merchantId);
 
   const {
     // data: data1,
@@ -84,9 +84,9 @@ const EditMerchant = () => {
     const jfsDataInitStr = JSON.stringify(jfsDataInit);
     const retDataStr = JSON.stringify(retData);
     const isIdentical = jfsDataInitStr === retDataStr;
-    console.debug(`EditMerchant - handleJfsFormChange - isIdentical: [${isIdentical}]`);
-    console.debug(`EditMerchant - handleJfsFormChange - jfsDataInitStr: `, jfsDataInitStr);
-    console.debug(`EditMerchant - handleJfsFormChange - retDataStr: `, retDataStr);
+    // console.debug(`EditMerchant - handleJfsFormChange - isIdentical: [${isIdentical}]`);
+    // console.debug(`EditMerchant - handleJfsFormChange - jfsDataInitStr: `, jfsDataInitStr);
+    // console.debug(`EditMerchant - handleJfsFormChange - retDataStr: `, retDataStr);
     if (isIdentical) {
       setJfsValidationMode('ValidateAndHide');
     }

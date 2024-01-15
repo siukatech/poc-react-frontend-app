@@ -118,9 +118,9 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // }
     // sessionStorage.setItem('user', JSON.stringify(user));
     const user = await doAuthLogin(payload);
-    console.debug(
-      'AuthContextProvider - login - user: [' + JSON.stringify(user) + ']'
-    );
+    // console.debug(
+    //   'AuthContextProvider - login - user: [' + JSON.stringify(user) + ']'
+    // );
     setUser(user);
     navigate('/');
   };
@@ -134,10 +134,10 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   //   navigate('/');
   // };
   const doLogout = () => {
-    console.debug('AuthContext - doLogout - start');
+    // console.debug('AuthContext - doLogout - start');
     doAuthLogout();
     setUser(null);
-    console.debug('AuthContext - doLogout - end');
+    // console.debug('AuthContext - doLogout - end');
   };
 
   // const checkTimeout = async (): Promise<void> => {

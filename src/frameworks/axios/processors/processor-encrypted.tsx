@@ -23,7 +23,7 @@ const preEncryptedDataObjProcessor = (
   //
   const apiEncryptedUriPrefix: string = process.env
     .REACT_APP_API_PREFIX_ENCRYPTED as string;
-    console.debug(`processor-encrypted - preEncryptedDataObjProcessor - start`);
+    // console.debug(`processor-encrypted - preEncryptedDataObjProcessor - start`);
   if (reqConfig.url != null && reqConfig.url.indexOf(apiEncryptedUriPrefix) >= 0) {
     // reqConfig.processors = deepMergeObject(
     //   reqConfig.processors,
@@ -47,7 +47,7 @@ const preEncryptedDataObjProcessor = (
     const dataObj = reqConfig.data;
     const dataObjStr = dataObj == null ? '' : JSON.stringify(dataObj);
     // console.debug(`processor-encrypted - preEncryptedDataObjProcessor - dataObj: `, dataObj);
-    console.debug(`processor-encrypted - preEncryptedDataObjProcessor - dataObjStr: `, dataObjStr);
+    // console.debug(`processor-encrypted - preEncryptedDataObjProcessor - dataObjStr: `, dataObjStr);
     const userStr: string = sessionStorage.getItem('user') as string;
     const user: any = JSON.parse(userStr);
     const publicKeyBase64: string = user?.publicKey;
@@ -130,7 +130,7 @@ const postEncryptedDataRetProcessor = (
     // encoder.setPrivateKey(publicKeyBase64);
     // const decryptedDataBase64 = encoder.decrypt(encryptedRsaDataStr);
     const decryptedDataBase64 = dataRet;
-    console.debug(`processor-encrypted - postEncryptedDataRetProcessor - decryptedDataBase64: `, decryptedDataBase64);
+    // console.debug(`processor-encrypted - postEncryptedDataRetProcessor - decryptedDataBase64: `, decryptedDataBase64);
 
     // Reference:
     // https://github.com/kyungw00k/encrypt-something-in-java-and-decrypt-it-in-javascript-by-example

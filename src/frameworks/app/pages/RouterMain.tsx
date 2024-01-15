@@ -40,10 +40,10 @@ const queryClient = new QueryClient({
       // Reference:
       // https://stackoverflow.com/a/77210074
       onError: (err) => {
-        console.debug(
-          `AppMain - queryClient - defaultOptions - onError - err: `,
-          err
-        );
+        // console.debug(
+        //   `AppMain - queryClient - defaultOptions - onError - err: `,
+        //   err
+        // );
         if (err instanceof AxiosError) {
           let retStatus = err.response?.status;
           let errorCode = err.code;
@@ -56,7 +56,7 @@ const queryClient = new QueryClient({
               `AppMain - queryClient - defaultOptions - onError - retStatus: [${retStatus}], errorCode: [${errorCode}]`,
               err
             );
-            window.location.assign(`/login`);
+            // window.location.assign(`/login`);
           }
         }
       },

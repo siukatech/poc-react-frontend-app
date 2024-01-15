@@ -73,27 +73,27 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
     let filteredList = valueList.filter(
       (attachmentObj) => attachmentObj.isUploaded === false
     );
-    console.debug(
-      `AttachmentPane - useEffect - 1 - filteredList.length: [${filteredList.length}], valueList: `,
-      valueList
-    );
+    // console.debug(
+    //   `AttachmentPane - useEffect - 1 - filteredList.length: [${filteredList.length}], valueList: `,
+    //   valueList
+    // );
     if (filteredList.length > 0) {
-      console.debug(
-        `AttachmentPane - useEffect - 2 - filteredList.length: [${filteredList.length}], valueList: `,
-        valueList
-      );
+      // console.debug(
+      //   `AttachmentPane - useEffect - 2 - filteredList.length: [${filteredList.length}], valueList: `,
+      //   valueList
+      // );
 
       // upload
       const uploadAttachment = async () => {
-        console.debug(
-          `AttachmentPane - useEffect - 3 - valueList: `,
-          valueList
-        );
+        // console.debug(
+        //   `AttachmentPane - useEffect - 3 - valueList: `,
+        //   valueList
+        // );
         const updatedList = await uploadAttachmentObjList(valueList);
-        console.debug(
-          `AttachmentPane - useEffect - 4 - updatedList: `,
-          updatedList
-        );
+        // console.debug(
+        //   `AttachmentPane - useEffect - 4 - updatedList: `,
+        //   updatedList
+        // );
         setValueList(updatedList);
         setIsUploading(false);
         if (fileInputRef.current && fileInputRef.current.value) {
@@ -104,19 +104,19 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
     } else {
       setIsUploading(false);
     }
-    console.debug(
-      `AttachmentPane - useEffect - 5 - filteredList.length: [${filteredList.length}], valueList: `,
-      valueList
-    );
+    // console.debug(
+    //   `AttachmentPane - useEffect - 5 - filteredList.length: [${filteredList.length}], valueList: `,
+    //   valueList
+    // );
     onAttachmentListChange(valueList, filteredList.length > 0);
   }, [valueList, isUploading]);
 
   const handleAttachmentChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const targetFiles = evt.target.files ? evt.target.files : [];
-    console.debug(
-      `AttachmentPane - handleAttachmentChange - targetFiles: `,
-      targetFiles
-    );
+    // console.debug(
+    //   `AttachmentPane - handleAttachmentChange - targetFiles: `,
+    //   targetFiles
+    // );
     setValueList((prevState) => {
       let valueList = prevState;
       const valueMap: any = valueList
@@ -128,19 +128,19 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
             {}
           )
         : {};
-      console.debug(
-        `AttachmentPane - handleAttachmentChange - valueMap: `,
-        valueMap
-      );
+      // console.debug(
+      //   `AttachmentPane - handleAttachmentChange - valueMap: `,
+      //   valueMap
+      // );
       for (let ccc = 0; ccc < targetFiles.length; ccc++) {
         const targetFile = targetFiles[ccc];
         const valueMapTargetFile = valueMap[targetFile.name];
-        console.debug(
-          `AttachmentPane - handleAttachmentChange - valueMapTargetFile is null: [${
-            valueMapTargetFile == null
-          }], targetFile: `,
-          targetFile
-        );
+        // console.debug(
+        //   `AttachmentPane - handleAttachmentChange - valueMapTargetFile is null: [${
+        //     valueMapTargetFile == null
+        //   }], targetFile: `,
+        //   targetFile
+        // );
         if (targetFile && valueMap[targetFile.name] == null) {
           valueList.push({
             fileName: targetFile.name,
@@ -188,10 +188,10 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
         return valueListNew;
       });
     };
-    console.debug(
-      `AttachmentPane - handleAttachmentDelete - idx: [${idx}], attachmentObj: `,
-      attachmentObj
-    );
+    // console.debug(
+    //   `AttachmentPane - handleAttachmentDelete - idx: [${idx}], attachmentObj: `,
+    //   attachmentObj
+    // );
     if (attachmentObj.isUploaded && !attachmentObj.uploadErr) {
       const deleteFile = async (attachmentObj: IAttachmentObj) => {
         const { data } = await deleteAttachmentObj(attachmentObj);
@@ -210,10 +210,10 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
       </Box>
       <List>
         {valueList.map((attachmentObj: IAttachmentObj, idx: number) => {
-          console.debug(
-            `AttachmentPane - return - idx: [${idx}], attachmentObj: `,
-            attachmentObj
-          );
+          // console.debug(
+          //   `AttachmentPane - return - idx: [${idx}], attachmentObj: `,
+          //   attachmentObj
+          // );
           return (
             <Fragment key={`key-attachment-${idx}`}>
               <ListItem sx={{ pl: 0 }}>

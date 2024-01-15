@@ -15,7 +15,7 @@ import { II18nResource } from '../models';
 const getI18nResources = async (lng: string): Promise<II18nResource[]> => {
 // const getI18nResources = async (lng: string): Promise<any> => {
     // {{lng}}
-  console.debug(`getI18nResources - i18nUrl: [${i18nUrl}]`)
+  // console.debug(`getI18nResources - i18nUrl: [${i18nUrl}]`)
   const { data } = await axiosService.get(`${i18nUrl}`);
   const i18nResources: II18nResource[] = [];
   for (const lng in data) {

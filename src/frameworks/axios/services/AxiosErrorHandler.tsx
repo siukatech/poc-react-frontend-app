@@ -54,14 +54,14 @@ const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
   const errCode = axiosErr.code;
   const errRes = axiosErr.response;
   const resStatus = errRes?.status;
-  console.debug(
-    `AxiosErrorHandler - resolveAxiosErrDetails - axiosErr: `,
-    axiosErr
-  );
-  console.debug(
-    `AxiosErrorHandler - resolveAxiosErrDetails - resStatus: [${resStatus}], errCode: [${errCode}], errRes: `,
-    errRes
-  );
+  // console.debug(
+  //   `AxiosErrorHandler - resolveAxiosErrDetails - axiosErr: `,
+  //   axiosErr
+  // );
+  // console.debug(
+  //   `AxiosErrorHandler - resolveAxiosErrDetails - resStatus: [${resStatus}], errCode: [${errCode}], errRes: `,
+  //   errRes
+  // );
   const resReqRes =
     errRes?.request?.response == null || errRes?.request?.response === ''
       ? null
@@ -82,7 +82,7 @@ const resolveServerErrHandler = (
   errCode: undefined | string
 ): TServerErrHandler => {
   let serverErrHandler;
-  console.debug(`resolveServerErrHandler - resStatus: [${resStatus}], resStatus_errCode: [${resStatus}_${errCode}]`);
+  // console.debug(`resolveServerErrHandler - resStatus: [${resStatus}], resStatus_errCode: [${resStatus}_${errCode}]`);
   if (serverErrHandler == null) {
     serverErrHandler = SERVER_ERR_HANDLER_MAP[`${resStatus}`];
   }
@@ -115,22 +115,22 @@ const resolveServerErr = (axiosErr: AxiosError) => {
   const serverErrHandler = resolveServerErrHandler(resStatus, errCode);
   let responseErr;
 
-  console.debug(
-    `AxiosErrorHandler - resolveServerErr - preparation - resData: `,
-    resData
-  );
-  console.debug(
-    `AxiosErrorHandler - resolveServerErr - preparation - axiosErr: `,
-    axiosErr
-  );
-  console.debug(
-    `AxiosErrorHandler - resolveServerErr - preparation - errRes: `,
-    errRes
-  );
-  console.debug(
-    `AxiosErrorHandler - resolveServerErr - preparation - resReqRes: `,
-    resReqRes
-  );
+  // console.debug(
+  //   `AxiosErrorHandler - resolveServerErr - preparation - resData: `,
+  //   resData
+  // );
+  // console.debug(
+  //   `AxiosErrorHandler - resolveServerErr - preparation - axiosErr: `,
+  //   axiosErr
+  // );
+  // console.debug(
+  //   `AxiosErrorHandler - resolveServerErr - preparation - errRes: `,
+  //   errRes
+  // );
+  // console.debug(
+  //   `AxiosErrorHandler - resolveServerErr - preparation - resReqRes: `,
+  //   resReqRes
+  // );
   if (responseErr == null && resData != null) {
     responseErr = {
       ...resData,
@@ -139,15 +139,15 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - resData - responseErr: `,
-      responseErr
-    );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - resData - responseErr: `,
+    //   responseErr
+    // );
   }
   if (responseErr == null && resReqRes != null) {
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - (responseErr == null && resReqRes != null)`
-    );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - (responseErr == null && resReqRes != null)`
+    // );
     const data = JSON.parse(resReqRes);
     responseErr = {
       ...data,
@@ -156,10 +156,10 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
-      responseErr
-    );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
+    //   responseErr
+    // );
   }
   if (responseErr == null && errRes != null) {
     responseErr = {
@@ -169,13 +169,13 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - (responseErr == null && errRes != null)`
-    );
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - errRes - responseErr: `,
-      responseErr
-    );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - (responseErr == null && errRes != null)`
+    // );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - errRes - responseErr: `,
+    //   responseErr
+    // );
   }
   if (responseErr == null && axiosErr != null) {
     responseErr = {
@@ -185,13 +185,13 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       resData,
       handler: serverErrHandler,
     } as TResponseErr;
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
-    );
-    console.debug(
-      `AxiosErrorHandler - resolveServerErr - axiosErr - responseErr: `,
-      responseErr
-    );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
+    // );
+    // console.debug(
+    //   `AxiosErrorHandler - resolveServerErr - axiosErr - responseErr: `,
+    //   responseErr
+    // );
   }
   let serverErr = {
     axiosErr,

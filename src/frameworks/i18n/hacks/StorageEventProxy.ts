@@ -6,8 +6,8 @@
 Storage.prototype.setItem = new Proxy(Storage.prototype.setItem, {
   apply(target, thisArg, argumentList) {
     // console.debug(`Storage.prototype.setItem - Proxy - thisArg: `, thisArg);
-    console.debug(`Storage.prototype.setItem - Proxy - (thisArg === localStorage): `, (thisArg === localStorage));
-    console.debug(`Storage.prototype.setItem - Proxy - (thisArg === sessionStorage): `, (thisArg === sessionStorage));
+    // console.debug(`Storage.prototype.setItem - Proxy - (thisArg === localStorage): `, (thisArg === localStorage));
+    // console.debug(`Storage.prototype.setItem - Proxy - (thisArg === sessionStorage): `, (thisArg === sessionStorage));
     const event = new CustomEvent('storagecustom', {
       detail: {
         storageArea: thisArg,

@@ -122,14 +122,14 @@ const refreshUserInfo = async (user: any) => {
 
 const doCheckTimeout = async () => {
   const tokens = restoreTokens();
-  console.debug('LoginService - doCheckTimeout - start - tokens: ', tokens);
+  // console.debug('LoginService - doCheckTimeout - start - tokens: ', tokens);
   if (tokens != null) {
     try {
       let user = restoreUser();
       await refreshUserInfo(user);
       user = restoreUser();
     } catch (err) {
-      console.error('LoginService - doCheckTimeout - err: ', err);
+      // console.error('LoginService - doCheckTimeout - err: ', err);
       // clearStorageItems();
       // throw new AxiosError('Login timeout', AxiosError.ERR_CANCELED);
       // return Promise.reject(new AxiosError('Login timeout', AxiosError.ERR_CANCELED));
@@ -141,7 +141,7 @@ const doCheckTimeout = async () => {
     // return Promise.reject(new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST));
     return new AxiosError('Access denied', AxiosError.ERR_BAD_REQUEST);
   }
-  console.debug('LoginService - doCheckTimeout - end');
+  // console.debug('LoginService - doCheckTimeout - end');
 };
 
 type DoAuthLoginPayload = {
@@ -157,15 +157,15 @@ const doAuthLogin = async (payload: DoAuthLoginPayload): Promise<IUser> => {
     '{0}',
     process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string
   );
-  console.debug(
-    'LoginService - doAuthLoginToStorage - oauthAuthorizeApi: [' +
-      oauthAuthorizeApi +
-      ']'
-  );
+  // console.debug(
+  //   'LoginService - doAuthLoginToStorage - oauthAuthorizeApi: [' +
+  //     oauthAuthorizeApi +
+  //     ']'
+  // );
   const apiResponse = await axios.post(oauthAuthorizeApi, payload);
   const tokens = apiResponse.data;
   saveTokens(tokens);
-  console.debug('LoginService - doAuthLoginToStorage - tokens: ', tokens);
+  // console.debug('LoginService - doAuthLoginToStorage - tokens: ', tokens);
   //
   let user: any = jwt_decode(tokens.access_token);
   await refreshUserInfo(user);
@@ -185,24 +185,24 @@ const doRefreshToken = async (): Promise<any> => {
     '{0}',
     process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string
   );
-  console.debug(
-    'LoginService - doRefreshToken - oauthRefreshTokenApi: [' +
-      oauthRefreshTokenApi +
-      ']'
-  );
+  // console.debug(
+  //   'LoginService - doRefreshToken - oauthRefreshTokenApi: [' +
+  //     oauthRefreshTokenApi +
+  //     ']'
+  // );
   try {
     const apiResponse = await axios.post(oauthRefreshTokenApi, payload);
-    console.debug('LoginService - doRefreshToken - apiResponse: ', apiResponse);
+    // console.debug('LoginService - doRefreshToken - apiResponse: ', apiResponse);
     const tokensRefreshed = apiResponse.data;
-    console.debug(
-      'LoginService - doRefreshToken - tokensRefreshed 1: ',
-      tokensRefreshed
-    );
+    // console.debug(
+    //   'LoginService - doRefreshToken - tokensRefreshed 1: ',
+    //   tokensRefreshed
+    // );
     saveTokens(tokensRefreshed);
-    console.debug(
-      'LoginService - doRefreshToken - tokensRefreshed 2: ',
-      tokensRefreshed
-    );
+    // console.debug(
+    //   'LoginService - doRefreshToken - tokensRefreshed 2: ',
+    //   tokensRefreshed
+    // );
     return tokensRefreshed;
   } catch (err) {
     console.error('LoginService - doRefreshToken - err: ', err);
@@ -215,7 +215,7 @@ const doRefreshToken = async (): Promise<any> => {
 };
 
 const doAuthLogout = async (): Promise<void> => {
-  console.debug('LoginService - doAuthLogout - start');
+  // console.debug('LoginService - doAuthLogout - start');
   const tokens = restoreTokens();
   if (tokens != null) {
     try {
@@ -228,10 +228,10 @@ const doAuthLogout = async (): Promise<void> => {
           },
         }
       );
-      console.debug('LoginService - doAuthLogout - apiResponse: ', apiResponse);
+      // console.debug('LoginService - doAuthLogout - apiResponse: ', apiResponse);
       clearStorageItems();
     } catch (err) {
-      console.debug('LoginService - doAuthLogout - err: ', err);
+      // console.debug('LoginService - doAuthLogout - err: ', err);
       clearStorageItems();
     }
   }

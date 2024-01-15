@@ -49,7 +49,7 @@ const EditItem = (props: any) => {
   const params = useParams();
 
   const { itemId } = params;
-  console.debug('EditItem - itemId: ', itemId);
+  // console.debug('EditItem - itemId: ', itemId);
 
   const [showPutErrorDialog, setShowPutErrorDialog] = useState(true);
 
@@ -87,7 +87,7 @@ const EditItem = (props: any) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
-    console.debug('EditItem - handleFormSubmit - itemRec: ', itemRec);
+    // console.debug('EditItem - handleFormSubmit - itemRec: ', itemRec);
     putRequest(itemRec);
   };
 

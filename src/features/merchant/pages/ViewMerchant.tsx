@@ -29,7 +29,7 @@ const ViewMerchant = () => {
   const params = useParams();
 
   const { merchantId } = params;
-  console.debug('ViewMerchant - merchantId: ', merchantId);
+  // console.debug('ViewMerchant - merchantId: ', merchantId);
 
   const {
     // data: data1,

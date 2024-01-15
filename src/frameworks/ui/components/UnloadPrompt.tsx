@@ -35,13 +35,13 @@ const UnloadPrompt = ({
   const onCancel = isActive ? blocker.reset : () => {};
 
   useEffect(() => {
-    console.debug(
-      'UnloadPrompt - useEffect - handleBeforeUnload - 1 - isActive: [' +
-        isActive +
-        '], isDirty: [' +
-        isDirty +
-        ']'
-    );
+    // console.debug(
+    //   'UnloadPrompt - useEffect - handleBeforeUnload - 1 - isActive: [' +
+    //     isActive +
+    //     '], isDirty: [' +
+    //     isDirty +
+    //     ']'
+    // );
     const beforeUnloadVoid = (evt: BeforeUnloadEvent) => {};
     const beforeUnloadMessage = (evt: BeforeUnloadEvent) => {
       evt.returnValue = message;

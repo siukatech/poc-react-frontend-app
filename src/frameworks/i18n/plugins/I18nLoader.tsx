@@ -28,15 +28,15 @@ const I18nLoader: BackendModule = {
     backendOptions: any,
     i18nextOptions: InitOptions
   ) => {
-    console.debug(`I18nLoader - init - services: `, services);
-    console.debug(`I18nLoader - init - backendOptions: `, backendOptions);
-    console.debug(`I18nLoader - init - i18nextOptions: `, i18nextOptions);
+    // console.debug(`I18nLoader - init - services: `, services);
+    // console.debug(`I18nLoader - init - backendOptions: `, backendOptions);
+    // console.debug(`I18nLoader - init - i18nextOptions: `, i18nextOptions);
     const fetchI18n = async (lng: string) => {
       const i18nResources = await getI18nResources(lng);
-      console.debug(
-        `I18nLoader - init - fetchI18n - i18nResources: `,
-        i18nResources
-      );
+      // console.debug(
+      //   `I18nLoader - init - fetchI18n - i18nResources: `,
+      //   i18nResources
+      // );
       const token: string = sessionStorage.getItem(
         STORAGE_KEY_TOKENS
       ) as string;
@@ -53,16 +53,16 @@ const I18nLoader: BackendModule = {
       handleStorageChange(evt.detail);
     };
     const handleStorageChange = (evt: StorageEvent | any) => {
-      console.debug(`I18nLoader - init - handleStorageChange - 1 - evt: `, evt);
+      // console.debug(`I18nLoader - init - handleStorageChange - 1 - evt: `, evt);
       if (
         evt.storageArea === sessionStorage &&
         evt.key === STORAGE_KEY_TOKENS
       ) {
         // Something on another page changed the stored value.
-        console.debug(
-          `I18nLoader - init - handleStorageChange - 2 - evt: `,
-          evt
-        );
+        // console.debug(
+        //   `I18nLoader - init - handleStorageChange - 2 - evt: `,
+        //   evt
+        // );
         let lng: string | undefined = i18nextOptions.lng;
         if (
           i18nextOptions.fallbackLng &&
@@ -77,7 +77,7 @@ const I18nLoader: BackendModule = {
     };
     // window.addEventListener('storage', handleStorageEvent);
     window.addEventListener('storagecustom', handleStorageCustom);
-    console.debug(`I18nLoader - init - storagecustom added`);
+    // console.debug(`I18nLoader - init - storagecustom added`);
   },
   read: (language: string, namespace: string) => {
     const token = sessionStorage.getItem(STORAGE_KEY_TOKENS);
@@ -85,12 +85,12 @@ const I18nLoader: BackendModule = {
     const i18nResources = i18nResourcesStr
       ? JSON.parse(i18nResourcesStr)
       : null;
-    console.debug(
-      `I18nLoader - read - language: [${language}], namespace: [${namespace}], token is not null: [${
-        token != null
-      }], i18nResources: `,
-      i18nResources
-    );
+    // console.debug(
+    //   `I18nLoader - read - language: [${language}], namespace: [${namespace}], token is not null: [${
+    //     token != null
+    //   }], i18nResources: `,
+    //   i18nResources
+    // );
     loadResources(language, token, i18nResources, 'read');
     return new Promise((resolve) => {
       resolve(i18nResources);
@@ -105,11 +105,11 @@ const loadResources = (
   // i18nResources: any | null,
   callee: string
 ) => {
-  console.debug(
-    `I18nLoader - loadResources - lng: [${lng}], token is not null: [${
-      token != null
-    }], callee: [${callee}]`
-  );
+  // console.debug(
+  //   `I18nLoader - loadResources - lng: [${lng}], token is not null: [${
+  //     token != null
+  //   }], callee: [${callee}]`
+  // );
   if (i18nResources != null) {
     // for (const lng in i18nResources) {
     //   const resource = i18nResources[lng]['translation'];

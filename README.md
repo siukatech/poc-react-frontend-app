@@ -244,7 +244,7 @@ const EditItem = (props: any) => {
   const params = useParams();
 
   const { itemId } = params;
-  console.debug('EditItem - itemId: ', itemId);
+  // console.debug('EditItem - itemId: ', itemId);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -269,13 +269,13 @@ const EditItem = (props: any) => {
     // useEffect async
     // Reference:
     // https://devtrium.com/posts/async-functions-useeffect
-    console.debug('EditItem - useEffect-1 - itemId: ', itemId);
+    // console.debug('EditItem - useEffect-1 - itemId: ', itemId);
     if (itemId != null) {
       const fetchData = async () => {
         const data = (await getSingleItem(+itemId)) as IItem;
         // console.debug('EditItem - itemId: [' + itemId + '], data: ', data);
         setItemObj(data);
-        console.debug('EditItem - useEffect-1 - setItemObj');
+        // console.debug('EditItem - useEffect-1 - setItemObj');
         // can use `!= null`, this includes both null and undefined
         if (data.name !== null && data.name !== undefined) {
           setNameVal(data.name);
@@ -323,14 +323,14 @@ const EditItem = (props: any) => {
   ) => {
     //navigate(-1);
     //setIsDirty(true);
-    console.debug(
-      'EditItem - handleFormFocus - evt.target.value: ',
-      evt.target.value
-    );
+    // console.debug(
+    //   'EditItem - handleFormFocus - evt.target.value: ',
+    //   evt.target.value
+    // );
     setIsDirty((prevState) => {
-      console.debug(
-        'EditItem - handleFormFocus - prevState: [' + prevState + ']'
-      );
+      // console.debug(
+      //   'EditItem - handleFormFocus - prevState: [' + prevState + ']'
+      // );
       if (prevState === true) {
         return prevState;
       } else return true;
@@ -442,7 +442,7 @@ const EditItem = (props: any) => {
   const params = useParams();
 
   const { itemId } = params;
-  console.debug('EditItem - itemId: ', itemId);
+  // console.debug('EditItem - itemId: ', itemId);
 
   const [showPutErrorDialog, setShowPutErrorDialog] = useState(true);
 
@@ -480,7 +480,7 @@ const EditItem = (props: any) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form
-    console.debug('EditItem - handleFormSubmit - itemRec: ', itemRec);
+    // console.debug('EditItem - handleFormSubmit - itemRec: ', itemRec);
     putRequest(itemRec);
   };
 

@@ -42,10 +42,10 @@ const uploadAttachmentObj = async (
     const completed = total - pending;
     // const percentageExt = Math.round(100 / pending / total || 1);
     const percentageExt = Math.round((completed / total) * 100);
-    console.debug(
-      `AttachmentService - uploadAttachmentObj - handleUploadProgress - pending: [${pending}]` +
-        `, completed: [${completed}], total: [${total}], pencentage: [${percentageExt}]`
-    );
+    // console.debug(
+    //   `AttachmentService - uploadAttachmentObj - handleUploadProgress - pending: [${pending}]` +
+    //     `, completed: [${completed}], total: [${total}], pencentage: [${percentageExt}]`
+    // );
   };
   try {
     const response = await axiosService.post(`${API_UPLOAD}`, formData, {
@@ -82,20 +82,20 @@ const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
   );
   const total = readyToUploadList.length;
   let pending = total;
-  console.debug(
-    `AttachmentService - uploadAttachmentObjList - total: [${total}]` +
-      `, pending: [${pending}], readyToUploadList: `,
-    readyToUploadList
-  );
+  // console.debug(
+  //   `AttachmentService - uploadAttachmentObjList - total: [${total}]` +
+  //     `, pending: [${pending}], readyToUploadList: `,
+  //   readyToUploadList
+  // );
   // Here uses attachmentObjList to resolve the full list
   const updatedList: IAttachmentObj[] = [];
   for (let ccc = 0; ccc < attachmentObjList.length; ccc++) {
     const attachmentObj = attachmentObjList[ccc];
-    console.debug(
-      `AttachmentService - uploadAttachmentObjList - ccc: [${ccc}]` +
-        `, attachmentObj: `,
-      attachmentObj
-    );
+    // console.debug(
+    //   `AttachmentService - uploadAttachmentObjList - ccc: [${ccc}]` +
+    //     `, attachmentObj: `,
+    //   attachmentObj
+    // );
     if (attachmentObj.targetFile && !attachmentObj.isUploaded) {
       let formData: FormData = new FormData();
       formData.append('file', attachmentObj.targetFile);
@@ -162,9 +162,9 @@ const downloadAttachmentObj = async (
       const a = document.createElement('a');
 
       const url = URL.createObjectURL(blob);
-      console.debug(
-        `AttachmentService - downloadAttachmentObj - doDownload - url: [${url}]`
-      );
+      // console.debug(
+      //   `AttachmentService - downloadAttachmentObj - doDownload - url: [${url}]`
+      // );
       function handleClick() {
         setTimeout(() => {
           URL.revokeObjectURL(url);
@@ -196,10 +196,10 @@ const downloadAttachmentObj = async (
       // responseType: 'blob',
     });
     if (response?.data) {
-      console.debug(
-        `AttachmentService - downloadAttachmentObj - response.data.length: [${response.data.length}], response.data: `,
-        response.data
-      );
+      // console.debug(
+      //   `AttachmentService - downloadAttachmentObj - response.data.length: [${response.data.length}], response.data: `,
+      //   response.data
+      // );
       doDownload(response.data, attachmentObj);
     } else {
       throw new Error(

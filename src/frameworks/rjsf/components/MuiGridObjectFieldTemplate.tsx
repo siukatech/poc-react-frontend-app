@@ -18,19 +18,19 @@ const MuiGridObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     <>
       <Grid container>
         {uiGrid.map((gridConfig: any, idx1: number) => {
-          console.debug(
-            `MuiGridObjectFieldTemplate - idx1: [${idx1}], gridConfig: `,
-            gridConfig
-          );
+          // console.debug(
+          //   `MuiGridObjectFieldTemplate - idx1: [${idx1}], gridConfig: `,
+          //   gridConfig
+          // );
           return Object.keys(gridConfig).map((elementName, idx2) => {
             const elementWidth = gridConfig[elementName];
             const elements = props.properties.filter(
               (element) => element.name === elementName
             );
             const element = elements.length > 0 ? elements[0] : undefined;
-            console.debug(
-              `MuiGridObjectFieldTemplate - idx1: [${idx1}], idx2: [${idx2}], elementName: [${elementName}], elementWidth: [${elementWidth}]`
-            );
+            // console.debug(
+            //   `MuiGridObjectFieldTemplate - idx1: [${idx1}], idx2: [${idx2}], elementName: [${elementName}], elementWidth: [${elementWidth}]`
+            // );
             return (
               <Fragment key={`mui-object-field-key-${idx1}-${idx2}`}>
                 <Grid item md={elementWidth}>

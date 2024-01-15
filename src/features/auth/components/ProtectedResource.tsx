@@ -45,10 +45,10 @@ const checkShowChildren = (
   // let disabledEleCfg: undefined | any = undefined;
   let refinedChildren: React.ReactNode = children;
   if (timeoutErr) {
-    console.debug(
-      'ProtectedResource - checkShowChildren - timeoutErr: ',
-      timeoutErr
-    );
+    // console.debug(
+    //   'ProtectedResource - checkShowChildren - timeoutErr: ',
+    //   timeoutErr
+    // );
     showChildren = false;
     if (timeoutErr.code == AxiosError.ERR_BAD_REQUEST) {
       dialogPromptCfg = {
@@ -69,10 +69,10 @@ const checkShowChildren = (
   } else {
     if (accessBy === ProtectedResourceAccessBy.PUBLIC) {
       showChildren = true;
-      console.debug(
-        `ProtectedResource - checkShowChildren - accessBy: [${accessBy}], refinedChildren: `,
-        refinedChildren
-      );
+      // console.debug(
+      //   `ProtectedResource - checkShowChildren - accessBy: [${accessBy}], refinedChildren: `,
+      //   refinedChildren
+      // );
     } else if (accessBy === ProtectedResourceAccessBy.PROTECTED) {
       showChildren = false;
       if (displayType === ProtectedResourceDisplayType.DISABLED) {

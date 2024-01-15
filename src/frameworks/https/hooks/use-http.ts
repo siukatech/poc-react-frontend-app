@@ -47,7 +47,7 @@ const httpReducer = (state: IHttpReducerState, action: IHttpReducerAction) => {
     try {
       errorObj = JSON.parse(action.error);
     } catch (e) {
-      console.debug(
+      console.error(
         'use-http - httpReducer - action.type: [' +
           action.type +
           '], action.error: [' +
@@ -59,14 +59,14 @@ const httpReducer = (state: IHttpReducerState, action: IHttpReducerAction) => {
       // errorObj = { detail: e };
       errorObj = { innerError: action.error, message: e };
     }
-    console.debug(
-      'use-http - httpReducer - 2 - action.type: [' +
-        action.type +
-        '], action.error: [' +
-        action.error +
-        '], errorObj: ',
-      errorObj
-    );
+    // console.debug(
+    //   'use-http - httpReducer - 2 - action.type: [' +
+    //     action.type +
+    //     '], action.error: [' +
+    //     action.error +
+    //     '], errorObj: ',
+    //   errorObj
+    // );
     return {
       data: null,
       //error: action.error,
@@ -94,7 +94,7 @@ const useHttp = (fetcher: Function, startWithPending: boolean = false) => {
         const data = await fetcher(config);
         dispatch({ type: HttpReducerActionType.SUCCESS, data });
       } catch (err) {
-        console.debug('use-http - config - error: [' + err + ']');
+        console.error('use-http - config - error: [' + err + ']');
         dispatch({
           type: HttpReducerActionType.ERROR,
           // error: error || 'Something went wrong!',

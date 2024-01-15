@@ -16,7 +16,7 @@ const axiosService = axios.create({
   // Reference:
   // https://stackoverflow.com/a/43842920
   validateStatus: function (status) {
-    console.debug(`axiosService - validateStatus - status: [${status}]`);
+    // console.debug(`axiosService - validateStatus - status: [${status}]`);
     // return status >= 200;
     return status >= 200 && status < 300; // default
   },
