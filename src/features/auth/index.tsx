@@ -1,4 +1,7 @@
-import ProtectedResource from './components/ProtectedResource';
+import ProtectedResource, {
+  ProtectedResourceAccessBy,
+  ProtectedResourceDisplayType,
+} from './components/ProtectedResource';
 
 import { IUser, IUserPermission } from './models';
 
@@ -21,10 +24,15 @@ import {
   STORAGE_KEY_USER,
 } from './services/LoginService';
 
-import AuthContext, { AuthContextProvider, useAuthContext } from './stores/AuthContext';
+import AuthContext, {
+  AuthContextProvider,
+  useAuthContext,
+} from './contexts/AuthContext';
 
 export {
   ProtectedResource,
+  ProtectedResourceAccessBy,
+  ProtectedResourceDisplayType,
   Login,
   Logout,
   restoreTokens,

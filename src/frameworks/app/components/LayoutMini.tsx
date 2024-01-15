@@ -50,7 +50,9 @@ import {
   Inbox as InboxIcon,
 } from '@mui/icons-material';
 
-import AuthContext from '../../../features/auth/stores/AuthContext';
+import logo192 from '../../../assets/logo192.png';
+
+import { useAuthContext } from '../../../features/auth';
 
 import ImgComponent from '../../ui/components/ImgComponent';
 import DrawerHeader from '../../ui/components/DrawerHeader';
@@ -59,8 +61,6 @@ import NavLang from './NavLang';
 import NavNoti, { NavNotiDisplayType } from './NavNoti';
 import NavUser from './NavUser';
 import ScrollTop from './ScrollTop';
-
-import logo192 from '../../../assets/logo192.png';
 import DrawerMenu from './DrawerMenu';
 
 const drawerWidth = 240;

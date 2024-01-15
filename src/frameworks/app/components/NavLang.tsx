@@ -3,8 +3,6 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext from '../../../features/auth/stores/AuthContext';
-
 import {
   Box,
   Tooltip,
@@ -15,6 +13,8 @@ import {
 } from '@mui/material';
 
 import { Language as LanguageIcon } from '@mui/icons-material';
+
+import { useAuthContext } from '../../../features/auth';
 
 import { STORAGE_KEY_I18N } from '../../../i18n';
 

@@ -3,8 +3,6 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import { useAuthContext } from '../../../features/auth/stores/AuthContext';
-
 import {
   Box,
   IconButton,
@@ -28,6 +26,8 @@ import {
   Logout as LogoutIcon,
   Settings as SettingsIcon,
 } from '@mui/icons-material';
+
+import { useAuthContext } from '../../../features/auth';
 
 // type SettingType = {
 //   i18n?: string;

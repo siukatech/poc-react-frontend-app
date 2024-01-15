@@ -48,7 +48,7 @@ import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from '@mui/icons-material';
 
-import { useAuthContext } from '../../../features/auth/stores/AuthContext';
+import { useAuthContext } from '../../../features/auth';
 
 import ImgComponent from '../../ui/components/ImgComponent';
 import DrawerHeader from '../../ui/components/DrawerHeader';

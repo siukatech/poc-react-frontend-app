@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 
-import { useAuthContext } from '../stores/AuthContext';
+import { useAuthContext } from '../contexts/AuthContext';
 import DialogPrompt from '../../../frameworks/ui/components/DialogPrompt';
 import { AxiosError } from 'axios';
 import { Button, Stack, Typography } from '@mui/material';

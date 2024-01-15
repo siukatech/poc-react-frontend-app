@@ -6,7 +6,7 @@ import {
   MutableRefObject,
 } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import { useAuthContext } from '../stores/AuthContext';
+import { useAuthContext } from '../contexts/AuthContext';
 import FormPassword from '../../../frameworks/ui/components/FormPassword';
 
 import { DoAuthLoginPayload } from '../services/LoginService';

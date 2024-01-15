@@ -19,17 +19,18 @@ import {
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
 
-import { useAuthContext } from '../../../features/auth/stores/AuthContext';
+import logo192 from '../../../assets/logo192.png';
+
+import {
+  ProtectedResource,
+  ProtectedResourceAccessBy,
+  ProtectedResourceDisplayType,
+  useAuthContext,
+} from '../../../features/auth';
 
 import DrawerHeader from '../../ui/components/DrawerHeader';
 import ImgComponent from '../../ui/components/ImgComponent';
 import IconComponent, { IconNames } from '../../ui/components/IconComponent';
-
-import logo192 from '../../../assets/logo192.png';
-import ProtectedResource, {
-  ProtectedResourceAccessBy,
-  ProtectedResourceDisplayType,
-} from '../../../features/auth/components/ProtectedResource';
 
 const pages = [
   { i18n: 'menu.home', link: '/', icon: 'HomeOutlined' },

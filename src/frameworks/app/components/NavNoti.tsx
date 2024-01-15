@@ -3,9 +3,6 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import AuthContext, { useAuthContext } from '../../../features/auth/stores/AuthContext';
-import { formatDate, formatDatetime } from '../utils/date';
-
 import { Theme, styled, useTheme } from '@mui/material/styles';
 import {
   Box,
@@ -47,7 +44,11 @@ import {
   Notifications as NotificationsIcon,
   CloseOutlined as CloseOutlinedIcon,
 } from '@mui/icons-material';
+
+import { useAuthContext } from '../../../features/auth';
+
 import IconComponent from '../../ui/components/IconComponent';
+import { formatDate, formatDatetime } from '../utils/date';
 
 const notiIcons = [
   // <MailIcon />,
