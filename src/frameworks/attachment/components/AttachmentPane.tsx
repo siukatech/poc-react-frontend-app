@@ -19,7 +19,6 @@ import {
 } from '@mui/material';
 import { IconComponent } from '../../ui';
 
-
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -231,7 +230,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
                     {attachmentObj.fileName}...
                   </Typography>
                 )}
-                {!isReadOnly && attachmentObj.isUploaded && (
+                {!isReadOnly && !isUploading && attachmentObj.isUploaded && (
                   <ListItemIcon
                     sx={{ minWidth: 'auto', pl: 0.5, cursor: 'pointer' }}
                     onClick={() => handleAttachmentDelete(attachmentObj, idx)}
@@ -261,6 +260,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
           type="file"
           onChange={handleAttachmentChange}
           ref={fileInputRef}
+          multiple
         />
       </Button>
     </>

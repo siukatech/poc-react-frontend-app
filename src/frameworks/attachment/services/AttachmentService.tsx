@@ -34,9 +34,17 @@ const uploadAttachmentObj = async (
   pending: number
 ): Promise<any> => {
   const handleUploadProgress = (evt: AxiosProgressEvent) => {
-    const percentage = Math.round(100 / evt.loaded / (evt?.total || 1));
+    // const percentageEvt = Math.round(100 / evt.loaded / (evt?.total || 1));
+    // console.debug(
+    //   `AttachmentService - uploadAttachmentObj - handleUploadProgress - evt.loaded: [${evt.loaded}]` +
+    //     `, evt?.total: [${evt?.total}], percentageEvt: [${percentageEvt}]`
+    // );
+    const completed = total - pending;
+    // const percentageExt = Math.round(100 / pending / total || 1);
+    const percentageExt = Math.round((completed / total) * 100);
     console.debug(
-      `AttachmentService - uploadAttachmentObj - handleUploadProgress - pencentage: [${percentage}]`
+      `AttachmentService - uploadAttachmentObj - handleUploadProgress - pending: [${pending}]` +
+        `, completed: [${completed}], total: [${total}], pencentage: [${percentageExt}]`
     );
   };
   try {
