@@ -23,6 +23,8 @@ import {
   isErrNetwork,
   resolveServerErr,
 } from '../services/AxiosErrorHandler';
+import { useAppDispatch } from '../../app/stores/hooks';
+import { clearAuth } from '../../../features/auth/stores/authSlice';
 
 enum InterceptorTypeEnum {
   REQUEST = 'REQUEST',
@@ -46,6 +48,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const [loginErr, setLoginErr] = useState();
   const [serverErr, setServerErr] = useState<TServerErr>();
   const { user, doLogout } = useAuthContext();
+  const dispatch = useAppDispatch();
 
   const [interceptorIdMap, setInterceptorIdMap] = useState<any>({});
   const [interceptorRecords, setInterceptorRecords] = useState<
@@ -305,10 +308,6 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
                 if (isAxiosError) {
                   rejectData = doRefreshTokenErr.response?.data;
                   doRefreshTokenServerErr = resolveServerErr(doRefreshTokenErr);
-                  //
-                  // if (doRefreshTokenServerErr.responseErr.handler.doLogout) {
-                  //   doLogout();
-                  // }
                 }
                 rejectData =
                   !isAxiosError || rejectData == null ? '401' : rejectData;
@@ -413,8 +412,9 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           })`}
           message={JSON.stringify(serverErr)}
           onOk={() => {
-            if (serverErr.responseErr.handler.doLogout) {
+            if (serverErr.responseErr.handler.canLogout) {
               doLogout();
+              dispatch(clearAuth({}));
             }
             const path = serverErr?.responseErr?.handler.path;
             setLoginErr(undefined);

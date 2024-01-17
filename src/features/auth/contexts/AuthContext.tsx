@@ -18,19 +18,21 @@ import { IUser } from '../models';
 
 type AuthContextObj = {
   user?: IUser;
-  doLogin: (payload: DoAuthLoginPayload) => void;
+  // doLogin: (payload: DoAuthLoginPayload) => void;
   doLogout: () => void;
   checkTimeout: () => void;
   checkPermission: typeof doCheckPermission;
+  postLogin: (user?: IUser) => void;
   timeoutErr?: AxiosError;
 };
 
 const AuthContext = createContext<AuthContextObj>({
   // user: undefined,
-  doLogin: () => {},
+  // doLogin: () => {},
   doLogout: () => {},
   checkTimeout: () => {},
   checkPermission: () => false,
+  postLogin: () => {},
   // timeoutErr: AxiosError,
 });
 
@@ -125,6 +127,11 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     navigate('/');
   };
 
+  const postLogin = (user?: IUser): void => {
+    setUser(user);
+    navigate('/');
+  };
+
   // const doLogout = async (): Promise<void> => {
   //   // invoke the logout API call, for our NestJS API no logout API
   //   await doAuthLogout();
@@ -163,10 +170,11 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     <AuthContext.Provider
       value={{
         user,
-        doLogin,
+        // doLogin,
         doLogout,
         checkTimeout,
         checkPermission: doCheckPermission,
+        postLogin,
         timeoutErr,
       }}
     >

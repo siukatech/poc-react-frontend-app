@@ -1,10 +1,17 @@
+import { useMemo } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { ThemeProvider } from '@emotion/react';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { Provider } from 'react-redux';
 
 import { AxiosError } from 'axios';
+
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import themeOptions from '../themes/theme-options';
 
@@ -16,10 +23,9 @@ import MiniVariantDrawerLeft from '../components/MiniVariantDrawerLeft';
 // import AxiosInterceptor from '../../axios/components/AxiosInterceptor';
 import { AuthContextProvider } from '../../../features/auth';
 import { AxiosInterceptor } from '../../axios';
-import { createTheme } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 import { LNG_MUI_LOCALE_MAP } from '../../../i18n';
-import { useMemo } from 'react';
+
+import store from '../stores/store';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -76,13 +82,15 @@ const RouterMain = () => {
       <ThemeProvider theme={themeWithLocale}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <QueryClientProvider client={queryClient}>
-            <AuthContextProvider>
-              <AxiosInterceptor>
-                {/* <LayoutLeft /> */}
-                <LayoutMini />
-                {/* <MiniVariantDrawerLeft /> */}
-              </AxiosInterceptor>
-            </AuthContextProvider>
+            <Provider store={store}>
+              <AuthContextProvider>
+                <AxiosInterceptor>
+                  {/* <LayoutLeft /> */}
+                  <LayoutMini />
+                  {/* <MiniVariantDrawerLeft /> */}
+                </AxiosInterceptor>
+              </AuthContextProvider>
+            </Provider>
           </QueryClientProvider>
         </LocalizationProvider>
       </ThemeProvider>

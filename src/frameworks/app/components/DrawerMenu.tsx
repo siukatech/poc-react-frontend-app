@@ -52,7 +52,6 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
   // pages,
 }) => {
   const { t, i18n } = useTranslation();
-  const { user, doLogout } = useAuthContext();
   const navigate = useNavigate();
 
   return (

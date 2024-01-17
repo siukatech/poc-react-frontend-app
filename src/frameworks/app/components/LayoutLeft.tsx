@@ -161,7 +161,6 @@ const AppBarXs = styled(AppBarMui, {
 //   pages,
 // }) => {
 //   const { t, i18n } = useTranslation();
-//   const { user, doLogout } = useAuthContext();
 //   const navigate = useNavigate();
 
 //   return (
@@ -207,7 +206,6 @@ type LayoutLeftProps = {
 
 const LayoutLeft: React.FC<LayoutLeftProps> = (props) => {
   const { t, i18n } = useTranslation();
-  const { user, doLogout } = useAuthContext();
   const navigate = useNavigate();
 
   const [drawerToggle, setDrawerToggle] = useState(false);

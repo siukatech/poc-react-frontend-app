@@ -189,7 +189,11 @@ https://github.com/codedthemes/mantis-free-react-admin-template/blob/main/src/co
 
 
 
-
+# Redux implementation
+## Installation
+```shell
+npm i -S @reduxjs/toolkit react-redux redux
+```
 
 
 

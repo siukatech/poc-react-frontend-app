@@ -9,7 +9,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { useAuthContext } from '../contexts/AuthContext';
 import FormPassword from '../../../frameworks/ui/components/FormPassword';
 
-import { DoAuthLoginPayload } from '../services/LoginService';
+import { DoAuthLoginPayload, doAuthLogin } from '../services/LoginService';
 
 import {
   Box,
@@ -28,6 +28,9 @@ import {
   CardActions,
 } from '@mui/material';
 import { Navigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../frameworks/app/stores/hooks';
+import { bindAuth } from '../stores/authSlice';
+// import { testApp } from '../../../frameworks/app/stores/slices';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
 
@@ -35,8 +38,13 @@ const Login = () => {
   const loginFormRef = useRef<null | HTMLFormElement>(null);
   const usernameInputRef = useRef<null | HTMLInputElement>(null);
   const passwordInputRef = useRef<null | HTMLInputElement>(null);
-  const { user, doLogin } = useAuthContext();
+  const {
+    user,
+    // doLogin,
+    postLogin,
+  } = useAuthContext();
   const [isDirty, setIsDirty] = useState(false);
+  const dispatch = useAppDispatch();
 
   const { t, i18n } = useTranslation();
 
@@ -49,7 +57,10 @@ const Login = () => {
       username: usernameInputRef.current?.value,
       password: passwordInputRef.current?.value,
     };
-    await doLogin(payload);
+    const user = await doAuthLogin(payload);
+    postLogin(user);
+    dispatch(bindAuth({ user: user }));
+    // dispatch(testApp({ tested: true }));
   };
 
   const handleFormReset = (evt: React.MouseEvent<HTMLButtonElement>) => {

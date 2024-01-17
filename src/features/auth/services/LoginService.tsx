@@ -42,7 +42,9 @@ const restoreUser = () => {
   //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
   //   return jwt_decode(tokens.access_token);
   // }
-  return restoreJsonStr(STORAGE_KEY_USER);
+  const user = restoreJsonStr(STORAGE_KEY_USER);
+  console.debug(`restoreUser, user: `, user);
+  return user;
 };
 
 const saveTokens = (tokens: {}) => {

@@ -27,7 +27,7 @@ type TServerErr = {
 type TServerErrHandler = {
   title: string;
   path?: string;
-  doLogout: boolean;
+  canLogout: boolean;
 };
 
 const SERVER_ERR_HANDLER_STATUS_DEFAULT = 999;
@@ -36,17 +36,17 @@ const SERVER_ERR_HANDLER_MAP: any = {
   '401': {
     title: 'error.login.expired',
     path: '/login',
-    doLogout: true,
+    canLogout: true,
   } as TServerErrHandler,
-  'undefined_ERR_NETWORK': {
+  undefined_ERR_NETWORK: {
     title: 'error.login.expired',
     path: '/login',
-    doLogout: true,
+    canLogout: true,
   },
   [SERVER_ERR_HANDLER_STATUS_DEFAULT]: {
     title: 'error.dialog.title',
     path: undefined,
-    doLogout: false,
+    canLogout: false,
   } as TServerErrHandler,
 };
 
@@ -200,7 +200,8 @@ const resolveServerErr = (axiosErr: AxiosError) => {
   if (isErrAuth401(serverErr)) {
     serverErr.responseErr.status = 401;
     serverErr.responseErr.handler = resolveServerErrHandler(
-      serverErr.responseErr.status, serverErr.responseErr.errCode
+      serverErr.responseErr.status,
+      serverErr.responseErr.errCode
     );
   }
   return serverErr;

@@ -28,6 +28,8 @@ import {
 } from '@mui/icons-material';
 
 import { useAuthContext } from '../../../features/auth';
+import { useAppSelector } from '../stores/hooks';
+import { useAuthSelector } from '../../../features/auth/stores/authSlice';
 
 // type SettingType = {
 //   i18n?: string;
@@ -73,8 +75,10 @@ const settings =
 
 const NavUser = () => {
   const { t, i18n } = useTranslation();
-  const { user, doLogout } = useAuthContext();
   const navigate = useNavigate();
+  const { user: userCtx } = useAuthContext();
+  // const userRedux = useAuthSelector((state) => state.user);
+  const userRedux = useAppSelector((state) => state.auth?.user);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -84,6 +88,13 @@ const NavUser = () => {
   const handleUserMenuClose = () => {
     setAnchorElUser(null);
   };
+
+  let user = null;
+  // user = userCtx;
+  user = userRedux;
+
+  console.debug(`NavUser - userCtx: `, userCtx);
+  console.debug(`NavUser - userRedux: `, userRedux);
 
   return (
     <>
