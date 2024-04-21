@@ -101,7 +101,7 @@ const refreshUserInfo = async (user: any) => {
       //
       // tokens MUST be saved to the sessionStorage before my-user-info api called
       // extract the result.data and rename to myUserInfo
-      const { data: myUserInfo } = await axiosService.post(API_MY_USER_INFO);
+      const { data: myUserInfo } = await axiosService.get(API_MY_USER_INFO);
       // const myUserInfo = myUserInfoRes.data;
       //
       const { data: myUserPermissions } = await axiosService.get(
