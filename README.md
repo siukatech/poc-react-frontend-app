@@ -181,6 +181,34 @@ npm i -S --legacy-peer-deps @types/randomstring
 
 
 
+# xxxxx ESLint (Not working)
+Installation of ESLint
+```shell
+#####eslint@^8.0.1
+npm i -D eslint@^8.57.0
+npm i -D globals@v13.24.0
+npm i -D eslint-config-standard-with-typescript@37.0.0
+
+#####eslint-plugin-promise
+#####eslint-plugin-import
+#####eslint-plugin-n
+
+#####eslint-plugin-promise@^6.0.0
+#####eslint-plugin-import@^2.25.2
+#####eslint-plugin-n@^15.0.0 || ^16.0.0
+
+#####typescript@*
+
+#####@typescript-eslint/eslint-plugin@^6.4.0
+npm i -D @typescript-eslint/eslint-plugin@5.62.0
+
+npm i -D eslint-plugin-react@^7.34.1
+npm i -D @eslint/eslintrc@^2.1.4
+npm i -D @eslint/js@^8.57.0
+```
+
+
+
 # Development
 ## Notification Panel
 **Reference:**  
