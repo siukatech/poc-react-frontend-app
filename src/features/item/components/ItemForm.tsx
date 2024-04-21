@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   unstable_usePrompt as usePrompt,
   unstable_useBlocker as useBlocker,
+  unstable_BlockerFunction as BlockerFunction,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -68,7 +69,20 @@ const ItemForm = ({
   // const [purchasedDateVal, setPurchasedDateVal] = useState<null | string>();
   const [purchasedDateVal, setPurchasedDateVal] = useState<Date>(new Date());
 
-  const blocker = useBlocker(isDirty);
+  const shouldBlock = useCallback<BlockerFunction>(({
+    currentLocation,
+    nextLocation,
+    historyAction
+  }) => {
+    console.debug('ItemForm - shouldBlock - currentLocation: ', currentLocation);
+    console.debug('ItemForm - shouldBlock - nextLocation: ', nextLocation);
+    console.debug('ItemForm - shouldBlock - historyAction: ', historyAction);
+    console.debug('ItemForm - shouldBlock - isDirty: ', isDirty);
+    return isDirty;
+  }, [isDirty]);
+
+  // const blocker = useBlocker(isDirty);
+  const blocker = useBlocker(shouldBlock);
 
   const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
