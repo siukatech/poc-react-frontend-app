@@ -17,7 +17,8 @@ const API_DETAIL: string =
   '';
 const API_DOWNLOAD: string =
   (API_DOMAIN as string) +
-  (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
+  // (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
+  (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_PATH_ATTACHMENT_DOWNLOAD as string) +
   '';
 const API_DELETE: string =
