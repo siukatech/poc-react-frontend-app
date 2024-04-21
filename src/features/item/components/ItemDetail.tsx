@@ -49,7 +49,7 @@ const ItemDetail = ({
             defaultExpanded={defaultExpanded}
           >
             <AccordionSummary>
-              <Typography>
+              <Typography data-testid="item-name">
                 {t('item.name')}: {itemObj?.name} (id:{itemObj?.id}, v:{itemObj?.versionNo})
               </Typography>
             </AccordionSummary>

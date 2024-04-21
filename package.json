@@ -67,7 +67,8 @@
   "scripts": {
     "bak---start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false --debug --verbose --coverage",
+    "test:coverage": "react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "start": "npm run start:dev",
     "start:dev": "env-cmd -f .env.dev react-scripts start",
@@ -98,5 +99,10 @@
     "@svgr/webpack": "^6.5.1",
     "@types/lodash": "^4.14.200",
     "webpack-dev-server": "4.14.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
   }
 }
