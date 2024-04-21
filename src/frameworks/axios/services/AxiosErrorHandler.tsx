@@ -42,7 +42,7 @@ const SERVER_ERR_HANDLER_MAP: any = {
     title: 'error.login.expired',
     path: '/login',
     canLogout: true,
-  },
+  } as TServerErrHandler,
   [SERVER_ERR_HANDLER_STATUS_DEFAULT]: {
     title: 'error.dialog.title',
     path: undefined,
@@ -207,6 +207,12 @@ const resolveServerErr = (axiosErr: AxiosError) => {
   return serverErr;
 };
 
+/**
+ * https://stackoverflow.com/a/47218004
+ * 
+ * @param serverErr 
+ * @returns 
+ */
 const isErrAuth401 = (serverErr: TServerErr) => {
   let is401 = false;
   const { responseErr } = serverErr;
@@ -225,6 +231,7 @@ const isErrAuth401 = (serverErr: TServerErr) => {
   }
   return is401;
 };
+
 const isErrNetwork = (serverErr: TServerErr) => {
   let result = false;
   const { responseErr } = serverErr;
