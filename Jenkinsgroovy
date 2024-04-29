@@ -1,0 +1,15 @@
+@Library('jenkins-groovy-library-script') _
+
+def repoName = "poc-react-frontend-app"
+def repoUrl = "https://github.com/siukatech/poc-react-frontend-app.git"
+def repoHttp = "https"
+def repoHostname = "github.com"
+def repoUsername = "siukatech"
+nginxStaticReact(
+    "repoName": "${repoName}"
+    , "repoUrl": "${repoUrl}"
+    , "repoHttp": "${repoHttp}"
+    , "repoHostname": "${repoHostname}"
+    , "repoUsername": "${repoUsername}"
+);
+
