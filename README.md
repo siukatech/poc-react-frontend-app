@@ -225,6 +225,45 @@ npm i -S @reduxjs/toolkit react-redux redux
 
 
 
+# Docker
+## Dockerize
+**Reference:**  
+https://medium.com/@alinaseri/dockerize-react-applications-with-nginx-17f752deb54  
+
+
+### .dockerignore
+build should be kept because docker engine could not recognize if ignored.  
+```
+node_modules
+#build
+npm-debug.log
+```
+
+
+### Dockerfile
+```dockerfile
+# Use Nginx as the production server
+FROM nginx:1.25.2
+
+# Set the working directory in the container
+# skip setting working directory
+#WORKDIR /app
+
+# Copy the conf.d to Nginx's web server conf.d
+COPY conf.d /etc/nginx/conf.d
+
+# Copy the built React app to Nginx's web server directory
+COPY build /usr/share/nginx/html
+
+# Expose port 80 for the Nginx server
+EXPOSE 80
+
+# Start Nginx when the container runs
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+
+
 
 # Appendix
 ## Code change for reference
