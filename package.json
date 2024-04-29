@@ -66,13 +66,14 @@
   },
   "scripts": {
     "bak---start": "react-scripts start",
-    "build": "react-scripts build",
+    "bak---build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --debug --verbose --coverage",
     "test:coverage": "react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "start": "npm run start:dev",
     "start:dev": "env-cmd -f .env.dev react-scripts start",
     "start:sit": "env-cmd -f .env.sit react-scripts start",
+    "build": "npm run build:dev",
     "build:dev": "env-cmd -f .env.dev react-scripts build",
     "build:sit": "env-cmd -f .env.sit react-scripts build"
   },
