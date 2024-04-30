@@ -9,7 +9,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { useAuthContext } from '../contexts/AuthContext';
 import FormPassword from '../../../frameworks/ui/components/FormPassword';
 
-import { DoAuthLoginPayload, doAuthLogin } from '../services/LoginService';
+import { DoAuthLoginPayload, doAuthLogin, getAuthLoginUrl } from '../services/LoginService';
 
 import {
   Box,
@@ -27,7 +27,7 @@ import {
   CardContent,
   CardActions,
 } from '@mui/material';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../frameworks/app/stores/hooks';
 import { bindAuth } from '../stores/authSlice';
 // import { testApp } from '../../../frameworks/app/stores/slices';
@@ -47,6 +47,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
 
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (
     evt: FormEvent<HTMLFormElement>
@@ -58,8 +59,8 @@ const Login = () => {
       password: passwordInputRef.current?.value,
     };
     const user = await doAuthLogin(payload);
-    postLogin(user);
     dispatch(bindAuth({ user: user }));
+    postLogin(user);
     // dispatch(testApp({ tested: true }));
   };
 
@@ -84,6 +85,11 @@ const Login = () => {
       } else return true;
     });
   };
+
+  const handleLoginRedirectClick = () => {
+    const authLoginUrl = getAuthLoginUrl();
+    window.location.href = authLoginUrl;
+  }
 
   return (
     <>
@@ -139,6 +145,9 @@ const Login = () => {
             </Button> */}
                   <Button variant="outlined" color="secondary" type="reset">
                     {t('button.reset')}
+                  </Button>
+                  <Button variant="outlined" color="primary" onClick={handleLoginRedirectClick} >
+                    {t('button.login')} (redirect)
                   </Button>
                 </ButtonGroup>
               </CardActions>

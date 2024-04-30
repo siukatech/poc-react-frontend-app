@@ -33,6 +33,7 @@ import {
   ViewMerchant,
   EditMerchant,
 } from '../../../features/merchant';
+import Redirect from '../../../features/auth/pages/Redirect';
 
 const router = createBrowserRouter(
   // delfine method 1
@@ -72,6 +73,19 @@ const router = createBrowserRouter(
             //   <Logout />
             // </ProtectedResource>
             <Logout />
+          ),
+        },
+        {
+          path: '/redirect', 
+          element: (
+            <ProtectedResource
+              accessBy={ProtectedResourceAccessBy.PUBLIC}
+              displayType={ProtectedResourceDisplayType.DISABLED}
+              resourceName={``}
+              accessRights={``}
+            >
+              <Redirect />
+            </ProtectedResource>
           ),
         },
         // { path: '/items', exact: true, element: <ProtectedResource accessBy="authenticated" ><AllItems /></ProtectedResource> },

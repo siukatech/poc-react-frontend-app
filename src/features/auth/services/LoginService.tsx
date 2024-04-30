@@ -1,8 +1,16 @@
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 import axiosService from '../../../frameworks/axios/services/axios-service';
-import { restoreJsonStr, saveJsonObj } from '../../../frameworks/app/utils/storage';
+import {
+  restoreJsonStr,
+  restoreRawStr,
+  saveJsonObj,
+  saveRawStr,
+} from '../../../frameworks/app/utils/storage';
 import { IUser, IUserPermission } from '../models';
+import CryptoJS from 'crypto-js';
+import Randomstring from 'randomstring';
+import { uuidv4 } from 'uuidv7';
 
 const APP_NAME = process.env.REACT_APP_APP_NAME as string;
 
@@ -19,20 +27,25 @@ const API_MY_USER_PERMISSIONS: string =
   (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
   (process.env.REACT_APP_API_PATH_MY_PERMISSIONS as string);
 
-const API_API_OAUTH_AUTHORIZE: string =
+const API_OAUTH_AUTHORIZE: string =
   (process.env.REACT_APP_API_PATH_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_AUTHORIZE as string);
 
-const API_API_OAUTH_REFRESH_TOKEN: string =
+const API_OAUTH_REFRESH_TOKEN: string =
   (process.env.REACT_APP_API_PATH_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_REFRESH_TOKEN as string);
 
-const API_API_OAUTH_LOGOUT: string =
+const API_OAUTH_LOGOUT: string =
   (process.env.REACT_APP_API_PATH_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_LOGOUT as string);
+
+const API_OAUTH_TOKEN: string =
+  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
+  (process.env.REACT_APP_API_OAUTH_TOKEN as string);
 
 const restoreTokens = () => {
   return restoreJsonStr(STORAGE_KEY_TOKENS);
@@ -152,7 +165,7 @@ type DoAuthLoginPayload = {
 };
 
 const doAuthLogin = async (payload: DoAuthLoginPayload): Promise<IUser> => {
-  let oauthAuthorizeApi = API_API_OAUTH_AUTHORIZE;
+  let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
 
   // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
   oauthAuthorizeApi = oauthAuthorizeApi.replace(
@@ -182,7 +195,7 @@ const doRefreshToken = async (): Promise<any> => {
     refresh_token: tokens?.refresh_token,
   };
 
-  let oauthRefreshTokenApi = API_API_OAUTH_REFRESH_TOKEN;
+  let oauthRefreshTokenApi = API_OAUTH_REFRESH_TOKEN;
   oauthRefreshTokenApi = oauthRefreshTokenApi.replace(
     '{0}',
     process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string
@@ -222,7 +235,7 @@ const doAuthLogout = async (): Promise<void> => {
   if (tokens != null) {
     try {
       let apiResponse = await axios.post(
-        API_API_OAUTH_LOGOUT,
+        API_OAUTH_LOGOUT,
         {},
         {
           headers: {
@@ -237,6 +250,80 @@ const doAuthLogout = async (): Promise<void> => {
       clearStorageItems();
     }
   }
+};
+
+// Dependency: Node.js crypto module
+// https://nodejs.org/api/crypto.html#crypto_crypto
+function base64URLEncode(str: any) {
+  return str
+    .toString('base64')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+}
+
+// https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce/call-your-api-using-the-authorization-code-flow-with-pkce#javascript-sample
+const getAuthLoginUrl = () => {
+  let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
+  oauthAuthorizeApi = oauthAuthorizeApi.replace(
+    '{0}',
+    process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string
+  );
+  //
+  //
+  // codeVerifier and codeChallenge online generator
+  // https://tonyxu-io.github.io/pkce-generator/
+  //
+  // Randomstring and uuidv4 are not ok, cannot use for codeVerifier
+  // const codeVerifier = base64URLEncode(Randomstring.generate());
+  // const codeVerifier = base64URLEncode(uuidv4());
+  // CryptoJS.lib.WordArray.random is the ONLY option for codeVerifier
+  const codeVerifier = CryptoJS.lib.WordArray.random(32).toString(
+    CryptoJS.enc.Base64url
+  );
+  const codeChallenge = CryptoJS.SHA256(codeVerifier).toString(
+    CryptoJS.enc.Base64url
+  ); // here should use CryptoJS.enc.Base64url for url not CryptoJS.enc.Base64
+  console.debug('getAuthLoginUrl - codeVerifier: [' + codeVerifier + ']');
+  console.debug('getAuthLoginUrl - codeChallenge: [' + codeChallenge + ']');
+  let authLoginUrl =
+    oauthAuthorizeApi + '?' + 'codeChallenge={0}'.replace('{0}', codeChallenge);
+  saveRawStr('CODE_VERIFIER', codeVerifier);
+  saveRawStr('CODE_CHALLENGE', codeChallenge);
+  return authLoginUrl;
+};
+
+const doAuthToken = async (code: string): Promise<IUser> => {
+  let oauthTokenApi = API_OAUTH_TOKEN;
+
+  // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
+  oauthTokenApi = oauthTokenApi
+    .replace('{0}', process.env.REACT_APP_API_OAUTH_CLIENT_NAME as string)
+    .replace('{1}', code);
+  const codeVerifier = restoreRawStr('CODE_VERIFIER');
+  const codeChallenge = restoreRawStr('CODE_CHALLENGE');
+  console.debug(
+    'doAuthToken - oauthTokenApi: [' +
+      oauthTokenApi +
+      '], codeVerifier: [' +
+      codeVerifier +
+      '], codeChallenge: [' +
+      codeChallenge +
+      ']'
+  );
+  const apiResponse = await axios.post(oauthTokenApi, null, {
+    params: {
+      codeVerifier: codeVerifier,
+    },
+  });
+  const tokens = apiResponse.data;
+  saveTokens(tokens);
+  // console.debug('LoginService - doAuthLoginToStorage - tokens: ', tokens);
+  //
+  let user: any = jwt_decode(tokens.access_token);
+  await refreshUserInfo(user);
+  user = restoreUser();
+  return user;
 };
 
 /**
@@ -442,8 +529,9 @@ export {
   doCheckTimeout,
   doCheckPermissionByRegex,
   // doCheckPermissionByMap,
-
-  STORAGE_KEY_TOKENS, 
+  getAuthLoginUrl,
+  doAuthToken,
+  STORAGE_KEY_TOKENS,
   STORAGE_KEY_USER,
 };
 
