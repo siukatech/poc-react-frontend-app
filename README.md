@@ -2,6 +2,21 @@
 # npm
 ## Libraries Installation
 
+
+**First download from Git**
+If there is a `package-lock.json`, `npm ci` should be used,
+otherwise use `npm install` or `npm i`.  
+**Reference:**  
+https://israynotarray.com/nodejs/20211027/1827968017/  
+
+```shell
+# use npm ci if package-lock.json exists.
+# use npm i if there is no package-lock.json
+# npm i
+npm ci
+```
+
+
 **Base**
 ```shell
 npm i -S react-router-dom
@@ -70,7 +85,7 @@ npm i --save typescript@5.1.3
 
 
 **Audit fix**  
-***Reference:***  
+**Reference:**  
 https://github.com/facebook/create-react-app/issues/12132#issuecomment-1130249584  
 Under `node -version` `16`, install the `@svgr/webpack@^6` manually.  
 And modify the `package.json` as below.  
