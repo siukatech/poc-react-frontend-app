@@ -3,6 +3,7 @@ FROM nginx:1.25.2
 
 # Set the working directory in the container
 # skip setting working directory
+# workdir /app here is referring the /app in the container image
 #WORKDIR /app
 
 # Copy the conf.d to Nginx's web server conf.d
