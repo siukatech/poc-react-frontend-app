@@ -1,4 +1,4 @@
-import { parseDateToUtc } from '../../app/utils/date';
+import { parseDateToUtc, parseUtcToDate } from '../../app/utils/date';
 import { deepMergeObject } from '../../app/utils/object';
 
 import { InternalAxiosRequestConfig } from 'axios';
@@ -23,13 +23,14 @@ const marshallDateStr2DateObj = (dataObj: any) => {
   keyList.forEach((key, i) => {
     try {
       const dataValOri = dataObj[key];
-      // if (dataValOri != null) {
-      //   console.debug(
-      //     'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataValOri: ',
-      //     dataValOri
-      //   );
-      // }
-      const dataVal = dataValOri == null ? null : parseDateToUtc(dataValOri);
+      if (dataValOri != null) {
+        console.debug(
+          'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataValOri: ',
+          dataValOri
+        );
+      }
+      // const dataVal = dataValOri == null ? null : parseDateToUtc(dataValOri);
+      const dataVal = dataValOri == null ? null : parseUtcToDate(dataValOri);
       // console.debug(
       //   'processor-general - marshallDate2DateObj - i: [' + i + '], key: [' + key + '], dataVal: ',
       //   dataVal

@@ -60,7 +60,27 @@ const ItemDetail = ({
               </Typography>
               <Typography>
                 {t('item.lastModifiedDatetime')}:
+                {itemObj?.lastModifiedDatetime?.toString()}
+              </Typography>
+              <Typography>
+                {t('item.lastModifiedDatetime')}:
+                {itemObj?.lastModifiedDatetime?.toDateString()}
+              </Typography>
+              <Typography>
+                {t('item.lastModifiedDatetime')}:
+                {itemObj?.lastModifiedDatetime?.toISOString()}
+              </Typography>
+              <Typography>
+                {t('item.lastModifiedDatetime')}:
                 {formatDatetime(itemObj?.lastModifiedDatetime)}
+              </Typography>
+              <Typography>
+                {t('item.lastModifiedDatetime')}:
+                {formatDatetime(itemObj?.lastModifiedDatetime, 'yyyy-MM-dd HH:mm:ss zzz')}
+              </Typography>
+              <Typography>
+                {t('item.lastModifiedDatetime')}:
+                {formatDatetime(itemObj?.lastModifiedDatetime, 'yyyy-MM-dd HH:mm:ssXXX')}
               </Typography>
               <Typography>
                 {t('item.versionNo')}: {itemObj.versionNo}
