@@ -31,13 +31,13 @@ const _formatDatetime = (
   const zonedDatetime = date == null ? date : utcToZonedTime(date, timezone);
   const formattedDatetime =
     zonedDatetime == null ? zonedDatetime : format(zonedDatetime, pattern);
-  console.debug('date - _formatDatetime - timezone: ', timezone);
-  console.debug('date - _formatDatetime - date: ', date);
-  console.debug('date - _formatDatetime - zonedDatetime: ', zonedDatetime);
-  console.debug(
-    'date - _formatDatetime - formattedDatetime: ',
-    formattedDatetime
-  );
+  // console.debug('date - _formatDatetime - timezone: ', timezone);
+  // console.debug('date - _formatDatetime - date: ', date);
+  // console.debug('date - _formatDatetime - zonedDatetime: ', zonedDatetime);
+  // console.debug(
+  //   'date - _formatDatetime - formattedDatetime: ',
+  //   formattedDatetime
+  // );
   return formattedDatetime;
 };
 const formatDate = (date?: Date, pattern: string = DATE_FORMAT_DEFAULT) => {
@@ -65,12 +65,12 @@ const parseUtcToDate = (obj: Date | string | number) => {
       : obj.toString().substring(0, obj.toString().lastIndexOf('.'));
   const objStr = objStrDt + objStrZ + 'Z';
   const zonedDatetime = new Date(objStr);
-  console.debug('date - parseUtcToDate - obj: ', obj);
-  console.debug('date - parseUtcToDate - objStr: ', objStr);
-  console.debug('date - parseUtcToDate - objStrDt: ', objStrDt);
-  console.debug('date - parseUtcToDate - objStrZ: ', objStrZ);
-  console.debug('date - parseUtcToDate - zonedDatetime: ', zonedDatetime);
-  console.debug('date - parseUtcToDate - timezone: ', timezone);
+  // console.debug('date - parseUtcToDate - obj: ', obj);
+  // console.debug('date - parseUtcToDate - objStr: ', objStr);
+  // console.debug('date - parseUtcToDate - objStrDt: ', objStrDt);
+  // console.debug('date - parseUtcToDate - objStrZ: ', objStrZ);
+  // console.debug('date - parseUtcToDate - zonedDatetime: ', zonedDatetime);
+  // console.debug('date - parseUtcToDate - timezone: ', timezone);
   return zonedDatetime;
 };
 const parseDateToUtc = (obj: Date | string | number) => {

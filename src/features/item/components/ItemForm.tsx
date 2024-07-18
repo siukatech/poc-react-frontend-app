@@ -43,8 +43,10 @@ import { getSingleItem } from '../services/ItemService';
 import DialogPrompt from '../../../frameworks/ui/components/DialogPrompt';
 import LoadingSpinner from '../../../frameworks/ui/components/LoadingSpinner';
 import UnloadPrompt from '../../../frameworks/ui/components/UnloadPrompt';
+import FormTextarea from '../../../frameworks/ui/components/FormTextarea';
 
-const formFieldSxDefault = { m: 1, width: '90%' };
+const formField1ColSxDefault = { m: 1, width: '98%' };
+const formField2ColSxDefault = { m: 1, width: '95%' };
 
 const ItemForm = ({
   itemObj,
@@ -69,17 +71,19 @@ const ItemForm = ({
   // const [purchasedDateVal, setPurchasedDateVal] = useState<null | string>();
   const [purchasedDateVal, setPurchasedDateVal] = useState<Date>(new Date());
 
-  const shouldBlock = useCallback<BlockerFunction>(({
-    currentLocation,
-    nextLocation,
-    historyAction
-  }) => {
-    console.debug('ItemForm - shouldBlock - currentLocation: ', currentLocation);
-    console.debug('ItemForm - shouldBlock - nextLocation: ', nextLocation);
-    console.debug('ItemForm - shouldBlock - historyAction: ', historyAction);
-    console.debug('ItemForm - shouldBlock - isDirty: ', isDirty);
-    return isDirty;
-  }, [isDirty]);
+  const shouldBlock = useCallback<BlockerFunction>(
+    ({ currentLocation, nextLocation, historyAction }) => {
+      console.debug(
+        'ItemForm - shouldBlock - currentLocation: ',
+        currentLocation
+      );
+      console.debug('ItemForm - shouldBlock - nextLocation: ', nextLocation);
+      console.debug('ItemForm - shouldBlock - historyAction: ', historyAction);
+      console.debug('ItemForm - shouldBlock - isDirty: ', isDirty);
+      return isDirty;
+    },
+    [isDirty]
+  );
 
   // const blocker = useBlocker(isDirty);
   const blocker = useBlocker(shouldBlock);
@@ -177,7 +181,7 @@ const ItemForm = ({
           >
             <Grid container>
               <Grid item xs={12}>
-                <Box sx={{ ...formFieldSxDefault }}>
+                <Box sx={{ ...formField1ColSxDefault }}>
                   <legend>{t('item.form')}</legend>
                 </Box>
               </Grid>
@@ -185,7 +189,7 @@ const ItemForm = ({
                 <TextField
                   // label={t('form.isDirty') + '[' + isDirty + ']'}
                   label={t('form.isDirty')}
-                  sx={{ ...formFieldSxDefault }}
+                  sx={{ ...formField2ColSxDefault }}
                   // defaultValue={isDirty || ''}
                   value={new String(isDirty)}
                   InputProps={{ readOnly: true }}
@@ -194,7 +198,7 @@ const ItemForm = ({
               <Grid item xs={5}>
                 <TextField
                   label={t('item.id')}
-                  sx={{ ...formFieldSxDefault }}
+                  sx={{ ...formField2ColSxDefault }}
                   // defaultValue={itemObj?.id || ''}
                   value={itemObj?.id || ''}
                   InputProps={{ readOnly: true }}
@@ -203,7 +207,7 @@ const ItemForm = ({
               <Grid item xs={5}>
                 <TextField
                   label={t('item.versionNo')}
-                  sx={{ ...formFieldSxDefault }}
+                  sx={{ ...formField2ColSxDefault }}
                   // defaultValue={itemObj?.versionNo || ''}
                   value={itemObj?.versionNo || ''}
                   InputProps={{ readOnly: true }}
@@ -212,7 +216,7 @@ const ItemForm = ({
               <Grid item xs={5}>
                 <TextField
                   label={t('item.lastModifiedDatetime')}
-                  sx={{ ...formFieldSxDefault }}
+                  sx={{ ...formField2ColSxDefault }}
                   // type="date"
                   // defaultValue={formatDatetime(
                   //   itemObj?.lastModifiedDatetime,
@@ -238,7 +242,7 @@ const ItemForm = ({
                     id="name"
                     name="name"
                     helperText={t('item.name.helperText')}
-                    sx={{ ...formFieldSxDefault }}
+                    sx={{ ...formField1ColSxDefault }}
                     onFocus={handleFormFocus}
                     // defaultValue={itemObj?.name}
                     // value={nameVal || ''}
@@ -255,7 +259,7 @@ const ItemForm = ({
                     // id="purchasedDate"
                     // name="purchasedDate"
                     // helperText={t('item.purchasedDate.helperText')}
-                    sx={{ ...formFieldSxDefault }}
+                    sx={{ ...formField1ColSxDefault }}
                     // defaultValue={itemObj?.purchasedDate}
                     // value={purchasedDateVal}
                     value={itemRec?.purchasedDate}
@@ -269,6 +273,13 @@ const ItemForm = ({
                     onChange={(val) =>
                       handleDateFieldChange('purchasedDate', val)
                     }
+                  />
+                  <FormTextarea
+                    label={t('item.remarks')}
+                    helperText={t('item.remarks.helperText')}
+                    sx={{ ...formField1ColSxDefault }}
+                    maxLength={200}
+                    onFocus={handleFormFocus}
                   />
                   <ButtonGroup
                     variant="outlined"
