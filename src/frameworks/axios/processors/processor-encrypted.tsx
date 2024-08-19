@@ -15,6 +15,8 @@ import {
 } from './processor-protected';
 import axios, { AxiosRequestTransformer } from 'axios';
 
+const HEADER_X_DATA_ENC_INFO = "X-Data-Enc-Info";
+
 const preEncryptedDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
 ): ProcessorAxiosRequestConfig => {
@@ -96,7 +98,7 @@ const preEncryptedDataObjProcessor = (
     //   {
     //     data: dataObj == null ? null : encryptedBody,
     //     headers: {
-    //       'X-DATA-ENC-INFO': encryptedHeader,
+    //       [HEADER_X_DATA_ENC_INFO]: encryptedHeader,
     //     },
     //     cipherInfo: cipherInfo,
     //   },
@@ -104,7 +106,7 @@ const preEncryptedDataObjProcessor = (
     // );
     reqConfig.data = dataObj == null ? null : encryptedBody;
     reqConfig.data = dataObj == null ? null : JSON.stringify(encryptedBody);
-    reqConfig.headers['X-DATA-ENC-INFO'] = encryptedHeader;
+    reqConfig.headers[HEADER_X_DATA_ENC_INFO] = encryptedHeader;
     reqConfig.cipherInfo = cipherInfo;
   }
   return reqConfig;
