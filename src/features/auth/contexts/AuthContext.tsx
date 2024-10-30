@@ -87,7 +87,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   const doLogin = async (payload: DoAuthLoginPayload) => {
     // let authCodeLoginUrl =
-    //   process.env.REACT_APP_API_PATH_PREFIX +
+    //   process.env.REACT_APP_API_PATH_MY_PREFIX +
     //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
     //   process.env.REACT_APP_API_OAUTH_AUTHORIZE;
     // // authCodeLoginUrl += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
@@ -105,7 +105,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // sessionStorage.setItem('tokens', JSON.stringify(tokens));
     // //
     // // tokens MUST be saved to the sessionStorage before my-user-info api called
-    // let myUserInfoUrl = process.env.REACT_APP_API_PATH_PREFIX +
+    // let myUserInfoUrl = process.env.REACT_APP_API_PATH_MY_PREFIX +
     // process.env.REACT_APP_API_PATH_V1_PROTECTED +
     // process.env.REACT_APP_API_PATH_MY_USER_INFO;
     // const myUserInfoRes = await axiosService.post(myUserInfoUrl);

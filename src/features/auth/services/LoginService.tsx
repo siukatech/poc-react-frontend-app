@@ -18,32 +18,32 @@ const STORAGE_KEYS = ['tokens', 'user'];
 const [STORAGE_KEY_TOKENS, STORAGE_KEY_USER] = STORAGE_KEYS;
 
 const API_MY_USER_INFO: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
   (process.env.REACT_APP_API_PATH_MY_USER_INFO as string);
 
-const API_MY_USER_PERMISSIONS: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+const API_MY_PERMISSIONS: string =
+  (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
   (process.env.REACT_APP_API_PATH_MY_PERMISSIONS as string);
 
 const API_OAUTH_AUTHORIZE: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_AUTHORIZE as string);
 
 const API_OAUTH_REFRESH_TOKEN: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_REFRESH_TOKEN as string);
 
 const API_OAUTH_LOGOUT: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_LOGOUT as string);
 
 const API_OAUTH_TOKEN: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   (process.env.REACT_APP_API_OAUTH_TOKEN as string);
 
@@ -117,8 +117,13 @@ const refreshUserInfo = async (user: any) => {
       const { data: myUserInfo } = await axiosService.get(API_MY_USER_INFO);
       // const myUserInfo = myUserInfoRes.data;
       //
+      let myPermissionsApi = API_MY_PERMISSIONS;
+      myPermissionsApi = myPermissionsApi.replace(
+        '{0}',
+        process.env.REACT_APP_APP_NAME as string
+      );
       const { data: myUserPermissions } = await axiosService.get(
-        API_MY_USER_PERMISSIONS
+        myPermissionsApi
       );
       for (const key in myUserInfo) {
         user[key] = myUserInfo[key];

@@ -5,7 +5,7 @@ import { II18nResource } from '../models';
 // xxxxx - typescript is required to wrap a function to call in index.tsx
 // const initI18n = () => {
   const i18nUrl: string =
-  (process.env.REACT_APP_API_PATH_PREFIX as string) +
+  (process.env.REACT_APP_API_PATH_WEB_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
   // (process.env.REACT_APP_API_PATH_I18N_LANG as string)
   (process.env.REACT_APP_API_PATH_I18N_ALL as string)

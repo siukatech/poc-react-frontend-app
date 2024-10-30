@@ -140,7 +140,7 @@ const axiosService = axios.create({
 //       // };
 
 //       // let tokenRefreshUrl =
-//       //   process.env.REACT_APP_API_PATH_PREFIX +
+//       //   process.env.REACT_APP_API_PATH_MY_PREFIX +
 //       //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
 //       //   process.env.REACT_APP_API_OAUTH_REFRESH_TOKEN;
 //       // tokenRefreshUrl = tokenRefreshUrl.replace(

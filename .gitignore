@@ -24,3 +24,7 @@ yarn-error.log*
 
 # intellij
 .idea
+
+# sonarqube
+.scannerwork
+

@@ -1,6 +1,6 @@
 import axiosService from '../../../frameworks/axios/services/axios-service';
 
-const API_DOMAIN: string = process.env.REACT_APP_API_PATH_PREFIX as string;
+const API_DOMAIN: string = process.env.REACT_APP_API_PATH_WEB_PREFIX as string;
 // const API = API_DOMAIN + process.env.REACT_APP_API_PATH_V1_PROTECTED + '/items';
 const API: string =
   (API_DOMAIN as string) +
