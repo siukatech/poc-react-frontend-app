@@ -4,8 +4,8 @@ interface IUser {
 }
 
 interface IUserPermission {
-  appMid: string;
-  resourceMid: string;
+  applicationId: string;
+  appResourceId: string;
   accessRight: string;
 }
 

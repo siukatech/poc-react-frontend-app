@@ -8,12 +8,13 @@ const rjsf_dataSchema: RJSFSchema = {
     id: {
       title: 'Id',
       description: 'Id',
-      type: 'number',
-    },
-    mid: {
-      title: 'Mid',
+      // type: 'number',
       type: 'string',
     },
+    // mid: {
+    //   title: 'Mid',
+    //   type: 'string',
+    // },
     name: {
       title: 'Name',
       type: 'string',
@@ -30,12 +31,13 @@ const rjsf_dataSchema: RJSFSchema = {
         properties: {
           id: {
             title: 'Id',
-            type: 'number',
-          },
-          mid: {
-            title: 'Mid',
+            // type: 'number',
             type: 'string',
           },
+          // mid: {
+          //   title: 'Mid',
+          //   type: 'string',
+          // },
           name: {
             title: 'Name',
             type: 'string',
@@ -121,12 +123,13 @@ const jsonforms_dataSchema = {
     id: {
       title: 'Id',
       description: 'Id',
-      type: 'number',
-    },
-    mid: {
-      title: 'Mid',
+      // type: 'number',
       type: 'string',
     },
+    // mid: {
+    //   title: 'Mid',
+    //   type: 'string',
+    // },
     name: {
       title: 'Name',
       type: 'string',
@@ -155,12 +158,13 @@ const jsonforms_dataSchema = {
           },
           id: {
             title: 'Id',
-            type: 'number',
-          },
-          mid: {
-            title: 'Mid',
+            // type: 'number',
             type: 'string',
           },
+          // mid: {
+          //   title: 'Mid',
+          //   type: 'string',
+          // },
           addressFull: {
             title: 'Address (Full)',
             type: 'string',
@@ -251,11 +255,11 @@ const jsonforms_uiSchema = {
                   scope: '#/properties/id',
                   label: 'Id',
                 },
-                {
-                  type: 'Control',
-                  scope: '#/properties/mid',
-                  label: 'Mid',
-                },
+                // {
+                //   type: 'Control',
+                //   scope: '#/properties/mid',
+                //   label: 'Mid',
+                // },
               ],
             },
             {

@@ -73,10 +73,10 @@ const clearStorageItems = () => {
 };
 
 const composePermissionPhrase = (
-  resourceMid: string,
+  appResourceId: string,
   accessRight: string
 ): string => {
-  const permissionPhrase = `${resourceMid}:${accessRight}`;
+  const permissionPhrase = `${appResourceId}:${accessRight}`;
   return permissionPhrase;
 };
 
@@ -90,20 +90,20 @@ const marshalPermissions = (userPermissions: IUserPermission[]) => {
   for (let ppp = 0; ppp < userPermissions.length; ppp++) {
     const userPermission = userPermissions[ppp];
     const permissionPhrase = composePermissionPhrase(
-      userPermission.resourceMid,
+      userPermission.appResourceId,
       userPermission.accessRight
     );
-    // const resourceParts = parseResourceName(userPermission.resourceMid);
+    // const resourceParts = parseResourceName(userPermission.appResourceId);
     // permissions[resourceParts[0]] =
     //   permissions[resourceParts[0]] == null
     //     ? {}
     //     : permissions[resourceParts[0]];
     // permissions[resourceParts[0]][permissionPhrase] = userPermission;
-    permissions[userPermission.appMid] =
-      permissions[userPermission.appMid] == null
+    permissions[userPermission.applicationId] =
+      permissions[userPermission.applicationId] == null
         ? {}
-        : permissions[userPermission.appMid];
-    permissions[userPermission.appMid][permissionPhrase] = userPermission;
+        : permissions[userPermission.applicationId];
+    permissions[userPermission.applicationId][permissionPhrase] = userPermission;
   }
   return permissions;
 };
