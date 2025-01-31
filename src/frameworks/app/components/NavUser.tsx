@@ -128,7 +128,7 @@ const NavUser = () => {
               sx={{ p: 1 }}
             >
               <Avatar
-                alt={user?.loginId}
+                alt={user?.userId}
                 // src="/static/images/avatar/2.jpg"
                 sx={{ width: 24, height: 24 }}
               />

@@ -1,5 +1,5 @@
 interface IUser {
-  loginId: string;
+  userId: string;
   permissions?: any;
 }
 
