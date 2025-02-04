@@ -22,10 +22,10 @@ const API_MY_USER_INFO: string =
   (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
   (process.env.REACT_APP_API_PATH_MY_USER_INFO as string);
 
-const API_MY_PERMISSIONS: string =
+const API_MY_PERMISSION_INFO: string =
   (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
   (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
-  (process.env.REACT_APP_API_PATH_MY_PERMISSIONS as string);
+  (process.env.REACT_APP_API_PATH_MY_PERMISSION_INFO as string);
 
 const API_OAUTH_AUTHORIZE: string =
   (process.env.REACT_APP_API_PATH_MY_PREFIX as string) +
@@ -117,14 +117,15 @@ const refreshUserInfo = async (user: any) => {
       const { data: myUserInfo } = await axiosService.get(API_MY_USER_INFO);
       // const myUserInfo = myUserInfoRes.data;
       //
-      let myPermissionsApi = API_MY_PERMISSIONS;
-      myPermissionsApi = myPermissionsApi.replace(
+      let myPermissionInfoApi = API_MY_PERMISSION_INFO;
+      myPermissionInfoApi = myPermissionInfoApi.replace(
         '{0}',
         process.env.REACT_APP_APP_NAME as string
       );
-      const { data: myUserPermissions } = await axiosService.get(
-        myPermissionsApi
+      const { data: myPermissionInfo } = await axiosService.get(
+        myPermissionInfoApi
       );
+      const myUserPermissions = myPermissionInfo.userPermissionList;
       for (const key in myUserInfo) {
         user[key] = myUserInfo[key];
       }
