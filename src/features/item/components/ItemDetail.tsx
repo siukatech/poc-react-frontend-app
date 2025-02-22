@@ -59,27 +59,27 @@ const ItemDetail = ({
                 {formatDatetime(itemObj?.purchasedDate)}
               </Typography>
               <Typography>
-                {t('item.lastModifiedDatetime')}:
+                {t('item.lastModifiedDatetime')}(.toString):
                 {itemObj?.lastModifiedDatetime?.toString()}
               </Typography>
               <Typography>
-                {t('item.lastModifiedDatetime')}:
+                {t('item.lastModifiedDatetime')}(.toDateString):
                 {itemObj?.lastModifiedDatetime?.toDateString()}
               </Typography>
               <Typography>
-                {t('item.lastModifiedDatetime')}:
+                {t('item.lastModifiedDatetime')}(.toISOString):
                 {itemObj?.lastModifiedDatetime?.toISOString()}
               </Typography>
               <Typography>
-                {t('item.lastModifiedDatetime')}:
+                {t('item.lastModifiedDatetime')}(formateDatetime):
                 {formatDatetime(itemObj?.lastModifiedDatetime)}
               </Typography>
               <Typography>
-                {t('item.lastModifiedDatetime')}:
+                {t('item.lastModifiedDatetime')}(formateDatetime, pattern ZZZ):
                 {formatDatetime(itemObj?.lastModifiedDatetime, 'yyyy-MM-dd HH:mm:ss zzz')}
               </Typography>
               <Typography>
-                {t('item.lastModifiedDatetime')}:
+                {t('item.lastModifiedDatetime')}(formateDatetime, pattern XXX):
                 {formatDatetime(itemObj?.lastModifiedDatetime, 'yyyy-MM-dd HH:mm:ssXXX')}
               </Typography>
               <Typography>

@@ -275,8 +275,12 @@ const ItemForm = ({
                     }
                   />
                   <FormTextarea
-                    label={t('item.remarks')}
-                    helperText={t('item.remarks.helperText')}
+                    label={t('item.description')}
+                    helperText={t('item.description.helperText')}
+                    // id="description"
+                    name="description"
+                    value={itemRec?.description}
+                    onChange={handleTextFieldChange}
                     sx={{ ...formField1ColSxDefault }}
                     maxLength={200}
                     onFocus={handleFormFocus}
