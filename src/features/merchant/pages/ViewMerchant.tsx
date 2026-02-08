@@ -13,13 +13,13 @@ import { Form } from '@rjsf/mui';
 import { ThemeProvider } from '@mui/material';
 
 import { getSingleMerchant } from '../services/MerchantService';
-import { themeFormReadonlyOptions } from '../../../frameworks/app/themes/theme-options';
-import LoadingSpinner from '../../../frameworks/ui/components/LoadingSpinner';
+import { themeFormReadonlyOptions } from '../../../framework/app/themes/theme-options';
+import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
 
-import MuiGridObjectFieldTemplate from '../../../frameworks/rjsf/components/MuiGridObjectFieldTemplate';
-import MuiTitleFieldTemplate from '../../../frameworks/rjsf/components/MuiTitleFieldTemplate';
-import MuiFieldTemplate from '../../../frameworks/rjsf/components/MuiFieldTemplate';
-import { intlSchema } from '../../../frameworks/rjsf/services/translation-service';
+import MuiGridObjectFieldTemplate from '../../../framework/rjsf/components/MuiGridObjectFieldTemplate';
+import MuiTitleFieldTemplate from '../../../framework/rjsf/components/MuiTitleFieldTemplate';
+import MuiFieldTemplate from '../../../framework/rjsf/components/MuiFieldTemplate';
+import { intlSchema } from '../../../framework/rjsf/services/translation-service';
 
 import { rjsf_dataSchema, rjsf_uiSchema } from '../rjsf';
 

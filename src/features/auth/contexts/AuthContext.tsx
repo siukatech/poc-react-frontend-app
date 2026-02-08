@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 
-import axiosService from '../../../frameworks/axios/services/axios-service';
+import axiosService from '../../../framework/axios/services/axios-service';
 import {
   restoreUser,
   doAuthLogin,

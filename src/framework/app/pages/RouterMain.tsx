@@ -15,9 +15,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import themeOptions from '../themes/theme-options';
 
-import LayoutLeft from '../components/LayoutLeft';
-import LayoutMini from '../components/LayoutMini';
-import MiniVariantDrawerLeft from '../components/MiniVariantDrawerLeft';
+import LayoutLeft from '../layouts/LayoutLeft';
+import LayoutMini from '../layouts/LayoutMini';
+import MiniVariantDrawerLeft from '../layouts/MiniVariantDrawerLeft';
 
 // import { AuthContextProvider } from '../../../features/auth/stores/AuthContext';
 // import AxiosInterceptor from '../../axios/components/AxiosInterceptor';

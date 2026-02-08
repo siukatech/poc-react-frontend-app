@@ -1,12 +1,12 @@
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
-import axiosService from '../../../frameworks/axios/services/axios-service';
+import axiosService from '../../../framework/axios/services/axios-service';
 import {
   restoreJsonStr,
   restoreRawStr,
   saveJsonObj,
   saveRawStr,
-} from '../../../frameworks/app/utils/storage';
+} from '../../../framework/app/utils/storage';
 import { IUser, IUserPermission } from '../models';
 import CryptoJS from 'crypto-js';
 import Randomstring from 'randomstring';

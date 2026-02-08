@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Divider, Typography } from '@mui/material';
-import AttachmentPane from '../../../frameworks/attachment/components/AttachmentPane';
-import { IAttachmentObj } from '../../../frameworks/attachment/models';
+import AttachmentPane from '../../../framework/attachment/components/AttachmentPane';
+import { IAttachmentObj } from '../../../framework/attachment/models';
 import { useAuthContext } from '../../auth';
 
 const ContentLong = () => {

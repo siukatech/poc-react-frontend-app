@@ -11,7 +11,7 @@ import { getAllMerchants } from '../services/MerchantService';
 
 import { IMerchant } from '../models';
 import MerchantCard from '../components/MerchantCard';
-import LoadingSpinner from '../../../frameworks/ui/components/LoadingSpinner';
+import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
 import MerchantCardList from '../components/MerchantCardList';
 
 // const merchants: IMerchant[] = [

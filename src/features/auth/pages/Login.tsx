@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { useAuthContext } from '../contexts/AuthContext';
-import FormPassword from '../../../frameworks/ui/components/FormPassword';
+import FormPassword from '../../../framework/ui/components/FormPassword';
 
 import { DoAuthLoginPayload, doAuthLogin, getAuthLoginUrl } from '../services/LoginService';
 
@@ -28,9 +28,9 @@ import {
   CardActions,
 } from '@mui/material';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../frameworks/app/stores/hooks';
+import { useAppDispatch } from '../../../framework/app/stores/hooks';
 import { bindAuth } from '../stores/authSlice';
-// import { testApp } from '../../../frameworks/app/stores/slices';
+// import { testApp } from '../../../framework/app/stores/slices';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
 

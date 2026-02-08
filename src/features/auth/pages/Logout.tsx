@@ -5,7 +5,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 
 import { Box, Button } from '@mui/material';
 import { clearAuth } from '../stores/authSlice';
-import { useAppDispatch } from '../../../frameworks/app/stores/hooks';
+import { useAppDispatch } from '../../../framework/app/stores/hooks';
 
 const Logout = () => {
   const navigate = useNavigate();

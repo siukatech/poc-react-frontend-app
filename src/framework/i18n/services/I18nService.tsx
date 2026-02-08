@@ -1,4 +1,4 @@
-import axiosService from '../../../frameworks/axios/services/axios-service';
+import axiosService from '../../../framework/axios/services/axios-service';
 import { II18nResource } from '../models';
 
 // for typescript, "import './i18n';" will be ok.

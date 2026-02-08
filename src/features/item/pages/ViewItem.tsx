@@ -18,13 +18,13 @@ import {
   Paper,
 } from '@mui/material';
 
-import useHttp, { HttpReducerStateStatus } from '../../../frameworks/https/hooks/use-http';
+import useHttp, { HttpReducerStateStatus } from '../../../framework/https/hooks/use-http';
 import {
   formatDate,
   formatDatetime,
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
-} from '../../../frameworks/app/utils/date';
+} from '../../../framework/app/utils/date';
 import { IItem } from '../../../features/item/models';
 import { getSingleItem } from '../services/ItemService';
 import ItemDetail from '../../../features/item/components/ItemDetail';

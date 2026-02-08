@@ -6,8 +6,8 @@ import {
   restoreUser,
 } from '../services/LoginService';
 import { AxiosError } from 'axios';
-import store, { RootState } from '../../../frameworks/app/stores/store';
-// import { rootSliceReducer } from '../../../frameworks/app/stores/slices';
+import store, { RootState } from '../../../framework/app/stores/store';
+// import { rootSliceReducer } from '../../../framework/app/stores/slices';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
 interface AuthState {

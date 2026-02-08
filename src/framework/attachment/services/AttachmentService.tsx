@@ -1,6 +1,6 @@
 import { uuidv4 } from 'uuidv7';
 import { AxiosError, AxiosProgressEvent } from 'axios';
-import axiosService from '../../../frameworks/axios/services/axios-service';
+import axiosService from '../../axios/services/axios-service';
 import { IAttachmentObj } from '../models';
 import { at, bind } from 'lodash';
 
