@@ -45,10 +45,9 @@ import {
   CloseOutlined as CloseOutlinedIcon,
 } from '@mui/icons-material';
 
-import { useAuthContext } from '../../../features/auth';
-
-import IconComponent from '../../ui/components/IconComponent';
-import { formatDate, formatDatetime } from '../utils/date';
+import { useAuthContext } from '../../auth';
+import { IconComponent } from '../../ui';
+import { formatDate, formatDatetime } from '../../utils/date';
 
 const notiIcons = [
   // <MailIcon />,

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { STORAGE_KEY_TOKENS } from '../../../features/auth';
+import { STORAGE_KEY_TOKENS } from '../../auth';
+// import { useLoginService } from '../../auth';
 import { getI18nResources } from '../services/I18nService';
 import { II18nResource } from '../models';
 import i18n, { BackendModule, InitOptions, Module, Services } from 'i18next';
@@ -28,6 +29,8 @@ const I18nLoader: BackendModule = {
     backendOptions: any,
     i18nextOptions: InitOptions
   ) => {
+    //
+    // const loginService = useLoginService();
     // console.debug(`I18nLoader - init - services: `, services);
     // console.debug(`I18nLoader - init - backendOptions: `, backendOptions);
     // console.debug(`I18nLoader - init - i18nextOptions: `, i18nextOptions);
@@ -39,6 +42,7 @@ const I18nLoader: BackendModule = {
       // );
       const token: string = sessionStorage.getItem(
         STORAGE_KEY_TOKENS
+        // loginService.getStorageKeyTokens()
       ) as string;
       localStorage.setItem(
         STORAGE_KEY_I18NRESOURCES,
@@ -54,9 +58,11 @@ const I18nLoader: BackendModule = {
     };
     const handleStorageChange = (evt: StorageEvent | any) => {
       // console.debug(`I18nLoader - init - handleStorageChange - 1 - evt: `, evt);
+      // const storageKeyTokens = loginService.getStorageKeyTokens();
       if (
         evt.storageArea === sessionStorage &&
         evt.key === STORAGE_KEY_TOKENS
+        // evt.key === storageKeyTokens
       ) {
         // Something on another page changed the stored value.
         // console.debug(
@@ -80,7 +86,12 @@ const I18nLoader: BackendModule = {
     // console.debug(`I18nLoader - init - storagecustom added`);
   },
   read: (language: string, namespace: string) => {
-    const token = sessionStorage.getItem(STORAGE_KEY_TOKENS);
+    // const loginService = useLoginService();
+    // const storageKeyTokens = loginService.getStorageKeyTokens();
+    const token = sessionStorage.getItem(
+      STORAGE_KEY_TOKENS
+      // storageKeyTokens
+    );
     const i18nResourcesStr = localStorage.getItem(STORAGE_KEY_I18NRESOURCES);
     const i18nResources = i18nResourcesStr
       ? JSON.parse(i18nResourcesStr)

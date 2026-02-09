@@ -3,23 +3,23 @@ import AxiosInterceptor from './components/AxiosInterceptor';
 import {
   preEncryptedDataObjProcessor,
   postEncryptedDataRetProcessor,
-} from './processors/processor-encrypted';
+} from './processors/ProcessorEncrypted';
 
 import {
   preDataObjProcessor,
   postDataRetProcessor,
   initReqConfigProcessors,
   ProcessorAxiosRequestConfig,
-} from './processors/processor-general';
+} from './processors/ProcessorGeneral';
 import {
   preProtectedDataObjProcessor,
   postProtectedDataRetProcessor,
-} from './processors/processor-protected';
+} from './processors/ProcessorProtected';
 
 import {
   prePublicDataObjProcessor,
   postPublicDataRetProcessor,
-} from './processors/processor-public';
+} from './processors/ProcessorPublic';
 
 import axiosService from './services/axios-service';
 

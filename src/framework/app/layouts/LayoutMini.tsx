@@ -52,10 +52,12 @@ import {
 
 import logo192 from '../../../assets/logo192.png';
 
-import { useAuthContext } from '../../../features/auth';
+import { useAuthContext } from '../../auth';
 
-import ImgComponent from '../../ui/components/ImgComponent';
-import DrawerHeader from '../../ui/components/DrawerHeader';
+import {
+  ImgComponent,
+  DrawerHeader,
+} from '../../ui';
 
 import NavLang from './NavLang';
 import NavNoti, { NavNotiDisplayType } from './NavNoti';

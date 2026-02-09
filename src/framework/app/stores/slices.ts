@@ -4,7 +4,7 @@ import {
   combineSlices,
   createSlice,
 } from '@reduxjs/toolkit';
-import { authSlice } from '../../../features/auth/stores/authSlice';
+import { authSlice } from '../../auth';
 import store from './store';
 
 // /**

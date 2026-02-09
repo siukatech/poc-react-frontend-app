@@ -19,9 +19,7 @@ import LayoutLeft from '../layouts/LayoutLeft';
 import LayoutMini from '../layouts/LayoutMini';
 import MiniVariantDrawerLeft from '../layouts/MiniVariantDrawerLeft';
 
-// import { AuthContextProvider } from '../../../features/auth/stores/AuthContext';
-// import AxiosInterceptor from '../../axios/components/AxiosInterceptor';
-import { AuthContextProvider } from '../../../features/auth';
+import { AuthContextProvider } from '../../auth';
 import { AxiosInterceptor } from '../../axios';
 import { LNG_MUI_LOCALE_MAP } from '../../../i18n';
 

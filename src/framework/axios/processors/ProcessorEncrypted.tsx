@@ -1,4 +1,4 @@
-import { deepMergeObject } from '../../app/utils/object';
+import { deepMergeObject } from '../../utils/object';
 
 import { JSEncrypt } from 'jsencrypt';
 //import JSEncrypt from 'encryptlong';
@@ -8,11 +8,11 @@ import Randomstring from 'randomstring';
 import {
   ProcessorAxiosRequestConfig,
   initReqConfigProcessors,
-} from './processor-general';
+} from './ProcessorGeneral';
 import {
   preProtectedDataObjProcessor,
   postProtectedDataRetProcessor,
-} from './processor-protected';
+} from './ProcessorProtected';
 import axios, { AxiosRequestTransformer } from 'axios';
 
 const HEADER_X_DATA_ENC_INFO = "X-Data-Enc-Info";

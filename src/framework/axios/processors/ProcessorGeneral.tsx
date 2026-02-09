@@ -1,5 +1,6 @@
-import { parseDateToUtc, parseUtcToDate } from '../../app/utils/date';
-import { deepMergeObject } from '../../app/utils/object';
+import { LoginService } from '../../auth';
+import { parseDateToUtc, parseUtcToDate } from '../../utils/date';
+import { deepMergeObject } from '../../utils/object';
 
 import { InternalAxiosRequestConfig } from 'axios';
 
@@ -71,6 +72,7 @@ interface ProcessorAxiosRequestConfig<D = any>
       reqConfig: ProcessorAxiosRequestConfig
     ) => ProcessorAxiosRequestConfig;
   };
+  loginService?: LoginService;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

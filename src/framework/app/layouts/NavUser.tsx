@@ -27,9 +27,8 @@ import {
   Settings as SettingsIcon,
 } from '@mui/icons-material';
 
-import { useAuthContext } from '../../../features/auth';
+import { useAuthContext, useAuthSelector } from '../../auth';
 import { useAppSelector } from '../stores/hooks';
-import { useAuthSelector } from '../../../features/auth/stores/authSlice';
 
 // type SettingType = {
 //   i18n?: string;

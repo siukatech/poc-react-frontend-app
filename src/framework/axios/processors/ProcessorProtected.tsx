@@ -1,15 +1,15 @@
-import { deepMergeObject } from '../../app/utils/object';
+import { deepMergeObject } from '../../utils/object';
 
 import {
   ProcessorAxiosRequestConfig,
   initReqConfigProcessors,
-} from './processor-general';
+} from './ProcessorGeneral';
 import {
   prePublicDataObjProcessor,
   postPublicDataRetProcessor,
-} from './processor-public';
+} from './ProcessorPublic';
 
-import { restoreTokens } from '../../../features/auth/services/LoginService';
+// import { useLoginService } from '../../auth';
 
 const preProtectedDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
@@ -18,8 +18,10 @@ const preProtectedDataObjProcessor = (
   //
   reqConfig = prePublicDataObjProcessor(reqConfig);
   //
+  // const loginService = useLoginService();
+  const loginService = reqConfig.loginService;
   // if (reqConfig.url.indexOf(process.env.REACT_APP_API_PATH_V1_PROTECTED) >= 0) {
-  const tokens = restoreTokens();
+  const tokens = loginService?.restoreTokens();
   if (tokens != null) {
     // reqConfig.headers.common = reqConfig.headers.common ?? {};
     // reqConfig.headers.common['Authorization'] = `bearer ${tokens.access_token}`;

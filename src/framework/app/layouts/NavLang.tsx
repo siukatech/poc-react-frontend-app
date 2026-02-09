@@ -14,7 +14,7 @@ import {
 
 import { Language as LanguageIcon } from '@mui/icons-material';
 
-import { useAuthContext } from '../../../features/auth';
+import { useAuthContext } from '../../auth';
 
 import { STORAGE_KEY_I18N } from '../../../i18n';
 

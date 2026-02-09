@@ -4,41 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 
-import axiosService from '../../../framework/axios/services/axios-service';
-import {
-  restoreUser,
-  doAuthLogin,
-  doAuthLogout,
-  doCheckTimeout,
-  doCheckPermissionByRegex as doCheckPermission,
-  // doCheckPermissionByMap as doCheckPermission,
-} from '../services/LoginService';
-import type { DoAuthLoginPayload } from '../services/LoginService';
-import { IUser } from '../models';
-
-type AuthContextObj = {
-  user?: IUser;
-  // doLogin: (payload: DoAuthLoginPayload) => void;
-  doLogout: () => void;
-  checkTimeout: () => void;
-  checkPermission: typeof doCheckPermission;
-  postLogin: (user?: IUser) => void;
-  timeoutErr?: AxiosError;
-};
-
-const AuthContext = createContext<AuthContextObj>({
-  // user: undefined,
-  // doLogin: () => {},
-  doLogout: () => {},
-  checkTimeout: () => {},
-  checkPermission: () => false,
-  postLogin: () => {},
-  // timeoutErr: AxiosError,
-});
+import { AuthContext } from './AuthContext';
+import { IUser, DoAuthLoginPayload } from '../models';
+import { useLoginService } from '../hooks/useLoginService';
 
 const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(() => {
+  const loginService = useLoginService();
+  const [user, setUser] = useState<IUser | undefined>(() => {
     // // if (sessionStorage.getItem('tokens')) {
     // //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
     // //   return jwt_decode(tokens.access_token);
@@ -49,7 +22,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     //   return user;
     // }
     // return null;
-    return restoreUser();
+    return loginService.restoreUser();
   });
   const [timeoutErr, setTimeoutErr] = useState<any>(null);
 
@@ -119,7 +92,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     //   user[key] = myUserInfo[key];
     // }
     // sessionStorage.setItem('user', JSON.stringify(user));
-    const user = await doAuthLogin(payload);
+    const user = await loginService.doAuthLogin(payload);
     // console.debug(
     //   'AuthContextProvider - login - user: [' + JSON.stringify(user) + ']'
     // );
@@ -142,8 +115,8 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   // };
   const doLogout = () => {
     // console.debug('AuthContext - doLogout - start');
-    doAuthLogout();
-    setUser(null);
+    loginService.doAuthLogout();
+    setUser(undefined);
     // console.debug('AuthContext - doLogout - end');
   };
 
@@ -158,7 +131,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   //   }
   // }
   const checkTimeout = async () => {
-    const timeoutErr = await doCheckTimeout();
+    const timeoutErr = await loginService.doCheckTimeout();
     if (timeoutErr != null) {
       // return Promise.reject(timeoutErr);
       throw timeoutErr;
@@ -173,7 +146,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
         // doLogin,
         doLogout,
         checkTimeout,
-        checkPermission: doCheckPermission,
+        checkPermission: loginService.doCheckPermissionByRegex,
         postLogin,
         timeoutErr,
       }}
@@ -183,14 +156,6 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
   );
 };
 
-const useAuthContext = () => {
-  const authContext = useContext(AuthContext);
-  if (authContext == null) {
-    throw new Error(`AuthContext must be used with AuthContextProvider`);
-  }
-  return authContext;
-};
-
-export default AuthContext;
-export { AuthContextProvider, useAuthContext };
-export type { AuthContextObj };
+export {
+  AuthContextProvider
+}

@@ -11,10 +11,23 @@ import './i18n';
 
 // initI18n();   // for typescript, "import './i18n';" will be ok.
 
+import { FrameworkServicesProvider } from './framework/core';
+import { LoginServiceImpl } from './features/auth';
+
+const services = {
+  // userService: new RealUserService(),
+  // authService: new RealAuthService(),
+  // configService: new RealConfigService(),
+  loginService: new LoginServiceImpl(),
+};
+
+
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-    <App />
+    <FrameworkServicesProvider services={services} >
+      <App />
+    </FrameworkServicesProvider>
   </React.StrictMode>
 );
 

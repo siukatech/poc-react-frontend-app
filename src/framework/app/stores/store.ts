@@ -11,7 +11,7 @@ import {
 } from '@reduxjs/toolkit';
 
 // import { CombinedSliceReducer } from '@reduxjs/toolkit/dist/combineSlices';
-import authSlice from '../../../features/auth/stores/authSlice';
+import { authSliceReducer } from '../../auth';
 // // import { rootSliceReducer } from './slices';
 
 import { sliceMap } from './slices';
@@ -22,7 +22,7 @@ const preloadedState = {};
 
 const store = configureStore({
   reducer: {
-    auth: authSlice,
+    auth: authSliceReducer,
     // app: createSlice({
     //   name: 'app',
     //   initialState: {} as any,

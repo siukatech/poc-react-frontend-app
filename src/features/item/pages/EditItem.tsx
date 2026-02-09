@@ -30,7 +30,7 @@ import {
   formatDatetime,
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
-} from '../../../framework/app/utils/date';
+} from '../../../framework/utils/date';
 import { IItem } from '../../../features/item/models';
 import {
   getSingleItem,

@@ -13,7 +13,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import RouterMain from './pages/RouterMain';
 
-import router from './routes/router';
+// import router from './routes/router';
 
 import shadeColor from './themes/shade-color';
 import themeOptions from './themes/theme-options';
@@ -25,10 +25,10 @@ import {
   formatDate,
   formatDatetime,
   parseDateToUtc,
-} from './utils/date';
-import { deepMergeObject } from './utils/object';
-import { recursiveCloneChildren } from './utils/render';
-import { restoreJsonStr, saveJsonObj } from './utils/storage';
+} from '../utils/date';
+import { deepMergeObject } from '../utils/object';
+import { recursiveCloneChildren } from '../utils/render';
+import { restoreJsonStr, saveJsonObj } from '../utils/storage';
 
 export {
   DrawerMenu,
@@ -43,7 +43,7 @@ export {
   ErrorPage,
   Home,
   NotFound,
-  router,
+  // router,
   RouterMain,
   shadeColor,
   themeOptions,

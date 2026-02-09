@@ -1,30 +1,24 @@
 import React, { useContext, useMemo, useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
 
-import { useAuthContext } from '../../../features/auth';
 import axiosService from '../services/axios-service';
-
-import { ProcessorAxiosRequestConfig } from '../processors/processor-general';
-import { prePublicDataObjProcessor } from '../processors/processor-public';
-import { preProtectedDataObjProcessor } from '../processors/processor-protected';
-import { preEncryptedDataObjProcessor } from '../processors/processor-encrypted';
-import {
-  doRefreshToken,
-  restoreTokens,
-} from '../../../features/auth/services/LoginService';
-
-import DialogPrompt from '../../ui/components/DialogPrompt';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import {
   TServerErr,
   isErrAuth401,
   isErrNetwork,
   resolveServerErr,
 } from '../services/AxiosErrorHandler';
+
+import { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
+import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
+import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
+import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
+
+import { useAuthContext, useLoginService, clearAuth } from '../../auth';
+import { DialogPrompt } from '../../ui';
 import { useAppDispatch } from '../../app/stores/hooks';
-import { clearAuth } from '../../../features/auth/stores/authSlice';
 
 enum InterceptorTypeEnum {
   REQUEST = 'REQUEST',
@@ -49,6 +43,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const [serverErr, setServerErr] = useState<TServerErr>();
   const { user, doLogout } = useAuthContext();
   const dispatch = useAppDispatch();
+  const loginService = useLoginService();
 
   const [interceptorIdMap, setInterceptorIdMap] = useState<any>({});
   const [interceptorRecords, setInterceptorRecords] = useState<
@@ -76,6 +71,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
             let configProcessed = preEncryptedDataObjProcessor(
               config as ProcessorAxiosRequestConfig
             );
+            configProcessed.loginService = loginService;
             // console.debug(
             //   `AxiosInterceptor - useEffect - interceptor.request - 1 - configProcessed: `,
             //   configProcessed
@@ -128,6 +124,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
             let configProcessed = preProtectedDataObjProcessor(
               config as ProcessorAxiosRequestConfig
             );
+            configProcessed.loginService = loginService;
             // console.debug(`AxiosInterceptor - useEffect - interceptor.request - 2 - configProcessed: `, configProcessed);
             return configProcessed;
           },
@@ -176,6 +173,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
             let configProcessed = prePublicDataObjProcessor(
               config as ProcessorAxiosRequestConfig
             );
+            configProcessed.loginService = loginService;
             // console.debug(`AxiosInterceptor - useEffect - interceptor.request - 3 - configProcessed: `, configProcessed);
             return configProcessed;
           },
@@ -263,9 +261,9 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
             // );
             if (errAuth401) {
               try {
-                // const tokensRefreshed = await doRefreshToken();
+                // const tokensRefreshed = await loginService.doRefreshToken();
                 // if (tokensRefreshed != null) {
-                const refreshTokenResult: any = await doRefreshToken();
+                const refreshTokenResult: any = await loginService.doRefreshToken();
                 // console.debug(
                 //   'AxiosInterceptor - useEffect - interceptor.response.err - 1 - 401 - refreshTokenResult: ',
                 //   refreshTokenResult

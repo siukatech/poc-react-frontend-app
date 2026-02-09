@@ -1,3 +1,4 @@
+import { Navigate, useNavigate } from 'react-router-dom';
 import {
   useRef,
   useContext,
@@ -6,10 +7,6 @@ import {
   MutableRefObject,
 } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import { useAuthContext } from '../contexts/AuthContext';
-import FormPassword from '../../../framework/ui/components/FormPassword';
-
-import { DoAuthLoginPayload, doAuthLogin, getAuthLoginUrl } from '../services/LoginService';
 
 import {
   Box,
@@ -27,9 +24,16 @@ import {
   CardContent,
   CardActions,
 } from '@mui/material';
-import { Navigate, useNavigate } from 'react-router-dom';
+
+import FormPassword from '../../../framework/ui/components/FormPassword';
 import { useAppDispatch } from '../../../framework/app/stores/hooks';
-import { bindAuth } from '../stores/authSlice';
+// import { DoAuthLoginPayload, doAuthLogin, getAuthLoginUrl } from '../services/LoginService';
+import { 
+  DoAuthLoginPayload
+  , useAuthContext
+  , useLoginService
+  , bindAuth
+} from '../../../framework/auth/';
 // import { testApp } from '../../../framework/app/stores/slices';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
@@ -48,6 +52,7 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const loginService = useLoginService();
 
   const handleFormSubmit = async (
     evt: FormEvent<HTMLFormElement>
@@ -58,7 +63,7 @@ const Login = () => {
       username: usernameInputRef.current?.value,
       password: passwordInputRef.current?.value,
     };
-    const user = await doAuthLogin(payload);
+    const user = await loginService.doAuthLogin(payload);
     dispatch(bindAuth({ user: user }));
     postLogin(user);
     // dispatch(testApp({ tested: true }));
@@ -87,7 +92,7 @@ const Login = () => {
   };
 
   const handleLoginRedirectClick = () => {
-    const authLoginUrl = getAuthLoginUrl();
+    const authLoginUrl = loginService.getAuthLoginUrl();
     window.location.href = authLoginUrl;
   }
 

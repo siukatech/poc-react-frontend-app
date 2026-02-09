@@ -4,36 +4,38 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import ProtectedResource, {
+import {
+  ProtectedResource,
   ProtectedResourceAccessBy,
   ProtectedResourceDisplayType,
-} from '../../../features/auth/components/ProtectedResource';
+} from '../../framework/auth';
 
-import RouterMain from '../pages/RouterMain';
-import NotFound from '../pages/NotFound';
-import ErrorPage from '../pages/ErrorPage';
+import RouterMain from '../../framework/app/pages/RouterMain';
+import NotFound from '../../framework/app/pages/NotFound';
+import ErrorPage from '../../framework/app/pages/ErrorPage';
 
-// import Login from '../../../features/auth/pages/Login';
-// import Logout from '../../../features/auth/pages/Logout';
-import { Login, Logout } from '../../../features/auth';
+// import Login from '../auth/pages/Login';
+// import Logout from '../auth/pages/Logout';
+// import Redirect from '../auth/pages/Redirect';
+import { Login, Logout, Redirect } from '../auth';
 
-// import AllItems from '../../../features/item/pages/AllItems';
-// import EditItem from '../../../features/item/pages/EditItem';
-// import ViewItem from '../../../features/item/pages/ViewItem';
-import { AllItems, EditItem, ViewItem } from '../../../features/item';
+// import AllItems from '../item/pages/AllItems';
+// import EditItem from '../item/pages/EditItem';
+// import ViewItem from '../item/pages/ViewItem';
+import { AllItems, EditItem, ViewItem } from '../item';
 
-// import ContentLong from '../../../features/sample/pages/ContentLong';
-import { ContentLong } from '../../../features/sample';
+// import ContentLong from '../sample/pages/ContentLong';
+import { ContentLong } from '../sample';
 
-// import AllMerchants from '../../../features/merchant/pages/AllMerchants';
-// import ViewMerchant from '../../../features/merchant/pages/ViewMerchant';
-// import EditMerchant from '../../../features/merchant/pages/EditMerchant';
+// import AllMerchants from '../merchant/pages/AllMerchants';
+// import ViewMerchant from '../merchant/pages/ViewMerchant';
+// import EditMerchant from '../merchant/pages/EditMerchant';
 import {
   AllMerchants,
   ViewMerchant,
   EditMerchant,
-} from '../../../features/merchant';
-import Redirect from '../../../features/auth/pages/Redirect';
+} from '../merchant';
+
 
 const router = createBrowserRouter(
   // delfine method 1

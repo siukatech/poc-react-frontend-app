@@ -1,14 +1,15 @@
 import { PayloadAction, createReducer, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../models';
-import {
-  DoAuthLoginPayload,
-  doAuthLogin,
-  restoreUser,
-} from '../services/LoginService';
-import { AxiosError } from 'axios';
-import store, { RootState } from '../../../framework/app/stores/store';
-// import { rootSliceReducer } from '../../../framework/app/stores/slices';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { AxiosError } from 'axios';
+import store, { RootState } from '../../app/stores/store';
+// import { rootSliceReducer } from '../../app/stores/slices';
+import { IUser, DoAuthLoginPayload } from '../models';
+// import {
+//   DoAuthLoginPayload,
+//   doAuthLogin,
+//   restoreUser,
+// } from '../services/LoginService';
+// import { useLoginService } from '../hooks/useLoginService';
 
 interface AuthState {
   user?: IUser;
@@ -16,7 +17,16 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: restoreUser(),
+  // user: restoreUser(),
+  //
+  // incorrect - start
+  // user: (() => {
+  //   const loginService = useLoginService();
+  //   return loginService.restoreUser();
+  // })(),
+  // incorrect - end
+  //
+  user: undefined,
   // timeoutErr: undefined,
 };
 // Workaround: cast state instead of declaring variable type

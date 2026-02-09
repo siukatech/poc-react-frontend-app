@@ -37,7 +37,7 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,
-} from '../../../framework/app/utils/date';
+} from '../../../framework/utils/date';
 import { IItem } from '../models';
 import { getSingleItem } from '../services/ItemService';
 import DialogPrompt from '../../../framework/ui/components/DialogPrompt';

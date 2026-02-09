@@ -3,11 +3,11 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 
-import { useAuthContext } from '../contexts/AuthContext';
-import DialogPrompt from '../../../framework/ui/components/DialogPrompt';
 import { AxiosError } from 'axios';
 import { Button, Stack, Typography } from '@mui/material';
-import { recursiveCloneChildren } from '../../../framework/app/utils/render';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { DialogPrompt } from '../../ui';
+import { recursiveCloneChildren } from '../../utils/render';
 
 enum ProtectedResourceDisplayType {
   HIDDEN = 'HIDDEN',

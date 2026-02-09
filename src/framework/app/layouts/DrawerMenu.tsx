@@ -26,11 +26,15 @@ import {
   ProtectedResourceAccessBy,
   ProtectedResourceDisplayType,
   useAuthContext,
-} from '../../../features/auth';
+} from '../../auth';
 
-import DrawerHeader from '../../ui/components/DrawerHeader';
-import ImgComponent from '../../ui/components/ImgComponent';
-import IconComponent, { IconNames } from '../../ui/components/IconComponent';
+import {
+  DrawerHeader,
+  ImgComponent,
+  IconComponent,
+  IconNames,
+} from '../../ui';
+
 
 const pages = [
   { i18n: 'menu.home', link: '/', icon: 'HomeOutlined' },

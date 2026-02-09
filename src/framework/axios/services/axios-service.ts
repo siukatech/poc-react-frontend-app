@@ -1,13 +1,13 @@
 import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
 
-import { parseDateToUtc } from '../../app/utils/date';
-import { deepMergeObject } from '../../app/utils/object';
+import { parseDateToUtc } from '../../utils/date';
+import { deepMergeObject } from '../../utils/object';
 
-import { ProcessorAxiosRequestConfig } from '../processors/processor-general';
-import { prePublicDataObjProcessor } from '../processors/processor-public';
-import { preProtectedDataObjProcessor } from '../processors/processor-protected';
-import { preEncryptedDataObjProcessor } from '../processors/processor-encrypted';
-import { doRefreshToken, restoreTokens } from '../../../features/auth/services/LoginService';
+import { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
+import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
+import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
+import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
+import { useLoginService } from '../../auth';
 
 const axiosService = axios.create({
   headers: {
@@ -29,8 +29,9 @@ const axiosService = axios.create({
 // // https://axios-http.com/docs/req_config
 // axiosService.interceptors.request.use(
 //   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
+//     const loginService = useLoginService();
 //     // console.debug('interceptor.request - 1');
-//     // const tokens = restoreTokens();
+//     // const tokens = loginService.restoreTokens();
 //     // // config.headers.common = config.headers.common ?? {};
 //     // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
 //     // config.headers['Authorization'] = `Bearer ${tokens.access_token}`;
@@ -133,7 +134,9 @@ const axiosService = axios.create({
 //       errorCode == 'ERR_NETWORK' ||
 //       (retStatus === 500 && errorCode == 'ERR_CANCELED')
 //     ) {
-//       // const tokens = restoreTokens();
+//       const loginService = useLoginService();
+
+//       // const tokens = loginService.restoreTokens();
 //       // const payload = {
 //       //   access_token: tokens?.access_token,
 //       //   refresh_token: tokens?.refresh_token,
@@ -156,9 +159,9 @@ const axiosService = axios.create({
 //       // sessionStorage.setItem('tokens', JSON.stringify(apiResponse.data));
 
 //       try {
-//         // const tokensRefreshed = await doRefreshToken();
+//         // const tokensRefreshed = await loginService.doRefreshToken();
 //         // if (tokensRefreshed != null) {
-//         const refreshTokenResult: any = await doRefreshToken();
+//         const refreshTokenResult: any = await loginService.doRefreshToken();
 //         console.debug(
 //           'interceptor.response.err - 1 - refreshTokenResult: ',
 //           refreshTokenResult

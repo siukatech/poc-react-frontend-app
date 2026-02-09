@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { doAuthToken, getAuthLoginUrl } from '../services/LoginService';
-import { axiosService } from '../../../framework/axios';
-import { IUser } from '../models';
-import { useAuthContext } from '../contexts/AuthContext';
-import { bindAuth } from '../stores/authSlice';
+// import { doAuthToken, getAuthLoginUrl } from '../services/LoginService';
+// import { axiosService } from '../../../framework/axios';
 import { useAppDispatch } from '../../../framework/app/stores/hooks';
+import { IUser, useAuthContext, bindAuth, useLoginService } from '../../../framework/auth';
 
 const Redirect = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const loginService = useLoginService();
 
   // This cannot be called because that generates a new codeVerifier and makes the verification failure (new codeVerifier against old codeChallenge)
   // const authLoginUrl = getAuthLoginUrl();
@@ -41,7 +40,7 @@ const Redirect = () => {
     () => {
       if (authCode == null && code != null) {
         const fetchToken = async () => {
-          const user = await doAuthToken(code);
+          const user = await loginService.doAuthToken(code);
           // setUser(user);
 
           dispatch(bindAuth({ user: user }));

@@ -1,8 +1,8 @@
-import { deepMergeObject } from '../../app/utils/object';
+import { deepMergeObject } from '../../utils/object';
 
-import { ProcessorAxiosRequestConfig } from './processor-general';
-import { initReqConfigProcessors } from './processor-general';
-import { preDataObjProcessor, postDataRetProcessor } from './processor-general';
+import { ProcessorAxiosRequestConfig } from './ProcessorGeneral';
+import { initReqConfigProcessors } from './ProcessorGeneral';
+import { preDataObjProcessor, postDataRetProcessor } from './ProcessorGeneral';
 
 const prePublicDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
