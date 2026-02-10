@@ -4,6 +4,7 @@ import { JSEncrypt } from 'jsencrypt';
 //import JSEncrypt from 'encryptlong';
 import CryptoJS from 'crypto-js';
 import Randomstring from 'randomstring';
+import axios, { AxiosRequestTransformer } from 'axios';
 
 import {
   ProcessorAxiosRequestConfig,
@@ -13,7 +14,8 @@ import {
   preProtectedDataObjProcessor,
   postProtectedDataRetProcessor,
 } from './ProcessorProtected';
-import axios, { AxiosRequestTransformer } from 'axios';
+
+import { appConfig } from '../../config/appConfig';
 
 const HEADER_X_DATA_ENC_INFO = "X-Data-Enc-Info";
 

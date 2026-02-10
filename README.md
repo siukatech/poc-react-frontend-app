@@ -278,6 +278,282 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 
+# Runtime Configuration with runtime-config.js
+## Build Once, Deploy Many
+By default, Create React App and similar setups bundle environment variables at build time, which means variables like process.env.REACT_APP_* are replaced during the build and cannot be changed after the build completes.  
+This makes it hard to follow the build once, deploy many principle where the same build artifact should work across environments (e.g., development, staging, production) without rebuilding.
+
+To solve this, you can use a runtime configuration file such as runtime-config.js that is mounted or injected at runtime (for example via a ConfigMap in Kubernetes or Docker volume). The file should be placed in the public/ folder so it is served with the app and loaded before your React code executes (e.g., by adding a `<script src="/runtime-config.js"></script>` to `public/index`.html).  
+```javascript
+<script src="/runtime-config.js"></script>
+```
+
+Inside this file, set any configuration values you need on a global object (e.g., `window.__RUNTIME_CONFIG__ = { API_URL: "..." }`). 
+```javascript
+window.__RUNTIME_CONFIG__ = { 
+  API_URL: "..."
+}
+```
+
+Your application can then read these values at runtime instead of relying on build-time env vars.
+
+This approach lets you produce a single build artifact that reads its configuration at runtime, satisfying continuous delivery requirements and greatly improving deployment flexibility without rebuilds per environment.
+
+
+## Target Architecture
+```text
+React build (static files)
+        ↓
+Nginx container
+        ↓
+runtime-config.js mounted at runtime
+```
+No rebuild per environment
+
+
+## Development
+### react app supports runtime-config.js
+public/index.html
+```html
+<script src="/runtime-config.js"></script>
+```
+
+public/runtime-config.js (default fallback)
+```javascript
+window.__RUNTIME_CONFIG__ = {};
+```
+### Dockerfile (Build Once)
+
+Example:
+```dockerfile
+# Build stage
+FROM node:18-alpine as builder
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# Runtime stage
+FROM nginx:alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+**Important:**  
+The `runtime-config.js` inside the image is just a default empty file.
+
+
+## Deployment
+### docker-compose.yml (Mount runtime config)
+This is the key part.
+```yaml
+version: "3.8"
+
+services:
+  frontend:
+    image: my-react-app:latest
+    ports:
+      - "3000:80"
+    volumes:
+      - ./runtime-config.dev.js:/usr/share/nginx/html/runtime-config.js:ro
+```
+
+Now:  
+- Same image
+- Different mounted file
+- Different environment behavior
+- No rebuild
+
+
+### Example runtime-config files
+runtime-config.dev.js
+```javascript
+window.__RUNTIME_CONFIG__ = {
+  API_BASE_URL: "http://localhost:8080",
+  ENV: "development"
+};
+```
+
+runtime-config.prod.js
+```javascript
+window.__RUNTIME_CONFIG__ = {
+  API_BASE_URL: "https://api.prod.com",
+  ENV: "production"
+};
+```
+
+Then just change the mounted file:
+```yaml
+volumes:
+  - ./runtime-config.prod.js:/usr/share/nginx/html/runtime-config.js:ro
+```
+
+
+### Even Cleaner: Use Environment Variables to Generate It
+If you want docker-compose to inject env variables:
+```yaml
+services:
+  frontend:
+    image: my-react-app:latest
+    ports:
+      - "3000:80"
+    environment:
+      API_BASE_URL: http://localhost:8080
+    volumes:
+      - ./generate-config.sh:/docker-entrypoint.d/99-runtime-config.sh
+```
+
+Then create a script:
+```shell
+#!/bin/sh
+
+cat <<EOF > /usr/share/nginx/html/runtime-config.js
+window.__RUNTIME_CONFIG__ = {
+  API_BASE_URL: "${API_BASE_URL}"
+};
+EOF
+```
+
+Nginx runs scripts in /docker-entrypoint.d/ automatically.
+Now:  
+✔ Single image  
+✔ Config injected at container start  
+✔ No mounted file needed  
+
+Very production-friendly.  
+
+### Which Approach Should You Choose?
+Method	When to use
+Volume mount file	Simple local dev
+Entry-point script generation	CI/CD / production
+ConfigMap (K8s)	Kubernetes
+
+
+### Why This Satisfies “Build Once, Deploy Many”
+Because:
+- npm run build happens once
+- The built JS never changes
+- Only runtime-config.js changes per environment
+- Same Docker image across all environments
+Architect will be happy  
+  
+
+## Kubernetes k8s
+### ConfigMap (runtime-config.js)
+Create a ConfigMap that contains your runtime config file.
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-runtime-config
+data:
+  runtime-config.js: |
+    window.__RUNTIME_CONFIG__ = {
+      API_BASE_URL: "https://api.dev.mycompany.com",
+      ENV: "dev"
+    };
+```
+For staging/prod, just change values — same image, different ConfigMap.
+
+
+### Deployment.yaml
+Mount the ConfigMap as a file into nginx static folder.
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+    spec:
+      containers:
+        - name: react-frontend
+          image: my-registry/react-frontend:1.0.0
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: runtime-config-volume
+              mountPath: /usr/share/nginx/html/runtime-config.js
+              subPath: runtime-config.js
+              readOnly: true
+      volumes:
+        - name: runtime-config-volume
+          configMap:
+            name: frontend-runtime-config
+```
+Important: Why subPath?  
+Without subPath, Kubernetes would replace the whole folder.  
+With subPath, it mounts only:  
+```arduino
+runtime-config.js
+```
+and keeps the rest of the static build intact.
+
+
+### Service.yaml (Optional)
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-frontend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: react-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+```
+If using Ingress, route to this service.
+
+
+### Why This Is Architect-Approved
+You now have:  
+Layer	Built Once?	Changes Per Env?  
+React Build	✅	❌  
+Docker Image	✅	❌  
+ConfigMap	❌	✅  
+This is the textbook implementation of:  
+Build Once → Deploy Many  
+
+
+### Pro Tip (Production)
+If you update the ConfigMap:
+Kubernetes does NOT automatically reload pods when using subPath.
+You must:
+```nginx
+kubectl rollout restart deployment react-frontend
+```
+Or version your ConfigMap name:
+```arduino
+frontend-runtime-config-v2
+```
+Then update Deployment to trigger rollout.
+
+
+### Alternative (Even Cleaner – Env → Generated File)
+Instead of writing JS inside `ConfigMap`, you can:  
+Pass env vars via `ConfigMap`  
+Use entrypoint script to generate `runtime-config.js`  
+That gives better separation of config vs JS.  
+If you want that version, I can show you the production-grade pattern as well.  
+
+
+
+
 
 
 # Appendix

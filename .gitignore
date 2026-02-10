@@ -28,3 +28,7 @@ yarn-error.log*
 # sonarqube
 .scannerwork
 
+# public
+public/runtime-config.js
+
+

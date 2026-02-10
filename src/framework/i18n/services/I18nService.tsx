@@ -1,14 +1,15 @@
-import axiosService from '../../axios/services/axios-service';
+import axiosService from '../../axios/services/axiosService';
 import { II18nResource } from '../models';
+import { appConfig } from '../../config/appConfig';
 
 // for typescript, "import './i18n';" will be ok.
 // xxxxx - typescript is required to wrap a function to call in index.tsx
 // const initI18n = () => {
   const i18nUrl: string =
-  (process.env.REACT_APP_API_PATH_WEB_PREFIX as string) +
-  (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
-  // (process.env.REACT_APP_API_PATH_I18N_LANG as string)
-  (process.env.REACT_APP_API_PATH_I18N_ALL as string)
+  (appConfig.API_PATH_WEB_PREFIX as string) +
+  (appConfig.API_PATH_V1_PUBLIC as string) +
+  // (appConfig.API_PATH_I18N_LANG as string)
+  (appConfig.API_PATH_I18N_ALL as string)
 ;
 
 

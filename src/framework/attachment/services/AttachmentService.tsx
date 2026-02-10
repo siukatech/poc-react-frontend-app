@@ -1,30 +1,32 @@
 import { uuidv4 } from 'uuidv7';
 import { AxiosError, AxiosProgressEvent } from 'axios';
-import axiosService from '../../axios/services/axios-service';
+import axiosService from '../../axios/services/axiosService';
+import { appConfig } from '../../config/appConfig';
+
 import { IAttachmentObj } from '../models';
 import { at, bind } from 'lodash';
 
-const API_DOMAIN: string = process.env.REACT_APP_API_PATH_WEB_PREFIX as string;
+const API_DOMAIN: string = appConfig.API_PATH_WEB_PREFIX as string;
 const API_UPLOAD: string =
   (API_DOMAIN as string) +
-  (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
-  (process.env.REACT_APP_API_PATH_ATTACHMENT_UPLOAD as string) +
+  (appConfig.API_PATH_V1_PROTECTED as string) +
+  (appConfig.API_PATH_ATTACHMENT_UPLOAD as string) +
   '';
 const API_DETAIL: string =
   (API_DOMAIN as string) +
-  (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
-  (process.env.REACT_APP_API_PATH_ATTACHMENT_DETAIL as string) +
+  (appConfig.API_PATH_V1_PROTECTED as string) +
+  (appConfig.API_PATH_ATTACHMENT_DETAIL as string) +
   '';
 const API_DOWNLOAD: string =
   (API_DOMAIN as string) +
-  // (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
-  (process.env.REACT_APP_API_PATH_V1_PUBLIC as string) +
-  (process.env.REACT_APP_API_PATH_ATTACHMENT_DOWNLOAD as string) +
+  // (appConfig.API_PATH_V1_PROTECTED as string) +
+  (appConfig.API_PATH_V1_PUBLIC as string) +
+  (appConfig.API_PATH_ATTACHMENT_DOWNLOAD as string) +
   '';
 const API_DELETE: string =
   (API_DOMAIN as string) +
-  (process.env.REACT_APP_API_PATH_V1_PROTECTED as string) +
-  (process.env.REACT_APP_API_PATH_ATTACHMENT_DELETE as string) +
+  (appConfig.API_PATH_V1_PROTECTED as string) +
+  (appConfig.API_PATH_ATTACHMENT_DELETE as string) +
   '';
 
 let FILE_UPLOAD_MAP: any = {};

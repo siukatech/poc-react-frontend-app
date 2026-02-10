@@ -4,6 +4,8 @@ import { ProcessorAxiosRequestConfig } from './ProcessorGeneral';
 import { initReqConfigProcessors } from './ProcessorGeneral';
 import { preDataObjProcessor, postDataRetProcessor } from './ProcessorGeneral';
 
+import { appConfig } from '../../config/appConfig';
+
 const prePublicDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
 ): ProcessorAxiosRequestConfig => {
@@ -11,7 +13,7 @@ const prePublicDataObjProcessor = (
   //
   reqConfig = preDataObjProcessor(reqConfig);
   //
-  // if (reqConfig.url.indexOf(process.env.REACT_APP_API_PATH_V1_PUBLIC) >= 0) {
+  // if (reqConfig.url.indexOf(appConfig.API_PATH_V1_PUBLIC) >= 0) {
   // reqConfig.processors = deepMergeObject(
   //   reqConfig.processors,
   //   {

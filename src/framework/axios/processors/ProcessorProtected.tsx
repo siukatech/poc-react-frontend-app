@@ -11,6 +11,9 @@ import {
 
 // import { useLoginService } from '../../auth';
 
+import { appConfig } from '../../config/appConfig';
+
+
 const preProtectedDataObjProcessor = (
   reqConfig: ProcessorAxiosRequestConfig
 ): ProcessorAxiosRequestConfig => {
@@ -20,7 +23,7 @@ const preProtectedDataObjProcessor = (
   //
   // const loginService = useLoginService();
   const loginService = reqConfig.loginService;
-  // if (reqConfig.url.indexOf(process.env.REACT_APP_API_PATH_V1_PROTECTED) >= 0) {
+  // if (reqConfig.url.indexOf(appConfig.API_PATH_V1_PROTECTED) >= 0) {
   const tokens = loginService?.restoreTokens();
   if (tokens != null) {
     // reqConfig.headers.common = reqConfig.headers.common ?? {};

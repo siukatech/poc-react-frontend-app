@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 
-import { AuthContext } from './AuthContext';
-import { IUser, DoAuthLoginPayload } from '../models';
+import { appConfig } from '../../../framework/config/appConfig';
 import { useLoginService } from '../hooks/useLoginService';
+import { IUser, DoAuthLoginPayload } from '../models';
+import { AuthContext } from './AuthContext';
 
 const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const navigate = useNavigate();
@@ -60,13 +61,13 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
 
   const doLogin = async (payload: DoAuthLoginPayload) => {
     // let authCodeLoginUrl =
-    //   process.env.REACT_APP_API_PATH_MY_PREFIX +
-    //   process.env.REACT_APP_API_PATH_V1_PUBLIC +
-    //   process.env.REACT_APP_API_OAUTH_AUTHORIZE;
+    //   appConfig.API_PATH_MY_PREFIX +
+    //   appConfig.API_PATH_V1_PUBLIC +
+    //   appConfig.API_OAUTH_AUTHORIZE;
     // // authCodeLoginUrl += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
     // authCodeLoginUrl = authCodeLoginUrl.replace(
     //   '{0}',
-    //   process.env.REACT_APP_API_OAUTH_CLIENT_NAME
+    //   appConfig.API_OAUTH_CLIENT_NAME
     // );
     // console.debug(
     //   'AuthContextProvider - login - authCodeLoginUrl: [' +
@@ -78,9 +79,9 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     // sessionStorage.setItem('tokens', JSON.stringify(tokens));
     // //
     // // tokens MUST be saved to the sessionStorage before my-user-info api called
-    // let myUserInfoUrl = process.env.REACT_APP_API_PATH_MY_PREFIX +
-    // process.env.REACT_APP_API_PATH_V1_PROTECTED +
-    // process.env.REACT_APP_API_PATH_MY_USER_INFO;
+    // let myUserInfoUrl = appConfig.API_PATH_MY_PREFIX +
+    // appConfig.API_PATH_V1_PROTECTED +
+    // appConfig.API_PATH_MY_USER_INFO;
     // const myUserInfoRes = await axiosService.post(myUserInfoUrl);
     // const myUserInfo = myUserInfoRes.data;
     // //

@@ -21,7 +21,7 @@ import {
   postPublicDataRetProcessor,
 } from './processors/ProcessorPublic';
 
-import axiosService from './services/axios-service';
+import axiosService from './services/axiosService';
 
 import {
   TResponseErr,

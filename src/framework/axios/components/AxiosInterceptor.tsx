@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
 
-import axiosService from '../services/axios-service';
+import axiosService from '../services/axiosService';
 import {
   TServerErr,
   isErrAuth401,
