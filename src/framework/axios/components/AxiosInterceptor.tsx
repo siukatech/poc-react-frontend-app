@@ -18,7 +18,7 @@ import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
 
 import { useAuthContext, useLoginService, clearAuth } from '../../auth';
 import { DialogPrompt } from '../../ui';
-import { useAppDispatch } from '../../app/stores/hooks';
+import { useAppDispatch } from '../../layout/stores/hooks';
 
 enum InterceptorTypeEnum {
   REQUEST = 'REQUEST',

@@ -13,7 +13,7 @@ import { Form } from '@rjsf/mui';
 import { ThemeProvider } from '@mui/material';
 
 import { getSingleMerchant } from '../services/MerchantService';
-import { themeFormReadonlyOptions } from '../../../framework/app/themes/theme-options';
+import { themeFormReadonlyOptions } from '../../../framework/layout/themes/theme-options';
 import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
 
 import MuiGridObjectFieldTemplate from '../../../framework/rjsf/components/MuiGridObjectFieldTemplate';

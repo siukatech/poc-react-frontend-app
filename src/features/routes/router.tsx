@@ -10,9 +10,9 @@ import {
   ProtectedResourceDisplayType,
 } from '../../framework/auth';
 
-import RouterMain from '../../framework/app/pages/RouterMain';
-import NotFound from '../../framework/app/pages/NotFound';
-import ErrorPage from '../../framework/app/pages/ErrorPage';
+import RouterMain from '../../framework/layout/pages/RouterMain';
+import NotFound from '../../framework/layout/pages/NotFound';
+import ErrorPage from '../../framework/layout/pages/ErrorPage';
 
 // import Login from '../auth/pages/Login';
 // import Logout from '../auth/pages/Logout';

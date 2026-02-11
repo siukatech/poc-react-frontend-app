@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { doAuthToken, getAuthLoginUrl } from '../services/LoginService';
 // import { axiosService } from '../../../framework/axios';
-import { useAppDispatch } from '../../../framework/app/stores/hooks';
+import { useAppDispatch } from '../../../framework/layout/stores/hooks';
 import { IUser, useAuthContext, bindAuth, useLoginService } from '../../../framework/auth';
 
 const Redirect = () => {

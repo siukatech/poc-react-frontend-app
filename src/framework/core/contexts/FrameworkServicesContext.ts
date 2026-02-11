@@ -1,10 +1,8 @@
-// context/ServicesContext.ts
+// context/FrameServicesContext.ts
 import { createContext } from "react";
 import { FrameworkServices } from "../services/FrameworkServices";
 
-const FrameworkServicesContext = createContext<
-  FrameworkServices | undefined
->(undefined);
+const FrameworkServicesContext = createContext<FrameworkServices | undefined>(undefined);
 
 export {
   FrameworkServicesContext
