@@ -25,7 +25,7 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../framework/utils/date';
-import type { IItem } from '../models';
+import type { Item } from '../models';
 import { getSingleItem } from '../services/ItemService';
 import ItemDetail from '../components/ItemDetail';
 

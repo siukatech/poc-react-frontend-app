@@ -1,7 +1,7 @@
 
 import AttachmentPane from './components/AttachmentPane';
 
-import type { IAttachmentObj } from './models';
+import type { AttachmentObj } from './models';
 
 import {
   uploadAttachmentObj,
@@ -12,7 +12,7 @@ import {
 } from './services/AttachmentService';
 
 export type {
-  IAttachmentObj
+  AttachmentObj
 }
 export {
   AttachmentPane,

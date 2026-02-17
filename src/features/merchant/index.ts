@@ -1,8 +1,8 @@
-import MerchantCard from './components/MerchantCard';
+// import type MerchantCard from './components/MerchantCard';
 import MerchantCardList from './components/MerchantCardList';
-import MerchantShopPrompt from './components/MerchantShopPrompt';
+// import type MerchantShopPrompt from './components/MerchantShopPrompt';
 
-import type { IMerchant, IMerchantCard, IMerchantShopPrompt } from './models';
+import type { Merchant, MerchantCard, MerchantShopPrompt } from './models';
 
 import AllMerchants from './pages/AllMerchants';
 import EditMerchant from './pages/EditMerchant';
@@ -24,9 +24,9 @@ import {
 } from './services/MerchantService';
 
 export {
-  MerchantCard,
+  // MerchantCard,
   MerchantCardList,
-  MerchantShopPrompt,
+  // MerchantShopPrompt,
   AllMerchants,
   EditMerchant,
   ViewMerchant,
@@ -41,4 +41,4 @@ export {
   updateSingleMerchant,
   deleteSingleMerchant,
 };
-export type { IMerchant, IMerchantCard, IMerchantShopPrompt };
+export type { Merchant, MerchantCard, MerchantShopPrompt };

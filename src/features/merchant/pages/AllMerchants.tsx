@@ -9,12 +9,12 @@ import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 
 import { getAllMerchants } from '../services/MerchantService';
 
-import type { IMerchant } from '../models';
+import type { Merchant } from '../models';
 import MerchantCard from '../components/MerchantCard';
 import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
 import MerchantCardList from '../components/MerchantCardList';
 
-// const merchants: IMerchant[] = [
+// const merchants: Merchant[] = [
 //   { id: 1, mid: '1', name: '精品', description: '', shops: [] },
 //   { id: 2, mid: '2', name: '孤注一扭', description: '', shops: [] },
 //   { id: 3, mid: '3', name: 'Carousell', description: '', shops: [] },
@@ -28,7 +28,7 @@ const AllMerchants = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // const [merchants, setMerchants] = useState<IMerchant[]>([]);
+  // const [merchants, setMerchants] = useState<Merchant[]>([]);
 
   const {
     // data: data1,
@@ -53,13 +53,13 @@ const AllMerchants = () => {
 
   const handleButtonViewClick = (
     evt: React.MouseEvent,
-    merchant: IMerchant
+    merchant: Merchant
   ) => {
     navigate(`/merchants/${merchant.id}`);
   };
   const handleButtonEditClick = (
     evt: React.MouseEvent,
-    merchant: IMerchant
+    merchant: Merchant
   ) => {
     navigate(`/merchants/${merchant.id}/edit`);
   };

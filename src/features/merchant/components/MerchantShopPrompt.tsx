@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   Dialog,
-  SelectChangeEvent,
+  // SelectChangeEvent,
   Box,
   Typography,
   DialogContent,
@@ -12,10 +12,13 @@ import {
   Button,
   MenuItem,
 } from '@mui/material';
-import { IMerchant, IMerchantShopPrompt } from '../models';
-import { IShop } from '../../shop/models';
+import type {
+  SelectChangeEvent,
+} from '@mui/material';
+import type { Merchant, MerchantShopPrompt } from '../models';
+import type { Shop } from '../../shop/models';
 
-const resolveShopById = (shops: IShop[], mid: string) => {
+const resolveShopById = (shops: Shop[], mid: string) => {
   const results = shops.filter((shop, idx) => shop.mid === mid);
   if (results.length > 0) return results[0];
   else return null;
@@ -23,8 +26,8 @@ const resolveShopById = (shops: IShop[], mid: string) => {
 
 type MerchantShopPromptProps = {
   open: boolean;
-  merchant: IMerchant;
-  onConfirm: (promptData: IMerchantShopPrompt) => void;
+  merchant: Merchant;
+  onConfirm: (promptData: MerchantShopPrompt) => void;
   onClose: () => void;
 };
 
@@ -34,14 +37,14 @@ const MerchantShopPrompt: React.FC<MerchantShopPromptProps> = ({
   onConfirm,
   onClose,
 }) => {
-  const [promptData, setPromptData] = useState<IMerchantShopPrompt>({
+  const [promptData, setPromptData] = useState<MerchantShopPrompt>({
     merchant: merchant,
     shop: {
       id: -1,
       mid: '',
       name: '',
       description: '',
-    } as IShop,
+    } as Shop,
   });
 
   const handleShopChange = (evt: SelectChangeEvent) => {
@@ -49,7 +52,7 @@ const MerchantShopPrompt: React.FC<MerchantShopPromptProps> = ({
     setPromptData({
       ...promptData,
       ['shop']: shop,
-    } as IMerchantShopPrompt);
+    } as MerchantShopPrompt);
   };
 
   const handlePromptSubmit = (evt: React.FormEvent<HTMLFormElement>) => {

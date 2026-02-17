@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Divider, Typography } from '@mui/material';
 import AttachmentPane from '../../../framework/attachment/components/AttachmentPane';
-import type { IAttachmentObj } from '../../../framework/attachment/models';
+import type { AttachmentObj } from '../../../framework/attachment/models';
 import { useAuthContext } from '../../../framework/auth';
 
 const ContentLong = () => {
@@ -13,11 +13,11 @@ const ContentLong = () => {
   const { user } = useAuthContext();
 
   const [attachmentObjList, setAttachmentObjList] = useState<
-    undefined | IAttachmentObj[]
+    undefined | AttachmentObj[]
   >(undefined);
 
   const handleAttachmentListChange = (
-    attachmentObjList: IAttachmentObj[],
+    attachmentObjList: AttachmentObj[],
     isUploading: boolean
   ) => {
     console.debug(

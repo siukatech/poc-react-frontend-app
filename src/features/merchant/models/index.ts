@@ -1,24 +1,24 @@
-import { IShop } from "../../shop/models";
+import type { Shop } from "../../shop/models";
 
-interface IMerchant {
+interface Merchant {
   id: number;
   mid: string;
   name: string;
   description?: string;
   status: string;
-  shops: IShop[];
+  shops: Shop[];
 }
 
-interface IMerchantCard {}
+interface MerchantCard {}
 
-interface IMerchantShopPrompt {
-  merchant: IMerchant;
-  shop: IShop;
+interface MerchantShopPrompt {
+  merchant: Merchant;
+  shop: Shop;
 }
 
 export type { 
-  IMerchant, 
-  IMerchantCard,
-  IMerchantShopPrompt,
+  Merchant, 
+  MerchantCard,
+  MerchantShopPrompt,
 };
 

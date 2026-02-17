@@ -41,7 +41,7 @@ import {
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,
 } from '../../../framework/utils/date';
-import type { IItem } from '../models';
+import type { Item } from '../models';
 import { getSingleItem } from '../services/ItemService';
 import DialogPrompt from '../../../framework/ui/components/DialogPrompt';
 import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
@@ -57,8 +57,8 @@ const ItemForm = ({
 }: // handleTextFieldChange,
 // handleDateFieldChange,
 {
-  itemObj: IItem;
-  onSubmit: (itemRec: IItem) => void;
+  itemObj: Item;
+  onSubmit: (itemRec: Item) => void;
   // handleTextFieldChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   // handleDateFieldChange: (name: string, value: any) => void;
 }) => {
@@ -130,7 +130,7 @@ const ItemForm = ({
     // Reference:
     // https://stackoverflow.com/a/69198602
     // fixes of Element implicitly has an 'any' type because expression of type 'string' can't be used to index
-    const oldVal = itemRec[name as keyof IItem];
+    const oldVal = itemRec[name as keyof Item];
     if (oldVal != value) {
       setItemRec({
         ...itemRec,

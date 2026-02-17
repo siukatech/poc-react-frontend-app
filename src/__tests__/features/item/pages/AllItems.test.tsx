@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 import ItemDetail from '../../../../features/item/components/ItemDetail';
-import type { IItem } from '../../../../features/item/models';
+import type { Item } from '../../../../features/item/models';
 import AllItems from '../../../../features/item/pages/AllItems';
 import * as ItemService from '../../../../features/item/services/ItemService';
 
-const itemObjs: IItem[] = [
+const itemObjs: Item[] = [
   {
     id: 1,
     name: 'item 01',

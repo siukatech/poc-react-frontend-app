@@ -31,7 +31,7 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../framework/utils/date';
-import type { IItem } from '../models';
+import type { Item } from '../models';
 import {
   getSingleItem,
   updateSingleItem,
@@ -83,7 +83,7 @@ const EditItem = (props: any) => {
   // ): Promise<any> => {
   //   evt.preventDefault();
   // };
-  const handleFormSubmit = (itemRec: IItem) => {
+  const handleFormSubmit = (itemRec: Item) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form

@@ -2,10 +2,10 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ItemDetail from '../../../../features/item/components/ItemDetail';
-import type { IItem } from '../../../../features/item/models';
+import type { Item } from '../../../../features/item/models';
 
 
-const itemObj: IItem = {
+const itemObj: Item = {
   id: 1,
   name: 'item 01',
   purchasedDate: new Date(),

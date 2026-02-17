@@ -592,7 +592,7 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../base/utils/date';
-import { IItem } from '../../components/Item/Model';
+import { Item } from '../../components/Item/Model';
 import { getSingleItem } from '../../services/ItemService';
 import DialogPrompt from '../../components/ui/DialogPrompt';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
@@ -612,7 +612,7 @@ const EditItem = (props: any) => {
   const [isError, setIsError] = useState(false);
   const [errorObj, setErrorObj] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
-  const [itemObj, setItemObj] = useState<null | IItem>({null)});
+  const [itemObj, setItemObj] = useState<null | Item>({null)});
 
   const nameInputRef = useRef<HTMLInputElement>();
   const purchasedDateInputRef = useRef();
@@ -634,7 +634,7 @@ const EditItem = (props: any) => {
     // console.debug('EditItem - useEffect-1 - itemId: ', itemId);
     if (itemId != null) {
       const fetchData = async () => {
-        const data = (await getSingleItem(+itemId)) as IItem;
+        const data = (await getSingleItem(+itemId)) as Item;
         // console.debug('EditItem - itemId: [' + itemId + '], data: ', data);
         setItemObj(data);
         // console.debug('EditItem - useEffect-1 - setItemObj');
@@ -655,14 +655,14 @@ const EditItem = (props: any) => {
         setErrorObj(err);
       });
     } else {
-      const data: IItem = { purchasedDate: new Date() };
+      const data: Item = { purchasedDate: new Date() };
       setItemObj(data);
     }
     setIsLoading(false);
   }, []);
 
   // // const itemObj = props.itemObj == null ? {} : { ...props.itemObj };
-  // const itemObj: IItem = itemObj == null ? {} : itemObj;
+  // const itemObj: Item = itemObj == null ? {} : itemObj;
   // let purchasedDateValueRaw: Date =
   //   itemObj.purchasedDate == null ? new Date() : itemObj.purchasedDate;
   // let purchasedDateValue = purchasedDateValueRaw.toISOString().substring(0, 10);
@@ -786,7 +786,7 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../base/utils/date';
-import { IItem } from '../../components/Item/Model';
+import { Item } from '../../components/Item/Model';
 import {
   getSingleItem,
   updateSingleItem,
@@ -838,7 +838,7 @@ const EditItem = (props: any) => {
   // ): Promise<any> => {
   //   evt.preventDefault();
   // };
-  const handleFormSubmit = (itemRec: IItem) => {
+  const handleFormSubmit = (itemRec: Item) => {
     // setShowConfirmDialog(true);
     // itemRec.versionNo = 1;
     // itemRec.versionNo = loadedObj.versionNo;  // temporary added here, should prepare in Form

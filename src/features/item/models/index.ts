@@ -1,4 +1,5 @@
-type IItem = {
+
+type Item = {
   id?: number;
   name?: string;
   purchasedDate?: Date;
@@ -7,5 +8,5 @@ type IItem = {
   versionNo?: number;
 };
 
-export type { IItem };
+export type { Item };
 

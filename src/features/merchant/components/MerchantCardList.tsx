@@ -14,18 +14,18 @@ import {
   CssBaseline,
 } from '@mui/material';
 
-import { IMerchant } from '../models';
+import type { Merchant } from '../models';
 import MerchantCard from './MerchantCard';
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
 import ScrollBox from '../../../framework/ui/components/ScollBox/ScrollBox';
 
 type TypeHandleCardButtonClick = (
   evt: React.MouseEvent,
-  merchant: IMerchant
+  merchant: Merchant
 ) => void;
 
 const merchantCardJsx = (
-  merchant: IMerchant,
+  merchant: Merchant,
   idx: number,
   t: TFunction,
   handleButtonViewClick: TypeHandleCardButtonClick,
@@ -52,7 +52,7 @@ const merchantCardJsx = (
 };
 
 type MerchantCardListProps = {
-  merchants: IMerchant[];
+  merchants: Merchant[];
   handleButtonViewClick: TypeHandleCardButtonClick;
   handleButtonEditClick?: TypeHandleCardButtonClick;
 };

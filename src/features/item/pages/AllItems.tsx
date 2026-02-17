@@ -21,7 +21,7 @@ import { Masonry } from '@mui/lab';
 
 import { formatDate, formatDatetime } from '../../../framework/utils/date';
 import { getAllItems } from '../services/ItemService';
-import type { IItem } from '../models';
+import type { Item } from '../models';
 import ItemDetail from '../components/ItemDetail';
 
 
@@ -43,7 +43,7 @@ const resolveMinHeight: (idx: number) => number = (idx: number) => {
 const AllItems = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [items, setItems] = useState<null | IItem[]>(null);
+  const [items, setItems] = useState<null | Item[]>(null);
 
   useEffect(() => {
     // axiosService

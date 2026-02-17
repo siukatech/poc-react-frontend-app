@@ -1,6 +1,6 @@
 import ItemDetail from './components/ItemDetail';
 import ItemForm from './components/ItemForm';
-import type { IItem } from './models';
+import type { Item } from './models';
 import AllItems from './pages/AllItems';
 import EditItem from './pages/EditItem';
 import ViewItem from './pages/ViewItem';
@@ -26,4 +26,4 @@ export {
   updateSingleItem,
   deleteSingleItem,
 };
-export type { IItem };
+export type { Item };

@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import type { IAttachmentObj } from '../models';
+import type { AttachmentObj } from '../models';
 import { styled } from '@mui/material/styles';
 import {
   deleteAttachmentObj,
@@ -33,9 +33,9 @@ const VisuallyHiddenInput = styled('input')({
 
 type AttachmentPaneProps = {
   readOnly?: boolean;
-  attachmentObjList?: IAttachmentObj[];
+  attachmentObjList?: AttachmentObj[];
   onAttachmentListChange: (
-    attachmentObjList: IAttachmentObj[],
+    attachmentObjList: AttachmentObj[],
     isUploading: boolean
   ) => void;
 };
@@ -48,8 +48,8 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
   const { t } = useTranslation();
 
   const fileInputRef = useRef<HTMLInputElement>(null); // null is required for the VisuallyHiddenInput's ref
-  const [valueList, setValueList] = useState<IAttachmentObj[]>(() => {
-    let list: IAttachmentObj[] = [];
+  const [valueList, setValueList] = useState<AttachmentObj[]>(() => {
+    let list: AttachmentObj[] = [];
     list = attachmentObjList
       ? attachmentObjList.map((attachmentObj, idx) => {
           return {
@@ -58,7 +58,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
               attachmentObj.isUploaded != null
                 ? attachmentObj.isUploaded
                 : true,
-          } as IAttachmentObj;
+          } as AttachmentObj;
         })
       : [];
     return list;
@@ -148,7 +148,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
             id: undefined,
             isUploaded: false,
             targetFile,
-          } as IAttachmentObj);
+          } as AttachmentObj);
         }
       }
       return valueList;
@@ -157,10 +157,10 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
   };
 
   const handleAttachmentDownload = (
-    attachmentObj: IAttachmentObj,
+    attachmentObj: AttachmentObj,
     idx: number
   ) => {
-    const downloadFile = async (attachmentObj: IAttachmentObj) => {
+    const downloadFile = async (attachmentObj: AttachmentObj) => {
       try {
         await downloadAttachmentObj(attachmentObj);
       } catch (err) {
@@ -173,7 +173,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
   };
 
   const handleAttachmentDelete = (
-    attachmentObj: IAttachmentObj,
+    attachmentObj: AttachmentObj,
     idx: number
   ) => {
     const attachmentObjToDelete = valueList.at(idx);
@@ -181,7 +181,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
       setValueList((prevState) => {
         let valueListPrev = prevState;
         valueListPrev.splice(idx, 1);
-        let valueListNew: IAttachmentObj[] = [];
+        let valueListNew: AttachmentObj[] = [];
         for (let ccc = 0; ccc < valueListPrev.length; ccc++) {
           valueListNew.push(valueListPrev[ccc]);
         }
@@ -193,7 +193,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
     //   attachmentObj
     // );
     if (attachmentObj.isUploaded && !attachmentObj.uploadErr) {
-      const deleteFile = async (attachmentObj: IAttachmentObj) => {
+      const deleteFile = async (attachmentObj: AttachmentObj) => {
         const { data } = await deleteAttachmentObj(attachmentObj);
         return data;
       };
@@ -209,7 +209,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
         <Typography variant="body1">{t('upload.title')}</Typography>
       </Box>
       <List>
-        {valueList.map((attachmentObj: IAttachmentObj, idx: number) => {
+        {valueList.map((attachmentObj: AttachmentObj, idx: number) => {
           // console.debug(
           //   `AttachmentPane - return - idx: [${idx}], attachmentObj: `,
           //   attachmentObj

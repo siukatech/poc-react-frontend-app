@@ -6,7 +6,7 @@ import type { AxiosProgressEvent } from 'axios';
 import axiosService from '../../axios/services/axiosService';
 import { envConfig } from '../../config/envConfig';
 
-import type { IAttachmentObj } from '../models';
+import type { AttachmentObj } from '../models';
 import { at, bind } from 'lodash';
 
 const API_DOMAIN: string = envConfig.API_PATH_WEB_PREFIX as string;
@@ -81,7 +81,7 @@ const uploadAttachmentObj = async (
  * @param attachmentObjList
  * @returns
  */
-const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
+const uploadAttachmentObjList = async (attachmentObjList: AttachmentObj[]) => {
   const readyToUploadList = attachmentObjList.filter(
     (uploadAttachmentObj) =>
       uploadAttachmentObj.targetFile != null && !uploadAttachmentObj.isUploaded
@@ -94,7 +94,7 @@ const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
   //   readyToUploadList
   // );
   // Here uses attachmentObjList to resolve the full list
-  const updatedList: IAttachmentObj[] = [];
+  const updatedList: AttachmentObj[] = [];
   for (let ccc = 0; ccc < attachmentObjList.length; ccc++) {
     const attachmentObj = attachmentObjList[ccc];
     // console.debug(
@@ -139,10 +139,10 @@ const uploadAttachmentObjList = async (attachmentObjList: IAttachmentObj[]) => {
   return updatedList;
 };
 
-const getAttachmentObj = async (id: string): Promise<IAttachmentObj> => {
+const getAttachmentObj = async (id: string): Promise<AttachmentObj> => {
   const apiUrl = API_DETAIL.replaceAll('{0}', id);
   const { data } = await axiosService.get(`${apiUrl}`);
-  return data as IAttachmentObj;
+  return data as AttachmentObj;
 };
 
 /**
@@ -155,12 +155,12 @@ const getAttachmentObj = async (id: string): Promise<IAttachmentObj> => {
  * @returns
  */
 const downloadAttachmentObj = async (
-  attachmentObj: IAttachmentObj
+  attachmentObj: AttachmentObj
 ): Promise<any> => {
   if (attachmentObj.id) {
     const doDownload = (
       byteArr: ArrayBuffer | Blob,
-      attachmentObj: IAttachmentObj
+      attachmentObj: AttachmentObj
     ) => {
       const blob: Blob = new Blob([byteArr], {
         type: attachmentObj.contentType,
@@ -245,7 +245,7 @@ const toHex = (num: number) => {
 };
 
 const deleteAttachmentObj = async (
-  attachmentObj: IAttachmentObj
+  attachmentObj: AttachmentObj
 ): Promise<any> => {
   if (attachmentObj.id) {
     const apiUrl = API_DELETE.replaceAll('{0}', attachmentObj.id?.toString());

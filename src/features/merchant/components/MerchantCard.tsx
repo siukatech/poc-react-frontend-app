@@ -5,16 +5,20 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  SxProps,
-  Theme,
+  // SxProps,
+  // Theme,
   Typography,
 } from '@mui/material';
+import type {
+  SxProps,
+  Theme,
+} from '@mui/material';
 import { deepmerge } from '@mui/utils';
-import { IMerchant } from '../models';
+import type { Merchant } from '../models';
 import IconComponent from '../../../framework/ui/components/IconComponent';
 
 type MerchantCardProps = {
-  merchant: IMerchant;
+  merchant: Merchant;
   buttonViewText: string;
   onButtonViewClick: (evt: React.MouseEvent<HTMLElement>) => void;
   buttonEditText?: string;
