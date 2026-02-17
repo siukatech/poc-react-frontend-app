@@ -1,5 +1,9 @@
 
-import ProtectedResource, {
+import ProtectedResource from './components/ProtectedResource';
+// import type {
+//   ProtectedResourceAccessBy, ProtectedResourceDisplayType
+// } from './components/ProtectedResource';
+import {
   ProtectedResourceAccessBy, ProtectedResourceDisplayType
 } from './components/ProtectedResource';
 
@@ -42,11 +46,11 @@ export type {
   AuthContextObj, 
   LoginService,
   DoCheckPermissionByRegex,
+  // ProtectedResourceAccessBy,
+  // ProtectedResourceDisplayType,
 }
 export {
   ProtectedResource,
-  ProtectedResourceAccessBy,
-  ProtectedResourceDisplayType,
   AuthContext,
   AuthContextProvider,
   useAuthContext,
@@ -59,4 +63,6 @@ export {
   STORAGE_KEYS, 
   STORAGE_KEY_TOKENS, 
   STORAGE_KEY_USER,
+  ProtectedResourceAccessBy,
+  ProtectedResourceDisplayType,
 }

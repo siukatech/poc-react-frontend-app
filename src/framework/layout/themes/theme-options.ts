@@ -1,9 +1,13 @@
 import {
   ThemeProvider,
-  Theme,
+  // Theme,
   createTheme,
   styled,
   useTheme,
+  // ThemeOptions,
+} from '@mui/material/styles';
+import type {
+  Theme,
   ThemeOptions,
 } from '@mui/material/styles';
 

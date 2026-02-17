@@ -1,4 +1,4 @@
-import { User, UserPermission, DoAuthLoginPayload } from "../models";
+import type { User, UserPermission, DoAuthLoginPayload } from "../models";
 import { restoreJsonStr, saveJsonObj } from '../../utils/storage';
 
 interface DoCheckPermissionByRegex {

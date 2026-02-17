@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import {
+import type {
   ObjectFieldTemplateProps,
 } from '@rjsf/utils';
 

@@ -31,6 +31,10 @@ import {
   ProtectedResourceDisplayType,
   useAuthContext,
 } from '../../auth';
+// import type {
+//   ProtectedResourceAccessBy,
+//   ProtectedResourceDisplayType,
+// } from '../../auth';
 
 import {
   DrawerHeader,

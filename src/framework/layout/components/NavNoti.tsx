@@ -88,10 +88,15 @@ const ListItem = styled(ListItemMui)(({ theme }) => ({
 const displayWidth = 350;
 const innerHeight = 350;
 
-enum NavNotiDisplayType {
-  MENU = 'MENU',
-  POPPER = 'POPPER',
-}
+// enum NavNotiDisplayType {
+//   MENU = 'MENU',
+//   POPPER = 'POPPER',
+// }
+const NavNotiDisplayType = {
+  MENU: 'MENU',
+  POPPER: 'POPPER',
+} as const;
+type NavNotiDisplayType = typeof NavNotiDisplayType[keyof typeof NavNotiDisplayType];
 
 type NavNotiProps = {
   displayType: NavNotiDisplayType;

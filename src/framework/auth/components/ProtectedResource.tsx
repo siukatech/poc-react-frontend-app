@@ -9,25 +9,37 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { DialogPrompt } from '../../ui';
 import { recursiveCloneChildren } from '../../utils/render';
 
-enum ProtectedResourceDisplayType {
-  HIDDEN = 'HIDDEN',
-  DISABLED = 'DISABLED',
-  PROMPT = 'PROMPT',
-  MESSAGE = 'MESSAGE',
-}
+// enum ProtectedResourceDisplayType {
+//   HIDDEN = 'HIDDEN',
+//   DISABLED = 'DISABLED',
+//   PROMPT = 'PROMPT',
+//   MESSAGE = 'MESSAGE',
+// }
+const ProtectedResourceDisplayType = {
+  HIDDEN: 'HIDDEN',
+  DISABLED: 'DISABLED',
+  PROMPT: 'PROMPT',
+  MESSAGE: 'MESSAGE',
+} as const;
+type ProtectedResourceDisplayType = typeof ProtectedResourceDisplayType[keyof typeof ProtectedResourceDisplayType];
 
-enum ProtectedResourceAccessBy {
-  PUBLIC = 'PUBLIC', // non-authenticated
-  PROTECTED = 'PROTECTED', // authenticated
-}
+// enum ProtectedResourceAccessBy {
+//   PUBLIC = 'PUBLIC', // non-authenticated
+//   PROTECTED = 'PROTECTED', // authenticated
+// }
+const ProtectedResourceAccessBy = {
+  PUBLIC: 'PUBLIC', // non-authenticated
+  PROTECTED: 'PROTECTED', // authenticated
+} as const;
+type ProtectedResourceAccessBy = typeof ProtectedResourceAccessBy[keyof typeof ProtectedResourceAccessBy];
 
-interface IDialogPromptCfg {
+interface DialogPromptCfg {
   title?: string;
   message?: string;
   url?: string;
 }
 
-interface IDeniedMessageCfg {
+interface DeniedMessageCfg {
   message?: string;
   url?: string;
 }
@@ -40,8 +52,8 @@ const checkShowChildren = (
   children: React.ReactNode
 ): any => {
   let showChildren = false;
-  let dialogPromptCfg: undefined | IDialogPromptCfg = undefined;
-  let deniedMessageCfg: undefined | IDeniedMessageCfg = undefined;
+  let dialogPromptCfg: undefined | DialogPromptCfg = undefined;
+  let deniedMessageCfg: undefined | DeniedMessageCfg = undefined;
   // let disabledEleCfg: undefined | any = undefined;
   let refinedChildren: React.ReactNode = children;
   if (timeoutErr) {
@@ -241,4 +253,5 @@ const ProtectedResource = ({
 };
 
 export default ProtectedResource;
-export { ProtectedResourceAccessBy, ProtectedResourceDisplayType };
+export { ProtectedResourceAccessBy, ProtectedResourceDisplayType }
+// export type { ProtectedResourceAccessBy, ProtectedResourceDisplayType };

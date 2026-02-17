@@ -1,6 +1,6 @@
-import { RJSFSchema } from '@rjsf/utils';
+import type { RJSFSchema } from '@rjsf/utils';
 
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
 
 import _ from 'lodash';
 

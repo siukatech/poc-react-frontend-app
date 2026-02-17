@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import {
+import type {
   FieldTemplateProps,
 } from '@rjsf/utils';
 

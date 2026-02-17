@@ -1,17 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import { enUS, zhCN, zhTW } from '@mui/material/locale';
 import I18nLoader from '../src/framework/i18n/plugins/I18nLoader';
+import {
+  STORAGE_KEY_I18NRESOURCES,
+  STORAGE_KEY_I18N,
+  LNG_EN, LNG_TC, LNG_SC,
+  LNG_MUI_LOCALE_MAP,
+} from '../src/framework/i18n/plugins/I18nLoader';
 import { envConfig } from './framework/config/envConfig';
 
-const STORAGE_KEY_I18N = 'i18nlng';
-const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
-const LNG_MUI_LOCALE_MAP = {
-  [LNG_EN]: enUS,
-  [LNG_TC]: zhTW,
-  [LNG_SC]: zhCN,
-};
+// const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
+// const LNG_MUI_LOCALE_MAP = {
+//   [LNG_EN]: enUS,
+//   [LNG_TC]: zhTW,
+//   [LNG_SC]: zhCN,
+// };
 
 // for typescript, "import './i18n';" will be ok.
 // xxxxx - typescript is required to wrap a function to call in index.tsx
@@ -59,4 +63,4 @@ i18n
 
 // export default initI18n;
 export default i18n;
-export { STORAGE_KEY_I18N, LNG_EN, LNG_TC, LNG_SC, LNG_MUI_LOCALE_MAP };
+// export { STORAGE_KEY_I18N, LNG_EN, LNG_TC, LNG_SC, LNG_MUI_LOCALE_MAP };

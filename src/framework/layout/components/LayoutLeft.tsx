@@ -106,7 +106,9 @@ const MainMd = styled('main', {
 // }));
 const MainXs = styled(MainMd, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})((
+  // { theme, open }
+) => ({
   marginLeft: 'auto',
 }));
 

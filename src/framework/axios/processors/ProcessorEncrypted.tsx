@@ -1,4 +1,4 @@
-import { deepMergeObject } from '../../utils/object';
+// import { deepMergeObject } from '../../utils/object';
 
 import { JSEncrypt } from 'jsencrypt';
 //import JSEncrypt from 'encryptlong';
@@ -31,8 +31,7 @@ const preEncryptedDataObjProcessor = (
   //
   reqConfig = preProtectedDataObjProcessor(reqConfig);
   //
-  const apiEncryptedUriPrefix: string = process.env
-    .REACT_APP_API_PREFIX_ENCRYPTED as string;
+  const apiEncryptedUriPrefix: string = envConfig.API_PREFIX_ENCRYPTED as string;
     // console.debug(`processor-encrypted - preEncryptedDataObjProcessor - start`);
   if (reqConfig.url != null && reqConfig.url.indexOf(apiEncryptedUriPrefix) >= 0) {
     // reqConfig.processors = deepMergeObject(

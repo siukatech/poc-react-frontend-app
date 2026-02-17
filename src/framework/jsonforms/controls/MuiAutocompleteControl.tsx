@@ -2,24 +2,33 @@ import { useEffect, useState } from 'react';
 
 import { Autocomplete, Chip, TextField, Hidden, ListItem } from '@mui/material';
 
-import { withJsonFormsControlProps } from '@jsonforms/react';
+// import { withJsonFormsControlProps } from '@jsonforms/react';
 
 import {
+  isDescriptionHidden,
+} from '@jsonforms/core';
+import type {
   JsonSchema,
   ControlProps,
   OwnPropsOfEnum,
   WithClassname,
   EnumOption,
-  isDescriptionHidden,
 } from '@jsonforms/core';
 
-import { WithOptionLabel, useFocus } from '@jsonforms/material-renderers';
+// import { useFocus } from '@jsonforms/material-renderers';
+// import type { WithOptionLabel } from '@jsonforms/material-renderers';
 
-enum DISPLAY_STYLE {
-  TITLE = 'title',
-  CONST = 'const',
-  TITLE_WITH_CONST = 'titleWithConst',
-}
+// enum DISPLAY_STYLE {
+//   TITLE = 'title',
+//   CONST = 'const',
+//   TITLE_WITH_CONST = 'titleWithConst',
+// }
+const DISPLAY_STYLE = {
+  TITLE: 'title',
+  CONST: 'const',
+  TITLE_WITH_CONST: 'titleWithConst',
+} as const;
+type DISPLAY_STYLE = typeof DISPLAY_STYLE[keyof typeof DISPLAY_STYLE];
 
 type MuiAutocompleteControlProps = {
   placeholder: string;

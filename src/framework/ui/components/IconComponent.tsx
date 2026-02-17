@@ -1,5 +1,5 @@
 import * as Icons from '@mui/icons-material';
-import { SxProps } from '@mui/material';
+import type { SxProps } from '@mui/material';
 
 type IconNames = keyof typeof Icons;
 type IconProps = {

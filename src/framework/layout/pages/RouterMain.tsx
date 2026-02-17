@@ -21,7 +21,7 @@ import MiniVariantDrawerLeft from '../components/MiniVariantDrawerLeft';
 
 import { AuthContextProvider } from '../../auth';
 import { AxiosInterceptor } from '../../axios';
-import { LNG_MUI_LOCALE_MAP } from '../../../i18n';
+import { LNG_MUI_LOCALE_MAP } from '../../i18n';
 
 import store from '../stores/store';
 

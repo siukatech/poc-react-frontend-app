@@ -1,31 +1,44 @@
 import { useReducer, useCallback } from 'react';
 
-enum HttpReducerActionType {
-  SEND = 'SEND',
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR',
-}
+// enum HttpReducerActionType {
+//   SEND = 'SEND',
+//   SUCCESS = 'SUCCESS',
+//   ERROR = 'ERROR',
+// }
+const HttpReducerActionType = {
+  SEND: 'SEND',
+  SUCCESS: 'SUCCESS',
+  ERROR: 'ERROR',
+} as const;
+type HttpReducerActionType = typeof HttpReducerActionType[keyof typeof HttpReducerActionType];
 
-enum HttpReducerStateStatus {
-  NOT_INITIALIZED = 'NOT_INITIALIZED',
-  PENDING = 'PENDING',
-  COMPLETED = 'COMPLETED',
-  ERROR = 'ERROR',
-}
+// enum HttpReducerStateStatus {
+//   NOT_INITIALIZED = 'NOT_INITIALIZED',
+//   PENDING = 'PENDING',
+//   COMPLETED = 'COMPLETED',
+//   ERROR = 'ERROR',
+// }
+const HttpReducerStateStatus = {
+  NOT_INITIALIZED: 'NOT_INITIALIZED',
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  ERROR: 'ERROR',
+} as const;
+type HttpReducerStateStatus = typeof HttpReducerStateStatus[keyof typeof HttpReducerStateStatus];
 
-interface IHttpReducerState {
+interface HttpReducerState {
   status: HttpReducerStateStatus;
   data?: any;
   error?: any;
 }
 
-interface IHttpReducerAction {
+interface HttpReducerAction {
   type: HttpReducerActionType;
   data?: any;
   error?: any;
 }
 
-const httpReducer = (state: IHttpReducerState, action: IHttpReducerAction) => {
+const httpReducer = (state: HttpReducerState, action: HttpReducerAction) => {
   if (action.type === HttpReducerActionType.SEND) {
     return {
       data: null,
@@ -112,5 +125,5 @@ const useHttp = (fetcher: Function, startWithPending: boolean = false) => {
 };
 
 export default useHttp;
-export { HttpReducerStateStatus, HttpReducerActionType };
-export type { IHttpReducerState, IHttpReducerAction };
+export { HttpReducerStateStatus };
+export type { HttpReducerState, HttpReducerAction, HttpReducerActionType };

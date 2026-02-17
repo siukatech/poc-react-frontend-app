@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { enUS, zhCN, zhTW } from '@mui/material/locale';
 
 import { STORAGE_KEY_TOKENS } from '../../auth';
 // import { useServiceConfig } from '../../auth';
@@ -24,6 +25,13 @@ import '../hacks/StorageEventProxy';
 // };
 
 const STORAGE_KEY_I18NRESOURCES = 'i18nResources';
+const STORAGE_KEY_I18N = 'i18nlng';
+const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
+const LNG_MUI_LOCALE_MAP = {
+  [LNG_EN]: enUS,
+  [LNG_TC]: zhTW,
+  [LNG_SC]: zhCN,
+};
 
 const I18nLoader: BackendModule = {
   type: 'backend',
@@ -138,3 +146,9 @@ const loadResources = (
 };
 
 export default I18nLoader;
+export {
+  STORAGE_KEY_I18NRESOURCES,
+  STORAGE_KEY_I18N,
+  LNG_EN, LNG_TC, LNG_SC,
+  LNG_MUI_LOCALE_MAP,
+}

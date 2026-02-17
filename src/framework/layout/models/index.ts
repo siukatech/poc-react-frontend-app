@@ -1,4 +1,4 @@
-import { ReactComponentElement } from "react";
+import type { ReactComponentElement } from "react";
 
 type MenuItem = {
   i18n: string;

@@ -29,12 +29,17 @@ import { clearAuth } from '../../auth/stores/authSlice';
 import { DialogPrompt } from '../../ui';
 import { useAppDispatch } from '../../layout/stores/hooks';
 
-enum InterceptorTypeEnum {
-  REQUEST = 'REQUEST',
-  RESPONSE = 'RESPONSE',
-}
+// enum InterceptorTypeEnum {
+//   REQUEST = 'REQUEST',
+//   RESPONSE = 'RESPONSE',
+// }
+const InterceptorTypeEnum = {
+  REQUEST: 'REQUEST',
+  RESPONSE: 'RESPONSE',
+} as const;
+type InterceptorTypeEnum = typeof InterceptorTypeEnum[keyof typeof InterceptorTypeEnum];
 
-type TInterceptorRecord = {
+type InterceptorRecord = {
   id: number;
   key: string;
   type: InterceptorTypeEnum;
@@ -56,7 +61,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
 
   const [interceptorIdMap, setInterceptorIdMap] = useState<any>({});
   const [interceptorRecords, setInterceptorRecords] = useState<
-    TInterceptorRecord[]
+    InterceptorRecord[]
   >([]);
   // axiosService.defaults.headers["Content-Type"] = "application/x-www-form-urlencoded";
   //axiosService.defaults.headers["Content-Type"] = "application/json";
@@ -372,7 +377,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
    * And lead to the interceptors' ejection failure.
    */
   useEffect(() => {
-    // setInterceptorRecords((prev: TInterceptorRecord[]) => {
+    // setInterceptorRecords((prev: InterceptorRecord[]) => {
     // const interceptorRecords = prev;
     // console.debug(
     //   `AxiosInterceptor - useEffect - interceptorRecords - length: [${interceptorRecords.length}]`

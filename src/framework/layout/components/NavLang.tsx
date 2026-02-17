@@ -16,7 +16,12 @@ import { Language as LanguageIcon } from '@mui/icons-material';
 
 import { useAuthContext } from '../../auth';
 
-import { STORAGE_KEY_I18N } from '../../../i18n';
+import {
+  STORAGE_KEY_I18NRESOURCES,
+  STORAGE_KEY_I18N,
+  LNG_EN, LNG_TC, LNG_SC,
+  LNG_MUI_LOCALE_MAP,
+} from '../../i18n';
 import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
 import type { LangItem } from '../models';
 

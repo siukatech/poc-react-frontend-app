@@ -6,10 +6,14 @@ import {
   Paper,
   TextField,
   TextareaAutosize,
-  TextFieldProps,
-  TextareaAutosizeProps,
+  // TextFieldProps,
+  // TextareaAutosizeProps,
   Box,
   FormControl,
+} from '@mui/material';
+import type {
+  TextFieldProps,
+  TextareaAutosizeProps,
 } from '@mui/material';
 
 type FormTextareaProps = {

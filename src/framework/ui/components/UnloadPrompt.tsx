@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import {
+import type {
   unstable_useBlocker as useBlocker,
   unstable_Blocker as Blocker,
 } from 'react-router-dom';

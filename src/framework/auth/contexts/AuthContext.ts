@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
-import { User } from "../models";
+import type { User } from "../models";
 import { createContext } from "react";
-import { DoCheckPermissionByRegex as DoCheckPermission } from '../services/LoginService';
+import type { DoCheckPermissionByRegex as DoCheckPermission } from '../services/LoginService';
 
 type AuthContextObj = {
   user?: User;
