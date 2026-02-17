@@ -144,7 +144,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
         if (targetFile && valueMap[targetFile.name] == null) {
           valueList.push({
             fileName: targetFile.name,
-            fileSize: targetFile.length,
+            fileSize: targetFile.size,
             id: undefined,
             isUploaded: false,
             targetFile,
