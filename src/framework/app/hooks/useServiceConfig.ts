@@ -1,15 +1,15 @@
-// hooks/useLoginService.ts
+
 import { useContext } from "react";
 import { AppConfigContext } from '../contexts/AppConfigContext';
 
-function useLoginService() {
+function useServiceConfig() {
   const appConfig = useContext(AppConfigContext);
   if (!appConfig) {
     throw new Error("AppConfigProvider missing");
   }
-  return appConfig.loginService;
+  return appConfig.serviceConfig;
 }
 
 export {
-  useLoginService
+  useServiceConfig
 }

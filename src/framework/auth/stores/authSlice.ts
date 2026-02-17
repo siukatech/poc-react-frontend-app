@@ -9,7 +9,7 @@ import { User, DoAuthLoginPayload } from '../models';
 //   doAuthLogin,
 //   restoreUser,
 // } from '../services/LoginService';
-// import { useLoginService } from '../hooks/useLoginService';
+// import { useServiceConfig } from '../hooks/useServiceConfig';
 
 interface AuthState {
   user?: User;
@@ -21,7 +21,7 @@ const initialState: AuthState = {
   //
   // incorrect - start
   // user: (() => {
-  //   const loginService = useLoginService();
+  //   const { loginService } = useServiceConfig();
   //   return loginService.restoreUser();
   // })(),
   // incorrect - end

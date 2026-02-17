@@ -33,7 +33,7 @@ import {
   , useAuthContext
   , bindAuth
 } from '../../../framework/auth/';
-import { useLoginService } from '../../../framework/app';
+import { useServiceConfig } from '../../../framework/app';
 // import { testApp } from '../../../framework/app/stores/slices';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
@@ -52,7 +52,7 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const loginService = useLoginService();
+  const { loginService } = useServiceConfig();
 
   const handleFormSubmit = async (
     evt: FormEvent<HTMLFormElement>

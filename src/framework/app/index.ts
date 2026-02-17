@@ -2,7 +2,7 @@
 import { AppConfigContext } from './contexts/AppConfigContext';
 import { AppConfigProvider } from './contexts/AppConfigProvider';
 import { useLayoutConfig } from './hooks/useLayoutConfig';
-import { useLoginService } from './hooks/useLoginService';
+import { useServiceConfig } from './hooks/useServiceConfig';
 import { useRouteConfig } from './hooks/useRouteConfig';
 import { RouteConfig, AppConfig } from './models';
 import AppRouter from './components/AppRouter';
@@ -15,7 +15,7 @@ export {
   AppConfigContext,
   AppConfigProvider,
   useLayoutConfig,
-  useLoginService,
+  useServiceConfig,
   useRouteConfig,
   AppRouter,
 }

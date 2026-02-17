@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { STORAGE_KEY_TOKENS } from '../../auth';
-// import { useLoginService } from '../../auth';
+// import { useServiceConfig } from '../../auth';
 import { getI18nResources } from '../services/I18nService';
 import { I18nResource } from '../models';
 import i18n, { BackendModule, InitOptions, Module, Services } from 'i18next';
@@ -30,7 +30,7 @@ const I18nLoader: BackendModule = {
     i18nextOptions: InitOptions
   ) => {
     //
-    // const loginService = useLoginService();
+    // const { loginService } = useServiceConfig();
     // console.debug(`I18nLoader - init - services: `, services);
     // console.debug(`I18nLoader - init - backendOptions: `, backendOptions);
     // console.debug(`I18nLoader - init - i18nextOptions: `, i18nextOptions);
@@ -86,7 +86,7 @@ const I18nLoader: BackendModule = {
     // console.debug(`I18nLoader - init - storagecustom added`);
   },
   read: (language: string, namespace: string) => {
-    // const loginService = useLoginService();
+    // const { loginService } = useServiceConfig();
     // const storageKeyTokens = loginService.getStorageKeyTokens();
     const token = sessionStorage.getItem(
       STORAGE_KEY_TOKENS

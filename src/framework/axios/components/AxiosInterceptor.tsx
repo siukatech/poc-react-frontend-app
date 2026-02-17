@@ -16,7 +16,7 @@ import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
 
-import { useLoginService } from '../../app/hooks/useLoginService';
+import { useServiceConfig } from '../../app/hooks/useServiceConfig';
 import { useAuthContext } from '../../auth/hooks/useAuthContext';
 import { clearAuth } from '../../auth/stores/authSlice';
 import { DialogPrompt } from '../../ui';
@@ -45,7 +45,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const [serverErr, setServerErr] = useState<TServerErr>();
   const { user, doLogout } = useAuthContext();
   const dispatch = useAppDispatch();
-  const loginService = useLoginService();
+  const { loginService } = useServiceConfig();
 
   const [interceptorIdMap, setInterceptorIdMap] = useState<any>({});
   const [interceptorRecords, setInterceptorRecords] = useState<

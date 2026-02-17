@@ -4,12 +4,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { axiosService } from '../../../framework/axios';
 import { useAppDispatch } from '../../../framework/layout/stores/hooks';
 import { User, useAuthContext, bindAuth } from '../../../framework/auth';
-import { useLoginService } from '../../../framework/app';
+import { useServiceConfig } from '../../../framework/app';
 
 const Redirect = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const loginService = useLoginService();
+  const { loginService } = useServiceConfig();
 
   // This cannot be called because that generates a new codeVerifier and makes the verification failure (new codeVerifier against old codeChallenge)
   // const authLoginUrl = getAuthLoginUrl();

@@ -18,7 +18,9 @@ const appConfig = {
   // userService: new RealUserService(),
   // authService: new RealAuthService(),
   // configService: new RealConfigService(),
-  loginService: new LoginServiceImpl(),
+  serviceConfig: {
+    loginService: new LoginServiceImpl(),
+  },
   layoutConfig: {
     menuItems: [
       { i18n: 'menu.home', link: '/', icon: 'HomeOutlined' },

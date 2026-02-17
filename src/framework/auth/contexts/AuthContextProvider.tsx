@@ -5,13 +5,13 @@ import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 
 import { envConfig } from '../../config/envConfig';
-import { useLoginService } from '../../app/hooks/useLoginService';
+import { useServiceConfig } from '../../app/hooks/useServiceConfig';
 import { User, DoAuthLoginPayload } from '../models';
 import { AuthContext } from './AuthContext';
 
 const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const loginService = useLoginService();
+  const { loginService } = useServiceConfig();
   const [user, setUser] = useState<User | undefined>(() => {
     // // if (sessionStorage.getItem('tokens')) {
     // //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));

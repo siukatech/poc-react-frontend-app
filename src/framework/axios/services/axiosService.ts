@@ -7,7 +7,7 @@ import { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
 import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
-import { useLoginService } from '../../app';
+import { useServiceConfig } from '../../app';
 import { envConfig } from '../../config/envConfig';
 
 
@@ -31,7 +31,7 @@ const axiosService = axios.create({
 // // https://axios-http.com/docs/req_config
 // axiosService.interceptors.request.use(
 //   (config: InternalAxiosRequestConfig): ProcessorAxiosRequestConfig => {
-//     const loginService = useLoginService();
+//     const { loginService } = useServiceConfig();
 //     // console.debug('interceptor.request - 1');
 //     // const tokens = loginService.restoreTokens();
 //     // // config.headers.common = config.headers.common ?? {};
@@ -136,7 +136,7 @@ const axiosService = axios.create({
 //       errorCode == 'ERR_NETWORK' ||
 //       (retStatus === 500 && errorCode == 'ERR_CANCELED')
 //     ) {
-//       const loginService = useLoginService();
+//       const { loginService } = useServiceConfig();
 
 //       // const tokens = loginService.restoreTokens();
 //       // const payload = {

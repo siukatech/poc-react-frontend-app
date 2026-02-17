@@ -9,7 +9,7 @@ import {
   postPublicDataRetProcessor,
 } from './ProcessorPublic';
 
-// import { useLoginService } from '../../auth';
+// import { useServiceConfig } from '../../auth';
 
 import { envConfig } from '../../config/envConfig';
 
@@ -21,7 +21,7 @@ const preProtectedDataObjProcessor = (
   //
   reqConfig = prePublicDataObjProcessor(reqConfig);
   //
-  // const loginService = useLoginService();
+  // const { loginService } = useServiceConfig();
   const loginService = reqConfig.loginService;
   // if (reqConfig.url.indexOf(envConfig.API_PATH_V1_PROTECTED) >= 0) {
   const tokens = loginService?.restoreTokens();
