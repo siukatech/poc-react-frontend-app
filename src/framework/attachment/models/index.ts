@@ -1,6 +1,6 @@
 import { UUID } from 'uuidv7';
 
-interface AttachmentObj {
+interface Attachment {
   id?: UUID;
   fileName: string;
   contentType: string;
@@ -11,4 +11,4 @@ interface AttachmentObj {
   uploadErr?: any;
 }
 
-export type { AttachmentObj };
+export type { Attachment };

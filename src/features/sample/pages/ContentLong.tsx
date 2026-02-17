@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Divider, Typography } from '@mui/material';
 import AttachmentPane from '../../../framework/attachment/components/AttachmentPane';
-import type { AttachmentObj } from '../../../framework/attachment/models';
+import type { Attachment } from '../../../framework/attachment/models';
 import { useAuthContext } from '../../../framework/auth';
 
 const ContentLong = () => {
@@ -12,17 +12,17 @@ const ContentLong = () => {
 
   const { user } = useAuthContext();
 
-  const [attachmentObjList, setAttachmentObjList] = useState<
-    undefined | AttachmentObj[]
+  const [attachmentList, setAttachmentList] = useState<
+    undefined | Attachment[]
   >(undefined);
 
   const handleAttachmentListChange = (
-    attachmentObjList: AttachmentObj[],
+    attachmentList: Attachment[],
     isUploading: boolean
   ) => {
     console.debug(
-      `ContentLong - handleAttachmentListChange - isUploading: [${isUploading}], attachmentObjList: `,
-      attachmentObjList
+      `ContentLong - handleAttachmentListChange - isUploading: [${isUploading}], attachmentList: `,
+      attachmentList
     );
   };
 
@@ -31,7 +31,7 @@ const ContentLong = () => {
       {user && (
         <>
           <AttachmentPane
-            attachmentObjList={attachmentObjList}
+            attachmentList={attachmentList}
             onAttachmentListChange={handleAttachmentListChange}
           />
           <Divider />

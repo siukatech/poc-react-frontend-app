@@ -5,7 +5,7 @@ import { Hidden } from '@mui/material';
 import type { ControlProps, OwnPropsOfEnum } from '@jsonforms/core';
 
 import AttachmentPane from '../../attachment/components/AttachmentPane';
-import type { AttachmentObj } from '../../attachment/models';
+import type { Attachment } from '../../attachment/models';
 
 type AttachmentPaneControlProps = {};
 
@@ -29,16 +29,16 @@ const AttachmentPaneControl = (
 
   const isReadOnly = !enabled;
 
-  const [values, setValues] = useState<undefined | AttachmentObj[]>(() => {
+  const [values, setValues] = useState<undefined | Attachment[]>(() => {
     return data;
   });
 
   const handleAttachmentListChange = (
-    attachmentObjList: AttachmentObj[],
+    attachmentList: Attachment[],
     isUploading: boolean
   ) => {
     if (!isUploading) {
-      handleChange(path, attachmentObjList);
+      handleChange(path, attachmentList);
     }
   };
 
@@ -47,7 +47,7 @@ const AttachmentPaneControl = (
       <Hidden xsUp={!visible}>
         <AttachmentPane
           readOnly={isReadOnly}
-          attachmentObjList={values}
+          attachmentList={values}
           onAttachmentListChange={handleAttachmentListChange}
         />
       </Hidden>

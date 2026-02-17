@@ -6,7 +6,7 @@ import type { AxiosProgressEvent } from 'axios';
 import axiosService from '../../axios/services/axiosService';
 import { envConfig } from '../../config/envConfig';
 
-import type { AttachmentObj } from '../models';
+import type { Attachment } from '../models';
 import { at, bind } from 'lodash';
 
 const API_DOMAIN: string = envConfig.API_PATH_WEB_PREFIX as string;
@@ -34,7 +34,7 @@ const API_DELETE: string =
 
 let FILE_UPLOAD_MAP: any = {};
 
-const uploadAttachmentObj = async (
+const uploadAttachment = async (
   formData: FormData,
   total: number,
   pending: number
@@ -42,14 +42,14 @@ const uploadAttachmentObj = async (
   const handleUploadProgress = (evt: AxiosProgressEvent) => {
     // const percentageEvt = Math.round(100 / evt.loaded / (evt?.total || 1));
     // console.debug(
-    //   `AttachmentService - uploadAttachmentObj - handleUploadProgress - evt.loaded: [${evt.loaded}]` +
+    //   `AttachmentService - uploadAttachment - handleUploadProgress - evt.loaded: [${evt.loaded}]` +
     //     `, evt?.total: [${evt?.total}], percentageEvt: [${percentageEvt}]`
     // );
     const completed = total - pending;
     // const percentageExt = Math.round(100 / pending / total || 1);
     const percentageExt = Math.round((completed / total) * 100);
     // console.debug(
-    //   `AttachmentService - uploadAttachmentObj - handleUploadProgress - pending: [${pending}]` +
+    //   `AttachmentService - uploadAttachment - handleUploadProgress - pending: [${pending}]` +
     //     `, completed: [${completed}], total: [${total}], pencentage: [${percentageExt}]`
     // );
   };
@@ -78,71 +78,71 @@ const uploadAttachmentObj = async (
  * https://www.bezkoder.com/axios-file-upload/
  * https://youtu.be/YOGgaYUW1OA?t=320
  *
- * @param attachmentObjList
+ * @param attachmentList
  * @returns
  */
-const uploadAttachmentObjList = async (attachmentObjList: AttachmentObj[]) => {
-  const readyToUploadList = attachmentObjList.filter(
-    (uploadAttachmentObj) =>
-      uploadAttachmentObj.targetFile != null && !uploadAttachmentObj.isUploaded
+const uploadAttachmentList = async (attachmentList: Attachment[]) => {
+  const readyToUploadList = attachmentList.filter(
+    (uploadAttachment) =>
+      uploadAttachment.targetFile != null && !uploadAttachment.isUploaded
   );
   const total = readyToUploadList.length;
   let pending = total;
   // console.debug(
-  //   `AttachmentService - uploadAttachmentObjList - total: [${total}]` +
+  //   `AttachmentService - uploadAttachmentList - total: [${total}]` +
   //     `, pending: [${pending}], readyToUploadList: `,
   //   readyToUploadList
   // );
-  // Here uses attachmentObjList to resolve the full list
-  const updatedList: AttachmentObj[] = [];
-  for (let ccc = 0; ccc < attachmentObjList.length; ccc++) {
-    const attachmentObj = attachmentObjList[ccc];
+  // Here uses attachmentList to resolve the full list
+  const updatedList: Attachment[] = [];
+  for (let ccc = 0; ccc < attachmentList.length; ccc++) {
+    const attachment = attachmentList[ccc];
     // console.debug(
-    //   `AttachmentService - uploadAttachmentObjList - ccc: [${ccc}]` +
-    //     `, attachmentObj: `,
-    //   attachmentObj
+    //   `AttachmentService - uploadAttachmentList - ccc: [${ccc}]` +
+    //     `, attachment: `,
+    //   attachment
     // );
-    if (attachmentObj.targetFile && !attachmentObj.isUploaded) {
+    if (attachment.targetFile && !attachment.isUploaded) {
       let formData: FormData = new FormData();
-      formData.append('file', attachmentObj.targetFile);
+      formData.append('file', attachment.targetFile);
       formData.append('versionNo', '1');
       try {
-        const retData = await uploadAttachmentObj(formData, total, pending);
+        const retData = await uploadAttachment(formData, total, pending);
         if (!retData) {
           throw new Error(`Upload attachment failed`);
         }
         pending--;
-        attachmentObj.id = retData.id;
-        if (attachmentObj.id) {
-          FILE_UPLOAD_MAP[attachmentObj.id.toString()] = attachmentObj;
-          // const arrBuf = new Blob([await attachmentObj.targetFile.arrayBuffer()]);
-          // FILE_UPLOAD_MAP[attachmentObj.id.toString()] = arrBuf;
+        attachment.id = retData.id;
+        if (attachment.id) {
+          FILE_UPLOAD_MAP[attachment.id.toString()] = attachment;
+          // const arrBuf = new Blob([await attachment.targetFile.arrayBuffer()]);
+          // FILE_UPLOAD_MAP[attachment.id.toString()] = arrBuf;
         }
-        attachmentObj.isUploaded = true;
-        attachmentObj.targetFile = undefined;
-        updatedList.push(attachmentObj);
+        attachment.isUploaded = true;
+        attachment.targetFile = undefined;
+        updatedList.push(attachment);
       } catch (err) {
         console.error(
-          `AttachmentService - uploadAttachmentObjList - err: `,
+          `AttachmentService - uploadAttachmentList - err: `,
           err
         );
         pending--;
-        attachmentObj.uploadErr = err;
-        attachmentObj.isUploaded = true;
-        attachmentObj.targetFile = undefined;
-        updatedList.push(attachmentObj);
+        attachment.uploadErr = err;
+        attachment.isUploaded = true;
+        attachment.targetFile = undefined;
+        updatedList.push(attachment);
       }
-    } else if (attachmentObj.isUploaded) {
-      updatedList.push(attachmentObj);
+    } else if (attachment.isUploaded) {
+      updatedList.push(attachment);
     }
   }
   return updatedList;
 };
 
-const getAttachmentObj = async (id: string): Promise<AttachmentObj> => {
+const getAttachment = async (id: string): Promise<Attachment> => {
   const apiUrl = API_DETAIL.replaceAll('{0}', id);
   const { data } = await axiosService.get(`${apiUrl}`);
-  return data as AttachmentObj;
+  return data as Attachment;
 };
 
 /**
@@ -151,25 +151,25 @@ const getAttachmentObj = async (id: string): Promise<AttachmentObj> => {
  * https://stackoverflow.com/a/63965930
  * https://gist.github.com/jbutko/d7b992086634a94e84b6a3e526336da3
  *
- * @param attachmentObj
+ * @param attachment
  * @returns
  */
-const downloadAttachmentObj = async (
-  attachmentObj: AttachmentObj
+const downloadAttachment = async (
+  attachment: Attachment
 ): Promise<any> => {
-  if (attachmentObj.id) {
+  if (attachment.id) {
     const doDownload = (
       byteArr: ArrayBuffer | Blob,
-      attachmentObj: AttachmentObj
+      attachment: Attachment
     ) => {
       const blob: Blob = new Blob([byteArr], {
-        type: attachmentObj.contentType,
+        type: attachment.contentType,
       });
       const a = document.createElement('a');
 
       const url = URL.createObjectURL(blob);
       // console.debug(
-      //   `AttachmentService - downloadAttachmentObj - doDownload - url: [${url}]`
+      //   `AttachmentService - downloadAttachment - doDownload - url: [${url}]`
       // );
       function handleClick() {
         setTimeout(() => {
@@ -179,7 +179,7 @@ const downloadAttachmentObj = async (
         }, 150);
       }
       a.href = url;
-      a.download = attachmentObj.fileName || 'download-file';
+      a.download = attachment.fileName || 'download-file';
       a.addEventListener('click', handleClick);
       a.click();
 
@@ -192,29 +192,29 @@ const downloadAttachmentObj = async (
       //   }
       // };
     };
-    const apiUrl = API_DOWNLOAD.replaceAll('{0}', attachmentObj.id.toString());
+    const apiUrl = API_DOWNLOAD.replaceAll('{0}', attachment.id.toString());
     const response = await axiosService.get(`${apiUrl}`, {
       // headers: {
       //   'Content-Type': 'application/json',
-      //   Accept: attachmentObj.contentType,
+      //   Accept: attachment.contentType,
       // },
       responseType: 'arraybuffer',
       // responseType: 'blob',
     });
     if (response?.data) {
       // console.debug(
-      //   `AttachmentService - downloadAttachmentObj - response.data.length: [${response.data.length}], response.data: `,
+      //   `AttachmentService - downloadAttachment - response.data.length: [${response.data.length}], response.data: `,
       //   response.data
       // );
-      doDownload(response.data, attachmentObj);
+      doDownload(response.data, attachment);
     } else {
       throw new Error(
-        `Attachment not found [${attachmentObj?.id?.toString()}]`
+        `Attachment not found [${attachment?.id?.toString()}]`
       );
     }
     return void 0;
   } else {
-    return Promise.reject(attachmentObj);
+    return Promise.reject(attachment);
   }
 };
 
@@ -244,22 +244,22 @@ const toHex = (num: number) => {
   return num.toString(16).padStart(4, '0').toUpperCase();
 };
 
-const deleteAttachmentObj = async (
-  attachmentObj: AttachmentObj
+const deleteAttachment = async (
+  attachment: Attachment
 ): Promise<any> => {
-  if (attachmentObj.id) {
-    const apiUrl = API_DELETE.replaceAll('{0}', attachmentObj.id?.toString());
+  if (attachment.id) {
+    const apiUrl = API_DELETE.replaceAll('{0}', attachment.id?.toString());
     const response = await axiosService.delete(`${apiUrl}`);
     return response;
   } else {
-    Promise.reject(attachmentObj);
+    Promise.reject(attachment);
   }
 };
 
 export {
-  uploadAttachmentObj,
-  uploadAttachmentObjList,
-  getAttachmentObj,
-  downloadAttachmentObj,
-  deleteAttachmentObj,
+  uploadAttachment,
+  uploadAttachmentList,
+  getAttachment,
+  downloadAttachment,
+  deleteAttachment,
 };

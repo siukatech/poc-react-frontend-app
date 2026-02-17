@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import type { AttachmentObj } from '../models';
+import type { Attachment } from '../models';
 import { styled } from '@mui/material/styles';
 import {
-  deleteAttachmentObj,
-  downloadAttachmentObj,
-  uploadAttachmentObjList,
+  deleteAttachment,
+  downloadAttachment,
+  uploadAttachmentList,
 } from '../services/AttachmentService';
 import {
   Box,
@@ -33,32 +33,32 @@ const VisuallyHiddenInput = styled('input')({
 
 type AttachmentPaneProps = {
   readOnly?: boolean;
-  attachmentObjList?: AttachmentObj[];
+  attachmentList?: Attachment[];
   onAttachmentListChange: (
-    attachmentObjList: AttachmentObj[],
+    attachmentList: Attachment[],
     isUploading: boolean
   ) => void;
 };
 
 const AttachmentPane: React.FC<AttachmentPaneProps> = ({
   readOnly,
-  attachmentObjList,
+  attachmentList,
   onAttachmentListChange,
 }) => {
   const { t } = useTranslation();
 
   const fileInputRef = useRef<HTMLInputElement>(null); // null is required for the VisuallyHiddenInput's ref
-  const [valueList, setValueList] = useState<AttachmentObj[]>(() => {
-    let list: AttachmentObj[] = [];
-    list = attachmentObjList
-      ? attachmentObjList.map((attachmentObj, idx) => {
+  const [valueList, setValueList] = useState<Attachment[]>(() => {
+    let list: Attachment[] = [];
+    list = attachmentList
+      ? attachmentList.map((attachment, idx) => {
           return {
-            ...attachmentObj,
+            ...attachment,
             isUploaded:
-              attachmentObj.isUploaded != null
-                ? attachmentObj.isUploaded
+              attachment.isUploaded != null
+                ? attachment.isUploaded
                 : true,
-          } as AttachmentObj;
+          } as Attachment;
         })
       : [];
     return list;
@@ -71,7 +71,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
 
   useEffect(() => {
     let filteredList = valueList.filter(
-      (attachmentObj) => attachmentObj.isUploaded === false
+      (attachment) => attachment.isUploaded === false
     );
     // console.debug(
     //   `AttachmentPane - useEffect - 1 - filteredList.length: [${filteredList.length}], valueList: `,
@@ -89,7 +89,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
         //   `AttachmentPane - useEffect - 3 - valueList: `,
         //   valueList
         // );
-        const updatedList = await uploadAttachmentObjList(valueList);
+        const updatedList = await uploadAttachmentList(valueList);
         // console.debug(
         //   `AttachmentPane - useEffect - 4 - updatedList: `,
         //   updatedList
@@ -121,9 +121,9 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
       let valueList = prevState;
       const valueMap: any = valueList
         ? valueList.reduce(
-            (accumulator, attachmentObj, idx) => ({
+            (accumulator, attachment, idx) => ({
               ...accumulator,
-              [attachmentObj.fileName]: attachmentObj.fileName,
+              [attachment.fileName]: attachment.fileName,
             }),
             {}
           )
@@ -148,7 +148,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
             id: undefined,
             isUploaded: false,
             targetFile,
-          } as AttachmentObj);
+          } as Attachment);
         }
       }
       return valueList;
@@ -157,31 +157,31 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
   };
 
   const handleAttachmentDownload = (
-    attachmentObj: AttachmentObj,
+    attachment: Attachment,
     idx: number
   ) => {
-    const downloadFile = async (attachmentObj: AttachmentObj) => {
+    const downloadFile = async (attachment: Attachment) => {
       try {
-        await downloadAttachmentObj(attachmentObj);
+        await downloadAttachment(attachment);
       } catch (err) {
         setValueErr(err);
       }
     };
-    if (attachmentObj.isUploaded && attachmentObj.uploadErr == null) {
-      downloadFile(attachmentObj);
+    if (attachment.isUploaded && attachment.uploadErr == null) {
+      downloadFile(attachment);
     }
   };
 
   const handleAttachmentDelete = (
-    attachmentObj: AttachmentObj,
+    attachment: Attachment,
     idx: number
   ) => {
-    const attachmentObjToDelete = valueList.at(idx);
+    const attachmentToDelete = valueList.at(idx);
     const clearFile = (idx: number) => {
       setValueList((prevState) => {
         let valueListPrev = prevState;
         valueListPrev.splice(idx, 1);
-        let valueListNew: AttachmentObj[] = [];
+        let valueListNew: Attachment[] = [];
         for (let ccc = 0; ccc < valueListPrev.length; ccc++) {
           valueListNew.push(valueListPrev[ccc]);
         }
@@ -189,15 +189,15 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
       });
     };
     // console.debug(
-    //   `AttachmentPane - handleAttachmentDelete - idx: [${idx}], attachmentObj: `,
-    //   attachmentObj
+    //   `AttachmentPane - handleAttachmentDelete - idx: [${idx}], attachment: `,
+    //   attachment
     // );
-    if (attachmentObj.isUploaded && !attachmentObj.uploadErr) {
-      const deleteFile = async (attachmentObj: AttachmentObj) => {
-        const { data } = await deleteAttachmentObj(attachmentObj);
+    if (attachment.isUploaded && !attachment.uploadErr) {
+      const deleteFile = async (attachment: Attachment) => {
+        const { data } = await deleteAttachment(attachment);
         return data;
       };
-      deleteFile(attachmentObj).then((retData) => clearFile(idx));
+      deleteFile(attachment).then((retData) => clearFile(idx));
     } else {
       clearFile(idx);
     }
@@ -209,41 +209,41 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
         <Typography variant="body1">{t('upload.title')}</Typography>
       </Box>
       <List>
-        {valueList.map((attachmentObj: AttachmentObj, idx: number) => {
+        {valueList.map((attachment: Attachment, idx: number) => {
           // console.debug(
-          //   `AttachmentPane - return - idx: [${idx}], attachmentObj: `,
-          //   attachmentObj
+          //   `AttachmentPane - return - idx: [${idx}], attachment: `,
+          //   attachment
           // );
           return (
             <Fragment key={`key-attachment-${idx}`}>
               <ListItem sx={{ pl: 0 }}>
-                {attachmentObj.isUploaded && (
+                {attachment.isUploaded && (
                   <Link
                     sx={{ cursor: 'pointer' }}
-                    onClick={() => handleAttachmentDownload(attachmentObj, idx)}
+                    onClick={() => handleAttachmentDownload(attachment, idx)}
                   >
-                    {attachmentObj.fileName}
+                    {attachment.fileName}
                   </Link>
                 )}
-                {!attachmentObj.isUploaded && (
+                {!attachment.isUploaded && (
                   <Typography variant="body1">
-                    {attachmentObj.fileName}...
+                    {attachment.fileName}...
                   </Typography>
                 )}
-                {!isReadOnly && !isUploading && attachmentObj.isUploaded && (
+                {!isReadOnly && !isUploading && attachment.isUploaded && (
                   <ListItemIcon
                     sx={{ minWidth: 'auto', pl: 0.5, cursor: 'pointer' }}
-                    onClick={() => handleAttachmentDelete(attachmentObj, idx)}
+                    onClick={() => handleAttachmentDelete(attachment, idx)}
                   >
                     <IconComponent name="DeleteOutline" />
                   </ListItemIcon>
                 )}
                 {!isReadOnly &&
-                  attachmentObj.isUploaded &&
-                  attachmentObj.uploadErr && (
+                  attachment.isUploaded &&
+                  attachment.uploadErr && (
                     <ListItemIcon
                       sx={{ minWidth: 'auto', pl: 0.5, cursor: 'pointer' }}
-                      title={attachmentObj.uploadErr}
+                      title={attachment.uploadErr}
                     >
                       <IconComponent name="ErrorOutline" />
                     </ListItemIcon>

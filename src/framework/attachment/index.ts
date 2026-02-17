@@ -1,24 +1,24 @@
 
 import AttachmentPane from './components/AttachmentPane';
 
-import type { AttachmentObj } from './models';
+import type { Attachment } from './models';
 
 import {
-  uploadAttachmentObj,
-  uploadAttachmentObjList,
-  getAttachmentObj,
-  downloadAttachmentObj,
-  deleteAttachmentObj,
+  uploadAttachment,
+  uploadAttachmentList,
+  getAttachment,
+  downloadAttachment,
+  deleteAttachment,
 } from './services/AttachmentService';
 
 export type {
-  AttachmentObj
+  Attachment
 }
 export {
   AttachmentPane,
-  uploadAttachmentObj,
-  uploadAttachmentObjList,
-  getAttachmentObj,
-  downloadAttachmentObj,
-  deleteAttachmentObj,
+  uploadAttachment,
+  uploadAttachmentList,
+  getAttachment,
+  downloadAttachment,
+  deleteAttachment,
 }
