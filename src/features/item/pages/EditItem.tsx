@@ -24,21 +24,21 @@ import {
 import { DateField, DatePicker } from '@mui/x-date-pickers';
 import type { FieldChangeHandlerContext } from '@mui/x-date-pickers/internals';
 
-import useHttp, { HttpReducerStateStatus } from '../../../framework/https/hooks/use-http';
+import useHttp, { HttpReducerStateStatus } from '../../../core/https/hooks/use-http';
 import {
   formatDate,
   formatDatetime,
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
-} from '../../../framework/utils/date';
+} from '../../../core/utils/date';
 import type { Item } from '../models';
 import {
   getSingleItem,
   updateSingleItem,
   addSingleItem,
 } from '../services/ItemService';
-import DialogPrompt from '../../../framework/ui/components/DialogPrompt';
-import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
+import DialogPrompt from '../../../core/ui/components/DialogPrompt';
+import LoadingSpinner from '../../../core/ui/components/LoadingSpinner';
 import ItemForm from '../components/ItemForm';
 
 const formFieldSxDefault = { m: 1, width: '80%' };

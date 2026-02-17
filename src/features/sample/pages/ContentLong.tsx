@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Divider, Typography } from '@mui/material';
-import AttachmentPane from '../../../framework/attachment/components/AttachmentPane';
-import type { Attachment } from '../../../framework/attachment/models';
-import { useAuthContext } from '../../../framework/auth';
+import AttachmentPane from '../../../core/attachment/components/AttachmentPane';
+import type { Attachment } from '../../../core/attachment/models';
+import { useAuthContext } from '../../../core/auth';
 
 const ContentLong = () => {
   const style = {

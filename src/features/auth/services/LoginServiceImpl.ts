@@ -13,23 +13,23 @@ import {
   STORAGE_KEYS, 
   STORAGE_KEY_TOKENS, 
   STORAGE_KEY_USER,
-} from "../../../framework/auth";
+} from "../../../core/auth";
 import type { 
   User, 
   UserPermission, 
   DoAuthLoginPayload,
   LoginService,
   DoCheckPermissionByRegex,
-} from "../../../framework/auth";
-import { axiosService } from '../../../framework/axios';
+} from "../../../core/auth";
+import { axiosService } from '../../../core/axios';
 import {
   restoreJsonStr,
   restoreRawStr,
   saveJsonObj,
   saveRawStr,
-} from '../../../framework/utils/storage';
-import { base64URLEncode } from '../../../framework/utils/urlEncoder';
-import { envConfig } from '../../../framework/config/envConfig';
+} from '../../../core/utils/storage';
+import { base64URLEncode } from '../../../core/utils/urlEncoder';
+import { envConfig } from '../../../core/config/envConfig';
 
 
 const APP_NAME = envConfig.APP_NAME as string;

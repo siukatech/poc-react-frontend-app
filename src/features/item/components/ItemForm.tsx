@@ -40,13 +40,13 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,
-} from '../../../framework/utils/date';
+} from '../../../core/utils/date';
 import type { Item } from '../models';
 import { getSingleItem } from '../services/ItemService';
-import DialogPrompt from '../../../framework/ui/components/DialogPrompt';
-import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
-import UnloadPrompt from '../../../framework/ui/components/UnloadPrompt';
-import FormTextarea from '../../../framework/ui/components/FormTextarea';
+import DialogPrompt from '../../../core/ui/components/DialogPrompt';
+import LoadingSpinner from '../../../core/ui/components/LoadingSpinner';
+import UnloadPrompt from '../../../core/ui/components/UnloadPrompt';
+import FormTextarea from '../../../core/ui/components/FormTextarea';
 
 const formField1ColSxDefault = { m: 1, width: '98%' };
 const formField2ColSxDefault = { m: 1, width: '95%' };

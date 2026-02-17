@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { doAuthToken, getAuthLoginUrl } from '../services/LoginService';
-// import { axiosService } from '../../../framework/axios';
-import { useAppDispatch } from '../../../framework/layout/stores/hooks';
+// import { axiosService } from '../../../core/axios';
+import { useAppDispatch } from '../../../core/layout/stores/hooks';
 import { 
   // User, 
-  useAuthContext, bindAuth } from '../../../framework/auth';
-import type { User } from '../../../framework/auth';
-import { useServiceConfig } from '../../../framework/app';
+  useAuthContext, bindAuth } from '../../../core/auth';
+import type { User } from '../../../core/auth';
+import { useServiceConfig } from '../../../core/app';
 
 const Redirect = () => {
   const navigate = useNavigate();

@@ -1,14 +1,14 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import I18nLoader from '../src/framework/i18n/plugins/I18nLoader';
+import I18nLoader from './core/i18n/plugins/I18nLoader';
 import {
   STORAGE_KEY_I18NRESOURCES,
   STORAGE_KEY_I18N,
   LNG_EN, LNG_TC, LNG_SC,
   LNG_MUI_LOCALE_MAP,
-} from '../src/framework/i18n/plugins/I18nLoader';
-import { envConfig } from './framework/config/envConfig';
+} from './core/i18n/plugins/I18nLoader';
+import { envConfig } from './core/config/envConfig';
 
 // const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
 // const LNG_MUI_LOCALE_MAP = {

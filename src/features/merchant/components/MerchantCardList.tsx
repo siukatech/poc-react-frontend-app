@@ -17,7 +17,7 @@ import {
 import type { Merchant } from '../models';
 import MerchantCard from './MerchantCard';
 import type { TFunction } from 'i18next';
-import ScrollBox from '../../../framework/ui/components/ScollBox/ScrollBox';
+import ScrollBox from '../../../core/ui/components/ScollBox/ScrollBox';
 
 type TypeHandleCardButtonClick = (
   evt: React.MouseEvent,

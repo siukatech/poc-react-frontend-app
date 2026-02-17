@@ -15,7 +15,7 @@ import type {
 } from '@mui/material';
 import { deepmerge } from '@mui/utils';
 import type { Merchant } from '../models';
-import IconComponent from '../../../framework/ui/components/IconComponent';
+import IconComponent from '../../../core/ui/components/IconComponent';
 
 type MerchantCardProps = {
   merchant: Merchant;

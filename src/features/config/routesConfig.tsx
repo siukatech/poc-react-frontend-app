@@ -9,11 +9,11 @@ import {
   ProtectedResource,
   ProtectedResourceAccessBy,
   ProtectedResourceDisplayType,
-} from '../../framework/auth';
+} from '../../core/auth';
 
-// import RouterMain from '../../framework/layout/pages/RouterMain';
-import NotFound from '../../framework/layout/pages/NotFound';
-// import ErrorPage from '../../framework/layout/pages/ErrorPage';
+// import RouterMain from '../../core/layout/pages/RouterMain';
+import NotFound from '../../core/layout/pages/NotFound';
+// import ErrorPage from '../../core/layout/pages/ErrorPage';
 
 // import Login from '../auth/pages/Login';
 // import Logout from '../auth/pages/Logout';

@@ -1,5 +1,5 @@
 
-import { AppConfigProvider } from '../../framework/app';
+import { AppConfigProvider } from '../../core/app';
 import { LoginServiceImpl } from '../auth';
 
 import {

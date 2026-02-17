@@ -11,7 +11,7 @@ import './i18n';
 
 // initI18n();   // for typescript, "import './i18n';" will be ok.
 
-import { AppConfigProvider } from './framework/app';
+import { AppConfigProvider } from './core/app';
 import { appConfig } from './features/config/appConfig';
 
 

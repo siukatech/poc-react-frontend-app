@@ -1,6 +1,6 @@
 import * as logo from './logo.svg';
 import './App.css';
-import AppRouter from './framework/app/components/AppRouter';
+import AppRouter from './core/app/components/AppRouter';
 
 function App() {
 
