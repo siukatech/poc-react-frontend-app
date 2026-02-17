@@ -3,7 +3,11 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { Theme, styled } from '@mui/material/styles';
+import { 
+  // Theme, 
+  styled 
+} from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 import {
   IconButton,
   Divider,
@@ -32,10 +36,13 @@ import {
   DrawerHeader,
   ImgComponent,
   IconComponent,
+  // IconNames,
+} from '../../ui';
+import type {
   IconNames,
 } from '../../ui';
 import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
-import { MenuItem } from '../models';
+import type { MenuItem } from '../models';
 
 
 type DrawerMenuProps = {

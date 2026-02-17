@@ -3,7 +3,10 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import { Theme, styled, useTheme } from '@mui/material/styles';
+import { 
+  // Theme, 
+  styled, useTheme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 import {
   Box,
   Tooltip,

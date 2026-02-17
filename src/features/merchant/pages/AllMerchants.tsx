@@ -9,7 +9,7 @@ import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 
 import { getAllMerchants } from '../services/MerchantService';
 
-import { IMerchant } from '../models';
+import type { IMerchant } from '../models';
 import MerchantCard from '../components/MerchantCard';
 import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
 import MerchantCardList from '../components/MerchantCardList';

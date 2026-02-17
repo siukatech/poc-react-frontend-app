@@ -1,5 +1,5 @@
 import axiosService from '../../axios/services/axiosService';
-import { I18nResource } from '../models';
+import type { I18nResource } from '../models';
 import { envConfig } from '../../config/envConfig';
 
 // for typescript, "import './i18n';" will be ok.

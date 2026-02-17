@@ -3,6 +3,10 @@ import {
   useRef,
   useContext,
   useState,
+  // FormEvent,
+  // MutableRefObject,
+} from 'react';
+import type {
   FormEvent,
   MutableRefObject,
 } from 'react';
@@ -29,9 +33,12 @@ import FormPassword from '../../../framework/ui/components/FormPassword';
 import { useAppDispatch } from '../../../framework/layout/stores/hooks';
 // import { DoAuthLoginPayload, doAuthLogin, getAuthLoginUrl } from '../services/LoginService';
 import { 
+  // DoAuthLoginPayload, 
+  useAuthContext, 
+  bindAuth
+} from '../../../framework/auth/';
+import type { 
   DoAuthLoginPayload
-  , useAuthContext
-  , bindAuth
 } from '../../../framework/auth/';
 import { useServiceConfig } from '../../../framework/app';
 // import { testApp } from '../../../framework/app/stores/slices';

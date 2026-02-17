@@ -18,7 +18,7 @@ import { useAuthContext } from '../../auth';
 
 import { STORAGE_KEY_I18N } from '../../../i18n';
 import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
-import { LangItem } from '../models';
+import type { LangItem } from '../models';
 
 
 const convertToLangMap = (langItems: LangItem[]) => {

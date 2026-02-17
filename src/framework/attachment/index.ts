@@ -1,7 +1,7 @@
 
 import AttachmentPane from './components/AttachmentPane';
 
-import { IAttachmentObj } from './models';
+import type { IAttachmentObj } from './models';
 
 import {
   uploadAttachmentObj,

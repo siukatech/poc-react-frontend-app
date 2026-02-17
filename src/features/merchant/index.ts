@@ -2,7 +2,7 @@ import MerchantCard from './components/MerchantCard';
 import MerchantCardList from './components/MerchantCardList';
 import MerchantShopPrompt from './components/MerchantShopPrompt';
 
-import { IMerchant, IMerchantCard, IMerchantShopPrompt } from './models';
+import type { IMerchant, IMerchantCard, IMerchantShopPrompt } from './models';
 
 import AllMerchants from './pages/AllMerchants';
 import EditMerchant from './pages/EditMerchant';

@@ -1,7 +1,9 @@
 // context/AppConfigProvider.tsx
-import React, { ReactNode, useMemo } from "react";
+// import React, { ReactNode, useMemo } from "react";
+import React, { useMemo } from "react";
+import type { ReactNode } from "react";
 import { AppConfigContext } from "./AppConfigContext";
-import { AppConfig } from "../models";
+import type { AppConfig } from "../models";
 
 interface Props {
   appConfig: AppConfig;

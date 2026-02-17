@@ -3,7 +3,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 
-import { Theme, styled, useTheme, CSSObject } from '@mui/material/styles';
+import { 
+  // Theme, 
+  styled, useTheme, 
+  // CSSObject,
+} from '@mui/material/styles';
+import type { Theme, CSSObject } from '@mui/material/styles';
 import {
   Box,
   CssBaseline,
@@ -28,7 +33,7 @@ import {
   Fab,
   Fade,
 } from '@mui/material';
-import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import type { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
 import {
   Menu as MenuIcon,

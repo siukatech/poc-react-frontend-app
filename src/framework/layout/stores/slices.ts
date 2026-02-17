@@ -1,8 +1,11 @@
 import {
-  Slice,
+  // Slice,
   combineReducers,
   combineSlices,
   createSlice,
+} from '@reduxjs/toolkit';
+import type {
+  Slice,
 } from '@reduxjs/toolkit';
 import { authSlice } from '../../auth';
 import store from './store';

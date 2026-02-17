@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Divider } from '@mui/material';
 
-import { RJSFSchema } from '@rjsf/utils';
+import type { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
-import { IChangeEvent } from '@rjsf/core';
+import type { IChangeEvent } from '@rjsf/core';
 import { Form } from '@rjsf/mui';
 
 import {
@@ -17,7 +17,7 @@ import {
   materialCells,
 } from '@jsonforms/material-renderers';
 import { JsonForms } from '@jsonforms/react';
-import { JsonFormsCore, ValidationMode } from '@jsonforms/core';
+import type { JsonFormsCore, ValidationMode } from '@jsonforms/core';
 
 import { getSingleMerchant } from '../services/MerchantService';
 

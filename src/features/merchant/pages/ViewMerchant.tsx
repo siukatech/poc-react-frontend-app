@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { IChangeEvent } from '@rjsf/core';
-import { RJSFSchema } from '@rjsf/utils';
+import type { IChangeEvent } from '@rjsf/core';
+import type { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import { Form } from '@rjsf/mui';
 

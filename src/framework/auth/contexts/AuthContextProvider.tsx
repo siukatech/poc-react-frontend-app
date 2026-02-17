@@ -6,7 +6,7 @@ import axios, { AxiosError } from 'axios';
 
 import { envConfig } from '../../config/envConfig';
 import { useServiceConfig } from '../../app/hooks/useServiceConfig';
-import { User, DoAuthLoginPayload } from '../models';
+import type { User, DoAuthLoginPayload } from '../models';
 import { AuthContext } from './AuthContext';
 
 const AuthContextProvider = (props: { children: React.ReactNode }) => {

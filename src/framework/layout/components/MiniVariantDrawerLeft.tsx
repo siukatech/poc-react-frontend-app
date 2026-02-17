@@ -1,8 +1,14 @@
 import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { styled, useTheme, 
+  // Theme, CSSObject
+} from '@mui/material/styles';
+import type { Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar
+// , { AppBarProps as MuiAppBarProps } 
+from '@mui/material/AppBar';
+import type { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';

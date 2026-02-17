@@ -1,9 +1,13 @@
-import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
+import axios, { 
+  // InternalAxiosRequestConfig, 
+  AxiosError 
+} from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 
 import { parseDateToUtc } from '../../utils/date';
 import { deepMergeObject } from '../../utils/object';
 
-import { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
+import type { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
 import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';

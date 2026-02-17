@@ -22,7 +22,7 @@ import {
 } from '@mui/material';
 
 import { DateField, DatePicker } from '@mui/x-date-pickers';
-import { FieldChangeHandlerContext } from '@mui/x-date-pickers/internals';
+import type { FieldChangeHandlerContext } from '@mui/x-date-pickers/internals';
 
 import useHttp, { HttpReducerStateStatus } from '../../../framework/https/hooks/use-http';
 import {
@@ -31,7 +31,7 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
 } from '../../../framework/utils/date';
-import { IItem } from '../../../features/item/models';
+import type { IItem } from '../models';
 import {
   getSingleItem,
   updateSingleItem,
@@ -39,7 +39,7 @@ import {
 } from '../services/ItemService';
 import DialogPrompt from '../../../framework/ui/components/DialogPrompt';
 import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';
-import ItemForm from '../../../features/item/components/ItemForm';
+import ItemForm from '../components/ItemForm';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
 

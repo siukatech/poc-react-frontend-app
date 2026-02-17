@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { IAttachmentObj } from '../models';
+import type { IAttachmentObj } from '../models';
 import { styled } from '@mui/material/styles';
 import {
   deleteAttachmentObj,

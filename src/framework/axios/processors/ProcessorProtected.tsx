@@ -1,8 +1,11 @@
 import { deepMergeObject } from '../../utils/object';
 
 import {
-  ProcessorAxiosRequestConfig,
+  // ProcessorAxiosRequestConfig,
   initReqConfigProcessors,
+} from './ProcessorGeneral';
+import type {
+  ProcessorAxiosRequestConfig,
 } from './ProcessorGeneral';
 import {
   prePublicDataObjProcessor,

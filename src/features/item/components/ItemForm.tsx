@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   unstable_usePrompt as usePrompt,
   unstable_useBlocker as useBlocker,
+  // unstable_BlockerFunction as BlockerFunction,
+} from 'react-router-dom';
+import type {
   unstable_BlockerFunction as BlockerFunction,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -29,7 +32,7 @@ import {
 } from '@mui/material';
 
 import { DateField, DatePicker } from '@mui/x-date-pickers';
-import { FieldChangeHandlerContext } from '@mui/x-date-pickers/internals';
+import type { FieldChangeHandlerContext } from '@mui/x-date-pickers/internals';
 
 import {
   formatDate,
@@ -38,7 +41,7 @@ import {
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,
 } from '../../../framework/utils/date';
-import { IItem } from '../models';
+import type { IItem } from '../models';
 import { getSingleItem } from '../services/ItemService';
 import DialogPrompt from '../../../framework/ui/components/DialogPrompt';
 import LoadingSpinner from '../../../framework/ui/components/LoadingSpinner';

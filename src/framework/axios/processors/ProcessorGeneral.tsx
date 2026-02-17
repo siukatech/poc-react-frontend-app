@@ -1,8 +1,8 @@
-import { LoginService } from '../../auth';
+import type { LoginService } from '../../auth';
 import { parseDateToUtc, parseUtcToDate } from '../../utils/date';
 import { deepMergeObject } from '../../utils/object';
 
-import { InternalAxiosRequestConfig } from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 
 import { envConfig } from '../../config/envConfig';
 

@@ -1,9 +1,12 @@
 import { uuidv4 } from 'uuidv7';
-import { AxiosError, AxiosProgressEvent } from 'axios';
+import { AxiosError, 
+  // AxiosProgressEvent
+} from 'axios';
+import type { AxiosProgressEvent } from 'axios';
 import axiosService from '../../axios/services/axiosService';
 import { envConfig } from '../../config/envConfig';
 
-import { IAttachmentObj } from '../models';
+import type { IAttachmentObj } from '../models';
 import { at, bind } from 'lodash';
 
 const API_DOMAIN: string = envConfig.API_PATH_WEB_PREFIX as string;

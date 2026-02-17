@@ -2,9 +2,9 @@
 // import { UserService } from "../services/UserService";
 // import { AuthService } from "../services/AuthService";
 // import { ConfigService } from "../services/ConfigService";
-import { RouteObject } from 'react-router-dom';
-import { LoginService } from '../../auth';
-import { LayoutConfig, MenuItem } from '../../layout/models';
+import type { RouteObject } from 'react-router-dom';
+import type { LoginService } from '../../auth';
+import type { LayoutConfig, MenuItem } from '../../layout/models';
 
 interface ServiceConfig {
   loginService: LoginService;

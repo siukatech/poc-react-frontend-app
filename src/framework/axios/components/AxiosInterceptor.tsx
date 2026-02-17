@@ -1,17 +1,24 @@
 import React, { useContext, useMemo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
+import axios, { 
+  // InternalAxiosRequestConfig, 
+  AxiosError 
+} from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 
 import axiosService from '../services/axiosService';
 import {
-  TServerErr,
+  // TServerErr,
   isErrAuth401,
   isErrNetwork,
   resolveServerErr,
 } from '../services/AxiosErrorHandler';
+import type {
+  TServerErr,
+} from '../services/AxiosErrorHandler';
 
-import { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
+import type { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
 import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';

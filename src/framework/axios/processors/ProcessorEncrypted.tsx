@@ -4,11 +4,17 @@ import { JSEncrypt } from 'jsencrypt';
 //import JSEncrypt from 'encryptlong';
 import CryptoJS from 'crypto-js';
 import Randomstring from 'randomstring';
-import axios, { AxiosRequestTransformer } from 'axios';
+import axios
+// , { AxiosRequestTransformer } 
+from 'axios';
+import type { AxiosRequestTransformer } from 'axios';
 
 import {
-  ProcessorAxiosRequestConfig,
+  // ProcessorAxiosRequestConfig,
   initReqConfigProcessors,
+} from './ProcessorGeneral';
+import type {
+  ProcessorAxiosRequestConfig,
 } from './ProcessorGeneral';
 import {
   preProtectedDataObjProcessor,

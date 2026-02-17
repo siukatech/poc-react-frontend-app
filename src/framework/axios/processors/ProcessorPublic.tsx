@@ -1,6 +1,6 @@
 import { deepMergeObject } from '../../utils/object';
 
-import { ProcessorAxiosRequestConfig } from './ProcessorGeneral';
+import type { ProcessorAxiosRequestConfig } from './ProcessorGeneral';
 import { initReqConfigProcessors } from './ProcessorGeneral';
 import { preDataObjProcessor, postDataRetProcessor } from './ProcessorGeneral';
 

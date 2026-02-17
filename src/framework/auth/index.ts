@@ -3,21 +3,29 @@ import ProtectedResource, {
   ProtectedResourceAccessBy, ProtectedResourceDisplayType
 } from './components/ProtectedResource';
 
-import { AuthContext, AuthContextObj } from './contexts/AuthContext';
+import { AuthContext, 
+  // AuthContextObj 
+} from './contexts/AuthContext';
+import type { AuthContextObj } from './contexts/AuthContext';
 import { AuthContextProvider } from './contexts/AuthContextProvider';
 
 import { useAuthContext } from './hooks/useAuthContext';
 
 import { 
-  User, 
-  UserPermission, 
-  DoAuthLoginPayload,
+  // User, 
+  // UserPermission, 
+  // DoAuthLoginPayload,
   STORAGE_KEYS, 
   STORAGE_KEY_TOKENS, 
   STORAGE_KEY_USER,
 } from './models';
+import type { 
+  User, 
+  UserPermission, 
+  DoAuthLoginPayload,
+} from './models';
 
-import { LoginService, DoCheckPermissionByRegex } from './services/LoginService';
+import type { LoginService, DoCheckPermissionByRegex } from './services/LoginService';
 
 import authSliceReducer, {
   authSlice,

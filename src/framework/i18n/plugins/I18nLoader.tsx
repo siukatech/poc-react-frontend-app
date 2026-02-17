@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import { STORAGE_KEY_TOKENS } from '../../auth';
 // import { useServiceConfig } from '../../auth';
 import { getI18nResources } from '../services/I18nService';
-import { I18nResource } from '../models';
-import i18n, { BackendModule, InitOptions, Module, Services } from 'i18next';
+import type { I18nResource } from '../models';
+import i18n
+// , { BackendModule, InitOptions, Module, Services } 
+from 'i18next';
+import type { BackendModule, InitOptions, Module, Services } from 'i18next';
 
 import '../hacks/StorageEventProxy';
 

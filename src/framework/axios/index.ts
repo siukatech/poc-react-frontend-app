@@ -9,6 +9,9 @@ import {
   preDataObjProcessor,
   postDataRetProcessor,
   initReqConfigProcessors,
+  // ProcessorAxiosRequestConfig,
+} from './processors/ProcessorGeneral';
+import type {
   ProcessorAxiosRequestConfig,
 } from './processors/ProcessorGeneral';
 import {
@@ -24,9 +27,13 @@ import {
 import axiosService from './services/axiosService';
 
 import {
+  // TResponseErr,
+  // TServerErr,
+  resolveServerErr,
+} from './services/AxiosErrorHandler';
+import type {
   TResponseErr,
   TServerErr,
-  resolveServerErr,
 } from './services/AxiosErrorHandler';
 
 export {

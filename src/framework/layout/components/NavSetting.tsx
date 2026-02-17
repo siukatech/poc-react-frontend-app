@@ -30,7 +30,7 @@ import {
 import { useAuthContext, useAuthSelector } from '../../auth';
 import { useAppSelector } from '../stores/hooks';
 import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
-import { SettingItem } from '../models';
+import type { SettingItem } from '../models';
 
 
 const NavSetting = () => {

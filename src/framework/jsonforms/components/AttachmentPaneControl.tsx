@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 import { Hidden } from '@mui/material';
 
-import { ControlProps, OwnPropsOfEnum } from '@jsonforms/core';
+import type { ControlProps, OwnPropsOfEnum } from '@jsonforms/core';
 
 import AttachmentPane from '../../attachment/components/AttachmentPane';
-import { IAttachmentObj } from '../../attachment/models';
+import type { IAttachmentObj } from '../../attachment/models';
 
 type AttachmentPaneControlProps = {};
 

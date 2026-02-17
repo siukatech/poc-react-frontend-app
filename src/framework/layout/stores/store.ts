@@ -1,11 +1,17 @@
 import {
-  EnhancedStore,
-  Reducer,
+  // EnhancedStore,
+  // Reducer,
   configureStore,
   combineReducers,
   combineSlices,
   createSlice,
   createStore,
+  // Slice,
+  // Store,
+} from '@reduxjs/toolkit';
+import type {
+  EnhancedStore,
+  Reducer,
   Slice,
   Store,
 } from '@reduxjs/toolkit';

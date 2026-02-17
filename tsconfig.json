@@ -17,6 +17,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "verbatimModuleSyntax": true,
     "strictNullChecks": true
   },
   "include": [

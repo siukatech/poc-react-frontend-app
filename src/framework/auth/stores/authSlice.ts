@@ -1,9 +1,19 @@
-import { PayloadAction, createReducer, createSlice } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { 
+  // PayloadAction, 
+  createReducer, createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import {
+  // TypedUseSelectorHook, 
+  useSelector
+} from 'react-redux';
+import type { TypedUseSelectorHook } from 'react-redux';
 import { AxiosError } from 'axios';
-import store, { RootState } from '../../layout/stores/store';
+import store
+// , { RootState } 
+from '../../layout/stores/store';
+import type { RootState } from '../../layout/stores/store';
 // import { rootSliceReducer } from '../../app/stores/slices';
-import { User, DoAuthLoginPayload } from '../models';
+import type { User, DoAuthLoginPayload } from '../models';
 // import {
 //   DoAuthLoginPayload,
 //   doAuthLogin,

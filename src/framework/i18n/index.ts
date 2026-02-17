@@ -1,5 +1,5 @@
 
-import { I18nResource } from './models';
+import type { I18nResource } from './models';
 
 import I18nLoader from './plugins/I18nLoader';
 
