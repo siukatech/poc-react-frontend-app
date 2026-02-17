@@ -1,10 +1,10 @@
 
 
-interface II18nResource {
+interface I18nResource {
   lng: string;
   resource: any;
 }
 
 export type {
-  II18nResource,
+  I18nResource,
 }

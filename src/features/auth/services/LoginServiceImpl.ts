@@ -5,8 +5,8 @@ import Randomstring from 'randomstring';
 import { uuidv4 } from 'uuidv7';
 import axios, { AxiosError } from 'axios';
 import { 
-  IUser, 
-  IUserPermission, 
+  User, 
+  UserPermission, 
   DoAuthLoginPayload,
   LoginService,
   DoCheckPermissionByRegex,
@@ -62,7 +62,7 @@ class LoginServiceImpl implements LoginService {
   restoreTokens(): any {
     return restoreJsonStr(STORAGE_KEY_TOKENS);
   }
-  restoreUser(): IUser {
+  restoreUser(): User {
     // if (sessionStorage.getItem('tokens')) {
     //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
     //   return jwt_decode(tokens.access_token);
@@ -74,7 +74,7 @@ class LoginServiceImpl implements LoginService {
   saveTokens(tokens: {}): void {
     saveJsonObj(STORAGE_KEY_TOKENS, tokens);
   }
-  saveUser(user: IUser): void {
+  saveUser(user: User): void {
     saveJsonObj(STORAGE_KEY_USER, user);
   }
   clearStorageItems(): void {
@@ -91,7 +91,7 @@ class LoginServiceImpl implements LoginService {
     const resourceParts = resourceName.split('.');
     return resourceParts;
   }
-  marshalPermissions(userPermissions: IUserPermission[]) {
+  marshalPermissions(userPermissions: UserPermission[]) {
     let permissions: any = {};
     for (let ppp = 0; ppp < userPermissions.length; ppp++) {
       const userPermission = userPermissions[ppp];
@@ -169,7 +169,7 @@ class LoginServiceImpl implements LoginService {
     // console.debug('LoginService - doCheckTimeout - end');
 
   }
-  async doAuthLogin(payload: DoAuthLoginPayload): Promise<IUser> {
+  async doAuthLogin(payload: DoAuthLoginPayload): Promise<User> {
     let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
 
     // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
@@ -284,7 +284,7 @@ class LoginServiceImpl implements LoginService {
     saveRawStr('CODE_CHALLENGE', codeChallenge);
     return authLoginUrl;
   }
-  async doAuthToken(code: string): Promise<IUser> {
+  async doAuthToken(code: string): Promise<User> {
     let oauthTokenApi = API_OAUTH_TOKEN;
 
     // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
@@ -344,7 +344,7 @@ class LoginServiceImpl implements LoginService {
    * @param accessRights
    * @returns
    */
-  doCheckPermissionByRegex: DoCheckPermissionByRegex = (user: undefined | IUser, resourceName: undefined | string, accessRights: undefined | string | string[]): boolean => {
+  doCheckPermissionByRegex: DoCheckPermissionByRegex = (user: undefined | User, resourceName: undefined | string, accessRights: undefined | string | string[]): boolean => {
     let hasPermission = false;
     if (user != null && resourceName != null && accessRights != null) {
       accessRights =
@@ -397,7 +397,7 @@ class LoginServiceImpl implements LoginService {
 
   // //parseResourceName
   // doCheckPermissionByMap(
-  //   user: undefined | IUser,
+  //   user: undefined | User,
   //   resourceName: undefined | string,
   //   accessRights: undefined | string | string[]
   // ): boolean {

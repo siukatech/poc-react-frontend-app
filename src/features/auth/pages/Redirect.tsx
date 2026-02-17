@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { doAuthToken, getAuthLoginUrl } from '../services/LoginService';
 // import { axiosService } from '../../../framework/axios';
 import { useAppDispatch } from '../../../framework/layout/stores/hooks';
-import { IUser, useAuthContext, bindAuth } from '../../../framework/auth';
+import { User, useAuthContext, bindAuth } from '../../../framework/auth';
 import { useLoginService } from '../../../framework/app';
 
 const Redirect = () => {
@@ -32,7 +32,7 @@ const Redirect = () => {
     // return code;
     return null;
   });
-  const [user, setUser] = useState<null | IUser>(null);
+  const [user, setUser] = useState<null | User>(null);
 
   const authContext = useAuthContext();
   const dispatch = useAppDispatch();

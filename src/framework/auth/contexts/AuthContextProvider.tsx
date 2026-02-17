@@ -6,13 +6,13 @@ import axios, { AxiosError } from 'axios';
 
 import { envConfig } from '../../config/envConfig';
 import { useLoginService } from '../../app/hooks/useLoginService';
-import { IUser, DoAuthLoginPayload } from '../models';
+import { User, DoAuthLoginPayload } from '../models';
 import { AuthContext } from './AuthContext';
 
 const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const loginService = useLoginService();
-  const [user, setUser] = useState<IUser | undefined>(() => {
+  const [user, setUser] = useState<User | undefined>(() => {
     // // if (sessionStorage.getItem('tokens')) {
     // //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
     // //   return jwt_decode(tokens.access_token);
@@ -101,7 +101,7 @@ const AuthContextProvider = (props: { children: React.ReactNode }) => {
     navigate('/');
   };
 
-  const postLogin = (user?: IUser): void => {
+  const postLogin = (user?: User): void => {
     setUser(user);
     navigate('/');
   };

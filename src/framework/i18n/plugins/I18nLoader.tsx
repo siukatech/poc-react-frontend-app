@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { STORAGE_KEY_TOKENS } from '../../auth';
 // import { useLoginService } from '../../auth';
 import { getI18nResources } from '../services/I18nService';
-import { II18nResource } from '../models';
+import { I18nResource } from '../models';
 import i18n, { BackendModule, InitOptions, Module, Services } from 'i18next';
 
 import '../hacks/StorageEventProxy';
@@ -112,7 +112,7 @@ const I18nLoader: BackendModule = {
 const loadResources = (
   lng: string,
   token: string | null,
-  i18nResources: II18nResource[] | null,
+  i18nResources: I18nResource[] | null,
   // i18nResources: any | null,
   callee: string
 ) => {

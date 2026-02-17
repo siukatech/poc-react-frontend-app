@@ -1,5 +1,5 @@
 import axiosService from '../../axios/services/axiosService';
-import { II18nResource } from '../models';
+import { I18nResource } from '../models';
 import { envConfig } from '../../config/envConfig';
 
 // for typescript, "import './i18n';" will be ok.
@@ -13,18 +13,18 @@ import { envConfig } from '../../config/envConfig';
 ;
 
 
-const getI18nResources = async (lng: string): Promise<II18nResource[]> => {
+const getI18nResources = async (lng: string): Promise<I18nResource[]> => {
 // const getI18nResources = async (lng: string): Promise<any> => {
     // {{lng}}
   // console.debug(`getI18nResources - i18nUrl: [${i18nUrl}]`)
   const { data } = await axiosService.get(`${i18nUrl}`);
-  const i18nResources: II18nResource[] = [];
+  const i18nResources: I18nResource[] = [];
   for (const lng in data) {
     const resource = data[lng];
     i18nResources.push({
       lng,
       resource,
-    } as II18nResource);
+    } as I18nResource);
   }
   return i18nResources;
   // let i18nResources: any = {};

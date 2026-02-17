@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { AxiosError } from 'axios';
 import store, { RootState } from '../../layout/stores/store';
 // import { rootSliceReducer } from '../../app/stores/slices';
-import { IUser, DoAuthLoginPayload } from '../models';
+import { User, DoAuthLoginPayload } from '../models';
 // import {
 //   DoAuthLoginPayload,
 //   doAuthLogin,
@@ -12,7 +12,7 @@ import { IUser, DoAuthLoginPayload } from '../models';
 // import { useLoginService } from '../hooks/useLoginService';
 
 interface AuthState {
-  user?: IUser;
+  user?: User;
   // timeoutErr?: AxiosError;
 }
 
@@ -87,7 +87,7 @@ const useAuthSelector: TypedUseSelectorHook<AuthState> = useSelector;
 //store.replaceReducer()
 // const doLogin = async (payload: DoAuthLoginPayload) => {
 //   const user = await doAuthLogin(payload);
-//   return (dispatch: (arg0: { user: IUser; }) => void) => {
+//   return (dispatch: (arg0: { user: User; }) => void) => {
 //     dispatch({ user: user });
 //   };
 // };

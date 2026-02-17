@@ -9,8 +9,8 @@ import { AuthContextProvider } from './contexts/AuthContextProvider';
 import { useAuthContext } from './hooks/useAuthContext';
 
 import { 
-  IUser, 
-  IUserPermission, 
+  User, 
+  UserPermission, 
   DoAuthLoginPayload,
   STORAGE_KEYS, 
   STORAGE_KEY_TOKENS, 
@@ -28,8 +28,8 @@ import authSliceReducer, {
 } from './stores/authSlice';
 
 export type {
-  IUser, 
-  IUserPermission, 
+  User, 
+  UserPermission, 
   DoAuthLoginPayload, 
   AuthContextObj, 
   LoginService,
