@@ -57,7 +57,7 @@ import {
 
 import NavLang from './NavLang';
 import NavNoti, { NavNotiDisplayType } from './NavNoti';
-import NavUser from './NavUser';
+import NavSetting from './NavSetting';
 import ScrollTop from './ScrollTop';
 
 import logo192 from '../../../assets/logo192.png';
@@ -315,7 +315,7 @@ const LayoutLeft: React.FC<LayoutLeftProps> = (props) => {
             <NavLang />
             <NavNoti displayType={NavNotiDisplayType.MENU} />
             <NavNoti displayType={NavNotiDisplayType.POPPER} />
-            <NavUser />
+            <NavSetting />
           </Toolbar>
           {/* </Container> */}
         </AppBarMd>

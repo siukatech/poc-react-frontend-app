@@ -7,7 +7,7 @@ import { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
 import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
-import { useLoginService } from '../../auth';
+import { useLoginService } from '../../app';
 import { envConfig } from '../../config/envConfig';
 
 

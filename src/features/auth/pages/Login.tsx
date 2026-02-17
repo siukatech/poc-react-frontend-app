@@ -31,9 +31,9 @@ import { useAppDispatch } from '../../../framework/layout/stores/hooks';
 import { 
   DoAuthLoginPayload
   , useAuthContext
-  , useLoginService
   , bindAuth
 } from '../../../framework/auth/';
+import { useLoginService } from '../../../framework/app';
 // import { testApp } from '../../../framework/app/stores/slices';
 
 const formFieldSxDefault = { m: 1, width: '80%' };

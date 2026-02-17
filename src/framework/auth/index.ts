@@ -7,7 +7,6 @@ import { AuthContext, AuthContextObj } from './contexts/AuthContext';
 import { AuthContextProvider } from './contexts/AuthContextProvider';
 
 import { useAuthContext } from './hooks/useAuthContext';
-import { useLoginService } from './hooks/useLoginService';
 
 import { 
   IUser, 
@@ -43,7 +42,6 @@ export {
   AuthContext,
   AuthContextProvider,
   useAuthContext,
-  useLoginService,
   authSliceReducer,
   authSlice,
   bindAuth,

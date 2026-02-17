@@ -4,7 +4,7 @@ import LayoutMini from './components/LayoutMini';
 import MiniVariantDrawerLeft from './components/MiniVariantDrawerLeft';
 import NavLang from './components/NavLang';
 import NavNoti from './components/NavNoti';
-import NavUser from './components/NavUser';
+import NavSetting from './components/NavSetting';
 import PersistentDrawerLeft from './components/PersistentDrawerLeft';
 import ScrollTop from './components/ScrollTop';
 
@@ -37,7 +37,7 @@ export {
   MiniVariantDrawerLeft,
   NavLang,
   NavNoti,
-  NavUser,
+  NavSetting,
   PersistentDrawerLeft,
   ScrollTop,
   ErrorPage,

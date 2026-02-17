@@ -34,15 +34,9 @@ import {
   IconComponent,
   IconNames,
 } from '../../ui';
+import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
+import { MenuItem } from '../models';
 
-
-const pages = [
-  { i18n: 'menu.home', link: '/', icon: 'HomeOutlined' },
-  { i18n: 'menu.items', link: '/items', icon: 'Event' },
-  { i18n: 'menu.shops', link: '/shops', icon: 'ShopOutlined' },
-  { i18n: 'menu.merchants', link: '/merchants', icon: 'Storefront' },
-  { i18n: 'menu.i18n', link: '/i18ns', icon: 'Language' },
-];
 
 type DrawerMenuProps = {
   theme: Theme;
@@ -57,6 +51,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const { menuItems } = useLayoutConfig();
 
   return (
     <>
@@ -79,20 +74,20 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
           ml: 0.8,
         }}
       >
-        {pages.map((page) => (
+        {menuItems.map((menuItem: MenuItem) => (
           <ProtectedResource
-            key={page.i18n}
+            key={menuItem.i18n}
             accessBy={ProtectedResourceAccessBy.PROTECTED}
             displayType={ProtectedResourceDisplayType.DISABLED}
-            resourceName={`${page.i18n}`}
+            resourceName={`${menuItem.i18n}`}
             accessRights={`view`}
           >
-            <ListItem key={page.i18n} disablePadding>
-              <ListItemButton title={t(`${page.i18n}`)} onClick={() => navigate(page.link)}>
+            <ListItem key={menuItem.i18n} disablePadding>
+              <ListItemButton title={t(`${menuItem.i18n}`)} onClick={() => navigate(menuItem.link)}>
                 <ListItemIcon >
-                  <IconComponent name={page.icon as IconNames} />
+                  <IconComponent name={menuItem.icon as IconNames} />
                 </ListItemIcon>
-                <ListItemText primary={t(`${page.i18n}`)} />
+                <ListItemText primary={t(`${menuItem.i18n}`)} />
               </ListItemButton>
             </ListItem>
           </ProtectedResource>

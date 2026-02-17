@@ -17,21 +17,24 @@ import { Language as LanguageIcon } from '@mui/icons-material';
 import { useAuthContext } from '../../auth';
 
 import { STORAGE_KEY_I18N } from '../../../i18n';
+import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
+import { LangItem } from '../models';
 
-const langs = [
-  { lang: 'en', i18n: 'menu.lang.en' },
-  { lang: 'zh-TW', i18n: 'menu.lang.zh' },
-  { lang: 'zh-CN', i18n: 'menu.lang.cn' },
-];
-const langMap: any = langs.reduce(
-  (accumulator, lang) => ({ ...accumulator, [lang.lang]: lang }),
-  {}
-);
+
+const convertToLangMap = (langItems: LangItem[]) => {
+  const langItemMap: any = langItems.reduce(
+    (accumulator, langItem) => ({ ...accumulator, [langItem.lang]: langItem }),
+    {}
+  );
+  return langItemMap;
+}
 
 const NavLang = () => {
   const { t, i18n, ready } = useTranslation();
+  const { langItems } = useLayoutConfig();
+  const langItemMap = convertToLangMap(langItems);
 
-  const langSelected = langMap[i18n.language];
+  const langSelected = langItemMap[i18n.language];
 
   const handleLanguageChange = (lng: string) => {
     // console.debug('handleLanguageChange - ready: ', ready);
@@ -85,21 +88,21 @@ const NavLang = () => {
           open={Boolean(anchorElLang)}
           onClose={handleLangMenuClose}
         >
-          {langs.map((lang, idx) => (
+          {langItems.map((langItem: LangItem, idx) => (
             <MenuItem
               key={idx}
               onClick={() => {
                 handleLangMenuClose();
-                handleLanguageChange(lang.lang);
+                handleLanguageChange(langItem.lang);
               }}
               sx={{
                 backgroundColor:
-                  lang.lang === i18n.language
+                  langItem.lang === i18n.language
                     ? 'rgba(0,0,0,0.04)'
                     : 'transparent',
               }}
             >
-              <Typography textAlign="center">{t(`${lang.i18n}`)}</Typography>
+              <Typography textAlign="center">{t(`${langItem.i18n}`)}</Typography>
             </MenuItem>
           ))}
         </Menu>

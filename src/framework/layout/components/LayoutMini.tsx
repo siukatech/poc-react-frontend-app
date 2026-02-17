@@ -61,7 +61,7 @@ import {
 
 import NavLang from './NavLang';
 import NavNoti, { NavNotiDisplayType } from './NavNoti';
-import NavUser from './NavUser';
+import NavSetting from './NavSetting';
 import ScrollTop from './ScrollTop';
 import DrawerMenu from './DrawerMenu';
 
@@ -214,7 +214,7 @@ const LayoutMini = () => {
           <NavLang />
           <NavNoti displayType={NavNotiDisplayType.MENU} />
           <NavNoti displayType={NavNotiDisplayType.POPPER} />
-          <NavUser />
+          <NavSetting />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={drawerToggle}>

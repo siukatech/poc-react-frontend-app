@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import axios, { AxiosError } from 'axios';
 
 import { envConfig } from '../../config/envConfig';
-import { useLoginService } from '../hooks/useLoginService';
+import { useLoginService } from '../../app/hooks/useLoginService';
 import { IUser, DoAuthLoginPayload } from '../models';
 import { AuthContext } from './AuthContext';
 

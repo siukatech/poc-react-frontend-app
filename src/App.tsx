@@ -1,19 +1,12 @@
 import * as logo from './logo.svg';
 import './App.css';
-
-import {
-  createBrowserRouter,
-  BrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-
-// import router from './framework/app/routes/router';
-import router from './features/routes/router';
+import AppRouter from './framework/app/components/AppRouter';
 
 function App() {
+
   return (
     <>
-      <RouterProvider router={router} />
+      <AppRouter />
     </>
   );
 }

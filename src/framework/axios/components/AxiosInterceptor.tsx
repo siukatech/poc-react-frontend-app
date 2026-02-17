@@ -16,7 +16,9 @@ import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
 
-import { useAuthContext, useLoginService, clearAuth } from '../../auth';
+import { useLoginService } from '../../app/hooks/useLoginService';
+import { useAuthContext } from '../../auth/hooks/useAuthContext';
+import { clearAuth } from '../../auth/stores/authSlice';
 import { DialogPrompt } from '../../ui';
 import { useAppDispatch } from '../../layout/stores/hooks';
 

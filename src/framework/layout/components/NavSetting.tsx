@@ -29,52 +29,14 @@ import {
 
 import { useAuthContext, useAuthSelector } from '../../auth';
 import { useAppSelector } from '../stores/hooks';
+import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
+import { SettingItem } from '../models';
 
-// type SettingType = {
-//   i18n?: string;
-//   link?: string;
-//   icon: React.ReactNode;
-//   divider: boolean;
-// }
-const settings =
-  // : SettingType[]
-  [
-    {
-      i18n: 'menu.user.profile',
-      link: '/user/profile',
-      icon: <AssignmentIndIcon />,
-      divider: false,
-    },
-    {
-      i18n: 'menu.user.account',
-      link: '/user/account',
-      icon: <PersonIcon />,
-      divider: false,
-    },
-    {
-      i18n: 'menu.user.dashboard',
-      link: '/user/dashboard',
-      icon: <DashboardIcon />,
-      divider: false,
-    },
-    {
-      i18n: 'menu.user.settings',
-      link: '/user/settings',
-      icon: <SettingsIcon />,
-      divider: false,
-    },
-    { icon: <Divider />, divider: true },
-    {
-      i18n: 'menu.user.logout',
-      link: '/logout',
-      icon: <LogoutIcon />,
-      divider: false,
-    },
-  ];
 
-const NavUser = () => {
+const NavSetting = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const { settingItems } = useLayoutConfig();
   const { user: userCtx } = useAuthContext();
   // const userRedux = useAuthSelector((state) => state.user);
   const userRedux = useAppSelector((state) => state.auth?.user);
@@ -92,8 +54,8 @@ const NavUser = () => {
   // user = userCtx;
   user = userRedux;
 
-  console.debug(`NavUser - userCtx: `, userCtx);
-  console.debug(`NavUser - userRedux: `, userRedux);
+  console.debug(`NavSetting - userCtx: `, userCtx);
+  console.debug(`NavSetting - userRedux: `, userRedux);
 
   return (
     <>
@@ -149,20 +111,20 @@ const NavUser = () => {
             open={Boolean(anchorElUser)}
             onClose={handleUserMenuClose}
           >
-            {settings.map((setting, idx) => (
+            {settingItems.map((settingItem: SettingItem, idx) => (
               <div key={idx}>
-                {!setting.divider && (
+                {!settingItem.divider && (
                   <MenuItem
                     onClick={() => {
                       handleUserMenuClose();
-                      navigate(`${setting.link}`);
+                      navigate(`${settingItem.link}`);
                     }}
                   >
-                    <ListItemIcon>{setting.icon}</ListItemIcon>
-                    <ListItemText>{t(`${setting.i18n}`)}</ListItemText>
+                    <ListItemIcon>{settingItem.icon}</ListItemIcon>
+                    <ListItemText>{t(`${settingItem.i18n}`)}</ListItemText>
                   </MenuItem>
                 )}
-                {setting.divider && <Divider key={idx} />}
+                {settingItem.divider && <Divider key={idx} />}
               </div>
             ))}
           </Menu>
@@ -172,4 +134,4 @@ const NavUser = () => {
   );
 };
 
-export default NavUser;
+export default NavSetting;
