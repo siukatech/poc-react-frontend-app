@@ -1,34 +1,10 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, 
+  // AxiosResponse 
+} from 'axios';
+import type { AxiosResponse } from 'axios';
 import { useState } from 'react';
+import type { AxiosErrDetail, ResponseErr, ServerErr, ServerErrHandler } from '../models';
 
-type TAxiosErrDetail = {
-  errCode?: string;
-  errRes?: AxiosResponse<unknown, any>;
-  resStatus?: number;
-  resReqRes?: any;
-  resData?: any;
-};
-
-type TResponseErr = {
-  status?: number;
-  timestamp?: string;
-  path?: string;
-  errCode?: string;
-  message?: string;
-  resData?: any;
-  handler: TServerErrHandler;
-};
-
-type TServerErr = {
-  axiosErr: AxiosError;
-  responseErr: TResponseErr;
-};
-
-type TServerErrHandler = {
-  title: string;
-  path?: string;
-  canLogout: boolean;
-};
 
 const SERVER_ERR_HANDLER_STATUS_DEFAULT = 999;
 
@@ -37,17 +13,17 @@ const SERVER_ERR_HANDLER_MAP: any = {
     title: 'error.login.expired',
     path: '/login',
     canLogout: true,
-  } as TServerErrHandler,
+  } as ServerErrHandler,
   undefined_ERR_NETWORK: {
     title: 'error.login.expired',
     path: '/login',
     canLogout: true,
-  } as TServerErrHandler,
+  } as ServerErrHandler,
   [SERVER_ERR_HANDLER_STATUS_DEFAULT]: {
     title: 'error.dialog.title',
     path: undefined,
     canLogout: false,
-  } as TServerErrHandler,
+  } as ServerErrHandler,
 };
 
 const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
@@ -74,15 +50,15 @@ const resolveAxiosErrDetails = (axiosErr: AxiosError): any => {
     resStatus,
     resReqRes,
     resData,
-  } as TAxiosErrDetail;
+  } as AxiosErrDetail;
 };
 
 const resolveServerErrHandler = (
   resStatus: undefined | number,
   errCode: undefined | string
-): TServerErrHandler => {
+): ServerErrHandler => {
   let serverErrHandler;
-  // console.debug(`resolveServerErrHandler - resStatus: [${resStatus}], resStatus_errCode: [${resStatus}_${errCode}]`);
+  console.debug(`resolveServerErrHandler - resStatus: [${resStatus}], resStatus_errCode: [${resStatus}_${errCode}]`);
   if (serverErrHandler == null) {
     serverErrHandler = SERVER_ERR_HANDLER_MAP[`${resStatus}`];
   }
@@ -96,7 +72,7 @@ const resolveServerErrHandler = (
   return serverErrHandler;
 };
 
-const constructServerErr401 = (axiosErr: AxiosError): TServerErr => {
+const constructServerErr401 = (axiosErr: AxiosError): ServerErr => {
   const { errRes, resData } = resolveAxiosErrDetails(axiosErr);
   let message = resData?.message || errRes?.statusText || axiosErr.message;
   return {
@@ -105,8 +81,8 @@ const constructServerErr401 = (axiosErr: AxiosError): TServerErr => {
       status: 401,
       message: message,
       resData,
-    } as TResponseErr,
-  } as TServerErr;
+    } as ResponseErr,
+  } as ServerErr;
 };
 
 const resolveServerErr = (axiosErr: AxiosError) => {
@@ -138,7 +114,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       message: resData.error,
       resData,
       handler: serverErrHandler,
-    } as TResponseErr;
+    } as ResponseErr;
     // console.debug(
     //   `AxiosErrorHandler - resolveServerErr - resData - responseErr: `,
     //   responseErr
@@ -155,7 +131,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       message: data.error,
       resData,
       handler: serverErrHandler,
-    } as TResponseErr;
+    } as ResponseErr;
     // console.debug(
     //   `AxiosErrorHandler - resolveServerErr - resReqRes - responseErr: `,
     //   responseErr
@@ -168,7 +144,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       message: errRes.statusText,
       resData,
       handler: serverErrHandler,
-    } as TResponseErr;
+    } as ResponseErr;
     // console.debug(
     //   `AxiosErrorHandler - resolveServerErr - (responseErr == null && errRes != null)`
     // );
@@ -184,7 +160,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
       message: axiosErr.message,
       resData,
       handler: serverErrHandler,
-    } as TResponseErr;
+    } as ResponseErr;
     // console.debug(
     //   `AxiosErrorHandler - resolveServerErr - (responseErr == null && axiosErr != null)`
     // );
@@ -196,7 +172,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
   let serverErr = {
     axiosErr,
     responseErr,
-  } as TServerErr;
+  } as ServerErr;
   if (isErrAuth401(serverErr)) {
     serverErr.responseErr.status = 401;
     serverErr.responseErr.handler = resolveServerErrHandler(
@@ -213,7 +189,7 @@ const resolveServerErr = (axiosErr: AxiosError) => {
  * @param serverErr 
  * @returns 
  */
-const isErrAuth401 = (serverErr: TServerErr) => {
+const isErrAuth401 = (serverErr: ServerErr) => {
   let is401 = false;
   const { responseErr } = serverErr;
   let retStatus = responseErr?.status;
@@ -229,10 +205,11 @@ const isErrAuth401 = (serverErr: TServerErr) => {
   ) {
     is401 = true;
   }
+  console.log(`AxiosErrorHandler - isErrAuth401 - is401: [${is401}]`);
   return is401;
 };
 
-const isErrNetwork = (serverErr: TServerErr) => {
+const isErrNetwork = (serverErr: ServerErr) => {
   let result = false;
   const { responseErr } = serverErr;
   let retStatus = responseErr?.status;
@@ -247,5 +224,5 @@ const isErrNetwork = (serverErr: TServerErr) => {
   return result;
 };
 
-export type { TResponseErr, TServerErr };
+export type { ResponseErr, ServerErr };
 export { resolveServerErr, isErrAuth401, isErrNetwork };

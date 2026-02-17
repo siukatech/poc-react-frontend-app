@@ -27,13 +27,13 @@ import {
 import axiosService from './services/axiosService';
 
 import {
-  // TResponseErr,
-  // TServerErr,
+  // ResponseErr,
+  // ServerErr,
   resolveServerErr,
 } from './services/AxiosErrorHandler';
 import type {
-  TResponseErr,
-  TServerErr,
+  ResponseErr,
+  ServerErr,
 } from './services/AxiosErrorHandler';
 
 export {
@@ -50,4 +50,4 @@ export {
   axiosService,
   resolveServerErr,
 };
-export type { ProcessorAxiosRequestConfig, TResponseErr, TServerErr };
+export type { ProcessorAxiosRequestConfig, ResponseErr, ServerErr };

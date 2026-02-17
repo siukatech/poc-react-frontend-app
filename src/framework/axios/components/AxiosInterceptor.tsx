@@ -9,13 +9,13 @@ import type { InternalAxiosRequestConfig } from 'axios';
 
 import axiosService from '../services/axiosService';
 import {
-  // TServerErr,
+  // ServerErr,
   isErrAuth401,
   isErrNetwork,
   resolveServerErr,
 } from '../services/AxiosErrorHandler';
 import type {
-  TServerErr,
+  ServerErr,
 } from '../services/AxiosErrorHandler';
 
 import type { ProcessorAxiosRequestConfig } from '../processors/ProcessorGeneral';
@@ -49,7 +49,7 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [loginErr, setLoginErr] = useState();
-  const [serverErr, setServerErr] = useState<TServerErr>();
+  const [serverErr, setServerErr] = useState<ServerErr>();
   const { user, doLogout } = useAuthContext();
   const dispatch = useAppDispatch();
   const { loginService } = useServiceConfig();
@@ -262,12 +262,12 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
             let errorCode = responseErr?.errCode;
             const errAuth401 = isErrAuth401(serverErr);
             const errNetwork = isErrNetwork(serverErr);
-            // console.debug(
-            //   `AxiosInterceptor - useEffect - interceptor.response.err - 1 - retStatus: [${retStatus}]` +
-            //     `, errorCode: [${errorCode}], errAuth401: [${errAuth401}], errNetwork: [${errNetwork}]` +
-            //     `, err: `,
-            //   err
-            // );
+            console.debug(
+              `AxiosInterceptor - useEffect - interceptor.response.err - 1 - retStatus: [${retStatus}]` +
+                `, errorCode: [${errorCode}], errAuth401: [${errAuth401}], errNetwork: [${errNetwork}]` +
+                `, err: `,
+              err
+            );
             if (errAuth401) {
               try {
                 // const tokensRefreshed = await loginService.doRefreshToken();
@@ -401,7 +401,8 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
 
   const showDialog = serverErr != null;
   const dialogTitleKey = serverErr ? serverErr.responseErr.handler.title : '';
-  // console.debug(`AxiosInterceptor - dialogTitle: ${dialogTitle}`);
+  const canLogout = serverErr?.responseErr?.handler?.canLogout;
+  console.debug(`AxiosInterceptor - showDialog: [${showDialog}], canLogout: [${canLogout}], dialogTitleKey: ${dialogTitleKey}`);
 
   // console.debug(
   //   `AxiosInterceptor - axiosService.interceptors: `,
@@ -419,7 +420,8 @@ const AxiosInterceptor: React.FC<AxiosInterceptorProps> = ({ children }) => {
           })`}
           message={JSON.stringify(serverErr)}
           onOk={() => {
-            if (serverErr.responseErr.handler.canLogout) {
+            console.debug(`AxiosInterceptor - DialogPrompt - canLogout: [${canLogout}]`);
+            if (canLogout) {
               doLogout();
               dispatch(clearAuth({}));
             }
