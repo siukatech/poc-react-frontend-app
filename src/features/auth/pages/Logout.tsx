@@ -1,4 +1,4 @@
-import { useRef, useContext, useState } from 'react';
+import { useRef, useContext, useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Box, Button } from '@mui/material';
@@ -17,7 +17,10 @@ const Logout = () => {
     doLogout();
     dispatch(clearAuth({}));
   };
-  logout();
+
+  useEffect(() => {
+    logout();
+  }, []);
 
   return (
     <>
