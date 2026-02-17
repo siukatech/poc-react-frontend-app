@@ -11,7 +11,7 @@ import {
 
 // import { useLoginService } from '../../auth';
 
-import { appConfig } from '../../config/appConfig';
+import { envConfig } from '../../config/envConfig';
 
 
 const preProtectedDataObjProcessor = (
@@ -23,7 +23,7 @@ const preProtectedDataObjProcessor = (
   //
   // const loginService = useLoginService();
   const loginService = reqConfig.loginService;
-  // if (reqConfig.url.indexOf(appConfig.API_PATH_V1_PROTECTED) >= 0) {
+  // if (reqConfig.url.indexOf(envConfig.API_PATH_V1_PROTECTED) >= 0) {
   const tokens = loginService?.restoreTokens();
   if (tokens != null) {
     // reqConfig.headers.common = reqConfig.headers.common ?? {};

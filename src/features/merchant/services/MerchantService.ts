@@ -1,16 +1,16 @@
 import axiosService from '../../../framework/axios/services/axiosService';
-import { appConfig } from '../../../framework/config/appConfig';
+import { envConfig } from '../../../framework/config/envConfig';
 
-const API_DOMAIN: string = appConfig.API_PATH_WEB_PREFIX as string;
+const API_DOMAIN: string = envConfig.API_PATH_WEB_PREFIX as string;
 const API: string =
   (API_DOMAIN as string) +
-  (appConfig.API_PATH_V1_PROTECTED as string) +
-  (appConfig.API_PATH_MERCHANT as string) +
+  (envConfig.API_PATH_V1_PROTECTED as string) +
+  (envConfig.API_PATH_MERCHANT as string) +
   '';
 const API_ENCRYPTED: string =
   (API_DOMAIN as string) +
-  (appConfig.API_PATH_V1_ENCRYPTED as string) +
-  (appConfig.API_PATH_MERCHANT as string) +
+  (envConfig.API_PATH_V1_ENCRYPTED as string) +
+  (envConfig.API_PATH_MERCHANT as string) +
   '';
 async function getAllMerchants(): Promise<any> {
   const response = await axiosService.get(`${API}`);

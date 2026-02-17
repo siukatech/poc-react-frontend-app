@@ -6,14 +6,14 @@ import {
   formatInTimeZone,
 } from 'date-fns-tz';
 
-import { appConfig } from '../config/appConfig';
+import { envConfig } from '../config/envConfig';
 
 
 const DATE_FORMAT_DEFAULT = 'yyyy-MM-dd';
 const DATE_TIME_FORMAT_DEFAULT = 'yyyy-MM-dd HH:mm:ss';
-// export const TIMEZONE_BACKEND: string = appConfig.TIMEZONE_BACKEND as string;
-// export const TIMEZONE_FRONTEND: string = appConfig.TIMEZONE_FRONTEND as string;
-const TIMEZONE_DEFAULT: string = appConfig.TIMEZONE as string;
+// export const TIMEZONE_BACKEND: string = envConfig.TIMEZONE_BACKEND as string;
+// export const TIMEZONE_FRONTEND: string = envConfig.TIMEZONE_FRONTEND as string;
+const TIMEZONE_DEFAULT: string = envConfig.TIMEZONE as string;
 
 /**
  * The date-fns `formatInTimeZone` formats the UTC date to UTC date+TimeZone-offset (e.g. UTC+08:00 or UTC GMT+8).

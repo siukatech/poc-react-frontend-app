@@ -38,7 +38,7 @@ export interface RuntimeConfig {
 
 const runtimeConfig = window.__RUNTIME_CONFIG__ ?? {};
 
-export const appConfig: RuntimeConfig = {
+export const envConfig: RuntimeConfig = {
   // API_BASE_URL:
   //   runtimeConfig.API_BASE_URL ??
   //   import.meta?.env?.VITE_API_BASE_URL ??  // Vite

@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import { enUS, zhCN, zhTW } from '@mui/material/locale';
 import I18nLoader from '../src/framework/i18n/plugins/I18nLoader';
-import { appConfig } from '../src/framework/config/appConfig';
+import { envConfig } from './framework/config/envConfig';
 
 const STORAGE_KEY_I18N = 'i18nlng';
 const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
@@ -17,9 +17,9 @@ const LNG_MUI_LOCALE_MAP = {
 // xxxxx - typescript is required to wrap a function to call in index.tsx
 // const initI18n = () => {
 const i18nLangUrl: string =
-  (appConfig.API_PATH_WEB_PREFIX as string) +
-  (appConfig.API_PATH_V1_PUBLIC as string) +
-  (appConfig.API_PATH_I18N_LANG as string);
+  (envConfig.API_PATH_WEB_PREFIX as string) +
+  (envConfig.API_PATH_V1_PUBLIC as string) +
+  (envConfig.API_PATH_I18N_LANG as string);
 // console.debug(`i18nLangUrl: [${i18nLangUrl}]`);
 
 i18n

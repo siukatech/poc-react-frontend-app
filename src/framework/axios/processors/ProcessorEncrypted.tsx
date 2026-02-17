@@ -15,7 +15,7 @@ import {
   postProtectedDataRetProcessor,
 } from './ProcessorProtected';
 
-import { appConfig } from '../../config/appConfig';
+import { envConfig } from '../../config/envConfig';
 
 const HEADER_X_DATA_ENC_INFO = "X-Data-Enc-Info";
 

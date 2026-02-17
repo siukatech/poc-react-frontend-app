@@ -1,17 +1,17 @@
 import axiosService from '../../../framework/axios/services/axiosService';
-import { appConfig } from '../../../framework/config/appConfig';
+import { envConfig } from '../../../framework/config/envConfig';
 
-const API_DOMAIN: string = appConfig.API_PATH_WEB_PREFIX as string;
-// const API = API_DOMAIN + appConfig.API_PATH_V1_PROTECTED + '/items';
+const API_DOMAIN: string = envConfig.API_PATH_WEB_PREFIX as string;
+// const API = API_DOMAIN + envConfig.API_PATH_V1_PROTECTED + '/items';
 const API: string =
   (API_DOMAIN as string) +
-  (appConfig.API_PATH_V1_ENCRYPTED as string) +
-  (appConfig.API_PATH_ITEM as string) +
+  (envConfig.API_PATH_V1_ENCRYPTED as string) +
+  (envConfig.API_PATH_ITEM as string) +
   '';
 const API_ENCRYPTED: string =
   (API_DOMAIN as string) +
-  (appConfig.API_PATH_V1_ENCRYPTED as string) +
-  (appConfig.API_PATH_ITEM as string) +
+  (envConfig.API_PATH_V1_ENCRYPTED as string) +
+  (envConfig.API_PATH_ITEM as string) +
   '';
 // export async function getAllItems(): Promise<any> {
 async function getAllItems(): Promise<any> {

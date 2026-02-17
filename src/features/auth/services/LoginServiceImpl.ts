@@ -22,40 +22,40 @@ import {
   saveRawStr,
 } from '../../../framework/utils/storage';
 import { base64URLEncode } from '../../../framework/utils/urlEncoder';
-import { appConfig } from '../../../framework/config/appConfig';
+import { envConfig } from '../../../framework/config/envConfig';
 
 
-const APP_NAME = appConfig.APP_NAME as string;
+const APP_NAME = envConfig.APP_NAME as string;
 
 const API_MY_USER_INFO: string =
-  (appConfig.API_PATH_MY_PREFIX as string) +
-  (appConfig.API_PATH_V1_PROTECTED as string) +
-  (appConfig.API_PATH_MY_USER_INFO as string);
+  (envConfig.API_PATH_MY_PREFIX as string) +
+  (envConfig.API_PATH_V1_PROTECTED as string) +
+  (envConfig.API_PATH_MY_USER_INFO as string);
 
 const API_MY_PERMISSION_INFO: string =
-  (appConfig.API_PATH_MY_PREFIX as string) +
-  (appConfig.API_PATH_V1_PROTECTED as string) +
-  (appConfig.API_PATH_MY_PERMISSION_INFO as string);
+  (envConfig.API_PATH_MY_PREFIX as string) +
+  (envConfig.API_PATH_V1_PROTECTED as string) +
+  (envConfig.API_PATH_MY_PERMISSION_INFO as string);
 
 const API_OAUTH_AUTHORIZE: string =
-  (appConfig.API_PATH_MY_PREFIX as string) +
-  (appConfig.API_PATH_V1_PUBLIC as string) +
-  (appConfig.API_OAUTH_AUTHORIZE as string);
+  (envConfig.API_PATH_MY_PREFIX as string) +
+  (envConfig.API_PATH_V1_PUBLIC as string) +
+  (envConfig.API_OAUTH_AUTHORIZE as string);
 
 const API_OAUTH_REFRESH_TOKEN: string =
-  (appConfig.API_PATH_MY_PREFIX as string) +
-  (appConfig.API_PATH_V1_PUBLIC as string) +
-  (appConfig.API_OAUTH_REFRESH_TOKEN as string);
+  (envConfig.API_PATH_MY_PREFIX as string) +
+  (envConfig.API_PATH_V1_PUBLIC as string) +
+  (envConfig.API_OAUTH_REFRESH_TOKEN as string);
 
 const API_OAUTH_LOGOUT: string =
-  (appConfig.API_PATH_MY_PREFIX as string) +
-  (appConfig.API_PATH_V1_PUBLIC as string) +
-  (appConfig.API_OAUTH_LOGOUT as string);
+  (envConfig.API_PATH_MY_PREFIX as string) +
+  (envConfig.API_PATH_V1_PUBLIC as string) +
+  (envConfig.API_OAUTH_LOGOUT as string);
 
 const API_OAUTH_TOKEN: string =
-  (appConfig.API_PATH_MY_PREFIX as string) +
-  (appConfig.API_PATH_V1_PUBLIC as string) +
-  (appConfig.API_OAUTH_TOKEN as string);
+  (envConfig.API_PATH_MY_PREFIX as string) +
+  (envConfig.API_PATH_V1_PUBLIC as string) +
+  (envConfig.API_OAUTH_TOKEN as string);
 
 
 class LoginServiceImpl implements LoginService {
@@ -125,7 +125,7 @@ class LoginServiceImpl implements LoginService {
         let myPermissionInfoApi = API_MY_PERMISSION_INFO;
         myPermissionInfoApi = myPermissionInfoApi.replace(
           '{0}',
-          appConfig.APP_NAME as string
+          envConfig.APP_NAME as string
         );
         const { data: myPermissionInfo } = await axiosService.get(
           myPermissionInfoApi
@@ -175,7 +175,7 @@ class LoginServiceImpl implements LoginService {
     // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
     oauthAuthorizeApi = oauthAuthorizeApi.replace(
       '{0}',
-      appConfig.API_OAUTH_CLIENT_NAME as string
+      envConfig.API_OAUTH_CLIENT_NAME as string
     );
     // console.debug(
     //   'LoginService - doAuthLoginToStorage - oauthAuthorizeApi: [' +
@@ -202,7 +202,7 @@ class LoginServiceImpl implements LoginService {
     let oauthRefreshTokenApi = API_OAUTH_REFRESH_TOKEN;
     oauthRefreshTokenApi = oauthRefreshTokenApi.replace(
       '{0}',
-      appConfig.API_OAUTH_CLIENT_NAME as string
+      envConfig.API_OAUTH_CLIENT_NAME as string
     );
     // console.debug(
     //   'LoginService - doRefreshToken - oauthRefreshTokenApi: [' +
@@ -259,7 +259,7 @@ class LoginServiceImpl implements LoginService {
     let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
     oauthAuthorizeApi = oauthAuthorizeApi.replace(
       '{0}',
-      appConfig.API_OAUTH_CLIENT_NAME as string
+      envConfig.API_OAUTH_CLIENT_NAME as string
     );
     //
     //
@@ -289,7 +289,7 @@ class LoginServiceImpl implements LoginService {
 
     // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
     oauthTokenApi = oauthTokenApi
-      .replace('{0}', appConfig.API_OAUTH_CLIENT_NAME as string)
+      .replace('{0}', envConfig.API_OAUTH_CLIENT_NAME as string)
       .replace('{1}', code);
     const codeVerifier = restoreRawStr('CODE_VERIFIER');
     const codeChallenge = restoreRawStr('CODE_CHALLENGE');

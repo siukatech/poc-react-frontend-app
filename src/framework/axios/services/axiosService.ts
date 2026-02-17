@@ -8,7 +8,7 @@ import { prePublicDataObjProcessor } from '../processors/ProcessorPublic';
 import { preProtectedDataObjProcessor } from '../processors/ProcessorProtected';
 import { preEncryptedDataObjProcessor } from '../processors/ProcessorEncrypted';
 import { useLoginService } from '../../auth';
-import { appConfig } from '../../config/appConfig';
+import { envConfig } from '../../config/envConfig';
 
 
 const axiosService = axios.create({
@@ -38,7 +38,7 @@ const axiosService = axios.create({
 //     // // config.headers.common['Authorization'] = `bearer ${tokens.access_token}`;
 //     // config.headers['Authorization'] = `Bearer ${tokens.access_token}`;
 //     // // config.processors = config.processors ?? {};
-//     // if (config.url.indexOf(appConfig.API_PATH_V1_PUBLIC) >= 0) {
+//     // if (config.url.indexOf(envConfig.API_PATH_V1_PUBLIC) >= 0) {
 //     //   config.processors = deepMergeObject(
 //     //     {
 //     //       postDataRetProcessor: postPublicDataRetProcessor,
@@ -64,7 +64,7 @@ const axiosService = axios.create({
 //     //   'interceptor.request - 2 - config.interceptors: ',
 //     //   config.interceptors
 //     // );
-//     // if (config.url.indexOf(appConfig.API_PATH_V1_PROTECTED) >= 0) {
+//     // if (config.url.indexOf(envConfig.API_PATH_V1_PROTECTED) >= 0) {
 //     //   config.processors = deepMergeObject(
 //     //     {
 //     //       postDataRetProcessor: postProtectedDataRetProcessor,
@@ -90,7 +90,7 @@ const axiosService = axios.create({
 //     //   'interceptor.request - 3 - config.interceptors: ',
 //     //   config.interceptors
 //     // );
-//     // if (config.url.indexOf(appConfig.API_PATH_V1_ENCRYPTED) >= 0) {
+//     // if (config.url.indexOf(envConfig.API_PATH_V1_ENCRYPTED) >= 0) {
 //     //   config.processors = deepMergeObject(
 //     //     {
 //     //       postDataRetProcessor: postEncryptedDataRetProcessor,
@@ -145,12 +145,12 @@ const axiosService = axios.create({
 //       // };
 
 //       // let tokenRefreshUrl =
-//       //   appConfig.API_PATH_MY_PREFIX +
-//       //   appConfig.API_PATH_V1_PUBLIC +
-//       //   appConfig.API_OAUTH_REFRESH_TOKEN;
+//       //   envConfig.API_PATH_MY_PREFIX +
+//       //   envConfig.API_PATH_V1_PUBLIC +
+//       //   envConfig.API_OAUTH_REFRESH_TOKEN;
 //       // tokenRefreshUrl = tokenRefreshUrl.replace(
 //       //   '{0}',
-//       //   appConfig.API_OAUTH_CLIENT_NAME
+//       //   envConfig.API_OAUTH_CLIENT_NAME
 //       // );
 //       // console.debug(
 //       //   'axiosService - response.use - tokenRefreshUrl: [' +

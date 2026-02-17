@@ -4,7 +4,7 @@ import { deepMergeObject } from '../../utils/object';
 
 import { InternalAxiosRequestConfig } from 'axios';
 
-import { appConfig } from '../../config/appConfig';
+import { envConfig } from '../../config/envConfig';
 
 const marshellDataObj = (dataObj: any) => {
   dataObj = marshallDateStr2DateObj(dataObj);
