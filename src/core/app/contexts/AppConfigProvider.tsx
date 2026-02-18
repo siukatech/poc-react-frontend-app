@@ -13,7 +13,7 @@ interface Props {
 const AppConfigProvider: React.FC<Props> = ({
   appConfig,
   children,
-}) => {
+}: Props) => {
   const memoizedAppConfig = useMemo(() => appConfig, [appConfig]);
 
   return (

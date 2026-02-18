@@ -1,6 +1,6 @@
 // src/config/config.ts
 
-export interface RuntimeConfig {
+interface RuntimeConfig {
   // API_BASE_URL: string;
   // FEATURE_FLAG_X: boolean;
   //
@@ -38,7 +38,7 @@ export interface RuntimeConfig {
 
 const runtimeConfig = window.__RUNTIME_CONFIG__ ?? {};
 
-export const envConfig: RuntimeConfig = {
+const envConfig: RuntimeConfig = {
   // API_BASE_URL:
   //   runtimeConfig.API_BASE_URL ??
   //   import.meta?.env?.VITE_API_BASE_URL ??  // Vite
@@ -80,5 +80,14 @@ export const envConfig: RuntimeConfig = {
   CI: runtimeConfig.CI,
 
 };
+
+export type {
+  RuntimeConfig
+}
+
+export {
+  envConfig
+}
+
 
 

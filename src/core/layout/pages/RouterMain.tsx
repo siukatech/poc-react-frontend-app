@@ -43,7 +43,7 @@ const queryClient = new QueryClient({
       //
       // Reference:
       // https://stackoverflow.com/a/77210074
-      onError: (err) => {
+      onError: (err: unknown) => {
         // console.debug(
         //   `AppMain - queryClient - defaultOptions - onError - err: `,
         //   err
