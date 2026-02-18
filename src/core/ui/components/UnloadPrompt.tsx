@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
+import {
+  // unstable_useBlocker as useBlocker,
+  // unstable_Blocker as Blocker,
+  useBlocker,
+} from 'react-router-dom';
 import type {
-  unstable_useBlocker as useBlocker,
-  unstable_Blocker as Blocker,
+  // unstable_Blocker as Blocker,
+  Blocker,
 } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';

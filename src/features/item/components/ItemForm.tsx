@@ -1,12 +1,16 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
-  unstable_usePrompt as usePrompt,
-  unstable_useBlocker as useBlocker,
-  // unstable_BlockerFunction as BlockerFunction,
+  // unstable_usePrompt as usePrompt,
+  // unstable_useBlocker as useBlocker,
+  // // unstable_BlockerFunction as BlockerFunction,
+  useBlocker,
 } from 'react-router-dom';
 import type {
-  unstable_BlockerFunction as BlockerFunction,
+  // unstable_BlockerFunction as BlockerFunction,
+  // unstable_Blocker as Blocker,
+  BlockerFunction,
+  Blocker,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
