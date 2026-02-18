@@ -63,8 +63,9 @@ import NavNoti, { NavNotiDisplayType } from './NavNoti';
 import NavSetting from './NavSetting';
 import ScrollTop from './ScrollTop';
 
-import logo192 from '../../../assets/logo192.png';
+// import logo192 from '../../../assets/logo192.png';
 import DrawerMenu from './DrawerMenu';
+import { useLayoutConfig } from '../hooks/useLayoutConfig';
 
 const drawerWidth = 240;
 
@@ -214,6 +215,7 @@ type LayoutLeftProps = {
 const LayoutLeft: React.FC<LayoutLeftProps> = (props) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const { logoSrc } = useLayoutConfig();
 
   const [drawerToggle, setDrawerToggle] = useState(false);
   const theme = useTheme();
@@ -254,7 +256,7 @@ const LayoutLeft: React.FC<LayoutLeftProps> = (props) => {
                 <MenuIcon />
               </IconButton>
               <ImgComponent
-                src={logo192}
+                src={logoSrc}
                 sx={{
                   width: 45,
                   mr: 1,

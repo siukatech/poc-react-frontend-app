@@ -55,7 +55,7 @@ import {
   Inbox as InboxIcon,
 } from '@mui/icons-material';
 
-import logo192 from '../../../assets/logo192.png';
+// import logo192 from '../../../assets/logo192.png';
 
 import { useAuthContext } from '../../auth';
 
@@ -69,6 +69,7 @@ import NavNoti, { NavNotiDisplayType } from './NavNoti';
 import NavSetting from './NavSetting';
 import ScrollTop from './ScrollTop';
 import DrawerMenu from './DrawerMenu';
+import { useLayoutConfig } from '../hooks/useLayoutConfig';
 
 const drawerWidth = 240;
 
@@ -138,6 +139,7 @@ const LayoutMini = () => {
 
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const { logoSrc } = useLayoutConfig();
 
   const handleDrawerToggle = () => {
     setDrawerToggle(!drawerToggle);
@@ -185,7 +187,7 @@ const LayoutMini = () => {
             >
               {/* <MenuIcon /> */}
               <ImgComponent
-                src={logo192}
+                src={logoSrc}
                 sx={{
                   width: 45,
                   mr: 1,

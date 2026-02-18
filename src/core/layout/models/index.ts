@@ -19,6 +19,7 @@ type SettingItem = {
 }
 
 type LayoutConfig = {
+  logoSrc: string;
   menuItems: MenuItem[];
   langItems: LangItem[];
   settingItems: SettingItem[];

@@ -1,7 +1,7 @@
 
 import { AppConfigContext } from './contexts/AppConfigContext';
 import { AppConfigProvider } from './contexts/AppConfigProvider';
-import { useLayoutConfig } from './hooks/useLayoutConfig';
+// import { useLayoutConfig } from '../layout/hooks/useLayoutConfig';
 import { useServiceConfig } from './hooks/useServiceConfig';
 import { useRouteConfig } from './hooks/useRouteConfig';
 import type { RouteConfig, AppConfig } from './models';
@@ -14,7 +14,7 @@ export type {
 export {
   AppConfigContext,
   AppConfigProvider,
-  useLayoutConfig,
+  // useLayoutConfig,
   useServiceConfig,
   useRouteConfig,
   AppRouter,

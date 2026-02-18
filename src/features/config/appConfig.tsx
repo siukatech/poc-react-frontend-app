@@ -14,6 +14,8 @@ import { Divider } from '@mui/material';
 
 import { childenRoutes } from './routesConfig';
 
+import logo192 from '../../assets/logo192.png';
+
 const appConfig = {
   // userService: new RealUserService(),
   // authService: new RealAuthService(),
@@ -22,6 +24,7 @@ const appConfig = {
     loginService: new LoginServiceImpl(),
   },
   layoutConfig: {
+    logoSrc: logo192,
     menuItems: [
       { i18n: 'menu.home', link: '/', icon: 'HomeOutlined' },
       { i18n: 'menu.items', link: '/items', icon: 'Event' },

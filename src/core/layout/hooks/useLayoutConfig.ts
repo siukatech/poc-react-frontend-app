@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { AppConfigContext } from '../contexts/AppConfigContext';
+import { AppConfigContext } from '../../app/contexts/AppConfigContext';
 
 function useLayoutConfig() {
   const appConfig = useContext(AppConfigContext);

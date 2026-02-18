@@ -22,7 +22,7 @@ import {
   LNG_EN, LNG_TC, LNG_SC,
   LNG_MUI_LOCALE_MAP,
 } from '../../i18n';
-import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
+import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import type { LangItem } from '../models';
 
 

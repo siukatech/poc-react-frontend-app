@@ -23,7 +23,7 @@ import {
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
 
-import logo192 from '../../../assets/logo192.png';
+// import logo192 from '../../../assets/logo192.png';
 
 import {
   ProtectedResource,
@@ -45,7 +45,7 @@ import {
 import type {
   IconNames,
 } from '../../ui';
-import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
+import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import type { MenuItem } from '../models';
 
 
@@ -62,13 +62,13 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const { menuItems } = useLayoutConfig();
+  const { logoSrc, menuItems } = useLayoutConfig();
 
   return (
     <>
       <DrawerHeader>
         <ImgComponent
-          src={logo192}
+          src={logoSrc}
           sx={{ width: 45, marginLeft: 'auto', marginRight: 'auto' }}
         />
         <IconButton onClick={handleDrawerToggle}>

@@ -29,7 +29,7 @@ import {
 
 import { useAuthContext, useAuthSelector } from '../../auth';
 import { useAppSelector } from '../stores/hooks';
-import { useLayoutConfig } from '../../app/hooks/useLayoutConfig';
+import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import type { SettingItem } from '../models';
 
 
