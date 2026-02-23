@@ -1,102 +1,50 @@
+import axios, { AxiosError } from "axios";
+import type { User, UserPermission, DoAuthLoginPayload } from "../models";
+import type { DoCheckPermissionByRegex, LoginService } from "./LoginService";
+import { restoreJsonStr, restoreRawStr, saveJsonObj, saveRawStr } from "../../utils/storage";
+import { axiosService } from "../../axios";
 
-import jwt_decode from 'jwt-decode';
-import CryptoJS from 'crypto-js';
-import Randomstring from 'randomstring';
-import { uuidv4 } from 'uuidv7';
-import axios, { AxiosError } from 'axios';
-import { 
-  // User, 
-  // UserPermission, 
-  // DoAuthLoginPayload,
-  // LoginService,
-  // DoCheckPermissionByRegex,
-  STORAGE_KEYS, 
-  STORAGE_KEY_TOKENS, 
-  STORAGE_KEY_USER,
-} from "../../../core/auth";
-import type { 
-  User, 
-  UserPermission, 
-  DoAuthLoginPayload,
-  LoginService,
-  DoCheckPermissionByRegex,
-} from "../../../core/auth";
-import { axiosService } from '../../../core/axios';
-import {
-  restoreJsonStr,
-  restoreRawStr,
-  saveJsonObj,
-  saveRawStr,
-} from '../../../core/utils/storage';
-import { base64URLEncode } from '../../../core/utils/urlEncoder';
-import { envConfig } from '../../../core/config/envConfig';
+abstract class AbstractLoginService implements LoginService {
 
-
-// const APP_NAME = envConfig.APP_NAME as string;
-
-const API_MY_USER_INFO: string =
-  (envConfig.API_PATH_MY_PREFIX as string) +
-  (envConfig.API_PATH_V1_PROTECTED as string) +
-  (envConfig.API_PATH_MY_USER_INFO as string);
-
-const API_MY_PERMISSION_INFO: string =
-  (envConfig.API_PATH_MY_PREFIX as string) +
-  (envConfig.API_PATH_V1_PROTECTED as string) +
-  (envConfig.API_PATH_MY_PERMISSION_INFO as string);
-
-const API_OAUTH_AUTHORIZE: string =
-  (envConfig.API_PATH_MY_PREFIX as string) +
-  (envConfig.API_PATH_V1_PUBLIC as string) +
-  (envConfig.API_OAUTH_AUTHORIZE as string);
-
-const API_OAUTH_REFRESH_TOKEN: string =
-  (envConfig.API_PATH_MY_PREFIX as string) +
-  (envConfig.API_PATH_V1_PUBLIC as string) +
-  (envConfig.API_OAUTH_REFRESH_TOKEN as string);
-
-const API_OAUTH_LOGOUT: string =
-  (envConfig.API_PATH_MY_PREFIX as string) +
-  (envConfig.API_PATH_V1_PUBLIC as string) +
-  (envConfig.API_OAUTH_LOGOUT as string);
-
-const API_OAUTH_TOKEN: string =
-  (envConfig.API_PATH_MY_PREFIX as string) +
-  (envConfig.API_PATH_V1_PUBLIC as string) +
-  (envConfig.API_OAUTH_TOKEN as string);
-
-
-class LoginServiceImpl implements LoginService {
-
-  getStorageKeyTokens(): string {
-    const [STORAGE_KEY_TOKENS, STORAGE_KEY_USER] = STORAGE_KEYS;
-    return STORAGE_KEY_TOKENS;
-  }
-  restoreTokens(): any {
-    return restoreJsonStr(STORAGE_KEY_TOKENS);
+  abstract getStorageKeyTokens(): string;
+  abstract getStorageKeyUser(): string;
+  abstract getStorageKeys(): string[];
+  abstract getApiMyUserInfo(): string;
+  abstract getApiMyPermissionInfo(): string;
+  abstract getAppName(): string;
+  abstract getApiOauthAuthorize(): string;
+  abstract getApiOauthClientName(): string;
+  abstract getApiOauthRefreshToken(): string;
+  abstract getApiOauthLogout(): string;
+  abstract getApiOauthToken(): string;
+  restoreTokens() {
+    return restoreJsonStr(this.getStorageKeyTokens());
   }
   restoreUser(): User {
     // if (sessionStorage.getItem('tokens')) {
     //   let tokens = JSON.parse(sessionStorage.getItem('tokens'));
     //   return jwt_decode(tokens.access_token);
     // }
-    const user = restoreJsonStr(STORAGE_KEY_USER);
+    const user = restoreJsonStr(this.getStorageKeyUser());
     console.debug(`restoreUser - user: `, user);
     return user;
   }
-  saveTokens(tokens: {}): void {
-    saveJsonObj(STORAGE_KEY_TOKENS, tokens);
+  saveTokens(tokens: any): void {
+    saveJsonObj(this.getStorageKeyTokens(), tokens);
   }
   saveUser(user: User): void {
-    saveJsonObj(STORAGE_KEY_USER, user);
+    saveJsonObj(this.getStorageKeyUser(), user);
   }
   clearStorageItems(): void {
-    for (const storageKey of STORAGE_KEYS) {
+    const storageKeys: string[] = this.getStorageKeys();
+    for (const storageKey of storageKeys) {
       sessionStorage.removeItem(storageKey);
     }
   }
   composePermissionPhrase(appResourceId: string, accessRight: string): string {
-    console.debug(`composePermissionPhrase - start`);
+    // console.debug(`composePermissionPhrase - start`);
     const permissionPhrase = `${appResourceId}:${accessRight}`;
+    console.debug(`composePermissionPhrase - permissionPhrase: [${permissionPhrase}]`);
     return permissionPhrase;
   }
   parseResourceName(resourceName: string): string[] {
@@ -131,11 +79,11 @@ class LoginServiceImpl implements LoginService {
         //
         // tokens MUST be saved to the sessionStorage before my-user-info api called
         // extract the result.data and rename to myUserInfo
-        const { data: myUserInfo } = await axiosService.get(API_MY_USER_INFO);
+        const { data: myUserInfo } = await axiosService.get(this.getApiMyUserInfo());
         // const myUserInfo = myUserInfoRes.data;
         //
-        const appName = envConfig.APP_NAME as string;
-        let myPermissionInfoApi = API_MY_PERMISSION_INFO;
+        const appName = this.getAppName();
+        let myPermissionInfoApi = this.getApiMyPermissionInfo();
         myPermissionInfoApi = myPermissionInfoApi.replace(
           '{0}',
           appName
@@ -182,12 +130,12 @@ class LoginServiceImpl implements LoginService {
     // console.debug('LoginService - doCheckTimeout - end');
   }
   async doAuthLogin(payload: DoAuthLoginPayload): Promise<User> {
-    let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
+    let oauthAuthorizeApi = this.getApiOauthAuthorize();
 
     // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
     oauthAuthorizeApi = oauthAuthorizeApi.replace(
       '{0}',
-      envConfig.API_OAUTH_CLIENT_NAME as string
+      this.getApiOauthClientName()
     );
     // console.debug(
     //   'LoginService - doAuthLoginToStorage - oauthAuthorizeApi: [' +
@@ -211,10 +159,10 @@ class LoginServiceImpl implements LoginService {
       refresh_token: tokens?.refresh_token,
     };
 
-    let oauthRefreshTokenApi = API_OAUTH_REFRESH_TOKEN;
+    let oauthRefreshTokenApi = this.getApiOauthRefreshToken();
     oauthRefreshTokenApi = oauthRefreshTokenApi.replace(
       '{0}',
-      envConfig.API_OAUTH_CLIENT_NAME as string
+      this.getApiOauthClientName()
     );
     // console.debug(
     //   'LoginService - doRefreshToken - oauthRefreshTokenApi: [' +
@@ -250,7 +198,7 @@ class LoginServiceImpl implements LoginService {
     if (tokens != null) {
       try {
         let apiResponse = await axios.post(
-          API_OAUTH_LOGOUT,
+          this.getApiOauthLogout(),
           {},
           {
             headers: {
@@ -266,12 +214,11 @@ class LoginServiceImpl implements LoginService {
       }
     }
   }
-  // https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce/call-your-api-using-the-authorization-code-flow-with-pkce#javascript-sample
   getAuthLoginUrl(): string {
-    let oauthAuthorizeApi = API_OAUTH_AUTHORIZE;
+    let oauthAuthorizeApi = this.getApiOauthAuthorize();
     oauthAuthorizeApi = oauthAuthorizeApi.replace(
       '{0}',
-      envConfig.API_OAUTH_CLIENT_NAME as string
+      this.getApiOauthClientName()
     );
     //
     //
@@ -297,11 +244,11 @@ class LoginServiceImpl implements LoginService {
     return authLoginUrl;
   }
   async doAuthToken(code: string): Promise<User> {
-    let oauthTokenApi = API_OAUTH_TOKEN;
+    let oauthTokenApi = this.getApiOauthToken();
 
     // oauthAuthorizeApi += '/realms/react-backend-realm/protocol/openid-connect/token?client_id={client_id}&redirect_uri=http://localhost:3000/redirect&grant_type={grant_type}&code_verifier=${codeVerifier}&method=SHA-256';
     oauthTokenApi = oauthTokenApi
-      .replace('{0}', envConfig.API_OAUTH_CLIENT_NAME as string)
+      .replace('{0}', this.getApiOauthClientName())
       .replace('{1}', code);
     const codeVerifier = restoreRawStr('CODE_VERIFIER');
     const codeChallenge = restoreRawStr('CODE_CHALLENGE');
@@ -373,11 +320,11 @@ class LoginServiceImpl implements LoginService {
         //   userPermissions[resourceParts[0]] == null
         //     ? {}
         //     : userPermissions[resourceParts[0]];
-        const APP_NAME = envConfig.APP_NAME as string;
+        const appName = this.getAppName();
         const resourcePartPermissions =
-          userPermissions[APP_NAME] == null ? {} : userPermissions[APP_NAME];
+          userPermissions[appName] == null ? {} : userPermissions[appName];
         // console.debug(
-        //   `LoginService - doCheckPermissionByRegex - APP_NAME: [${APP_NAME}], resourceName: [${resourceName}], accessRight: [${accessRight}], resourcePartPermissions: `,
+        //   `LoginService - doCheckPermissionByRegex - appName: [${appName}], resourceName: [${resourceName}], accessRight: [${accessRight}], resourcePartPermissions: `,
         //   resourcePartPermissions
         // );
         for (const permissionPhrase in resourcePartPermissions) {
@@ -518,11 +465,12 @@ class LoginServiceImpl implements LoginService {
   //   return hasPermission;
   // };
 
-  // async getUser() {
-  //   return { id: "1", name: "Karl" };
-  // }
 }
 
 export {
-  LoginServiceImpl
+  AbstractLoginService
 }
+function jwt_decode(access_token: any): any {
+  throw new Error("Function not implemented.");
+}
+
