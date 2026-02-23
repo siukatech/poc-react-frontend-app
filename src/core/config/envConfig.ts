@@ -4,7 +4,7 @@ interface RuntimeConfig {
   // API_BASE_URL: string;
   // FEATURE_FLAG_X: boolean;
   //
-  APP_NAME?: string;
+  APP_NAME: string;
   API_PATH_MY_PREFIX?: string;
   API_PATH_WEB_PREFIX?: string;
   API_PATH_V1_PUBLIC?: string;

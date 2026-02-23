@@ -17,6 +17,7 @@ abstract class AbstractLoginService implements LoginService {
   abstract getApiOauthRefreshToken(): string;
   abstract getApiOauthLogout(): string;
   abstract getApiOauthToken(): string;
+
   restoreTokens() {
     return restoreJsonStr(this.getStorageKeyTokens());
   }
