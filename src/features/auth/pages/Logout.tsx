@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Box, Button } from '@mui/material';
 
-import { useAppDispatch } from '../../../core/layout/stores/hooks';
+import { useAppDispatch } from '../../../core/layout';
 import { useAuthContext, clearAuth } from '../../../core/auth';
 
 

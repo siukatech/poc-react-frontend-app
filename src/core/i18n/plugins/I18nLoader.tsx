@@ -26,12 +26,15 @@ import '../hacks/StorageEventProxy';
 
 const STORAGE_KEY_I18NRESOURCES = 'i18nResources';
 const STORAGE_KEY_I18N = 'i18nlng';
-const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
+// const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'tc', 'sc'];
+const [LNG_EN, LNG_TC, LNG_SC] = ['en', 'zh-TW', 'zh-CN'];
 const LNG_MUI_LOCALE_MAP = {
   [LNG_EN]: enUS,
   [LNG_TC]: zhTW,
   [LNG_SC]: zhCN,
 };
+
+let globalStorageKey: string | undefined = undefined;
 
 const I18nLoader: BackendModule = {
   type: 'backend',
@@ -68,13 +71,17 @@ const I18nLoader: BackendModule = {
       handleStorageChange(evt.detail);
     };
     const handleStorageChange = (evt: StorageEvent | any) => {
-      // console.debug(`I18nLoader - init - handleStorageChange - 1 - evt: `, evt);
+      console.debug(`I18nLoader - init - handleStorageChange - 1 - evt.key: [${evt.key}], evt: `, evt);
       // const storageKeyTokens = loginService.getStorageKeyTokens();
+      const i18nResourcesStr = localStorage.getItem(STORAGE_KEY_I18NRESOURCES);
+      console.debug(`I18nLoader - init - handleStorageChange - 2 - globalStorageKey: [${globalStorageKey}], i18nResourcesStr : `, (i18nResourcesStr == null));
       if (
-        evt.storageArea === sessionStorage &&
-        evt.key === STORAGE_KEY_TOKENS
-        // evt.key === storageKeyTokens
+        // evt.storageArea === sessionStorage 
+        // && evt.key === STORAGE_KEY_TOKENS
+        (i18nResourcesStr == null && globalStorageKey == undefined) 
+        // || (evt.storageArea === sessionStorage && evt.key === STORAGE_KEY_I18NRESOURCES)
       ) {
+        globalStorageKey = STORAGE_KEY_I18NRESOURCES;
         // Something on another page changed the stored value.
         // console.debug(
         //   `I18nLoader - init - handleStorageChange - 2 - evt: `,
@@ -132,6 +139,7 @@ const loadResources = (
   //     token != null
   //   }], callee: [${callee}]`
   // );
+  console.debug(`I18nLoader - loadResources - lng: [${lng}]`);
   if (i18nResources != null) {
     // for (const lng in i18nResources) {
     //   const resource = i18nResources[lng]['translation'];
@@ -142,6 +150,7 @@ const loadResources = (
       const resource2 = i18nResources[ccc].resource;
       i18n.addResourceBundle(lng2, 'translation', resource2, false, true);
     }
+    i18n.changeLanguage(lng);
   }
 };
 

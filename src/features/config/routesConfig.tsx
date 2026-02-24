@@ -11,26 +11,16 @@ import {
   ProtectedResourceDisplayType,
 } from '../../core/auth';
 
-// import RouterMain from '../../core/layout/pages/RouterMain';
-import NotFound from '../../core/layout/pages/NotFound';
-// import ErrorPage from '../../core/layout/pages/ErrorPage';
+// import { RouterMain } from '../../core/layout';
+import { NotFound } from '../../core/layout';
+// import { ErrorPage } from '../../core/layout';
 
-// import Login from '../auth/pages/Login';
-// import Logout from '../auth/pages/Logout';
-// import Redirect from '../auth/pages/Redirect';
 import { Login, Logout, Redirect } from '../auth';
 
-// import AllItems from '../item/pages/AllItems';
-// import EditItem from '../item/pages/EditItem';
-// import ViewItem from '../item/pages/ViewItem';
 import { AllItems, EditItem, ViewItem } from '../item';
 
-// import ContentLong from '../sample/pages/ContentLong';
 import { ContentLong } from '../sample';
 
-// import AllMerchants from '../merchant/pages/AllMerchants';
-// import ViewMerchant from '../merchant/pages/ViewMerchant';
-// import EditMerchant from '../merchant/pages/EditMerchant';
 import {
   AllMerchants,
   ViewMerchant,

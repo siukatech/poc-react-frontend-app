@@ -30,6 +30,7 @@ import type {
 } from './models';
 
 import type { LoginService, DoCheckPermissionByRegex } from './services/LoginService';
+import { AbstractLoginService } from './services/AbstractLoginService';
 
 import authSliceReducer, {
   authSlice,
@@ -54,6 +55,7 @@ export {
   AuthContext,
   AuthContextProvider,
   useAuthContext,
+  AbstractLoginService,
   authSliceReducer,
   authSlice,
   bindAuth,

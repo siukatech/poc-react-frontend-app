@@ -176,7 +176,7 @@ const AttachmentPane: React.FC<AttachmentPaneProps> = ({
     attachment: Attachment,
     idx: number
   ) => {
-    const attachmentToDelete = valueList.at(idx);
+    const attachmentToDelete = valueList[idx];
     const clearFile = (idx: number) => {
       setValueList((prevState) => {
         let valueListPrev = prevState;

@@ -1,5 +1,5 @@
-import axiosService from '../../../core/axios/services/axiosService';
-import { envConfig } from '../../../core/config/envConfig';
+import { axiosService } from '../../../core/axios';
+import { envConfig } from '../../../core/config';
 
 const API_DOMAIN: string = envConfig.API_PATH_WEB_PREFIX as string;
 // const API = API_DOMAIN + envConfig.API_PATH_V1_PROTECTED + '/items';

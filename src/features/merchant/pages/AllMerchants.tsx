@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 
-import { getAllMerchants } from '../services/MerchantService';
+import { LoadingSpinner } from '../../../core/ui';
 
+import { getAllMerchants } from '../services/MerchantService';
 import type { Merchant } from '../models';
 import MerchantCard from '../components/MerchantCard';
-import LoadingSpinner from '../../../core/ui/components/LoadingSpinner';
 import MerchantCardList from '../components/MerchantCardList';
 
 // const merchants: Merchant[] = [

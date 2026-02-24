@@ -48,7 +48,7 @@ const envConfig: RuntimeConfig = {
   // FEATURE_FLAG_X:
   //   runtimeConfig.FEATURE_FLAG_X ?? false,
 
-  APP_NAME: runtimeConfig.APP_NAME,
+  APP_NAME: runtimeConfig.APP_NAME as string,
   API_PATH_MY_PREFIX: runtimeConfig.API_PATH_MY_PREFIX,
   API_PATH_WEB_PREFIX: runtimeConfig.API_PATH_WEB_PREFIX,
   API_PATH_V1_PUBLIC: runtimeConfig.API_PATH_V1_PUBLIC,
@@ -88,6 +88,4 @@ export type {
 export {
   envConfig
 }
-
-
 

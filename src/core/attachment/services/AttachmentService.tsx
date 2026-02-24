@@ -140,7 +140,7 @@ const uploadAttachmentList = async (attachmentList: Attachment[]) => {
 };
 
 const getAttachment = async (id: string): Promise<Attachment> => {
-  const apiUrl = API_DETAIL.replaceAll('{0}', id);
+  const apiUrl = API_DETAIL.replace(/\{0\}/g, id);
   const { data } = await axiosService.get(`${apiUrl}`);
   return data as Attachment;
 };
@@ -192,7 +192,7 @@ const downloadAttachment = async (
       //   }
       // };
     };
-    const apiUrl = API_DOWNLOAD.replaceAll('{0}', attachment.id.toString());
+    const apiUrl = API_DOWNLOAD.replace(/\{0\}/g, attachment.id.toString());
     const response = await axiosService.get(`${apiUrl}`, {
       // headers: {
       //   'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ const deleteAttachment = async (
   attachment: Attachment
 ): Promise<any> => {
   if (attachment.id) {
-    const apiUrl = API_DELETE.replaceAll('{0}', attachment.id?.toString());
+    const apiUrl = API_DELETE.replace(/\{0\}/g, attachment.id?.toString());
     const response = await axiosService.delete(`${apiUrl}`);
     return response;
   } else {

@@ -13,13 +13,13 @@ import { Form } from '@rjsf/mui';
 import { ThemeProvider } from '@mui/material';
 
 import { getSingleMerchant } from '../services/MerchantService';
-import { themeFormReadonlyOptions } from '../../../core/layout/themes/theme-options';
-import LoadingSpinner from '../../../core/ui/components/LoadingSpinner';
+import { themeFormReadonlyOptions } from '../../../core/layout';
+import { LoadingSpinner } from '../../../core/ui';
 
-import MuiGridObjectFieldTemplate from '../../../core/rjsf/components/MuiGridObjectFieldTemplate';
-import MuiTitleFieldTemplate from '../../../core/rjsf/components/MuiTitleFieldTemplate';
-import MuiFieldTemplate from '../../../core/rjsf/components/MuiFieldTemplate';
-import { intlSchema } from '../../../core/rjsf/services/translation-service';
+import { MuiGridObjectFieldTemplate } from '../../../core/rjsf';
+import { MuiTitleFieldTemplate } from '../../../core/rjsf';
+import { MuiFieldTemplate } from '../../../core/rjsf';
+import { intlSchema } from '../../../core/rjsf';
 
 import { rjsf_dataSchema, rjsf_uiSchema } from '../rjsf';
 

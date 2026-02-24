@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 // import { doAuthToken, getAuthLoginUrl } from '../services/LoginService';
 // import { axiosService } from '../../../core/axios';
-import { useAppDispatch } from '../../../core/layout/stores/hooks';
-import { 
-  // User, 
-  useAuthContext, bindAuth } from '../../../core/auth';
+import { useAppDispatch } from '../../../core/layout';
+import { useAuthContext, bindAuth } from '../../../core/auth';
 import type { User } from '../../../core/auth';
 import { useServiceConfig } from '../../../core/app';
 

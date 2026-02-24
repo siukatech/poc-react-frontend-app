@@ -15,20 +15,22 @@ import RouterMain from './pages/RouterMain';
 
 // import router from './routes/router';
 
-import shadeColor from './themes/shade-color';
-import themeOptions from './themes/theme-options';
+import { useAppDispatch, useAppSelector } from './stores/hooks';
 
-import {
-  DATE_FORMAT_DEFAULT,
-  DATE_TIME_FORMAT_DEFAULT,
-  TIMEZONE_DEFAULT,
-  formatDate,
-  formatDatetime,
-  parseDateToUtc,
-} from '../utils/date';
-import { deepMergeObject } from '../utils/object';
-import { recursiveCloneChildren } from '../utils/render';
-import { restoreJsonStr, saveJsonObj } from '../utils/storage';
+import shadeColor from './themes/shade-color';
+import themeOptions, { themeFormReadonlyOptions } from './themes/theme-options';
+
+// import {
+//   DATE_FORMAT_DEFAULT,
+//   DATE_TIME_FORMAT_DEFAULT,
+//   TIMEZONE_DEFAULT,
+//   formatDate,
+//   formatDatetime,
+//   parseDateToUtc,
+// } from '../utils/date';
+// import { deepMergeObject } from '../utils/object';
+// import { recursiveCloneChildren } from '../utils/render';
+// import { restoreJsonStr, saveJsonObj } from '../utils/storage';
 
 export {
   DrawerMenu,
@@ -45,16 +47,19 @@ export {
   NotFound,
   // router,
   RouterMain,
+  useAppDispatch, 
+  useAppSelector,
   shadeColor,
   themeOptions,
-  DATE_FORMAT_DEFAULT,
-  DATE_TIME_FORMAT_DEFAULT,
-  TIMEZONE_DEFAULT,
-  formatDate,
-  formatDatetime,
-  parseDateToUtc,
-  deepMergeObject,
-  recursiveCloneChildren,
-  restoreJsonStr,
-  saveJsonObj,
+  themeFormReadonlyOptions,
+  // DATE_FORMAT_DEFAULT,
+  // DATE_TIME_FORMAT_DEFAULT,
+  // TIMEZONE_DEFAULT,
+  // formatDate,
+  // formatDatetime,
+  // parseDateToUtc,
+  // deepMergeObject,
+  // recursiveCloneChildren,
+  // restoreJsonStr,
+  // saveJsonObj,
 };

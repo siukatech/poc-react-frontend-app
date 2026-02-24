@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { AxiosError } from 'axios';
 
 import { ThemeProvider } from '@emotion/react';
-import { createTheme } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 

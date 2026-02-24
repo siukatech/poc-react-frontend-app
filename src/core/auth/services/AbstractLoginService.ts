@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import jwt_decode from 'jwt-decode';
 import type { User, UserPermission, DoAuthLoginPayload } from "../models";
 import type { DoCheckPermissionByRegex, LoginService } from "./LoginService";
 import { restoreJsonStr, restoreRawStr, saveJsonObj, saveRawStr } from "../../utils/storage";
@@ -471,7 +472,5 @@ abstract class AbstractLoginService implements LoginService {
 export {
   AbstractLoginService
 }
-function jwt_decode(access_token: any): any {
-  throw new Error("Function not implemented.");
-}
+
 

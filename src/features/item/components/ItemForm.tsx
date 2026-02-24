@@ -44,13 +44,13 @@ import {
   DATE_FORMAT_DEFAULT,
   DATE_TIME_FORMAT_DEFAULT,
   TIMEZONE_DEFAULT,
-} from '../../../core/utils/date';
+} from '../../../core/utils';
 import type { Item } from '../models';
 import { getSingleItem } from '../services/ItemService';
-import DialogPrompt from '../../../core/ui/components/DialogPrompt';
-import LoadingSpinner from '../../../core/ui/components/LoadingSpinner';
-import UnloadPrompt from '../../../core/ui/components/UnloadPrompt';
-import FormTextarea from '../../../core/ui/components/FormTextarea';
+import { DialogPrompt } from '../../../core/ui';
+import { LoadingSpinner } from '../../../core/ui';
+import { UnloadPrompt } from '../../../core/ui';
+import { FormTextarea } from '../../../core/ui';
 
 const formField1ColSxDefault = { m: 1, width: '98%' };
 const formField2ColSxDefault = { m: 1, width: '95%' };

@@ -1,4 +1,4 @@
-import { RJSFSchema, UiSchema } from '@rjsf/utils';
+import type { RJSFSchema, UiSchema } from '@rjsf/utils';
 
 const rjsf_dataSchema: RJSFSchema = {
   title: 'Merchant Form',

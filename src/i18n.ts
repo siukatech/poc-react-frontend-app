@@ -35,6 +35,11 @@ i18n
   // 實例化 initReactI18next
   .init(
     {
+      // debug: true, // IMPORTANT: Check your console for "i18next: backendConnector: loading..."
+      // supportedLngs: ['en', 'zh-TW', 'zh-CN'],
+      supportedLngs: [LNG_EN, LNG_TC, LNG_SC],
+      nonExplicitSupportedLngs: false, // Forces i18next to stick to the exact string
+      load: 'currentOnly', 
       backend: {
         //網頁載入時去下載語言檔的位置
         //loadPath: "/locales/{{lng}}/{{ns}}.json",

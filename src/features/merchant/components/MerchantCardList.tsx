@@ -14,10 +14,10 @@ import {
   CssBaseline,
 } from '@mui/material';
 
+import type { TFunction } from 'i18next';
+import { ScrollBox } from '../../../core/ui';
 import type { Merchant } from '../models';
 import MerchantCard from './MerchantCard';
-import type { TFunction } from 'i18next';
-import ScrollBox from '../../../core/ui/components/ScollBox/ScrollBox';
 
 type TypeHandleCardButtonClick = (
   evt: React.MouseEvent,

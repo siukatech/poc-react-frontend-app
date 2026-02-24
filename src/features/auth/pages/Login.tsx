@@ -29,11 +29,9 @@ import {
   CardActions,
 } from '@mui/material';
 
-import FormPassword from '../../../core/ui/components/FormPassword';
-import { useAppDispatch } from '../../../core/layout/stores/hooks';
-// import { DoAuthLoginPayload, doAuthLogin, getAuthLoginUrl } from '../services/LoginService';
+import { FormPassword } from '../../../core/ui';
+import { useAppDispatch } from '../../../core/layout';
 import { 
-  // DoAuthLoginPayload, 
   useAuthContext, 
   bindAuth
 } from '../../../core/auth';
@@ -41,7 +39,7 @@ import type {
   DoAuthLoginPayload
 } from '../../../core/auth';
 import { useServiceConfig } from '../../../core/app';
-// import { testApp } from '../../../core/app/stores/slices';
+// import { testApp } from '../../../core/app';
 
 const formFieldSxDefault = { m: 1, width: '80%' };
 
